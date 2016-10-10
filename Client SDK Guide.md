@@ -116,7 +116,7 @@ public class YourActivity extends Activity {
         }
         options.put(PushSdk.KEY_SERVER_URL, "https://api-push.cloud.toast.com");
         // Optional. Default: https://api-push.cloud.toast.com
-        options.put(PushSdk.KEY_CHANNEL, "default-channel"); // Optional. Default: ""(empty).
+        options.put(PushSdk.KEY_CHANNEL, "default-channel"); // Required. Not Empty String("").
         options.put(PushSdk.KEY_PUSH_TYPE, YOUR_PUSH_TYPE);
         // Optional.  PushSdk.PUSH_TYPE_GCM or PushSdk.PUSH_TYPE_TENCENT. Default: PushSdk.PUSH_TYPE_GCM.
         // Only TENCENT

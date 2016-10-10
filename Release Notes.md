@@ -1,5 +1,13 @@
 ## Notification > Push > Release Notes
 
+### 2016.10.06
+#### 기능 개선/변경
+* [API, CONSOLE] MPS 단위 1,000개/초에서 100개/초로 변경
+
+### 2016.09.30
+#### 개발자 가이드 수정
+* [Client SDK Developer's Guide] '토큰 등록 > Android, GCM' 부분, 채널 설정시 'Optional'에서 'Required'로 수정
+
 ### 2016.09.29
 #### 정책 변경
 * 데이터 보관 기간 정책 변경, 최근 30 일까지 저장 (메시지, 예약 메시지, 피드백)
