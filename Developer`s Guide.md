@@ -21,19 +21,20 @@
 
 ### 인증서 관리
 
-#### GCM API Key 생성, 가져오기
+#### FCM API Key 생성, 가져오기
 
-- [[Google Developer Console](https://console.developers.google.com/project)]로 이동
-- [프로젝트 만들기] 버튼 클릭, 프로젝트 생성
-- [프로젝트 선택] > [API] > [모바일 API] > [Cloud Messaging for Android] 사용 설정
-- [프로젝트 선택] > [사용자 인증 정보] > [사용자 인증 정보 추가] > [API 키] 클릭
-- [서버 키] 클릭 > 생성 (허용 서버 IP 공백)
-- 발급받은 서버 유형 키 선택 > [API 키] 복사
+- [[Google Firebase Console](https://console.firebase.google.com)]로 접속
+- CREATE NEW PROJECT 선택
+- 프로젝트 이름 및 정보 입력 후 프로젝트 생성
+- 프로젝트 첫 페이지에서 톱니바퀴(Gear) 아이콘 클릭
+- Project settings 클릭
+- Settings 페이지에서 CLOUD MESSAGING 탭 클릭
+- Server key(API Key), Sender ID 확인
 
-#### GCM API Key 등록
+#### FCM API Key 등록
 
 - [CONSOLE] > [Notification] > [Push] > [Certificates] 탭 클릭
-- 위에서 생성한 GCM API Key를 복사해서 [GCM Push Credentials]에 붙여넣기 > [REGISTER] 클릭, 등록 완료
+- 위에서 생성한 FCM API Key를 복사해서 [GCM Push Credentials]에 붙여넣기 > [REGISTER] 클릭, 등록 완료
 
 #### APNS 인증서 생성, 가져오기
 
@@ -408,7 +409,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | contact | Optional, String | messageType이 AD일 경우 필요하다. |
 | removeGuide | Optional, String | messageType이 AD일 경우 필요하다. |
 | timeToLive | Optional, Number | 단위는 분이다. 기본 값은 60 분이다. |
-| mps | Optional, Number | 메시지 발송 속도다. 단위는 1,000 개/초이며, 범위는 0(무제한)에서 20(20,000 개/초)까지다. 기본값은 0 이다.|
+| mps | Optional, Number | 메시지 발송 속도다. 단위는 100 개/초이며, 범위는 0(무제한)에서 20(2000 개/초)까지다. 기본값은 0 이다.|
 | isStored | Optional, Boolean | 메시지를 저장할지 여부다. 기본값은 false다. |
 
 - "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있다.
