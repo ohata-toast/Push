@@ -116,7 +116,7 @@ public class YourActivity extends Activity {
         }
         options.put(PushSdk.KEY_SERVER_URL, "https://api-push.cloud.toast.com");
         // Optional. Default: https://api-push.cloud.toast.com
-        options.put(PushSdk.KEY_CHANNEL, "default-channel"); // Required. Not Empty String("").
+        options.put(PushSdk.KEY_CHANNEL, "default-channel"); // Optional. Default : "default_channel"
         options.put(PushSdk.KEY_PUSH_TYPE, YOUR_PUSH_TYPE);
         // Optional.  PushSdk.PUSH_TYPE_GCM or PushSdk.PUSH_TYPE_TENCENT. Default: PushSdk.PUSH_TYPE_GCM.
         // Only TENCENT
@@ -174,7 +174,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:support-v4:23.1.0'
-    compile 'com.google.android.gms:play-services:8.3.0'
+    compile 'com.google.android.gms:play-services:9.6.0'
 }
 ```
 

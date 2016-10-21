@@ -1,5 +1,10 @@
 ## Notification > Push > Release Notes
 
+### 2016.11.17
+* [Android SDK] 지원하는 GCM 라이브러리 버전 업데이트(com.google.android.gms:play-services:9.6.0)
+* [Android SDK] 채널 기본값(default_channel) 추가
+* [Android SDK] 버그 수정 및 사용자 노출 로그 추가
+
 ### 2016.10.06
 #### 기능 개선/변경
 * [API, CONSOLE] MPS 단위 1,000개/초에서 100개/초로 변경
