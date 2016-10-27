@@ -121,7 +121,7 @@
 |Target > Countries|국가 코드를 입력할 수 있다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
 |Target > Push Types|GCM, APNS, APNS Sandbox, Tencent 복수로 선택할 수 있다.|
 |Option > Time To Live|메시지 발송 유효 시간이다. 설정한 시간동안 발송이 지연되는 경우, 자동으로 실패 처리된다. 단위는 분이다.|
-|Option > Message Per Second|메시지 발송 속도다. 0(무제한)에서 20까지이며, 단위는 1,000개/초다.|
+|Option > Message Per Second|메시지 발송 속도다. 0(무제한)에서 20까지이며, 단위는 100개/초다.|
 |Message > Editor Type |SIMPLE, JSON 두 가지 Type이 있다. JSON 경우, 직접 메시지를 작성할 수 있다.|
 |Message > Message Type |NOTIFICATION, AD 두 가지 Type이 있다. AD 경우, 광고성 푸시 메시지 수신 동의한 사용자들에게만 메시지가 발송된다.|
 
