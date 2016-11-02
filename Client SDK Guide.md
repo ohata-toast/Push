@@ -116,7 +116,7 @@ public class YourActivity extends Activity {
         }
         options.put(PushSdk.KEY_SERVER_URL, "https://api-push.cloud.toast.com");
         // Optional. Default: https://api-push.cloud.toast.com
-        options.put(PushSdk.KEY_CHANNEL, "default-channel"); // Optional. Default : "default_channel"
+        options.put(PushSdk.KEY_CHANNEL, "default"); // Optional(v1.3)
         options.put(PushSdk.KEY_PUSH_TYPE, YOUR_PUSH_TYPE);
         // Optional.  PushSdk.PUSH_TYPE_GCM or PushSdk.PUSH_TYPE_TENCENT. Default: PushSdk.PUSH_TYPE_GCM.
         // Only TENCENT
@@ -140,6 +140,10 @@ public class YourActivity extends Activity {
         // TDDo Implement handling error
     }
 }
+```
+- 위 설명은 Android SDK v1.3 이상만 적용된다. v1.3이하 사용자는 아래와 같이 토큰 등록시 채널을 꼭 등록해주어야 한다.
+```java
+ options.put(PushSdk.KEY_CHANNEL, "default");
 ```
 
 **build.gradle**
