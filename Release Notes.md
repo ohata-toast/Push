@@ -11,6 +11,7 @@
 * [Android SDK] AAR 패키징시 텐센트 푸시 설정 제거
 
 #### 개발자 가이드 수정
+* [Client SDK Developer's Guide] 토큰 등록시 채널 기본값 'default-channel'에서 'default'로 수정
 
 ### 2016.10.06
 #### 기능 개선/변경
