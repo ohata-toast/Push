@@ -410,7 +410,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | messageType | Required, String | NOTIFICATION, AD |
 | contact | Optional, String | messageType이 AD일 경우 필요하다. |
 | removeGuide | Optional, String | messageType이 AD일 경우 필요하다. |
-| timeToLive | Optional, Number | 단위는 분이다. 범위는 0(무제한), 1(1 분) 이상이다. 기본 값은 60 이다. |
+| timeToLive | Optional, Number | 단위는 분이다. 범위는 0(무제한)포함 1 이상이다. 기본 값은 60 이다. |
 | mps | Optional, Number | 메시지 발송 속도다. 단위는 100 개/초이며, 범위는 0(무제한)에서 20(2000 개/초)까지다. 기본값은 0 이다.|
 | isStored | Optional, Boolean | 메시지를 저장할지 여부다. 기본값은 false다. |
 
