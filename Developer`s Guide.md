@@ -120,8 +120,8 @@
 |Target > Channels, UIDs|쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
 |Target > Countries|국가 코드를 입력할 수 있다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
 |Target > Push Types|GCM, APNS, APNS Sandbox, Tencent 복수로 선택할 수 있다.|
-|Option > Time To Live|메시지 발송 유효 시간이다. 설정한 시간동안 발송이 지연되는 경우, 자동으로 실패 처리된다. 단위는 분이다.|
-|Option > Message Per Second|메시지 발송 속도다. 0(무제한)에서 20까지이며, 단위는 1,000개/초다.|
+|Option > Time To Live|메시지 발송 유효 시간이다. 설정한 시간동안 발송이 지연되는 경우, 자동으로 실패 처리된다. 단위는 분이다. 0이면 발송 지연에 의해 실패 처리되지 않는다.|
+|Option > Message Per Second|메시지 발송 속도다. 0(무제한)에서 20까지이며, 단위는 100개/초다.|
 |Message > Editor Type |SIMPLE, JSON 두 가지 Type이 있다. JSON 경우, 직접 메시지를 작성할 수 있다.|
 |Message > Message Type |NOTIFICATION, AD 두 가지 Type이 있다. AD 경우, 광고성 푸시 메시지 수신 동의한 사용자들에게만 메시지가 발송된다.|
 
@@ -270,7 +270,7 @@ Content-Type: application/json;charset=UTF-8
 
 - 토큰 등록시 이미 토큰이 등록되어 있다면, 토큰 기준으로 다른 정보들이 업데이트 된다.
 - 만약, 토큰이 변경된다면 oldToken에 기존 토큰을, token에 새로운 토큰을 설정하고 등록하면 새로운 토큰으로 업데이트 된다.
-- 토큰 등록시 Channel을 등록하면, 메시지 발송시 특정 Channel로 발송할 수 있다. 필수는 아니며, 정의하지 않으면 "default-channel"로 등록된다.
+- 토큰 등록시 Channel을 등록하면, 메시지 발송시 특정 Channel로 발송할 수 있다. 필수는 아니며, 정의하지 않으면 "default"로 등록된다.
 - 토큰은 하나의 Channel에만 속할 수 있다.
 - "isNotificationAgreement" 푸시 메시지 수신 동의 여부, "isAdAgreement" 광고성 푸시 메시지 수신 여부, "isNightAdAgreement" 야간 광고성 푸시 메시지 수신 여부를 나타낸다.
 - 예로, 모든 푸시 메시지 수신을 원할 경우, 필드 3개 모두 true로 설정하면 된다. 푸시 메시지만 수신할 경우, "isNotificationAgreement"만 true로 설정하면 된다.
@@ -279,6 +279,8 @@ Content-Type: application/json;charset=UTF-8
 [법령 바로 가기](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
 
 - 네트워크 상태가 좋지 않거나 여러 이유로 인한 응답 지연이 발생할 수 있다. 모바일 어플리케이션 구동에 영향을 최소화 하기위해 Timeout을 짧게 설정하고, 구동될 때 마다 토큰을 등록하는 것이 좋다.
+- 토큰은 보안적인 이슈, 앱 업데이트, 삭제 등 여러가지 이유로 재발급될 수 있다. 자주 변경되는 것은 아니지만, 수신율을 높이기 위해 구동될 때 마다 최신 토큰을 등록하는 것이 좋다.
+- 앱 삭제 등으로 토큰이 만료되어도 바로 GCM, APNS 서버에 적용되지 않아, 앱 삭제 후 푸시 메시지를 발송했을 때 발송이 성공할 수 있다.
 
 #### 토큰 조회
 
@@ -408,7 +410,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | messageType | Required, String | NOTIFICATION, AD |
 | contact | Optional, String | messageType이 AD일 경우 필요하다. |
 | removeGuide | Optional, String | messageType이 AD일 경우 필요하다. |
-| timeToLive | Optional, Number | 단위는 분이다. 기본 값은 60 분이다. |
+| timeToLive | Optional, Number | 단위는 분이다. 범위는 0(무제한)포함 1 이상이다. 기본 값은 60 이다. |
 | mps | Optional, Number | 메시지 발송 속도다. 단위는 100 개/초이며, 범위는 0(무제한)에서 20(2000 개/초)까지다. 기본값은 0 이다.|
 | isStored | Optional, Boolean | 메시지를 저장할지 여부다. 기본값은 false다. |
 

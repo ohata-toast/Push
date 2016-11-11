@@ -1,5 +1,18 @@
 ## Notification > Push > Release Notes
 
+### 2016.11.17
+#### 기능 개선/변경
+* [Android SDK] 지원하는 GCM 라이브러리 버전 업데이트(com.google.android.gms:play-services:9.6.0)
+* [Android SDK] 오류 로그 세분화
+
+#### 버그 수정
+* [Android, iOS SDK] 채널 기본값 null로 변경
+* [Android SDK] Appkey가 설정되지 않았을 때 동작안하는 버그 수정
+* [Android SDK] AAR 패키징시 텐센트 푸시 설정 제거
+
+#### 개발자 가이드 수정
+* [Client SDK Developer's Guide] 토큰 등록시 채널 설정 설명 변경 (SDK v1.3 이하 채널 설정 필수)
+
 ### 2016.10.06
 #### 기능 개선/변경
 * [API, CONSOLE] MPS 단위 1,000개/초에서 100개/초로 변경
