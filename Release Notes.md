@@ -1,5 +1,6 @@
 ## Notification > Push > Release Notes
 
+<<<<<<< HEAD
 ### 2016.11.17
 #### 기능 개선/변경
 * [Android SDK] 지원하는 GCM 라이브러리 버전 업데이트(com.google.android.gms:play-services:9.6.0)
@@ -13,6 +14,8 @@
 #### 개발자 가이드 수정
 * [Client SDK Developer's Guide] 토큰 등록시 채널 설정 설명 변경 (SDK v1.3 이하 채널 설정 필수)
 
+=======
+>>>>>>> refs/remotes/origin/beta
 ### 2016.10.06
 #### 기능 개선/변경
 * [API, CONSOLE] MPS 단위 1,000개/초에서 100개/초로 변경

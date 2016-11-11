@@ -116,6 +116,7 @@ public class YourActivity extends Activity {
         }
         options.put(PushSdk.KEY_SERVER_URL, "https://api-push.cloud.toast.com");
         // Optional. Default: https://api-push.cloud.toast.com
+<<<<<<< HEAD
         options.put(PushSdk.KEY_CHANNEL, "default"); // Optional(v1.3)
         options.put(PushSdk.KEY_PUSH_TYPE, YOUR_PUSH_TYPE);
         // Optional.  PushSdk.PUSH_TYPE_GCM or PushSdk.PUSH_TYPE_TENCENT. Default: PushSdk.PUSH_TYPE_GCM.
@@ -179,6 +180,67 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:support-v4:23.1.0'
     compile 'com.google.android.gms:play-services:9.6.0'
+=======
+        options.put(PushSdk.KEY_CHANNEL, "default-channel"); // Required. Not Empty String("").
+        options.put(PushSdk.KEY_PUSH_TYPE, YOUR_PUSH_TYPE);
+        // Optional.  PushSdk.PUSH_TYPE_GCM or PushSdk.PUSH_TYPE_TENCENT. Default: PushSdk.PUSH_TYPE_GCM.
+        // Only TENCENT
+        if (PushSdk.PUSH_TYPE_TENCENT.equals(YOUR_PUSH_TYPE)) {
+            options.put(PushSdk.KEY_ACCESS_ID, YOUR_ACCESS_ID); // Required.
+            options.put(PushSdk.KEY_ACCESS_KEY, YOUR_ACCESS_KEY); // Required.
+        }
+        options.put(PushSdk.KEY_AGREE_NOTIFICATION, true); // Optional. Default: false.
+        options.put(PushSdk.KEY_AGREE_AD, true); // Optional. Default: false.
+        options.put(PushSdk.KEY_AGREE_NIGHT_AD, true); // Optional. Default: false.
+        options.put(PushSdk.KEY_COUNTRY, "KR"); // Optional. Default: "US".
+        options.put(PushSdk.KEY_LANGUAGE, "ko"); // Optional. Default: "en".
+        options.put(PushSdk.KEY_TIMEOUT, 30.0); // Optional. Time Unit: Second. Default: 30.
+
+        final int error = PushSdk.register(YOUR_APPKEY, YOUR_UID, new PushSdk.OnRegister() {
+            @Override
+            public void fire(int error) {
+                // TODO Implement handling error
+            }
+        }, options);
+        // TDDo Implement handling error
+    }
+}
+```
+
+**build.gradle**
+
+```
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        minSdkVersion 11
+        targetSdkVersion 19
+        versionCode 1
+        versionName "10"
+        multiDexEnabled true
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.android.support:support-v4:23.1.0'
+    compile 'com.google.android.gms:play-services:8.3.0'
+>>>>>>> refs/remotes/origin/beta
 }
 ```
 
