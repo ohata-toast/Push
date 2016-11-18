@@ -1,6 +1,6 @@
 ## Notification > Push > Release Notes
 
-### 2016.11.17
+### 2016.11.24
 #### 기능 개선/변경
 * [Android SDK] 지원하는 GCM 라이브러리 버전 업데이트(com.google.android.gms:play-services:9.6.0)
 * [Android SDK] 오류 로그 세분화
