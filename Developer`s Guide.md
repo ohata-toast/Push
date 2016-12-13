@@ -34,7 +34,7 @@
 #### FCM API Key 등록
 
 - [CONSOLE] > [Notification] > [Push] > [Certificates] 탭 클릭
-- 위에서 생성한 FCM API Key를 복사해서 [GCM Push Credentials]에 붙여넣기 > [REGISTER] 클릭, 등록 완료
+- 위에서 생성한 FCM API Key를 복사해서 [GCM API Key]에 붙여넣기 > [REGISTER] 클릭, 등록 완료
 
 #### APNS 인증서 생성, 가져오기
 
