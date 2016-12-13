@@ -1,5 +1,15 @@
 ## Notification > Push > Release Notes
 
+### 2016.12.22
+#### 버그 수정
+* [API] 업데이트가 한 달이 지난 예약 메시지 발송 안되는 오류 수정
+* [API] 종료 날짜가 다음 달 1일인 예약 메시지 발송 안되는 오류 수정
+* [API] 새 버전 FCM API Key가 등록 안되던 오류 수정
+* [API] 발송 결과가 'MismatchSenderId', 'NotRegistered' 토큰이 삭제되지 않던 오류 수정
+
+#### 개발자 가이드 수정
+* [Client SDK Developer's Guide] 본문 내 'GCM Push Credentials', 'GCM API Key'로 변경
+
 ### 2016.11.24
 #### 기능 개선/변경
 * [Android SDK] 지원하는 GCM 라이브러리 버전 업데이트(com.google.android.gms:play-services:9.6.0)
