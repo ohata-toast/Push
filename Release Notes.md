@@ -2,10 +2,10 @@
 
 ### 2016.12.22
 #### 버그 수정
-* [API] 업데이트가 한 달이 지난 예약 메시지 발송 안되는 오류 수정
-* [API] 종료 날짜가 다음 달 1일인 예약 메시지 발송 안되는 오류 수정
+* [API] 예약 메세지 등록이 한 달이 지났을 경우 발송 안되는 오류 수정
+* [API] 매월 1일 발송될 예약 메세지가 발송 안되는 오류 수정
 * [API] 새 버전 FCM API Key가 등록 안되던 오류 수정
-* [API] 발송 결과가 'MismatchSenderId', 'NotRegistered' 토큰이 삭제되지 않던 오류 수정
+* [API] 발송 결과가 'MismatchSenderId', 'NotRegistered'인 경우 토큰이 삭제되지 않던 오류 수정
 
 #### 개발자 가이드 수정
 * [Client SDK Developer's Guide] 본문 내 'GCM Push Credentials', 'GCM API Key'로 변경
