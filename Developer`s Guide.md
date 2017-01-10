@@ -121,7 +121,6 @@
 |Target > Countries|국가 코드를 입력할 수 있다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
 |Target > Push Types|GCM, APNS, APNS Sandbox, Tencent 복수로 선택할 수 있다.|
 |Option > Time To Live|메시지 발송 유효 시간이다. 설정한 시간동안 발송이 지연되는 경우, 자동으로 실패 처리된다. 단위는 분이다. 0이면 발송 지연에 의해 실패 처리되지 않는다.|
-|Option > Message Per Second|메시지 발송 속도다. 0(무제한)에서 20까지이며, 단위는 100개/초다.|
 |Message > Editor Type |SIMPLE, JSON 두 가지 Type이 있다. JSON 경우, 직접 메시지를 작성할 수 있다.|
 |Message > Message Type |NOTIFICATION, AD 두 가지 Type이 있다. AD 경우, 광고성 푸시 메시지 수신 동의한 사용자들에게만 메시지가 발송된다.|
 
@@ -411,7 +410,6 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | contact | Optional, String | messageType이 AD일 경우 필요하다. |
 | removeGuide | Optional, String | messageType이 AD일 경우 필요하다. |
 | timeToLive | Optional, Number | 단위는 분이다. 범위는 0(무제한)포함 1 이상이다. 기본 값은 60 이다. |
-| mps | Optional, Number | 메시지 발송 속도다. 단위는 100 개/초이며, 범위는 0(무제한)에서 20(2000 개/초)까지다. 기본값은 0 이다.|
 | isStored | Optional, Boolean | 메시지를 저장할지 여부다. 기본값은 false다. |
 
 - "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있다.
@@ -640,8 +638,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "targetCount": 1048576,
     "timeToLive": 0,
     "sentTime": "2015-11-23T18:39:38.000+0900",
-    "messageStatus": "COMPLETE",
-    "mps": 0
+    "messageStatus": "COMPLETE"
   }
 }
 ```
