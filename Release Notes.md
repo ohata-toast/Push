@@ -1,9 +1,10 @@
 ## Notification > Push > Release Notes
 
-### 2017.01.19
+### 2016.01.19
+
 #### 기능 개선/변경
-* [E-mail] 인증서 만료 안내 메일 계정 변경 (support@cloud.toast.com -> noreply@cloud.toast.com)
-* [API] 메시지 조회 API createdDateTime(메시지 생성 시간) 필드 추가
+* [API] 메시지 조회 API Response Body에 createdDateTime(메시지 생성 시간) 필드 추가
+* [Etc] 인증서 만료 안내 메일 계정 변경 (support@cloud.toast.com -> noreply@cloud.toast.com)
 
 ### 2016.12.22
 #### 버그 수정
