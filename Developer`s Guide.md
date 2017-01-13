@@ -638,9 +638,13 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "targetCount": 1048576,
     "timeToLive": 0,
     "sentTime": "2015-11-23T18:39:38.000+0900",
+    "createdDateTime": "2015-11-23T18:39:38.000+0900",
     "messageStatus": "COMPLETE"
   }
 }
+
+
+
 ```
 
 "messageStatus" 필드는 메시지 상태를 나타낸다. 다음과 같은 상태가 있다.
