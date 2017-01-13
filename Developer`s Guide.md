@@ -635,7 +635,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         "body": "body"
       }
     },
-    "targetCount": 1048576,cd
+    "targetCount": 1048576,
     "timeToLive": 0,
     "sentTime": "2015-11-23T18:39:38.000+0900",
     "createdDateTime": "2015-11-23T18:39:38.000+0900",
