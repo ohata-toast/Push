@@ -1,6 +1,6 @@
 ## Notification > Push > Release Notes
 
-### 2016.02.10
+### 2016.02.23
 * [Android SDK] 빌드시 Warning 로그 노출되지 않도록 수정
 * [iOS SDK] Channel의 기본값을 NSNull에서 "default"로 수정
 * [iOS SDK] 토큰 리프레쉬 과정에서 크래시나는 현상 수정
