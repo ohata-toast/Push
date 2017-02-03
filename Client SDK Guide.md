@@ -17,7 +17,7 @@ TENCENT 푸시 SDK와 통합하는 방법에 대해 설명한다.
 
 ## 토큰 등록
 
-기기 식별을 위한 Token을 서버에 등록하는 과정이다. 등록이 성공하면 해당 기기에서 푸시 메시지를 수신할 수 있다..
+기기 식별을 위한 Token을 서버에 등록하는 과정이다. 등록이 성공하면 해당 기기에서 푸시 메시지를 수신할 수 있다.
 
 ### iOS, APNS
 
@@ -178,7 +178,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:support-v4:23.1.0'
-    compile 'com.google.android.gms:play-services:9.6.0'
+    compile 'com.google.android.gms:play-services-gcm:9.6.0'
 }
 ```
 
@@ -353,6 +353,22 @@ PushSdk$XgListener 부분을 위에서 작성한 커스텀 클래스로 변경�
 ## 토큰 조회
 
 APPKEY, UID, options로 등록된 Token을 조회할 수 있다.
+요청의 결과로 아래 { 키 : 값 } 이 반환된다.
+
+```
+{
+    "channel": "default",
+    "pushType" : "GCM",
+    "isNotificationAgreement": true,
+    "isAdAgreement": true,
+    "isNightAdAgreement": true,
+    "timezoneId" : "Asia/Seoul",
+    "country": "KR",
+    "language": "ko",
+    "uid" : "User ID",
+    "token" : "Token"
+}
+```
 
 ### iOS, APNS
 
@@ -361,8 +377,15 @@ APPKEY, UID, options로 등록된 Token을 조회할 수 있다.
 ```
 void HandleQuery(int error, NSDictionary* options);
 ......
-[TCPushSdk queryForAppKey:appKey userId:userId onQuery:^(int error, NSDictionary* options) {
-	HandleQuery(error, options);
+NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.com", // Optional, Default : https://api-push.cloud.toast.com
+                            kTCPushKeyPushType : kTCPushTypeAPNS, // Optional, Default : kTCPushTypeAPNS
+                            kTCPushKeyTimeout : @(30)}; // Optional, Default : 30
+[TCPushSdk queryForAppKey:appKey userId:userId onQuery:^(int error, NSDictionary* options) { // options 매개변수는 nil이면 안됨
+	if(!options)
+    { 
+        NSString* token = options[@"token"];
+        // TODO Handle a token
+    }
 	} options:options];
 ......
 ```
@@ -373,13 +396,21 @@ void HandleQuery(int error, NSDictionary* options);
 
 ```
     private void getRegisteredToken(final Map<string, object=""> options) {
+        HashMap<String, Object> options = new HashMap<String, Object>() {
+            {
+                put(PushSdk.KEY_ACTIVITY, MainActivity.this); // Required.
+                put(PushSdk.KEY_PUSH_TYPE, pushType); // Optional, Default : PUSH_TYPE_GCM
+                put(PushSdk.KEY_TIMEOUT, 30.0); // Optional. Time Unit: Second. Default: 30.
+            }
+        };
         PushSdk.query(YOUR_APPKEY, YOUR_UID, new PushSdk.OnQuery() {
             @Override
             public void fire(int i, Map<string, object=""> map) {
-                // TODO Implement
+                String token = (String)map.get("token");
+                // TODO Handle a token
             }
         }, options);
-    }</string,></string,>
+    }
 ```
 
 ## 오류 처리
