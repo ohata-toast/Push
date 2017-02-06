@@ -143,7 +143,7 @@
 
 ---
 
-## API Reference
+## API v1.3 Reference
 
 ### API 테스트
 
@@ -209,8 +209,6 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | false | 40014 | Client Error. Wrong message type. Check contact or removeGuide. |
 | false | 40015 | Client Error. Wrong reservationDays. |
 | false | 50001 ~ 50501 | Internal Error. Please report this. 'http://cloud.toast.com/support/qaa'. |
-
-## API v1.3 Reference
 
 ### 토큰
 
