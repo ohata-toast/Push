@@ -43,6 +43,7 @@
 - [사용자 이메일 주소]에 Apple Developer ID 등 필요한 정보 입력, [디스크 저정됨] 선택, [본인이 키 쌍 정보 저장] 선택, [계속] 클릭
 - [키 쌍 정보]에서 키 크기, 알고리즘 선택 후 [계속] 클릭, CSR(Certificate Signing Request)) 파일 생성 완료
 - [[Apple Developer Certificates](https://developer.apple.com/account/ios/certificate/certificateList.action)]로 이동
+- 우측 상단 '+'(Add) 버튼 클릭, Certificate 발급 페이지로 이동
 - [Select Type] > [Request] > [Generate] 탭에서 [키체인]을 통해서 만든 CSR파일 업로드, [Generate] 버튼 클릭
 - 인증서 생성, 다운로드 가능(승인 권한이 없다면 승인을 받고 다운로드 가능)
 - 인증서 다운로드, [키체인] > [인증서]에서 인증서 선택
