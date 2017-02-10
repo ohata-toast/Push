@@ -13,7 +13,7 @@ TENCENT 푸시 SDK와 통합하는 방법에 대해 설명한다.
 
 [Tencent Push SDK 다운로드 페이지](http://xg.qq.com/xg/ctr_index/download)
 
-가이드는 TENCENT(Xg Push) 2.39 버전 기준으로 작성되었다.
+가이드는 TENCENT(Xg Push) 2.47 버전 기준으로 작성되었다.
 
 ## 토큰 등록
 
