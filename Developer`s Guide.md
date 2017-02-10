@@ -144,7 +144,7 @@
 
 ---
 
-## API v1.3 Reference
+## API Reference
 
 ### API 테스트
 
