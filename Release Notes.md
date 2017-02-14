@@ -2,13 +2,11 @@
 
 ### 2016.02.23
 #### 버그 수정
+* [API] 발송 기간이 한 달 이상인 예약 메시지 발송 안되는 오류 수정
 * [Android SDK] 빌드시 Warning 로그 노출되지 않도록 수정
+* [Android SDK] 안드로이드 Gradle의 play-services 의존을 play-services-gcm로 수정
 * [iOS SDK] Channel의 기본값을 NSNull에서 "default"로 수정
 * [iOS SDK] 토큰 리프레쉬 과정에서 크래시나는 현상 수정
-
-#### 개발자 가이드 수정
-* [Client SDK Developer's Guide] 안드로이드 Gradle의 play-services 의존을 play-services-gcm로 수정
-* [Client SDK Developer's Guide] 토큰 조회 API 문서 보강
 
 ### 2016.01.19
 
