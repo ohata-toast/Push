@@ -9,6 +9,8 @@
 #### 개발자 가이드 수정
 * [Client SDK Developer's Guide] 안드로이드 Gradle의 play-services 의존을 play-services-gcm로 수정
 * [Client SDK Developer's Guide] 토큰 조회 API 문서 보강
+* [Client SDK Developer's Guide] 확인된 텐센트 SDK 버전 업데이트 (2.39 -> 2.47)
+* [Client SDK Developer's Guide] 텐센트 AndroidManifest.xml 일부 권한 추가
 
 ### 2016.01.19
 
