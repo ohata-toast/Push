@@ -1,18 +1,19 @@
 ## Notification > Push > Release Notes
 
-### 2016.02.23
+### 2017.02.23
 #### 버그 수정
 * [API] 발송 기간이 한 달 이상인 예약 메시지 발송 안되는 오류 수정
-* [Android SDK] 빌드시 Warning 로그 노출되지 않도록 수정
+    * 2017년 1월까지 등록된 예약 메시지 중, 발송 종료일이 2월 이상인 예약 메시지가 발송안되는 오류를 수정했습니다.
+* [Android SDK] 빌드시 Warning Log 노출되지 않도록 수정
+    * 기능상 문제가 없는 것으로, ProGuard 설정 변경을 통해 더 이상 Warning Log가 출력되지 않도록 수정했습니다.
 * [iOS SDK] 토큰 리프레쉬 과정에서 크래시나는 현상 수정
+    * 앱 알림 설정을 껐다가 다시 켰을 경우 발생하는 오류로 토큰을 재생성하는 코드를 수정했습니다.
 
-#### 개발자 가이드 수정
-* [Client SDK Developer's Guide] 안드로이드 Gradle의 play-services 의존을 play-services-gcm로 수정
-* [Client SDK Developer's Guide] 토큰 조회 API 문서 보강
-* [Client SDK Developer's Guide] 확인된 텐센트 SDK 버전 업데이트 (2.39 -> 2.47)
-* [Client SDK Developer's Guide] 텐센트 AndroidManifest.xml 일부 권한 추가
+#### 기능 개선
+* [Android SDK] 안드로이드 Gradle의 play-services 의존을 play-services-gcm로 수정
+    * SDK 빌드시 필요한 컴포넌트만 의존하도록 개선했습니다.
 
-### 2016.01.19
+### 2017.01.19
 
 #### 기능 개선/변경
 * [API] 메시지 조회 API Response Body에 createdDateTime(메시지 생성 시간) 필드 추가

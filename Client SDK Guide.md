@@ -386,7 +386,7 @@ NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.c
                             kTCPushKeyTimeout : @(30)}; // Optional, Default : 30
 [TCPushSdk queryForAppKey:appKey userId:userId onQuery:^(int error, NSDictionary* options) { // options 매개변수는 nil이면 안됨
 	if(!options)
-    { 
+    {
         NSString* token = options[@"token"];
         // TODO Handle a token
     }
@@ -430,3 +430,11 @@ NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.c
 |ERROR_ALREADY_IN_PROGRESS(4)|	이전 요청 처리 중|	이미 요청한 내용을 실행 중인 상태로, 응답 콜백이 불린 후 재시도할 것.|
 |ERROR_INVALID_PARAMETERS(5)|	인자 오류|	요청 인자에 잘못된 값이 있는 경우로, 인자에 누락된 키나 틀린 값이 없는지 체크한 후 수정하여 재시도할 것.|
 |ERROR_PERMISSION_REQUIRED(6)|	인자 오류|	요청 인자에 잘못된 값이 있는 경우로, 인자에 누락된 키나 틀린 값이 없는지 체크한 후 수정하여 재시도할 것.|
+
+<br/>
+<br/>
+<br/>
+
+* *문서 수정 내역*
+    * *(2017.02.23) 텐센트 SDK 버전 업데이트 (2.39 -> 2.47)*
+    * *(2017.02.23) 텐센트 AndroidManifest.xml 일부 권한 추가*
