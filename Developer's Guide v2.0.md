@@ -1,4 +1,6 @@
-## v2.0 API Reference (Beta)
+
+## v2.0 API Reference
+<a href="/ko/Notification/Push/Developer%60s%20Guide">'v1.3 API Reference' 바로가기</a>
 
 ### Secret Key
 
@@ -11,72 +13,72 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ### Response
 
-[Response HTTP Status Code]  
-
+#### Response HTTP Status Code
 200 OK.  
 모든 API 요청에 대해 200 OK로 응답한다.  
 자세한 응답 결과는 Response Body의 Header를 통해 알 수 있다.  
 
-[Response Header]  
+#### Response Header
 
 ```
 {
 	"header" : {
 		"isSuccessful" : true,
 		"resultCode": 0,
-		"resultMessage" : "Success."
+		"resultMessage" : "SUCCESS"
 	}
 }
 ```
-
-[resultCode, resultMessage]
+#### resultCode, resultMessage
 
 | isSuccessful | resultCode | resultMessage |
 | --- | --- | --- |
-| true | 0 | Success. |
-| false | 40001 | Client Error. Wrong URI. |
-| false | 40002 | Client Error. Unavailable field value. |
-| false | 40003 | Client Error. Bad request. Check your request parameter or body. |
-| false | 40004 | Client Error. Target length is exceeded. CHANNEL: 100, UID: 10,000. |
-| false | 40005 | Client Error. Content length is exceeded. |
-| false | 40006 | Client Error. Wrong target format. Clound't read two target types at once. Send a target, channels or uids at once. |
-| false | 40007 | Client Error. Invalid certificate. |
-| false | 40008 | Client Error. Invalid APNS certificate. |
-| false | 40009 | Client Error. Invalid APNS Sandbox certificate. |
-| false | 40101 | Client Error. Permission denied. Access is not allowed. |
-| false | 40102 | Client Error. Unavailable appkey. |
-| false | 40402 | Client Error. No messages to send in body. |
-| false | 40403 | Client Error. No target in body. |
-| false | 40404 | Client Error. Not found certificate. |
-| false | 40405 | Client Error. Not found instance. |
-| false | 40406 | Client Error. Not found reservation. |
-| false | 40407 | Client Error. Unavailable reservation. |
-| false | 40408 | Client Error. Not found channel. |
-| false | 40409 | Client Error. Not found token. |
-| false | 40010 | Client Error. Invalid Tencent certificate. |
-| false | 40011 | Client Error. Bad request. Check your content. |
-| false | 40012 | Client Error. Expired APNS certificate. |
-| false | 40013 | Client Error. Duplicate certificate. |
-| false | 40014 | Client Error. Wrong message type. Check contact or removeGuide. |
-| false | 40015 | Client Error. Wrong reservationDays. |
+| true | 0 | SUCCESS |
+| false | 40001 | Client Error. Parameter is invalid. |
+| false | 40002 | Client Error. Parameter is invalid format. |
+| false | 40003 | Client Error. Parameter is empty or null. |
+| false | 40004 | Client Error. Duplicate certificate. |
+| false | 40005 | Client Error. Expired certificate. |
+| false | 40006 | Client Error. Already registered. |
+| false | 40007 | Client Error. Maximum limit exceeded. |
+| false | 40008 | Client Error. Already completed. |
+| false | 40101 | Client Error. Access is not allowed. |
+| false | 40102 | Client Error. Unavailable key. |
+| false | 40401 | Client Error. Not found. |
 | false | 50001 ~ 50501 | Internal Error. Please report this. 'http://cloud.toast.com/support/qaa'. |
+
+#### v1.3 API와 차이점
+상세한 resultMessage를 리턴한다.
+문제가 되는 필드, 가능한 경우 값까지 리턴한다.
+- e.g. 잘 못된 메시지 아이디로 조회했을 경우, 다음과 같이 messageId 필드와 값을 resultMessage에 포함 시켜준다.
+```
+{
+    "header" : {
+		"resultCode" : 40401,
+		"resultMessage" : "Client Error. Not found. messageId<3496615188236841>",
+		"isSuccessful" : false
+    }
+}
+```
 
 ### 토큰
 
 #### 토큰 등록
 
-[Method, URL]
-
+##### Method, URL
 ```
 POST https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tokens
 Content-Type: application/json;charset=UTF-8
 ```
 
-[Request Body]
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+
+##### Request Body
 
 ```
 {
-  "channel": "default",
   "oldToken": "oldToken",
   "token": "token",
   "isNotificationAgreement": true,
@@ -90,19 +92,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-[Response Body]
-
-```
-{
-	"header" : {
-		"isSuccessful" : true or false,
-		"resultCode": 0,
-		"resultMessage" : "Success."
-	}
-}
-```
-
-|Parameter|	Usage||
+|Field|	Usage||
 |---|---|---|
 |token|	Required, String|	토큰, 최대 255 byte|
 |oldToken|	Optional, String|	기존 토큰, 최대 255 bytes |
@@ -114,6 +104,20 @@ Content-Type: application/json;charset=UTF-8
 |country|	Required, String|	ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 byte|
 |language|	Required, String|	ISO 639-1, ISO 639-2, iOS(language code + script code), 8 byte|
 |uid|	Required, String|	사용자 아이디, emoji 허용 안함, 최대 64 bytes|
+
+
+##### Response Body
+
+```
+{
+	"header" : {
+		"isSuccessful" : true,
+		"resultCode": 0,
+		"resultMessage" : "SUCCESS"
+	}
+}
+```
+##### Description
 
 - 토큰 등록시 이미 토큰이 등록되어 있다면, 토큰 기준으로 다른 정보들이 업데이트 된다.
 - 만약, 토큰이 변경된다면 oldToken에 기존 토큰을, token에 새로운 토큰을 설정하고 등록하면 새로운 토큰으로 업데이트 된다.
@@ -129,23 +133,25 @@ Content-Type: application/json;charset=UTF-8
 - 토큰은 보안적인 이슈, 앱 업데이트, 삭제 등 여러가지 이유로 재발급될 수 있다. 자주 변경되는 것은 아니지만, 수신율을 높이기 위해 구동될 때 마다 최신 토큰을 등록하는 것이 좋다.
 - 앱 삭제 등으로 토큰이 만료되어도 바로 GCM, APNS 서버에 적용되지 않아, 앱 삭제 후 푸시 메시지를 발송했을 때 발송이 성공할 수 있다.
 
-#### 토큰 조회
+#### 토큰과 푸시타입으로 토큰 조회
 
-##### 1. 토큰과 푸시타입으로 토큰 조회
-
-[Method, URL]
+##### Method, URL
 
 ```
 GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tokens/{token}?&pushType={pushType}
 Content-Type: application/json;charset=UTF-8
 ```
 
-[Response Body]
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| pushType | Required, String | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT' |
+
+##### Response Body
 
 ```
 {
 	"token" : {
-		"channel": "default",
 		"pushType" : "GCM",
 		"isNotificationAgreement": true,
 		"isAdAgreement": true,
@@ -157,16 +163,16 @@ Content-Type: application/json;charset=UTF-8
 		"token" : "Token"
 	},
 	"header" : {
-		"isSuccessful" : true or false,
+		"isSuccessful" : true,
 		"resultCode": 0,
-		"resultMessage" : "Success."
+		"resultMessage" : "SUCCESS"
 	}
 }
 ```
 
-##### 2. 사용자 아이디로 토큰 조회
+#### 사용자 아이디로 토큰 조회
 
-[Method, URL]
+##### Method, URL
 
 ```
 GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tokens?uid={uid}
@@ -174,12 +180,16 @@ Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
-[Response Body]
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| uid | Required, String | 조회할 사용자 아이디 |
+
+##### Response Body
 
 ```
 {
 	"tokens": [{
-		"channel": "default",
 		"pushType" : "GCM",
 		"isNotificationAgreement": true,
 		"isAdAgreement": true,
@@ -191,20 +201,18 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"token" : "Token"
 	}],
 	"header" : {
-		"isSuccessful" : true or false,
+		"isSuccessful" : true,
 		"resultCode": 0,
-		"resultMessage" : "Success."
+		"resultMessage" : "SUCCESS"
 	}
 }
 ```
-
+##### Description
 - Secret Key가 필요한 API이며, 서버에서 호출되어야 한다.
 
-#### 토큰 통계 조회
+#### 토큰 속성 통계 조회 API
 
-##### 1. 토큰 속성 통계 조회
-
-###### Method, URL, Headers
+##### Method, URL, Headers
 ```
 GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
 Content-Type: application/json;charset=UTF-8
@@ -213,16 +221,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | tokenProperties | Optional, String Array | 'agreement', 'country', 'language', 'timezone'<br/>','로 구분, e.g. tokenProperties=country,language |
 
-###### Request Body
+##### Request Body
 ```
 없음
 ```
 
-###### Response Body
+##### Response Body
 ```json
 {
 	"tokenPropertyStatistics" : [{
@@ -236,6 +245,9 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 				"ko" : 90,
 				"ja" : 60,
 				"zh" : 100
+			},
+			"timezones": {
+				"Asia/Seoul": 260
 			}
 		}, {
 			"dateTime" : "2016-07-11 17:51:00.00+9:00",
@@ -248,32 +260,49 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 				"ko" : 90,
 				"ja" : 60,
 				"zh" : 100
+			},
+			"timezones": {
+				"Asia/Seoul": 260
 			}
 		}
 	],
 	"header" : {
 		"isSuccessful" : true,
 		"resultCode" : 0,
-		"resultMessage" : "Success."
+		"resultMessage" : "SUCCESS"
 	}
 }
 ```
 
-##### 2. 토큰 등록 통계 조회
+| Field | Usage | Description |
+| - | - | - |
+| dateTime | String | 데이터가 수집된 일시 |
+| agreements | String | 'ON'(모두 수신), 'NIGHT_AD_OFF'(야간 광고 수신 거부), 'AD_OFF'(광고 수신 거부), 'OFF'(모두 수신 거부) |
+| countries.XX | String | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 byte |
+| languages.XX | String | ISO 639-1, ISO 639-2, iOS(language code + script code), 8 byte |
+| timezone.XX | String | Area/Name. IANA time zone database |
 
-###### Method, URL, Headers
+#### 토큰 등록 통계 조회
+
+##### Method, URL, Headers
 ```
 GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/statistics/token-registration?from={from}&to={to}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
-###### Request Body
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+
+##### Request Body
 ```
 없음
 ```
 
-###### Response Body
+##### Response Body
 ```json
 {
 	"tokenRegistrationStatistics" : [{
@@ -289,21 +318,31 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 	"header" : {
 		"isSuccessful" : true,
 		"resultCode" : 0,
-		"resultMessage" : "Success."
+		"resultMessage" : "SUCCESS"
 	}
 }
 ```
 
+| Field | Usage | Description |
+| - | - | - |
+| dateTime | String | 데이터가 수집된 일시 |
+| registeredToken | Number | 등록된 토큰 수 |
+| deletedToken | Number | 삭제된 토큰 수 |
+
+#### v1.3 API와 차이점
+- 'channel' 필드가 삭제되었다.
+- 토큰 등록, 속성에 대한 통계 API가 추가되었다.
+
 ### 메시지
 
 #### 메시지 발송
-###### Method, URL, Headers
+##### Method, URL, Headers
 ```
 POST https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/messages
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
-###### Request Body
+##### Request Body
 ```json
 {
     "target" : {
@@ -319,25 +358,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "messageType" : "AD",
     "contact": "1588-1588",
     "removeGuide": "매뉴 > 설정",
-    "timeToLive": 1
+    "timeToLiveMinute": 1,
+	"provisionedResourceId": "id"
 }
 ```
-| Field | Usage | Description |
-| - | - | - |
-| target.type | Required, String | 'ALL', 'UID', 수신 타겟 타입 |
-| target.to | Optional, String Array | target.type이 'UID'일 때, 수신자 UID 목록. (최대 10,000 개) |
-| target.pushTypes | Optional, String Array | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT' |
-| target.countries |	Optional, String Array | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3 (최대 3 byte) |
-| content | Required, Map | 수신자에게 전달될 내용 (최대 8,192 byte) |
-| content.default | Required, Map | '자세한 내용은 아래 공통 메시지 형식' 참고 |
-| content.default.title | Optional, String |  |
-| content.default.body | Optional, String |  |
-| messageType | Required, String | NOTIFICATION, AD |
-| contact | Optional, String | messageType이 AD이면 경우 필수 |
-| removeGuide | Optional, String | messageType이 AD이면 경우 필수 |
-| timeToLive | Optional, Number | 단위는 분이다. 범위는 1에서 60까지다. 기본 값은 10 이다. |
 
-###### Response Body
+##### Response Body
 ```json
 {
     "message" : {
@@ -347,16 +373,33 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" : true,
         "resultCode": 0,
-        "resultMessage" : "Success."
+        "resultMessage" : "SUCCESS"
     }
 }
 ```
 
+##### Description
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| target.type | Required, String | 'ALL', 'UID', 수신 타겟 타입 |
+| target.to | Optional, String Array | target.type이 'UID'일 때, 수신자 UID 목록. (최대 10,000 개) |
+| target.pushTypes | Optional, String Array | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT' |
+| target.countries | Optional, String Array | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3 (최대 3 byte) |
+| content | Required, Map | 수신자에게 전달될 내용 (최대 8,192 byte) |
+| content.default | Required, Map | '자세한 내용은 아래 공통 메시지 형식' 참고 |
+| content.default.title | Optional, String |  |
+| content.default.body | Optional, String |  |
+| messageType | Required, String | NOTIFICATION, AD |
+| contact | Optional, String | messageType이 AD이면 경우 필수 |
+| removeGuide | Optional, String | messageType이 AD이면 경우 필수 |
+| timeToLiveMinute | Optional, Number | 단위는 분이다. 범위는 1에서 60까지다. 기본 값은 10 이다. |
+| provisionedResourceId | Optional, String | 할당 받은 전용 리소스(provisioned Resource) 아이디다. 사용 문의 support@cloud.toast.com |
 
 #### 메시지 목록 조회
-- CONSOLE에서 발송한 메시지들만 조회할 수 있다.
 
-###### Method, URL, Headers
+##### Method, URL, Headers
 ```
 GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageStatus={messageStatus}
 Content-Type: application/json;charset=UTF-8
@@ -365,14 +408,18 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | pageIndex | Optional, Number | 기본 값 0 |
 | pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
 | from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | messageStatus | Optional, String | 'READY', 'PROCESSING', 'COMPLETE', 'CANCEL_NO_TARGET', 'CANCEL_INVALID_CERTIFICATE', 'CANCEL_INVALID_MESSAGE', 'CANCEL_UNSUPPORTED_MESSAGE_TYPE', 'CANCEL_UNAUTHORIZED', 'CANCEL_UNKNOWN' |
 
-- Request Body
-- Response Body
+##### Request Body
+```
+없음
+```
+##### Response Body
 ```json
 {
     "messages" : [{
@@ -394,13 +441,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         "createdDateTime": "2017-02-13T09:30:00.000+09:00",
         "completedDateTime": "2017-02-13T09:30:00.000+09:00",
         "targetCount": 1000,
+		"sentCount": 1000,
         "messageStatus": "COMPLETE",
         "provisionedResourceId": "[a-zA-Z0-9]{16}"
     }],
     "header" : {
         "isSuccessful" : true,
         "resultCode": 0,
-        "resultMessage" : "Success."
+        "resultMessage" : "SUCCESS"
     }
 }
 ```
@@ -409,40 +457,48 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | createdDateTime | - | 메시지가 생성된 일시 (ISO 86091) |
 | completedDateTime | - | 메시지 발송이 완료된 일시 (ISO 86091) |
-| targetCount | - | 실제 발송된 타겟 토큰 수 |
+| targetCount | - | 발송될 타겟 토큰 수 |
+| sentCount | - | 실제 발송된 토큰 수 |
 | provisionedResourceId | - | 메시지가 발송된 전용 리소스 아이디 |
 
-##### "messageStatus" 필드는 메시지 상태를 나타낸다. 다음과 같은 상태가 있다.
 
-- READY: 메시지 발송 요청이 등록된 상태다.
-- IN_MQ: 메시지 생성이 끝나고, 대기 또는 발송 중이다.
-- COMPLETE: 메시지 발송이 완료된 상태다.
-- CANCEL_NO_TARGET: 메시지 발송 대상이 없어서 취소된 상태다. 다음과 같은 이유로 발송이 취소될 수 있다.  
+##### Description
+
+- "messageStatus" 필드는 메시지 상태를 나타낸다. 다음과 같은 상태가 있다.
+    - READY: 메시지 발송 요청이 등록된 상태다.
+    - PROCESSING: 메시지 생성이 끝나고, 대기 또는 발송 중이다.
+    - COMPLETE: 메시지 발송이 완료된 상태다.
+    - CANCEL_NO_TARGET: 메시지 발송 대상이 없어서 취소된 상태다. 다음과 같은 이유로 발송이 취소될 수 있다.  
  등록된 토큰이 없을 때  
  해당 Channel 또는 Uid가 없을 때  
  광고 푸시 메시지의 경우, 수신 동의한 사용자가 없을 때  
  야간 광고 푸시 메시지(21시 ~ 8시)의 경우, 야간 광고 수신 동의한 사용자가 없을 때  
  기존 등록된 토큰들이 삭제되어 토큰이 없을 때    
-- CANCEL_INVALID_CERTIFICATE: 인증서가 잘 못되어 취소된 상태다. 인증서 상태를 확인해야 한다.
-- CANCEL_INVALID_MESSAGE: 메시지 형식이 맞지않아 취소된 상태다.
-- CANCEL_UNSUPPORTED_MESSAGE_TYPE: 메시지 형식이 맞지않아 취소된 상태다.
-- CANCEL_UNAUTHORIZED: 인증서 인증 과정에서 실패한 상태다. 인증서 상태를 확인해야 한다.
-- CANCEL_UNKNOWN: 내부 오류가 발생한 상태다.
+    - CANCEL_INVALID_CERTIFICATE: 인증서가 잘 못되어 취소된 상태다. 인증서 상태를 확인해야 한다.
+    - CANCEL_INVALID_MESSAGE: 메시지 형식이 맞지않아 취소된 상태다.
+    - CANCEL_UNSUPPORTED_MESSAGE_TYPE: 메시지 형식이 맞지않아 취소된 상태다.
+    - CANCEL_UNAUTHORIZED: 인증서 인증 과정에서 실패한 상태다. 인증서 상태를 확인해야 한다.
+    - CANCEL_UNKNOWN: 내부 오류가 발생한 상태다.
 
 #### 메시지 조회
-- CONSOLE에서 발송한 메시지들만 조회할 수 있다.
 
-###### Method, URL, Headers
+##### Method, URL, Headers
 ```
 GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/messages/{message-id}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
-###### Request Body
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| messageId | Required, Number | 메시지 아이디 |
+
+##### Request Body
 ```
 없음
 ```
-###### Response Body
+##### Response Body
 ```json
 {
     "message" : {
@@ -470,23 +526,197 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" : true,
         "resultCode": 0,
-        "resultMessage" : "Success."
+        "resultMessage" : "SUCCESS"
     }
 }
 ```
 
+#### 공통 메시지
+"content"에 아래 표대로 메시지를 작성하면, 각 푸시 타입에 맞게 메시지가 생성되어 발송된다.
+
+|Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT|
+|---|---|---|---|---|---|
+|title|	Android, <br/> iOS Watch, <br/> Tencent|	Optional, String|	data.title|	aps.alert.title|	title|
+|body|	Android, <br/> iOS, <br/> Tencent|	Optional, String|	data.body|	aps.alert.body|	body|
+|title-loc-key|	iOS|	Optional, String| - | aps.alert.title-loc-key| - |
+|title-loc-args|	iOS|	Optional, Array of Strings| - | aps.alert.title-loc-args	| - |
+|action-loc-key|	iOS|	Optional, String| - |aps.alert.action-loc-key	| - |
+|loc-key|	iOS|	Optional, String| - |aps.alert.loc-key	| - |
+|loc-args|	iOS|	Optional, Array of String	| - | aps.alert.loc-args	| - |
+|launch-image|	iOS|	Optional, String	| - | aps.alert.launch-image	| - |
+|badge|	iOS|	Optional, Number| - | aps.badge	| - |
+|sound|	Android, <br/> iOS, <br/> Tencent|	Optional, String|	data.sound|	aps.sound|	custom_content.sound|
+|content-available|	iOS|	Optional, String	| - | aps.content-available	| - |
+|category|	iOS|	Optional, String	| - | aps.category	| - |
+|mutable-content| iOS | Optional, String | - | aps.mutable-content | - |
+
+Reserved Word는 메시지 생성시 Platform 별로 알맞는 위치에 설정된다. 사용자가 임의로 데이터 타입과 위치등을 변경할 수 없다.
+그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어간다.
+
+|Word|	Platform|	Usage|	GCM|	APNS|	TENCENT|
+|---|---|---|---|---|---|
+|customKey|	Android, <br/> iOS, <br/> Tencent|	Optional, <br/> Object, <br/> Array, <br/> String, <br/> Number|	data.customKey|	customKey|	custom_content.customKey|
+
+##### "content" Example
+
+```
+"content.default"는 필수다. 아래 "content.ko", "content.ja"는 토큰의 언어 코드 값이다.
+해당 토큰의 언어 코드에 맞게 메시지가 발송된다.
+Request Body
+{
+	"target" : {
+		"type" : "ALL"
+	},
+	"content" : {
+        "default" : {
+            "title": "title",
+            "body": "body",
+            "badge": 1,
+            "customKey": "value"
+        },
+        "ko" : {
+            "title": "제목",
+            "body": "내용"
+            "customKey": "값"
+        },
+        "ja" : {
+            "title": "タイトル",
+            "body": "プッシュ・メッセージ"
+        }
+	},
+	"messageType" : "NOTIFICATION"
+}
+"ko" GCM 메시지
+ {
+    "data": {
+        "title": "제목",
+        "body": "내용",
+        "customKey": "값"
+    }
+}
+"ja" GCM 메시지
+ {
+    "data": {
+        "title": "タイトル",
+        "body": "プッシュ・メッセージ",
+        "customKey": "value"
+    }
+}
+"ko" APNS 메시지
+{
+    "aps": {
+        "alert": {
+            "title": "제목",
+            "body": "내용"
+        },
+        "badge": 1
+    },
+    "customKey": "값"
+
+}
+"ja" APNS 메시지
+{
+    "aps": {
+        "alert": {
+            "title": "タイトル",
+            "body": "プッシュ・メッセージ"
+        },
+        "badge": 1
+    },
+    "customKey": "value"
+}
+"ko" TENCENT 메시지
+ {
+	"title": "제목",
+	"body": "내용",
+	"custom_content": {
+		"customKey": "값"
+	}
+}
+"ja" TENCENT 메시지
+ {
+	"title": "タイトル",
+	"body": "プッシュ・メッセージ",
+	"custom_content": {
+		"customKey": "value"
+	}
+}
+```
+
+#### 메시지 수신, 확인 통계 조회
+메시지 수신, 확인 수집(Message Delivery Receipt) 기능을 화성화 시키고, v1.4 이상 SDK를 적용하면 발송한 메시지에 대해 수신, 확인 정보를 확인할 수 있다.
+수집된 정보를 통계 API로 조회할 수 있다. 기능은 [CONSOLE] > [Settings] 탭에서 활성화 시킬 수 있다.
+
+##### Method, URL, Headers
+```
+GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/statistics/message-delivery-receipts?from={from}&to={to}&event={event}&messageId={messageId}
+HEADER
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+
+| Field | Usage | Description |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| event | Optional, String | 'SENT', 'SENT_FAILED', 'RECEIVED', 'OPENED' |
+| messageId | Optional, Number | 메시지 아이디 |
+
+##### Request Body
+```
+없음
+```
+
+##### Response Body
+
+```
+{
+	"messageDeliveryReceiptStatistics" : [{
+			"eventDateTime" : "2016-07-11 17:50:00.00+9:00",
+			"SENT" : 13,
+			"SENT_FAILED": 0,
+			"RECEIVED" : 12,
+			"OPENED" : 10
+		}
+	],
+	"header" : {
+		"isSuccessful" : true,
+		"resultCode" : 0,
+		"resultMessage" : "SUCCESS"
+	}
+}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| dateTime | Optional, DateTime String | ISO 86091 |
+| SENT | Optional, Number | 서버에서 발송한 수 |
+| RECEIVED | Optional, Number | 기기에서 수신한 수 |
+| OPENED | Optional, Number | 기기에서 사용자가 클릭해 오픈한 수 |
+
+#### v1.3 API와 차이
+- 메시지 발송 API로 발송된 메시지는 발송 내역을 남기지 않는다. 다만, CONSOLE에서 발송하는 메시지는 내역을 남긴다.
+- 모든 메시지는 메시지 아이디를 발급 받는다.
+- target.type 'CHANNEL'은 더 이상 지원하지 않는다.
+- MPS(Message Per Second)는 더 이상 지원하지 않는다.
+- 메시지 조회시 기간(from, to)을 필터링할 수 있다.
+- 메시지 조회시 메시지 상태(messageStatus)를 필터링할 수 있다.
+- 등록일시(createdDateTime), 완료일시(completedDateTime) 필드가 추가되었다.
+- 메시지 수신, 확인 통계 조회 API가 추가되었다.
+
 ### 유효하지 않는 토큰
 
 #### 유효하지 않는 토큰 조회
-
+##### Method, URL, Headers
 ```
-GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/invalid-tokens?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageId={messageId}
+GET /push/v2.0/appkeys/{appkey}/invalid-tokens?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageId={messageId}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
 | Field | Usage | Description |
 | - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | pageIndex | Optional, Number | 기본 값 0 |
 | pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
 | from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
@@ -517,6 +747,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
+#### v1.3 API와 차이
+- Feedback API에서 Invalid Tokens API로 이름이 변경되었다.
+- 페이징과 기간, 메시지 아이디로 필터링할 수 있다.
+
 ### 예약 메시지
 
 #### 예약 메시지 발송 스케줄 생성
@@ -527,6 +761,10 @@ POST https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/schedules
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 
 ##### Request Body
 
@@ -552,7 +790,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | fromDate | Required, Date String | 예약 메시지 시작 년월일 (YYYY-MM-DD) |
 | toDate | Required, Date String | 예약 메시지 종료 년월일 (YYYY-MM-DD) |
 | times | Required, Time String | 예약 메시지 발송 시분 (hh:mm) |
-| days | Optional, Number Array | 'EVERY_WEEK' (1: 월, 2: 화, 3: 수, 4: 목, 5: 금, 6: 토, 7: 일), <br/>'EVERY_MONTH' (1, 2, ..., 31: 날짜) |
+| days | Optional, Number Array | 'EVERY_WEEK' (1: 월, 2: 화, 3: 수, 4: 목, 5: 금, 6: 토, 7: 일), <br/>'EVERY_MONTH' (1, 2, ..., 31: 1일, 2일, ..., 31일) |
 
 ##### Response Body
 ```json
@@ -591,6 +829,10 @@ Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+
 ##### Request Body
 ```json
 {
@@ -598,24 +840,22 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"2016-12-30T12:40",
 		"2016-12-31T12:40"
 	],
-	"target" : {
-		"type" : "UID",
-		"to" : [
-			"uid"
-		]
-	},
-	"content" : {
-		"default" : {
-			"title" : "default title",
-			"body" : "default body"
-		},
-		"ko" : {
-			"title" : "한국어 제목",
-			"body" : "한국어 내용"
-		}
-	},
 	"isLocalTime" : false,
-	"messageType" : "NOTIFICATION"
+	"target" : {
+        "type" : "UID",
+        "to": ["uid-1", "uid-2"]
+    },
+    "content" : {
+        "default" : {
+            "title": "title",
+            "body": "body"
+        }
+    },
+    "messageType" : "AD",
+    "contact": "1588-1588",
+    "removeGuide": "매뉴 > 설정",
+    "timeToLiveMinute": 1,
+	"provisionedResourceId": "id"
 }
 ```
 
@@ -634,10 +874,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"isSuccessful" : true
 	},
 	"reservation" : {
-		"reservationId" : 666810348995587
+		"reservationId": 666810348995587,
+		"reservationIdString": "666810348995587"
 	}
 }
 ```
+
+| Field | Usage | Description |
+| - | - | - |
+| reservationId | Number | 예약 메시지 아이디 |
+| reservationIdString | String | 예약 메시지 아이디 문자열 |
+
 
 #### 예약 메시지 목록 조회
 
@@ -647,6 +894,15 @@ POST https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations?pa
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| pageIndex | Optional, Number | 기본 값 0 |
+| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| reservationStatus | Optional, String | 'RESERVED', 'COMPLETE' |
 
 ##### Request Body
 ```
@@ -665,7 +921,15 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 	"totalCount" : 1,
 	"reservations" : [{
 			"reservationId" : 666810348995587,
-      "reservationIdString": "666810348995587",
+			"reservationIdString" : "666810348995587",
+			"schedules" : [{
+					"scheduleId" : 2455708,
+					"deliveryTime" : "2016-12-30T12:40:00.000+09:00",
+					"timezoneOffset" : 0,
+					"scheduleStatus" : "READY",
+					"reservationId" : 666810348995587
+				}
+			],
 			"isLocalTime" : false,
 			"target" : {
 				"type" : "UID",
@@ -683,29 +947,16 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 					"body" : "한국어 내용"
 				}
 			},
-			"timeToLive" : 60,
-			"createdDateTime" : "2016-12-30T10:34:40.000+09:00",
-      "updatedDateTime": "2016-12-30T10:34:40.000+09:00",
-      "completedDateTime": "2016-12-30T10:34:40.000+09:00",
 			"messageType" : "NOTIFICATION",
-      "reservationStatus": "RESERVED",
-			"schedules" : [{
-					"scheduleId" : 2455708,
-					"deliveryTime" : "2016-12-30T12:40:00.000+09:00",
-					"timezoneOffset" : 0,
-					"scheduleStatus" : "READY",
-					"reservationId" : 666810348995587
-				}, {
-					"scheduleId" : 2455709,
-					"deliveryTime" : "2016-12-31T12:40:00.000+09:00",
-					"timezoneOffset" : 0,
-					"scheduleStatus" : "READY",
-					"reservationId" : 666810348995587
-				}
-			]
+			"timeToLiveMinute" : 60,
+			"createdDateTime" : "2016-12-30T10:34:40.000+09:00",
+			"updatedDateTime" : "2016-12-30T10:34:40.000+09:00",
+			"completedDateTime" : "2016-12-30T10:34:40.000+09:00",
+			"reservationStatus" : "RESERVED"
 		}
 	]
 }
+
 ```
 
 | Field | Usage | Description |
@@ -747,6 +998,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 	"reservation" : {
 		"reservationId" : 666810348995587,
 		"reservationIdString" : "666810348995587",
+		"schedules" : [{
+				"scheduleId" : 2455708,
+				"deliveryTime" : "2016-12-30T12:40:00.000+09:00",
+				"timezoneOffset" : 0,
+				"scheduleStatus" : "READY",
+				"reservationId" : 666810348995587
+			}
+		],
 		"isLocalTime" : false,
 		"target" : {
 			"type" : "UID",
@@ -764,29 +1023,19 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 				"body" : "한국어 내용"
 			}
 		},
-		"timeToLive" : 60,
+		"messageType" : "NOTIFICATION",
+		"timeToLiveMinute" : 60,
 		"createdDateTime" : "2016-12-30T10:34:40.000+09:00",
 		"updatedDateTime" : "2016-12-30T10:34:40.000+09:00",
 		"completedDateTime" : "2016-12-30T10:34:40.000+09:00",
-		"messageType" : "NOTIFICATION",
-		"reservationStatus" : "RESERVED",
-		"schedules" : [{
-				"scheduleId" : 2455708,
-				"deliveryTime" : "2016-12-30T12:40:00.000+09:00",
-				"timezoneOffset" : 0,
-				"scheduleStatus" : "READY",
-				"reservationId" : 666810348995587
-			}, {
-				"scheduleId" : 2455709,
-				"deliveryTime" : "2016-12-31T12:40:00.000+09:00",
-				"timezoneOffset" : 0,
-				"scheduleStatus" : "READY",
-				"reservationId" : 666810348995587
-			}
-		]
+		"reservationStatus" : "RESERVED"
 	}
 }
 ```
+
+| Field | Usage | Description |
+| - | - | - |
+| updatedDateTime | DateTime String | 예약 수정 일시(ISO 86091) |
 
 #### 예약 메시지 수정
 
@@ -840,10 +1089,15 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-DELETE https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations?reservationId={reservationId}
+DELETE https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations?reservationIds={reservationId,}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| reservationIds | Required, Number Array | ','로 구분, e.g. reservationIds=1,2 |
 
 ##### Request Body
 ```
@@ -861,7 +1115,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
-#### 발송된 예약 메시지 조회 (수정 필요)
+#### 발송된 예약 메시지 조회
 
 ##### Method, URL, Headers
 ```
@@ -870,6 +1124,13 @@ Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| reservationId | Required, Number | 예약 메시지 아이디 |
+| pageIndex | Optional, Number | 기본 값 0 |
+| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
+
 ##### Request Body
 ```
 없음
@@ -877,5 +1138,33 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Response Body
 ```
-수정 필요
+{
+	"header" : {
+		"resultCode" : 0,
+		"resultMessage" : "success",
+		"isSuccessful" : true
+	},
+	"messages" : [{
+			"messageId" : 356125922591162,
+			"messageIdString" : "356125922591162",
+			"target" : {
+				"type" : "ALL",
+				"pushTypes" : ["GCM", "APNS", "APNS_SANDBOX", "TENCENT"]
+			},
+			"content" : {
+				"default" : {
+					"title" : "6시 55분 예약 메시지",
+					"body" : "API v2"
+				}
+			},
+			"messageType" : "NOTIFICATION",
+			"createdDateTime" : "2017-04-05T18:55:00.000+09:00",
+			"completedDateTime" : "2017-04-05T18:55:00.000+09:00",
+			"targetCount" : 38,
+			"sentCount" : 38,
+			"messageStatus" : "COMPLETE"
+		}
+	],
+	"totalCount" : 1
+}
 ```
