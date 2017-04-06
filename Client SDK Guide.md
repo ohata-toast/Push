@@ -479,7 +479,86 @@ public class YourGcmListener extends PushSdk.GcmListener {
 ```
 
 ### iOS
-- iOS의 수신 및 오픈 여부는 iOS 10 이상에서만 동작하며, UserNotification 프레임워크의 Notification Service Extension 을 이용합니다.
+- iOS의 수신 및 오픈 여부는 iOS 10 이상에서만 동작하며, UserNotification 프레임워크의 Notification Service Extension 을 이용한다.
+
+#### Notification Service Extension 을 이용한 수신 여부 적용
+- 현재 프로젝트에 Notification Service Extension 타겟을 추가한다.
+    - File > New > Target > Notification Service Extension 을 선택한다.
+- 추가된 Notification Service Extension(이하 NSE)의 프로젝트 설정에 Push SDK 라이브러리를 추가한다.
+    - 이미 Push SDK가 프로젝트에 있다면, 추가적인 복사 작업없이 라이브러리를 추가해주면 된다.
+- NotificationService.m 파일에 들어가면 기본적으로 코드가 만들어져 있다.
+- 다음과 같이 코드를 수정하면 수신 여부 확인 기능이 적용된다.
+    - URL과 앱키는 웹콘솔에서 받은 정보를 입력해주면 된다.
+
+**NotificationService.m**
+
+```
+#import "NotificationService.h"
+#import "pushsdk.h"
+
+@interface NotificationService ()
+
+@property (nonatomic, strong) void (^contentHandler)(UNNotificationContent *contentToDeliver);
+@property (nonatomic, strong) UNMutableNotificationContent *bestAttemptContent;
+
+@end
+
+@implementation NotificationService
+
+- (void)didReceiveNotificationRequest:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
+    self.contentHandler = contentHandler;
+    self.bestAttemptContent = [request.content mutableCopy];
+	
+	[TCPushAnalytics onReceivedNotificationWithUrl:@"URL"
+											appKey:@"APPKEY"
+										  userInfo:request.content.userInfo
+								 completionHandler:^{
+		self.contentHandler(self.bestAttemptContent);
+	}];
+}
+
+- (void)serviceExtensionTimeWillExpire {
+    // Called just before the extension will be terminated by the system.
+    // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
+    self.contentHandler(self.bestAttemptContent);
+}
+
+@end
+```
+
+#### UserNotification 프레임워크를 이용한 오픈 여부 적용
+- 자신의 AppDelegate에 UNUserNotificationCenterDelegate 딜리게이트를 적용한다.
+- 그리고 AppDelegate 구현에 (void)userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler: 메소드를 추가한다.
+- 메소드 내부에 오픈 여부를 위한 API를 호출한다.
+    - URL과 앱키는 웹콘솔에서 받은 정보를 입력해주면 된다.
+
+**AppDelegate.h**
+```
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UNUserNotificationCenterDelegate>
+```
+
+**AppDelegate.m**
+```
+#import "AppDelegate.h"
+#import "pushsdk.h"
+@interface AppDelegate ()
+@end
+@implementation AppDelegate
+- (BOOL)application:(UIApplication *)app didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
+    return YES;
+}
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    [TCPushAnalytics onOpenedNotificationWithUrl:@"URL"
+                                          appKey:@"APPKEY"
+                                        userInfo:response.notification.request.content.userInfo
+                               completionHandler:^{
+                                   completionHandler();
+                               }];
+}
+@end
+```
 
 ## 오류 처리
 
