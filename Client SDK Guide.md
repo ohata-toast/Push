@@ -424,6 +424,7 @@ NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.c
 ### Android, GCM
 
 **YourActivity.java**
+
 - *PushAnalytics.onOpened(Context context, String url, String appkey, Intent intent)* 메소드를 호출한다.
 
 ```
@@ -446,6 +447,7 @@ public class YourActivity extends AppCompatActivity {
 ```
 
 **YourListener.java**
+
 - 만약 ToastCloud Push SDK 에서 제공하는 기본 리스너(PushSdk.GcmListener)를 사용할 경우, 자동으로 수신 및 오픈 여부를 사용할 수 있다. 따라서, 기본 리스너를 사용한다면 이 부분을 생략해도 된다.
 - PendingIntent 생성시, 액티비티 전환 Intent를 *PushAnalytics.newIntentForOpenedEvent(Context context, Class<? extends Activity> activityClass, Bundle bundle)* 을 이용해서 생성한다.
 - *PendingIntent.getActivity* 메소드 호출시, 마지막 매개변수인 Flag를 *PendingIntent.FLAG_UPDATE_CURRENT* 로 넘겨준다.
@@ -533,11 +535,13 @@ public class YourGcmListener extends PushSdk.GcmListener {
     - URL과 앱키는 웹콘솔에서 받은 정보를 입력해주면 된다.
 
 **AppDelegate.h**
+
 ```
 @interface AppDelegate : UIResponder <UIApplicationDelegate, UNUserNotificationCenterDelegate>
 ```
 
 **AppDelegate.m**
+
 ```
 #import "AppDelegate.h"
 #import "pushsdk.h"
