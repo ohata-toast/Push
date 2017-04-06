@@ -417,6 +417,149 @@ NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.c
     }
 ```
 
+## 수신 및 오픈 여부 적용
+- 클라이언트가 푸쉬의 수신 여부와 오픈 여부에 대한 지표를 서버에 송신할 수 있다.
+- 지표는 웹콘솔을 통해서 볼 수 있다.
+
+### Android, GCM
+
+**YourActivity.java**
+- *PushAnalytics.onOpened(Context context, String url, String appkey, Intent intent)* 메소드를 호출한다.
+
+```
+public class YourActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        PushAnalytics.onOpened(this, "url", "appkey", getIntent());
+        // ... your codes
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        PushAnalytics.onOpened(this, "url", "appkey", intent);
+        // ... your codes
+    }
+}
+```
+
+**YourListener.java**
+- 만약 ToastCloud Push SDK 에서 제공하는 기본 리스너(PushSdk.GcmListener)를 사용할 경우, 자동으로 수신 및 오픈 여부를 사용할 수 있다. 따라서, 기본 리스너를 사용한다면 이 부분을 생략해도 된다.
+- PendingIntent 생성시, 액티비티 전환 Intent를 *PushAnalytics.newIntentForOpenedEvent(Context context, Class<? extends Activity> activityClass, Bundle bundle)* 을 이용해서 생성한다.
+- *PendingIntent.getActivity* 메소드 호출시, 마지막 매개변수인 Flag를 *PendingIntent.FLAG_UPDATE_CURRENT* 로 넘겨준다.
+- 수신 확인을 위해 *PushAnalytics.onReceived(String url, String appkey, Bundle bundle)* 메소드를 호출해준다.
+
+```
+public class YourGcmListener extends PushSdk.GcmListener {
+    private static final int NOTIFICATION_ID = 1;
+
+    @Override
+    public void onMessageReceived(String from, Bundle data) {
+        final NotificationManager notificationManager = (NotificationManager)
+                this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        Intent launchIntent = PushAnalytics.newIntentForOpenedEvent(this, DemoActivity.class, bundle);
+        final PendingIntent contentIntent = PendingIntent.getActivity(this, 0, launchIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        final String text = data.toString();
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_stat_gcm)
+                        .setContentTitle("GCM Notification")
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
+                        .setContentText(text);
+
+        mBuilder.setContentIntent(contentIntent);
+        notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+
+        PushAnalytics.onReceived("url", "appkey", data);
+    }
+}
+```
+
+### iOS
+- iOS의 수신 및 오픈 여부는 iOS 10 이상에서만 동작하며, UserNotification 프레임워크의 Notification Service Extension 을 이용한다.
+
+#### Notification Service Extension 을 이용한 수신 여부 적용
+- 현재 프로젝트에 Notification Service Extension 타겟을 추가한다.
+    - File > New > Target > Notification Service Extension 을 선택한다.
+- 추가된 Notification Service Extension(이하 NSE)의 프로젝트 설정에 Push SDK 라이브러리를 추가한다.
+    - 이미 Push SDK가 프로젝트에 있다면, 추가적인 복사 작업없이 라이브러리를 추가해주면 된다.
+- NotificationService.m 파일에 들어가면 기본적으로 코드가 만들어져 있다.
+- 다음과 같이 코드를 수정하면 수신 여부 확인 기능이 적용된다.
+    - URL과 앱키는 웹콘솔에서 받은 정보를 입력해주면 된다.
+
+**NotificationService.m**
+
+```
+#import "NotificationService.h"
+#import "pushsdk.h"
+
+@interface NotificationService ()
+
+@property (nonatomic, strong) void (^contentHandler)(UNNotificationContent *contentToDeliver);
+@property (nonatomic, strong) UNMutableNotificationContent *bestAttemptContent;
+
+@end
+
+@implementation NotificationService
+
+- (void)didReceiveNotificationRequest:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
+    self.contentHandler = contentHandler;
+    self.bestAttemptContent = [request.content mutableCopy];
+	
+	[TCPushAnalytics onReceivedNotificationWithUrl:@"URL"
+											appKey:@"APPKEY"
+										  userInfo:request.content.userInfo
+								 completionHandler:^{
+		self.contentHandler(self.bestAttemptContent);
+	}];
+}
+
+- (void)serviceExtensionTimeWillExpire {
+    // Called just before the extension will be terminated by the system.
+    // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
+    self.contentHandler(self.bestAttemptContent);
+}
+
+@end
+```
+
+#### UserNotification 프레임워크를 이용한 오픈 여부 적용
+- 자신의 AppDelegate에 UNUserNotificationCenterDelegate 딜리게이트를 적용한다.
+- 그리고 AppDelegate 구현에 (void)userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler: 메소드를 추가한다.
+- 메소드 내부에 오픈 여부를 위한 API를 호출한다.
+    - URL과 앱키는 웹콘솔에서 받은 정보를 입력해주면 된다.
+
+**AppDelegate.h**
+```
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UNUserNotificationCenterDelegate>
+```
+
+**AppDelegate.m**
+```
+#import "AppDelegate.h"
+#import "pushsdk.h"
+@interface AppDelegate ()
+@end
+@implementation AppDelegate
+- (BOOL)application:(UIApplication *)app didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
+    return YES;
+}
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    [TCPushAnalytics onOpenedNotificationWithUrl:@"URL"
+                                          appKey:@"APPKEY"
+                                        userInfo:response.notification.request.content.userInfo
+                               completionHandler:^{
+                                   completionHandler();
+                               }];
+}
+@end
+```
+
 ## 오류 처리
 
 각각의 오류에 대해 다음과 같은 처리를 권장한다.
@@ -436,5 +579,6 @@ NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.c
 <br/>
 
 * *문서 수정 내역*
+    * *(2017.04.20) 수신 및 오픈 여부 적용 가이드 신규 작성*
     * *(2017.02.23) 텐센트 SDK 버전 업데이트 (2.39 -> 2.47)*
     * *(2017.02.23) 텐센트 AndroidManifest.xml 일부 권한 추가*
