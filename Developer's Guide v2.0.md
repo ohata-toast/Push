@@ -549,6 +549,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 |content-available|	iOS|	Optional, String	| - | aps.content-available	| - |
 |category|	iOS|	Optional, String	| - | aps.category	| - |
 |mutable-content| iOS | Optional, String | - | aps.mutable-content | - |
+| messageDeliveryReceipt | Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - |
+| messageDeliveryReceiptData | Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - |
 
 Reserved Word는 메시지 생성시 Platform 별로 알맞는 위치에 설정된다. 사용자가 임의로 데이터 타입과 위치등을 변경할 수 없다.
 그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어간다.
