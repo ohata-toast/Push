@@ -819,7 +819,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 {
 	"messageDeliveryReceiptStatistics" : [{
-			"eventDateTime" : "2016-07-11 17:50:00.00+9:00",
+			"dateTime" : "2016-07-11 17:50:00.00+9:00",
 			"SENT" : 13,
 			"SENT_FAILED": 0,
 			"RECEIVED" : 12,
