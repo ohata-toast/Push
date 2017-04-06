@@ -425,7 +425,7 @@ NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.c
 
 **YourActivity.java**
 
-- *PushAnalytics.onOpened(Context context, String url, String appkey, Intent intent)* 메소드를 호출한다.
+- **PushAnalytics.onOpened(Context context, String url, String appkey, Intent intent)** 메소드를 호출한다.
 
 ```
 public class YourActivity extends AppCompatActivity {
@@ -448,10 +448,11 @@ public class YourActivity extends AppCompatActivity {
 
 **YourListener.java**
 
-- 만약 ToastCloud Push SDK 에서 제공하는 기본 리스너(PushSdk.GcmListener)를 사용할 경우, 자동으로 수신 및 오픈 여부를 사용할 수 있다. 따라서, 기본 리스너를 사용한다면 이 부분을 생략해도 된다.
-- PendingIntent 생성시, 액티비티 전환 Intent를 *PushAnalytics.newIntentForOpenedEvent(Context context, Class<? extends Activity> activityClass, Bundle bundle)* 을 이용해서 생성한다.
-- *PendingIntent.getActivity* 메소드 호출시, 마지막 매개변수인 Flag를 *PendingIntent.FLAG_UPDATE_CURRENT* 로 넘겨준다.
-- 수신 확인을 위해 *PushAnalytics.onReceived(String url, String appkey, Bundle bundle)* 메소드를 호출해준다.
+- 만약 ToastCloud Push SDK 에서 제공하는 기본 리스너(**PushSdk.GcmListener**)를 사용할 경우, 자동으로 수신 및 오픈 여부를 사용할 수 있다. 따라서, 기본 리스너를 사용한다면 이 부분을 생략해도 된다.
+    - **단, 기본 리스너를 사용하더라도 Activity에서 PushAnalytics.onOpened 메소드는 호출해줘야 한다.**
+- PendingIntent 생성시, 액티비티 전환 Intent를 **PushAnalytics.newIntentForOpenedEvent(Context context, Class<? extends Activity> activityClass, Bundle bundle)** 을 이용해서 생성한다.
+- **PendingIntent.getActivity** 메소드 호출시, 마지막 매개변수인 Flag를 **PendingIntent.FLAG_UPDATE_CURRENT** 로 넘겨준다.
+- 수신 확인을 위해 **PushAnalytics.onReceived(String url, String appkey, Bundle bundle)** 메소드를 호출해준다.
 
 ```
 public class YourGcmListener extends PushSdk.GcmListener {
@@ -488,7 +489,7 @@ public class YourGcmListener extends PushSdk.GcmListener {
     - File > New > Target > Notification Service Extension 을 선택한다.
 - 추가된 Notification Service Extension(이하 NSE)의 프로젝트 설정에 Push SDK 라이브러리를 추가한다.
     - 이미 Push SDK가 프로젝트에 있다면, 추가적인 복사 작업없이 라이브러리를 추가해주면 된다.
-- NotificationService.m 파일에 들어가면 기본적으로 코드가 만들어져 있다.
+- **NotificationService.m** 파일에 들어가면 기본적으로 코드가 만들어져 있다.
 - 다음과 같이 코드를 수정하면 수신 여부 확인 기능이 적용된다.
     - URL과 앱키는 웹콘솔에서 받은 정보를 입력해주면 된다.
 
@@ -530,7 +531,7 @@ public class YourGcmListener extends PushSdk.GcmListener {
 
 #### UserNotification 프레임워크를 이용한 오픈 여부 적용
 - 자신의 AppDelegate에 UNUserNotificationCenterDelegate 딜리게이트를 적용한다.
-- 그리고 AppDelegate 구현에 (void)userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler: 메소드를 추가한다.
+- 그리고 AppDelegate 구현에 **(void)userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:** 메소드를 추가한다.
 - 메소드 내부에 오픈 여부를 위한 API를 호출한다.
     - URL과 앱키는 웹콘솔에서 받은 정보를 입력해주면 된다.
 
