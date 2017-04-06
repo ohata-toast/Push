@@ -425,7 +425,7 @@ NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.c
 
 **YourActivity.java**
 
-- **PushAnalytics.onOpened(Context context, String url, String appkey, Intent intent)** 메소드를 호출한다.
+- **PushAnalytics.onOpened** 메소드를 호출한다.
 
 ```
 public class YourActivity extends AppCompatActivity {
@@ -448,11 +448,11 @@ public class YourActivity extends AppCompatActivity {
 
 **YourListener.java**
 
-- 만약 ToastCloud Push SDK 에서 제공하는 기본 리스너(**PushSdk.GcmListener**)를 사용할 경우, 자동으로 수신 및 오픈 여부를 사용할 수 있다. 따라서, 기본 리스너를 사용한다면 이 부분을 생략해도 된다.
+- 만약 ToastCloud Push SDK 에서 제공하는 기본 리스너(PushSdk.GcmListener)를 사용할 경우, 자동으로 수신 및 오픈 여부를 사용할 수 있다. 따라서, 기본 리스너를 사용한다면 이 부분을 생략해도 된다.
     - **단, 기본 리스너를 사용하더라도 Activity에서 PushAnalytics.onOpened 메소드는 호출해줘야 한다.**
-- PendingIntent 생성시, 액티비티 전환 Intent를 **PushAnalytics.newIntentForOpenedEvent(Context context, Class<? extends Activity> activityClass, Bundle bundle)** 을 이용해서 생성한다.
-- **PendingIntent.getActivity** 메소드 호출시, 마지막 매개변수인 Flag를 **PendingIntent.FLAG_UPDATE_CURRENT** 로 넘겨준다.
-- 수신 확인을 위해 **PushAnalytics.onReceived(String url, String appkey, Bundle bundle)** 메소드를 호출해준다.
+- PendingIntent 생성시, 액티비티 전환 Intent를 **PushAnalytics.newIntentForOpenedEvent** 을 이용해서 생성한다.
+- PendingIntent.getActivity 메소드 호출시, 마지막 매개변수인 Flag를 **PendingIntent.FLAG_UPDATE_CURRENT** 로 넘겨준다.
+- 수신 확인을 위해 **PushAnalytics.onReceived** 메소드를 호출해준다.
 
 ```
 public class YourGcmListener extends PushSdk.GcmListener {
