@@ -147,6 +147,11 @@
 
 ## v2.0 API Reference
 
+### Endpoint
+```
+https://api-push.cloud.toast.com
+```
+
 ### Secret Key
 
 ```
@@ -212,7 +217,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL
 ```
-POST https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tokens
+POST /push/v2.0/appkeys/{appkey}/tokens
 Content-Type: application/json;charset=UTF-8
 ```
 
@@ -271,9 +276,8 @@ Content-Type: application/json;charset=UTF-8
 - "isNotificationAgreement" 푸시 메시지 수신 동의 여부, "isAdAgreement" 광고성 푸시 메시지 수신 여부, "isNightAdAgreement" 야간 광고성 푸시 메시지 수신 여부를 나타낸다.
 - 예로, 모든 푸시 메시지 수신을 원할 경우, 필드 3개 모두 true로 설정하면 된다. 푸시 메시지만 수신할 경우, "isNotificationAgreement"만 true로 설정하면 된다.
 - 수신 동의 여부는 정보통신망법 규정(제50조부터 제50조의 8)을 따른다.  
-[KISA 가이드 바로 가기](http://spam.kisa.or.kr/kor/notice/dataView.jsp?p_No=49&b_No=49&d_No=52)    
-[법령 바로 가기](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
-
+    - [KISA 가이드 바로 가기](http://spam.kisa.or.kr/kor/notice/dataView.jsp?p_No=49&b_No=49&d_No=52)    
+    - [법령 바로 가기](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
 - 네트워크 상태가 좋지 않거나 여러 이유로 인한 응답 지연이 발생할 수 있다. 모바일 어플리케이션 구동에 영향을 최소화 하기위해 Timeout을 짧게 설정하고, 구동될 때 마다 토큰을 등록하는 것이 좋다.
 - 토큰은 보안적인 이슈, 앱 업데이트, 삭제 등 여러가지 이유로 재발급될 수 있다. 자주 변경되는 것은 아니지만, 수신율을 높이기 위해 구동될 때 마다 최신 토큰을 등록하는 것이 좋다.
 - 앱 삭제 등으로 토큰이 만료되어도 바로 GCM, APNS 서버에 적용되지 않아, 앱 삭제 후 푸시 메시지를 발송했을 때 발송이 성공할 수 있다.
@@ -283,7 +287,7 @@ Content-Type: application/json;charset=UTF-8
 ##### Method, URL
 
 ```
-GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tokens/{token}?&pushType={pushType}
+GET /push/v2.0/appkeys/{appkey}/tokens/{token}?&pushType={pushType}
 Content-Type: application/json;charset=UTF-8
 ```
 
@@ -320,7 +324,7 @@ Content-Type: application/json;charset=UTF-8
 ##### Method, URL
 
 ```
-GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tokens?uid={uid}
+GET /push/v2.0/appkeys/{appkey}/tokens?uid={uid}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -359,7 +363,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
+GET /push/v2.0/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -431,7 +435,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/statistics/token-registration?from={from}&to={to}
+GET /push/v2.0/appkeys/{appkey}/statistics/token-registration?from={from}&to={to}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -483,7 +487,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 #### 메시지 발송
 ##### Method, URL, Headers
 ```
-POST https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/messages
+POST /push/v2.0/appkeys/{appkey}/messages
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -546,7 +550,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageStatus={messageStatus}
+GET /push/v2.0/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageStatus={messageStatus}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -629,7 +633,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/messages/{message-id}
+GET /push/v2.0/appkeys/{appkey}/messages/{message-id}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -796,13 +800,14 @@ Request Body
 
 ##### Method, URL, Headers
 ```
-GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/statistics/message-delivery-receipts?from={from}&to={to}&event={event}&messageId={messageId}
+GET /push/v2.0/appkeys/{appkey}/statistics/message-delivery-receipts?from={from}&to={to}&event={event}&messageId={messageId}
 HEADER
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
 | Field | Usage | Description |
+| - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
@@ -904,7 +909,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-POST https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/schedules
+POST /push/v2.0/appkeys/{appkey}/schedules
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -971,7 +976,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 #### 예약 메시지 등록
 ##### Method, URL, Headers
 ```
-POST https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations
+POST /push/v2.0/appkeys/{appkey}/reservations
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1037,7 +1042,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-POST https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations?pageIndex={pageIndex}&pageSize={pageSize}&reservationStatus={reservationsStatus}
+POST /push/v2.0/appkeys/{appkey}/reservations?pageIndex={pageIndex}&pageSize={pageSize}&reservationStatus={reservationsStatus}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1123,7 +1128,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations/{reservation-id}
+GET /push/v2.0/appkeys/{appkey}/reservations/{reservation-id}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1188,7 +1193,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-POST https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations/{reservationId}
+POST /push/v2.0/appkeys/{appkey}/reservations/{reservationId}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1236,7 +1241,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-DELETE https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations?reservationIds={reservationId,}
+DELETE /push/v2.0/appkeys/{appkey}/reservations?reservationIds={reservationId,}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1266,7 +1271,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-GET https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations/{reservation-id}/messages?pageIndex={pageIndex}&pageSize={pageSize}
+GET /push/v2.0/appkeys/{appkey}/reservations/{reservation-id}/messages?pageIndex={pageIndex}&pageSize={pageSize}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
