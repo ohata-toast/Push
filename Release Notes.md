@@ -1,5 +1,23 @@
 ## Notification > Push > Release Notes
 
+### 2017.04.20
+#### 기능 개선/변경
+* [CONSOLE] 메시지 발송 차트 라이브러리 변경
+    * 기존 메시지 발송 차트 라이브러리를 high chart에서 tui.chart로 변경했습니다.
+
+#### 기능 추가
+* [API] 메시지 수신, 확인 데이터 수집(Message Delivery Receipt), 통계 조회 기능 추가
+    * 메시지 발송 후, 기기에 수신, 사용자의 메시지 확인 데이터를 수집해 통계로 조회할 수 있는 기능을 추가했습니다.
+    * [CONSOLE] > [Settings] 탭에서 활성화 시킬 수 있으며, v2.0 API Reference에서 통계 조회 API 설명을 확인할 수 있습니다.
+    * 해당 기능은 v1.4 SDK이상 적용된 곳에서만 사용할 수 있습니다.    
+    <a href="/ko/Notification/Push/Client%20SDK%20Guide/#_4" target="_blank">SDK 수신 및 오픈 여부 적용 가이드 바로 가기</a>
+* [API] v2.0 API 추가
+    * 토큰 통계 API, 예약 메시지 API가 추가했습니다.
+    * 메시지 수신, 확인 통계 조회 API가 추가했습니다.
+    * 피드백 API는 유효하지 않은 토큰 API로 변경했습니다.  
+    * 응답 메시지를 더 자세하게 출력합니다.    
+    <a href="/ko/Notification/Push/Developer%60s%20Guide%20v2.0" target="_blank">v2.0 API Reference 바로 가기</a>
+
 ### 2017.02.23
 #### 버그 수정
 * [API] 발송 기간이 한 달 이상인 예약 메시지 발송 안되는 오류 수정
