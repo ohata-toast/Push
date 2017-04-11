@@ -373,7 +373,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| tokenProperties | Optional, String Array | 'agreement', 'country', 'language', 'timezone'<br/>','로 구분, e.g. tokenProperties=country,language |
+| tokenProperties | Optional, String Array | 'agreement', 'country', 'language', 'timezoneId'<br/>','로 구분, e.g. tokenProperties=country,language |
 
 ##### Request Body
 ```
@@ -395,7 +395,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 				"ja" : 60,
 				"zh" : 100
 			},
-			"timezones": {
+			"timezoneIds": {
 				"Asia/Seoul": 260
 			}
 		}, {
@@ -410,7 +410,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 				"ja" : 60,
 				"zh" : 100
 			},
-			"timezones": {
+			"timezoneIds": {
 				"Asia/Seoul": 260
 			}
 		}
@@ -429,7 +429,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | agreements | String | 'ON'(모두 수신), 'NIGHT_AD_OFF'(야간 광고 수신 거부), 'AD_OFF'(광고 수신 거부), 'OFF'(모두 수신 거부) |
 | countries.XX | String | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 byte |
 | languages.XX | String | ISO 639-1, ISO 639-2, iOS(language code + script code), 8 byte |
-| timezone.XX | String | Area/Name. IANA time zone database |
+| timezoneIds.XX | String | Area/Name. IANA time zone database |
 
 #### 토큰 등록 통계 조회
 
@@ -571,6 +571,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### Response Body
 ```json
 {
+    "header" : {
+        "isSuccessful" : true,
+        "resultCode": 0,
+        "resultMessage" : "SUCCESS"
+    },
     "messages" : [{
         "messageId" : 0,
         "messageIdString": "0",
@@ -594,11 +599,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         "messageStatus": "COMPLETE",
         "provisionedResourceId": "[a-zA-Z0-9]{16}"
     }],
-    "header" : {
-        "isSuccessful" : true,
-        "resultCode": 0,
-        "resultMessage" : "SUCCESS"
-    }
+    "toatalCount": 1
 }
 ```
 
@@ -609,7 +610,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | targetCount | - | 발송될 타겟 토큰 수 |
 | sentCount | - | 실제 발송된 토큰 수 |
 | provisionedResourceId | - | 메시지가 발송된 전용 리소스 아이디 |
-
+| totalCount | - | 필터링된 전체 메시지  수 |
 
 ##### Description
 
@@ -811,7 +812,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| event | Optional, String | 'SENT', 'SENT_FAILED', 'RECEIVED', 'OPENED' |
+| event | Optional, String | 'sent', 'sentFailed', 'received', 'opened' |
 | messageId | Optional, Number | 메시지 아이디 |
 
 ##### Request Body
@@ -825,10 +826,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 {
 	"messageDeliveryReceiptStatistics" : [{
 			"dateTime" : "2016-07-11 17:50:00.00+9:00",
-			"SENT" : 13,
-			"SENT_FAILED": 0,
-			"RECEIVED" : 12,
-			"OPENED" : 10
+			"sent" : 13,
+			"sentFailed": 0,
+			"received" : 12,
+			"opened" : 10
 		}
 	],
 	"header" : {
@@ -842,9 +843,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | dateTime | Optional, DateTime String | ISO 86091 |
-| SENT | Optional, Number | 서버에서 발송한 수 |
-| RECEIVED | Optional, Number | 기기에서 수신한 수 |
-| OPENED | Optional, Number | 기기에서 사용자가 클릭해 오픈한 수 |
+| sent | Optional, Number | 서버에서 발송한 수 |
+| sentFailed | Optional, Number | 서버에서 발송 실패한 수 |
+| received | Optional, Number | 기기에서 수신한 수 |
+| opened | Optional, Number | 기기에서 사용자가 클릭해 오픈한 수 |
 
 #### v1.3 API와 차이
 - 메시지 발송 API로 발송된 메시지는 발송 내역을 남기지 않는다. 다만, CONSOLE에서 발송하는 메시지는 내역을 남긴다.
@@ -888,7 +890,6 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"isSuccessful" : true
 	},
 	"invalidTokens" : [{
-			"feedbackId" : 0,
 			"messageId" : 0,
 			"uid" : "uid",
 			"token" : "invalid-token",
@@ -1070,16 +1071,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"resultMessage" : "SUCCESS",
 		"isSuccessful" : true
 	},
-	"totalCount" : 1,
 	"reservations" : [{
 			"reservationId" : 666810348995587,
 			"reservationIdString" : "666810348995587",
 			"schedules" : [{
 					"scheduleId" : 2455708,
-					"deliveryTime" : "2016-12-30T12:40:00.000+09:00",
+                    "scheduleIdString" : "2455708",
+                    "reservationId" : 666810348995587,
+                    "reservationIdString" : "666810348995587",
+					"deliveryDateTime" : "2016-12-30T12:40:00.000+09:00",
 					"timezoneOffset" : 0,
-					"scheduleStatus" : "READY",
-					"reservationId" : 666810348995587
+					"scheduleStatus" : "READY"
 				}
 			],
 			"isLocalTime" : false,
@@ -1106,23 +1108,26 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 			"completedDateTime" : "2016-12-30T10:34:40.000+09:00",
 			"reservationStatus" : "RESERVED"
 		}
-	]
+	],
+    "totalCount" : 1
 }
 
 ```
 
 | Field | Usage | Description |
 | - | - | - |
-| totalCount | - | 등록된 전체 예약 메시지 수 |
-| reservationIdString | - | 예약 메시지 아이디 스트링 |
+| reservationIdString | - | 예약 메시지 아이디 문자열 |
 | createdDateTime | - | 예약 메시지 등록 일시 (ISO 86091) |
 | updatedDateTime | - | 예약 메시지 수정 일시 (ISO 86091) |
 | completedDateTime | - | 예약 메시지 발송 완료 일시, 완료가 안되었다면 현재 시간 표시 (ISO 86091) |
 | reservationStatus | - | 'RESERVED', 'COMPLETED' |
 | schedules.scheduleId | - | 예약 메시지 발송 스케줄 아이디 |
-| schedules.deliveryTime | - | 예약 메시지 발송 일시 |
+| schedules.scheduleIdString | - | 예약 메시지 발송 스케줄 아이디 문자열 |
+| schedules.reservationIdString | - | 예약 메시지 발송 스케줄이 속한 예약 메시지 아이디 문자열 |
+| schedules.deliveryDateTime | - | 예약 메시지 발송 일시 |
 | schedules.timezoneOffset | - | 예약 메시지 발송 타임존, 현지 시간 발송시 설정 |
 | schedules.scheduleStatus | - | 'READY', 'SENDING', 'CANCELED', 'DONE' 예약 메시지 발송 스케줄 상태 |
+| totalCount | - | 등록된 전체 예약 메시지 수 |
 
 #### 예약 메시지 조회
 
@@ -1146,16 +1151,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"resultMessage" : "SUCCESS",
 		"isSuccessful" : true
 	},
-	"totalCount" : 1,
 	"reservation" : {
 		"reservationId" : 666810348995587,
 		"reservationIdString" : "666810348995587",
 		"schedules" : [{
-				"scheduleId" : 2455708,
-				"deliveryTime" : "2016-12-30T12:40:00.000+09:00",
+                "scheduleId" : 2455708,
+                "scheduleIdString" : "2455708",
+                "reservationId" : 666810348995587,
+                "reservationIdString" : "666810348995587",
+				"deliveryDateTime" : "2016-12-30T12:40:00.000+09:00",
 				"timezoneOffset" : 0,
-				"scheduleStatus" : "READY",
-				"reservationId" : 666810348995587
+				"scheduleStatus" : "READY"
 			}
 		],
 		"isLocalTime" : false,
@@ -1320,3 +1326,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 	"totalCount" : 1
 }
 ```
+
+| Field | Usage | Description |
+| - | - | - |
+| totalCount | - | 발송된 전체 메시지  수 |
