@@ -13,7 +13,7 @@ TENCENT 푸시 SDK와 통합하는 방법에 대해 설명한다.
 
 [Tencent Push SDK 다운로드 페이지](http://xg.qq.com/xg/ctr_index/download)
 
-가이드는 TENCENT(Xg Push) 2.47 버전 기준으로 작성되었다.
+가이드는 TENCENT(Xg Push) 3.0 버전 기준으로 작성되었다.
 
 ## 토큰 등록
 
@@ -186,11 +186,12 @@ dependencies {
 
 **AndroidManifest.xml**  
 다음 내용을 추가한다.
+`your.package.name` 항목에 앱의 패키지 이름을 입력해야 한다.
 
 ```
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="your.package.name">
   <application android:icon="@drawable/app_icon">
-    <receiver android:name="com.tencent.android.tpush.XGPushReceiver" android:process=":xg_service_v2" >
+    <receiver android:name="com.tencent.android.tpush.XGPushReceiver" android:process=":xg_service_v3" >
       <intent-filter android:priority="0x7fffffff" >
         <action android:name="com.tencent.android.tpush.action.SDK" />
         <action android:name="com.tencent.android.tpush.action.INTERNAL_PUSH_MESSAGE" />
@@ -198,8 +199,7 @@ dependencies {
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
       </intent-filter>
     </receiver>
-    <service android:name="com.tencent.android.tpush.service.XGPushService" android:exported="true"
-        android:persistent="true" android:process=":xg_service_v2">
+    <service android:name="com.tencent.android.tpush.service.XGPushServiceV3" android:exported="true" android:persistent="true" android:process=":xg_service_v3">
     </service>
     <receiver android:name="com.toast.android.pushsdk.PushSdk$XgListener">
       <intent-filter>
@@ -207,11 +207,20 @@ dependencies {
         <action android:name="com.tencent.android.tpush.action.FEEDBACK" />
       </intent-filter>
     </receiver>
-    <service android:name="com.tencent.android.tpush.rpc.XGRemoteService" android:exported="true" >
-      <intent-filter>
-        <action android:name="your.package.name.PUSH_ACTION" />
-      </intent-filter>
-    </service>
+    <service android:name="com.tencent.android.tpush.service.XGDaemonService" android:process=":xg_service_v3" />
+    <provider
+    android:name="com.tencent.android.tpush.XGPushProvider"
+    android:authorities="your.package.name.AUTH_XGPUSH"
+    android:exported="true"/>
+    <provider
+        android:name="com.tencent.android.tpush.SettingsContentProvider"
+        android:authorities="your.package.name.TPUSH_PROVIDER"
+        android:exported="false" />
+    <provider
+        android:name="com.tencent.mid.api.MidProvider"
+        android:authorities="your.package.name.TENCENT.MID.V3"
+        android:exported="true" >
+    </provider>
   </application>
   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -585,5 +594,6 @@ public class YourGcmListener extends PushSdk.GcmListener {
 
 * *문서 수정 내역*
     * *(2017.04.20) 수신 및 오픈 여부 적용 가이드 신규 작성*
+    * *(2017.04.20) 텐센트 SDK 버전 업데이트 및 가이드 수정(2.47 -> 3.0)*
     * *(2017.02.23) 텐센트 SDK 버전 업데이트 (2.39 -> 2.47)*
     * *(2017.02.23) 텐센트 AndroidManifest.xml 일부 권한 추가*
