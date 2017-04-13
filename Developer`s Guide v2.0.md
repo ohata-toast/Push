@@ -1,5 +1,7 @@
 ## Notification > Push > Developer's Guide
-이전 버전보기 :   <select onchange="location.href=this.value"><option selected value="/ko/Notification/Push/Developer%60s%20Guide%20v2.0">API v2.0</option><option value="/ko/Notification/Push/Developer%60s%20Guide">API v1.3</option></select>
+이전 버전보기: <select onchange="location.href=this.value">
+<option selected value="/ko/Notification/Push/Developer%60s%20Guide%20v2.0">API v2.0</option>
+<option value="/ko/Notification/Push/Developer%60s%20Guide">API v1.3</option></select>
 
 ## 서비스 활성화
 [CONSOLE] > [Notification] > [Push] > [상품이용] 버튼 클릭
@@ -1329,3 +1331,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | totalCount | - | 발송된 전체 메시지  수 |
+
+* *문서 수정 내역*
+    * *(2017.04.20) v2.0 API Reference 추가*
+    * *(2017.02.23) 토큰 조회 API 문서 보강*

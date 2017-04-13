@@ -1,4 +1,6 @@
 ## v1.3 API Reference
+이전 버전보기: <select onchange="location.href=this.value"><option value="/ko/Notification/Push/Developer%60s%20Guide">API v1.3</option>
+<option selected value="/ko/Notification/Push/Developer%60s%20Guide%20v2.0">API v2.0</option></select>
 
 ### API 테스트
 
