@@ -1,5 +1,7 @@
 ## Notification > Push > Developer's Guide
-이전 버전보기 :   <select onchange="location.href=this.value"><option selected value="/ko/Notification/Push/Developer%60s%20Guide%20v2.0">API v2.0</option><option value="/ko/Notification/Push/Developer%60s%20Guide">API v1.3</option></select>
+이전 버전보기: <select onchange="location.href=this.value">
+<option selected value="/ko/Notification/Push/Developer%60s%20Guide%20v2.0">API v2.0</option>
+<option value="/ko/Notification/Push/Developer%60s%20Guide">API v1.3</option></select>
 
 ## 서비스 활성화
 [CONSOLE] > [Notification] > [Push] > [상품이용] 버튼 클릭
@@ -197,9 +199,9 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | false | 40401 | Client Error. Not found. |
 | false | 50001 ~ 50501 | Internal Error. Please report this. 'http://cloud.toast.com/support/qaa'. |
 
-#### v1.3 API와 차이점
-상세한 resultMessage를 리턴한다.
-문제가 되는 필드, 가능한 경우 값까지 리턴한다.
+### v2.0 API 특징과 v1.3 API와 차이점
+#### Response
+- 상세한 resultMessage를 리턴한다. 문제가 되는 필드, 가능한 경우 값까지 리턴한다.    
 - e.g. 잘 못된 메시지 아이디로 조회했을 경우, 다음과 같이 messageId 필드와 값을 resultMessage에 포함 시켜준다.
 ```
 {
@@ -210,6 +212,23 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     }
 }
 ```
+
+#### 토큰
+- 'channel' 필드가 삭제되었다.
+- 토큰 등록, 속성에 대한 통계 API가 추가되었다.
+
+#### 메시지
+- 메시지 발송 API로 발송된 메시지는 발송 내역을 남기지 않는다. 다만, CONSOLE에서 발송하는 메시지는 내역을 남긴다.
+- target.type 'CHANNEL'은 더 이상 지원하지 않는다.
+- MPS(Message Per Second)는 더 이상 지원하지 않는다.
+- 메시지 조회시 기간(from, to)을 필터링할 수 있다.
+- 메시지 조회시 메시지 상태(messageStatus)를 필터링할 수 있다.
+- 등록일시(createdDateTime), 완료일시(completedDateTime) 필드가 추가되었다.
+- 메시지 수신, 확인 통계 조회 API가 추가되었다.
+
+#### 유효하지 않는 토큰
+- Feedback API에서 Invalid Tokens API로 이름이 변경되었다.
+- 페이징과 기간, 메시지 아이디로 필터링할 수 있다.
 
 ### 토큰
 
@@ -242,7 +261,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-|Field|	Usage||
+|Field|	Usage | Description |
 |---|---|---|
 |token|	Required, String|	토큰, 최대 255 byte|
 |oldToken|	Optional, String|	기존 토큰, 최대 255 bytes |
@@ -477,10 +496,6 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | dateTime | String | 데이터가 수집된 일시 |
 | registeredToken | Number | 등록된 토큰 수 |
 | deletedToken | Number | 삭제된 토큰 수 |
-
-#### v1.3 API와 차이점
-- 'channel' 필드가 삭제되었다.
-- 토큰 등록, 속성에 대한 통계 API가 추가되었다.
 
 ### 메시지
 
@@ -848,16 +863,6 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | received | Optional, Number | 기기에서 수신한 수 |
 | opened | Optional, Number | 기기에서 사용자가 클릭해 오픈한 수 |
 
-#### v1.3 API와 차이
-- 메시지 발송 API로 발송된 메시지는 발송 내역을 남기지 않는다. 다만, CONSOLE에서 발송하는 메시지는 내역을 남긴다.
-- 모든 메시지는 메시지 아이디를 발급 받는다.
-- target.type 'CHANNEL'은 더 이상 지원하지 않는다.
-- MPS(Message Per Second)는 더 이상 지원하지 않는다.
-- 메시지 조회시 기간(from, to)을 필터링할 수 있다.
-- 메시지 조회시 메시지 상태(messageStatus)를 필터링할 수 있다.
-- 등록일시(createdDateTime), 완료일시(completedDateTime) 필드가 추가되었다.
-- 메시지 수신, 확인 통계 조회 API가 추가되었다.
-
 ### 유효하지 않는 토큰
 
 #### 유효하지 않는 토큰 조회
@@ -899,10 +904,6 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 	]
 }
 ```
-
-#### v1.3 API와 차이
-- Feedback API에서 Invalid Tokens API로 이름이 변경되었다.
-- 페이징과 기간, 메시지 아이디로 필터링할 수 있다.
 
 ### 예약 메시지
 
@@ -1330,3 +1331,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | totalCount | - | 발송된 전체 메시지  수 |
+
+* *문서 수정 내역*
+    * *(2017.04.20) v2.0 API Reference 추가*
+    * *(2017.02.23) 토큰 조회 API 문서 보강*
