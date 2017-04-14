@@ -429,6 +429,7 @@ NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.c
     }
 ```
 
+<<<<<<< HEAD
 ## 수신 및 오픈 여부 적용
 - 클라이언트가 푸쉬의 수신 여부와 오픈 여부에 대한 지표를 서버에 송신할 수 있다.
 - 지표는 웹콘솔을 통해서 볼 수 있다.
@@ -577,6 +578,8 @@ public class YourGcmListener extends PushSdk.GcmListener {
 @end
 ```
 
+=======
+>>>>>>> 96f7123df4fd6baf47be8ca9ef54184e5425cb78
 ## 오류 처리
 
 각각의 오류에 대해 다음과 같은 처리를 권장한다.
@@ -596,7 +599,10 @@ public class YourGcmListener extends PushSdk.GcmListener {
 <br/>
 
 * *문서 수정 내역*
+<<<<<<< HEAD
     * *(2017.04.20) 수신 및 오픈 여부 적용 가이드 신규 작성*
     * *(2017.04.20) 텐센트 SDK 버전 업데이트 및 가이드 수정(2.47 -> 3.0)*
+=======
+>>>>>>> 96f7123df4fd6baf47be8ca9ef54184e5425cb78
     * *(2017.02.23) 텐센트 SDK 버전 업데이트 (2.39 -> 2.47)*
     * *(2017.02.23) 텐센트 AndroidManifest.xml 일부 권한 추가*
