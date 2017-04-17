@@ -13,7 +13,7 @@
     * 메시지 수신, 확인 통계 조회 API가 추가되었습니다.
     * v1.3 피드백 API는 v2.0 유효하지 않은 토큰 API로 변경되었습니다.
     * 응답 메시지를 더 자세하게 출력합니다.    
-    <a href="/ko/Notification/Push/Developer%60s%20Guide%20v2.0" target="_blank">v2.0 API Reference 바로 가기</a>
+    <a href="/ko/Notification/Push/Developer%60s%20Guide" target="_blank">v2.0 API Reference 바로 가기</a>
 * [CONSOLE] Dashboard, Setting 탭 추가
     * 메시지 수신, 확인 통계를 확인할 수 있는 [Dashboar]d 탭이 추가되었습니다.
     * 메시지 수신, 확인 데이터 수집 기능을 설정할 수 있는 [Settings] 탭이 추가되었습니다.
