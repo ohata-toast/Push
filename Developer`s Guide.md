@@ -1192,5 +1192,5 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | totalCount | - | 발송된 전체 메시지  수 |
 
 * *문서 수정 내역*
-    * *(2017.04.20) v2.0 API Reference 추가*
+    * *(2017.04.25) v2.0 API Reference 추가*
     * *(2017.02.23) 토큰 조회 API 문서 보강*
