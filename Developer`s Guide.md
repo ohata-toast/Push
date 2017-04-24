@@ -29,7 +29,10 @@
 - v1.3 피드백 API의 URI가 '/push/v1.3/appkey/{appkey}/feedback'에서 '/push/v2.0/appkeys/{appkey}/invalid-tokens'으로 변경되었다.
 
 #### 삭제
-- v2.0 API에서 채널(Channel)이 삭제되었다.
+- v2.0 메시지 발송 API로 발송된 메시지는 발송 내역을 남기지 않는다. CONSOLE에서 발송하는 메시지는 내역을 남긴다.    
+2017년 6월 추가 예정인 'Log&Crash Search' 연동 기능이 추가되면, 사용자의 'Log&Crash Search'에 메시지 발송 내역을 남길 수 있다.
+- v2.0 API에서 채널(Channel)이 삭제되었다. 채널 기능은 토큰의 그룹핑을 담당했던 기능으로, 하나의 토큰은 하나의 채널에만 속할 수 있는 제한이 있었다.    
+2017년 6월 추가 예정인 태그 기능으로 대체될 예정이다. 태그는 하나의 토큰에 여러 개 태그를 추가할 수 있다.
     - 토큰 등록 API, channel 필드 삭제
     - 메시지 발송 API, target.type에서 'CHANNEL' 타입 삭제
     - 채널 API 삭제
