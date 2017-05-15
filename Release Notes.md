@@ -1,5 +1,10 @@
 ## Notification > Push > Release Notes
 
+### 2017.05.25
+* [SDK] v1.4.1 SDK 추가
+   * SDK 버전 확인을 위한 API가 추가되었습니다.
+
+
 ### 2017.04.25
 #### 기능 추가
 * [API] 메시지 수신, 확인 데이터 수집(Message Delivery Receipt), 통계 조회 기능 추가
