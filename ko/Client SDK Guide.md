@@ -446,7 +446,7 @@ public class YourActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        PushAnalytics.initialize(this, "collector-url", "appKey");
+        PushAnalytics.initialize(this, "https://collector-push.cloud.toast.com", "appKey");
         PushAnalytics.onOpened(this, getIntent());
         // ... your codes
     }
@@ -476,7 +476,7 @@ public class YourGcmListener extends PushSdk.GcmListener {
         final NotificationManager notificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Intent launchIntent = PushAnalytics.newIntentForOpenedEvent(this, DemoActivity.class, bundle);
+        Intent launchIntent = PushAnalytics.newIntentForOpenedEvent(this, DemoActivity.class, data);
         final PendingIntent contentIntent = PendingIntent.getActivity(this, 0, launchIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         final String text = data.toString();
         NotificationCompat.Builder mBuilder =
