@@ -430,7 +430,7 @@ NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.c
 ```
 
 ## 수신 및 오픈 여부 적용
-- 클라이언트가 푸쉬의 수신 여부와 오픈 여부에 대한 지표를 서버에 송신할 수 있다.
+- 클라이언트가 푸시의 수신 여부와 오픈 여부에 대한 지표를 서버에 송신할 수 있다.
 - 지표는 웹콘솔을 통해서 볼 수 있다.
 
 ### Android, GCM
@@ -446,13 +446,14 @@ public class YourActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        PushAnalytics.onOpened(this, "url", "appkey", getIntent());
+        PushAnalytics.initialize(this, "collector-url", "appKey");
+        PushAnalytics.onOpened(this, getIntent());
         // ... your codes
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
-        PushAnalytics.onOpened(this, "url", "appkey", intent);
+        PushAnalytics.onOpened(this, intent);
         // ... your codes
     }
 }
@@ -461,7 +462,7 @@ public class YourActivity extends AppCompatActivity {
 **YourListener.java**
 
 - 만약 ToastCloud Push SDK 에서 제공하는 기본 리스너(PushSdk.GcmListener)를 사용할 경우, 자동으로 수신 및 오픈 여부를 사용할 수 있다. 따라서, 기본 리스너를 사용한다면 이 부분을 생략해도 된다.
-    - **단, 기본 리스너를 사용하더라도 Activity에서 PushAnalytics.onOpened 메소드는 호출해줘야 한다.**
+    - **단, 기본 리스너를 사용하더라도 Activity에서 PushAnalytics.initialize와 PushAnalytics.onOpened 메소드는 호출해줘야 한다.**
 - PendingIntent 생성시, 액티비티 전환 Intent를 **PushAnalytics.newIntentForOpenedEvent** 을 이용해서 생성한다.
 - PendingIntent.getActivity 메소드 호출시, 마지막 매개변수인 Flag를 **PendingIntent.FLAG_UPDATE_CURRENT** 로 넘겨준다.
 - 수신 확인을 위해 **PushAnalytics.onReceived** 메소드를 호출해준다.
@@ -488,7 +489,7 @@ public class YourGcmListener extends PushSdk.GcmListener {
         mBuilder.setContentIntent(contentIntent);
         notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 
-        PushAnalytics.onReceived("url", "appkey", data);
+        PushAnalytics.onReceived(this, data);
     }
 }
 ```
@@ -596,6 +597,7 @@ public class YourGcmListener extends PushSdk.GcmListener {
 <br/>
 
 * *문서 수정 내역*
+    * *(2017.05.25) 수신 및 오픈 API 수정에 따른 가이드 수정*
     * *(2017.04.20) 수신 및 오픈 여부 적용 가이드 신규 작성*
     * *(2017.04.20) 텐센트 SDK 버전 업데이트 및 가이드 수정(2.47 -> 3.0)*
     * *(2017.02.23) 텐센트 SDK 버전 업데이트 (2.39 -> 2.47)*
