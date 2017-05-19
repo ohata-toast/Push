@@ -1,8 +1,12 @@
 ## Notification > Push > Release Notes
 
 ### 2017.05.25
-* [SDK] v1.4.1 SDK 추가
+#### 기능 추가
+* [SDK] SDK 버전 확인을 위한 API 추가
    * SDK 버전 확인을 위한 API가 추가되었습니다.
+* [Android SDK] 수신 및 오픈 확인 API 추가 및 Deprecated
+   * 수신 및 오픈 확인 API 일부가 추가 및 Deprecated 되었습니다.
+   * 해당 기능을 사용하기 위해서 반드시 **PushAnalytics.initialize** 메소드를 호출해줘야 합니다.
 
 
 ### 2017.04.25
@@ -11,14 +15,14 @@
     * 메시지 발송 후, 기기에 수신, 사용자의 메시지 확인 데이터를 수집해 통계로 조회할 수 있는 기능을 추가되었습니다.
     * [CONSOLE] > [Settings] 탭에서 활성화 시킬 수 있으며, v2.0 API Reference에서 통계 조회 API 설명을 확인할 수 있습니다.
     * 해당 기능은 v1.4이상 SDK가 적용된 곳에서만 사용할 수 있습니다.    
-    <a href="/zh/Notification/Push/zh/Client%20SDK%20Guide/#_4" target="_blank">SDK 수신 및 오픈 여부 적용 가이드 바로 가기</a>
+    <a href="/ko/Notification/Push/ko/Client%20SDK%20Guide/#_4" target="_blank">SDK 수신 및 오픈 여부 적용 가이드 바로 가기</a>
 * [API] v2.0 API 추가
     * 토큰 통계 API가 추가되었습니다.
     * 예약 메시지 API가 추가되었습니다.
     * 메시지 수신, 확인 통계 조회 API가 추가되었습니다.
     * v1.3 피드백 API는 v2.0 유효하지 않은 토큰 API로 변경되었습니다.
     * 응답 메시지를 더 자세하게 출력합니다.    
-    <a href="/zh/Notification/Push/zh/Developer%60s%20Guide" target="_blank">v2.0 API Reference 바로 가기</a>
+    <a href="/ko/Notification/Push/ko/Developer%60s%20Guide" target="_blank">v2.0 API Reference 바로 가기</a>
 * [CONSOLE] Dashboard, Setting 탭 추가
     * 메시지 수신, 확인 통계를 확인할 수 있는 [Dashboar]d 탭이 추가되었습니다.
     * 메시지 수신, 확인 데이터 수집 기능을 설정할 수 있는 [Settings] 탭이 추가되었습니다.
