@@ -4,10 +4,10 @@
 ### 2017.05.25
 #### 기능 추가
 * [SDK] SDK 버전 확인을 위한 API 추가
-   * SDK 버전 확인을 위한 API가 추가되었습니다.
+    * SDK 버전 확인을 위한 API가 추가되었습니다.
 * [Android SDK] 수신 및 오픈 확인 API 추가 및 Deprecated
-   * 수신 및 오픈 확인 API 일부가 추가 및 Deprecated 되었습니다.
-   * 해당 기능을 사용하기 위해서 반드시 **PushAnalytics.initialize** 메소드를 호출해줘야 합니다.
+    * 수신 및 오픈 확인 API 일부가 추가 및 Deprecated 되었습니다.
+    * 해당 기능을 사용하기 위해서 반드시 **PushAnalytics.initialize** 메소드를 호출해줘야 합니다.
 
 
 ### 2017.04.25
