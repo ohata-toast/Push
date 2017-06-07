@@ -669,6 +669,85 @@ Request Body
 }
 ```
 
+#### 실패한 메시지 조회
+발송에 실패한 메시지를 조회할 수 있다.
+단, 토큰이 존재하지는 경우(INVALID_TOKEN)는 발송 실패로 판단하지 않는다.
+
+##### Method, URL, Headers
+```
+GET /push/v2.0/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messagErrorCause={messageErrorCause}&from={from}&to={to}
+HEADER
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| messageId | Optional, Number | 메시지 아이디 |
+| messageErrorType | Optional, String | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR' |
+| messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'GCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR'  |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+
+##### Description
+- messageErrorType와 messageErrorCause는 다음과 같은 뜻을 의미한다.
+    - CLIENT_ERROR: 클라이언트의 잘못된 요청
+        - UNSUPPORTED_MESSAGE_TYPE: 지원하지 않는 메시지 타입
+        - INVALID_MESSAGE: 비정상적인 메시지
+        - INVALID_CERTIFICATE: 인증서 만료 또는 인증서 정보가 옳바르지 않음
+        - UNAUTHORIZED: 인증서 만료 또는 인증서 정보가 옳바르지 않음
+    - EXTERNAL_ERROR: APNS, GCM, Tencent 등 푸시와 연결된 외부 서비스 오류
+        - APNS_ERROR: APNS(iOS)로 발송실패
+        - GCM_ERROR: GCM(Google)로 발송실패
+        - TENCENT_ERROR: Tencent로 발송실패
+    - INTERNAL_ERROR: 푸시 내부에서 발생한 오류
+        - EXPIRED_TIME_OUT: 발송 지연으로 인한 메시지 유효 시간 만료
+        - AGENT_ERROR: Agent 내부 오류로 인한 발송실패
+
+##### Request Body
+```
+없음
+```
+
+##### Response Body
+```
+{
+	"messageErrors" : [{
+			"messageId" : 0,
+			"messageIdString" : "0",
+			"pushType" : "GCM",
+			"messageErrorType" : "ClientError",
+			"messageErrorCause" : "INVALID_CERTIFICATE",
+			"payload" : {
+				"data" : {
+					"title" : "title",
+					"body" : "body"
+				}
+			},
+			"createdDateTime" : "2017-05-18T15:47:00.000+09:00",
+			"tokens" : [{
+					"uid" : "uid-1",
+					"token" : "token-1"
+				}
+			]
+		}
+	],
+	"header" : {
+		"isSuccessful" : true,
+		"resultCode" : 0,
+		"resultMessage" : "Success."
+	}
+}
+```
+| Field | Usage | Description |
+| - | - | - |
+| messageId | - | 실패한 메시지 아이디 |
+| messageIdString | - | 실패한 메시지 아이디 |
+| pushType | - | 'GCM', 'APNS', 'TENCENT' |
+| payload | - | 기기에 발송된 실제 메시지 내용 |
+| tokens | - | 발송한 실패한 수신자의 uid와 token |
+
 #### 메시지 수신, 확인 통계 조회
 메시지 수신, 확인 수집(Message Delivery Receipt) 기능을 화성화 시키고, v1.4 이상 SDK를 적용하면 발송한 메시지에 대해 수신, 확인 정보를 확인할 수 있다.
 수집된 정보를 통계 API로 조회할 수 있다. 기능은 [CONSOLE] > [Settings] 탭에서 활성화 시킬 수 있다.
