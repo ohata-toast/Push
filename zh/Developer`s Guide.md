@@ -401,8 +401,6 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
-##### Description
-
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
@@ -419,6 +417,129 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | removeGuide | Optional, String | messageType이 AD이면 경우 필수 |
 | timeToLiveMinute | Optional, Number | 단위는 분이다. 범위는 1에서 60까지다. 기본 값은 10 이다. |
 | provisionedResourceId | Optional, String | 할당 받은 전용 리소스(provisioned Resource) 아이디다. 사용 문의 support@cloud.toast.com |
+
+##### Description
+- "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있다.
+만약, 정의하지 않으면 모든 푸시 타입, GCM, APNS, APNS_SANDBOX, TENCENT로 발송한다.
+- "target.countries" 필드가 "['KR', 'JP']"면 토큰 국가 코드가 "KR" 또는 "JP"인 Token에 발송한다.
+- "content.default" 필드는 필수이며, "content" 필드에 대한 자세한 내용은 아래 [공통 메시지 포맷]을 참고 바란다.
+- 메시지를 광고 타입, "messageType": "AD", 으로 보낼 경우, "contact", "removeGuide" 필드를 반드시 포함해야 한다.
+"contact" 필드에 연락처를 입력해야 하며, "removeGuide" 필드에 수신 철회 방법에 대해 입력해야 한다.
+- timeToLive 필드를 설정하면, 설정한 시간 이상 발송이 지연되는 경우 자동으로 실패 처리된다.
+
+#### 공통 메시지
+"content"에 아래 표대로 메시지를 작성하면, 각 푸시 타입에 맞게 메시지가 생성되어 발송된다.
+
+|Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT|
+|---|---|---|---|---|---|
+|title|	Android, <br/> iOS Watch, <br/> Tencent|	Optional, String|	data.title|	aps.alert.title|	title|
+|body|	Android, <br/> iOS, <br/> Tencent|	Optional, String|	data.body|	aps.alert.body|	body|
+|title-loc-key|	iOS|	Optional, String| - | aps.alert.title-loc-key| - |
+|title-loc-args|	iOS|	Optional, Array of Strings| - | aps.alert.title-loc-args	| - |
+|action-loc-key|	iOS|	Optional, String| - |aps.alert.action-loc-key	| - |
+|loc-key|	iOS|	Optional, String| - |aps.alert.loc-key	| - |
+|loc-args|	iOS|	Optional, Array of String	| - | aps.alert.loc-args	| - |
+|launch-image|	iOS|	Optional, String	| - | aps.alert.launch-image	| - |
+|badge|	iOS|	Optional, Number| - | aps.badge	| - |
+|sound|	Android, <br/> iOS, <br/> Tencent|	Optional, String|	data.sound|	aps.sound|	custom_content.sound|
+|content-available|	iOS|	Optional, String	| - | aps.content-available	| - |
+|category|	iOS|	Optional, String	| - | aps.category	| - |
+|mutable-content| iOS | Optional, String | - | aps.mutable-content | - |
+| messageDeliveryReceipt | Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - |
+| messageDeliveryReceiptData | Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - |
+
+Reserved Word는 메시지 생성시 Platform 별로 알맞는 위치에 설정된다. 사용자가 임의로 데이터 타입과 위치등을 변경할 수 없다.
+그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어간다.
+
+|Word|	Platform|	Usage|	GCM|	APNS|	TENCENT|
+|---|---|---|---|---|---|
+|customKey|	Android, <br/> iOS, <br/> Tencent|	Optional, <br/> Object, <br/> Array, <br/> String, <br/> Number|	data.customKey|	customKey|	custom_content.customKey|
+
+##### "content" Example
+
+```
+"content.default"는 필수다. 아래 "content.ko", "content.ja"는 토큰의 언어 코드 값이다.
+해당 토큰의 언어 코드에 맞게 메시지가 발송된다.
+Request Body
+{
+	"target" : {
+		"type" : "ALL"
+	},
+	"content" : {
+        "default" : {
+            "title": "title",
+            "body": "body",
+            "badge": 1,
+            "customKey": "value"
+        },
+        "ko" : {
+            "title": "제목",
+            "body": "내용"
+            "customKey": "값"
+        },
+        "ja" : {
+            "title": "タイトル",
+            "body": "プッシュ・メッセージ"
+        }
+	},
+	"messageType" : "NOTIFICATION"
+}
+"ko" GCM 메시지
+ {
+    "data": {
+        "title": "제목",
+        "body": "내용",
+        "customKey": "값"
+    }
+}
+"ja" GCM 메시지
+ {
+    "data": {
+        "title": "タイトル",
+        "body": "プッシュ・メッセージ",
+        "customKey": "value"
+    }
+}
+"ko" APNS 메시지
+{
+    "aps": {
+        "alert": {
+            "title": "제목",
+            "body": "내용"
+        },
+        "badge": 1
+    },
+    "customKey": "값"
+
+}
+"ja" APNS 메시지
+{
+    "aps": {
+        "alert": {
+            "title": "タイトル",
+            "body": "プッシュ・メッセージ"
+        },
+        "badge": 1
+    },
+    "customKey": "value"
+}
+"ko" TENCENT 메시지
+ {
+	"title": "제목",
+	"body": "내용",
+	"custom_content": {
+		"customKey": "값"
+	}
+}
+"ja" TENCENT 메시지
+ {
+	"title": "タイトル",
+	"body": "プッシュ・メッセージ",
+	"custom_content": {
+		"customKey": "value"
+	}
+}
+```
 
 #### 메시지 목록 조회
 
@@ -555,119 +676,84 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
-#### 공통 메시지
-"content"에 아래 표대로 메시지를 작성하면, 각 푸시 타입에 맞게 메시지가 생성되어 발송된다.
+#### 실패한 메시지 조회
+발송에 실패한 메시지를 조회할 수 있다.
+단, 토큰이 존재하지는 경우(INVALID_TOKEN)는 발송 실패로 판단하지 않는다.
 
-|Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT|
-|---|---|---|---|---|---|
-|title|	Android, <br/> iOS Watch, <br/> Tencent|	Optional, String|	data.title|	aps.alert.title|	title|
-|body|	Android, <br/> iOS, <br/> Tencent|	Optional, String|	data.body|	aps.alert.body|	body|
-|title-loc-key|	iOS|	Optional, String| - | aps.alert.title-loc-key| - |
-|title-loc-args|	iOS|	Optional, Array of Strings| - | aps.alert.title-loc-args	| - |
-|action-loc-key|	iOS|	Optional, String| - |aps.alert.action-loc-key	| - |
-|loc-key|	iOS|	Optional, String| - |aps.alert.loc-key	| - |
-|loc-args|	iOS|	Optional, Array of String	| - | aps.alert.loc-args	| - |
-|launch-image|	iOS|	Optional, String	| - | aps.alert.launch-image	| - |
-|badge|	iOS|	Optional, Number| - | aps.badge	| - |
-|sound|	Android, <br/> iOS, <br/> Tencent|	Optional, String|	data.sound|	aps.sound|	custom_content.sound|
-|content-available|	iOS|	Optional, String	| - | aps.content-available	| - |
-|category|	iOS|	Optional, String	| - | aps.category	| - |
-|mutable-content| iOS | Optional, String | - | aps.mutable-content | - |
-| messageDeliveryReceipt | Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - |
-| messageDeliveryReceiptData | Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - |
-
-Reserved Word는 메시지 생성시 Platform 별로 알맞는 위치에 설정된다. 사용자가 임의로 데이터 타입과 위치등을 변경할 수 없다.
-그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어간다.
-
-|Word|	Platform|	Usage|	GCM|	APNS|	TENCENT|
-|---|---|---|---|---|---|
-|customKey|	Android, <br/> iOS, <br/> Tencent|	Optional, <br/> Object, <br/> Array, <br/> String, <br/> Number|	data.customKey|	customKey|	custom_content.customKey|
-
-##### "content" Example
-
+##### Method, URL, Headers
 ```
-"content.default"는 필수다. 아래 "content.ko", "content.ja"는 토큰의 언어 코드 값이다.
-해당 토큰의 언어 코드에 맞게 메시지가 발송된다.
-Request Body
-{
-	"target" : {
-		"type" : "ALL"
-	},
-	"content" : {
-        "default" : {
-            "title": "title",
-            "body": "body",
-            "badge": 1,
-            "customKey": "value"
-        },
-        "ko" : {
-            "title": "제목",
-            "body": "내용"
-            "customKey": "값"
-        },
-        "ja" : {
-            "title": "タイトル",
-            "body": "プッシュ・メッセージ"
-        }
-	},
-	"messageType" : "NOTIFICATION"
-}
-"ko" GCM 메시지
- {
-    "data": {
-        "title": "제목",
-        "body": "내용",
-        "customKey": "값"
-    }
-}
-"ja" GCM 메시지
- {
-    "data": {
-        "title": "タイトル",
-        "body": "プッシュ・メッセージ",
-        "customKey": "value"
-    }
-}
-"ko" APNS 메시지
-{
-    "aps": {
-        "alert": {
-            "title": "제목",
-            "body": "내용"
-        },
-        "badge": 1
-    },
-    "customKey": "값"
+GET /push/v2.0/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messagErrorCause={messageErrorCause}&from={from}&to={to}
+HEADER
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
 
-}
-"ja" APNS 메시지
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| messageId | Optional, Number | 메시지 아이디 |
+| messageErrorType | Optional, String | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR' |
+| messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'GCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR'  |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+
+##### Description
+- messageErrorType와 messageErrorCause는 다음과 같은 뜻을 의미한다.
+    - CLIENT_ERROR: 클라이언트의 잘못된 요청
+        - UNSUPPORTED_MESSAGE_TYPE: 지원하지 않는 메시지 타입
+        - INVALID_MESSAGE: 비정상적인 메시지
+        - INVALID_CERTIFICATE: 인증서 만료 또는 인증서 정보가 옳바르지 않음
+        - UNAUTHORIZED: 인증서 만료 또는 인증서 정보가 옳바르지 않음
+    - EXTERNAL_ERROR: APNS, GCM, Tencent 등 푸시와 연결된 외부 서비스 오류
+        - APNS_ERROR: APNS(iOS)로 발송실패
+        - GCM_ERROR: GCM(Google)로 발송실패
+        - TENCENT_ERROR: Tencent로 발송실패
+    - INTERNAL_ERROR: 푸시 내부에서 발생한 오류
+        - EXPIRED_TIME_OUT: 발송 지연으로 인한 메시지 유효 시간 만료
+        - AGENT_ERROR: Agent 내부 오류로 인한 발송실패
+
+##### Request Body
+```
+없음
+```
+
+##### Response Body
+```
 {
-    "aps": {
-        "alert": {
-            "title": "タイトル",
-            "body": "プッシュ・メッセージ"
-        },
-        "badge": 1
-    },
-    "customKey": "value"
-}
-"ko" TENCENT 메시지
- {
-	"title": "제목",
-	"body": "내용",
-	"custom_content": {
-		"customKey": "값"
-	}
-}
-"ja" TENCENT 메시지
- {
-	"title": "タイトル",
-	"body": "プッシュ・メッセージ",
-	"custom_content": {
-		"customKey": "value"
+	"messageErrors" : [{
+			"messageId" : 0,
+			"messageIdString" : "0",
+			"pushType" : "GCM",
+			"messageErrorType" : "ClientError",
+			"messageErrorCause" : "INVALID_CERTIFICATE",
+			"payload" : {
+				"data" : {
+					"title" : "title",
+					"body" : "body"
+				}
+			},
+			"createdDateTime" : "2017-05-18T15:47:00.000+09:00",
+			"tokens" : [{
+					"uid" : "uid-1",
+					"token" : "token-1"
+				}
+			]
+		}
+	],
+	"header" : {
+		"isSuccessful" : true,
+		"resultCode" : 0,
+		"resultMessage" : "Success."
 	}
 }
 ```
+| Field | Usage | Description |
+| - | - | - |
+| messageId | - | 실패한 메시지 아이디 |
+| messageIdString | - | 실패한 메시지 아이디 |
+| pushType | - | 'GCM', 'APNS', 'TENCENT' |
+| payload | - | 기기에 발송된 실제 메시지 내용 |
+| tokens | - | 발송한 실패한 수신자의 uid와 token |
 
 #### 메시지 수신, 확인 통계 조회
 메시지 수신, 확인 수집(Message Delivery Receipt) 기능을 화성화 시키고, v1.4 이상 SDK를 적용하면 발송한 메시지에 대해 수신, 확인 정보를 확인할 수 있다.
@@ -1192,5 +1278,6 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | totalCount | - | 발송된 전체 메시지  수 |
 
 * *문서 수정 내역*
+    * *(2017.06.22) 실패한 메시지 조회 API 추가*
     * *(2017.04.25) v2.0 API Reference 추가*
     * *(2017.02.23) 토큰 조회 API 문서 보강*
