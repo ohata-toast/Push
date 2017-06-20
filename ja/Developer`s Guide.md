@@ -249,8 +249,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | tokenProperties | Optional, String Array | 'agreement', 'country', 'language', 'timezoneId'<br/>','로 구분, e.g. tokenProperties=country,language |
 
 ##### Request Body
@@ -321,8 +321,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ##### Request Body
 ```
@@ -401,8 +401,6 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
-##### Description
-
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
@@ -420,140 +418,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | timeToLiveMinute | Optional, Number | 단위는 분이다. 범위는 1에서 60까지다. 기본 값은 10 이다. |
 | provisionedResourceId | Optional, String | 할당 받은 전용 리소스(provisioned Resource) 아이디다. 사용 문의 support@cloud.toast.com |
 
-#### 메시지 목록 조회
-
-##### Method, URL, Headers
-```
-GET /push/v2.0/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageStatus={messageStatus}
-Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| messageStatus | Optional, String | 'READY', 'PROCESSING', 'COMPLETE', 'CANCEL_NO_TARGET', 'CANCEL_INVALID_CERTIFICATE', 'CANCEL_INVALID_MESSAGE', 'CANCEL_UNSUPPORTED_MESSAGE_TYPE', 'CANCEL_UNAUTHORIZED', 'CANCEL_UNKNOWN' |
-
-##### Request Body
-```
-없음
-```
-##### Response Body
-```json
-{
-    "header" : {
-        "isSuccessful" : true,
-        "resultCode": 0,
-        "resultMessage" : "SUCCESS"
-    },
-    "messages" : [{
-        "messageId" : 0,
-        "messageIdString": "0",
-        "target" : {
-        "type" : "ALL"
-        },
-        "content" : {
-            "default" : {
-                "title": "title",
-                "body": "body"
-            }
-        },
-        "messageType" : "AD",
-        "contact": "1588-1588",
-        "removeGuide": "매뉴 > 설정",
-        "timeToLive": 60,
-        "createdDateTime": "2017-02-13T09:30:00.000+09:00",
-        "completedDateTime": "2017-02-13T09:30:00.000+09:00",
-        "targetCount": 1000,
-		"sentCount": 1000,
-        "messageStatus": "COMPLETE",
-        "provisionedResourceId": "[a-zA-Z0-9]{16}"
-    }],
-    "toatalCount": 1
-}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| createdDateTime | - | 메시지가 생성된 일시 (ISO 86091) |
-| completedDateTime | - | 메시지 발송이 완료된 일시 (ISO 86091) |
-| targetCount | - | 발송될 타겟 토큰 수 |
-| sentCount | - | 실제 발송된 토큰 수 |
-| provisionedResourceId | - | 메시지가 발송된 전용 리소스 아이디 |
-| totalCount | - | 필터링된 전체 메시지  수 |
-
 ##### Description
-
-- "messageStatus" 필드는 메시지 상태를 나타낸다. 다음과 같은 상태가 있다.
-    - READY: 메시지 발송 요청이 등록된 상태다.
-    - PROCESSING: 메시지 생성이 끝나고, 대기 또는 발송 중이다.
-    - COMPLETE: 메시지 발송이 완료된 상태다.
-    - CANCEL_NO_TARGET: 메시지 발송 대상이 없어서 취소된 상태다. 다음과 같은 이유로 발송이 취소될 수 있다.  
- 등록된 토큰이 없을 때  
- 해당 Channel 또는 Uid가 없을 때  
- 광고 푸시 메시지의 경우, 수신 동의한 사용자가 없을 때  
- 야간 광고 푸시 메시지(21시 ~ 8시)의 경우, 야간 광고 수신 동의한 사용자가 없을 때  
- 기존 등록된 토큰들이 삭제되어 토큰이 없을 때    
-    - CANCEL_INVALID_CERTIFICATE: 인증서가 잘 못되어 취소된 상태다. 인증서 상태를 확인해야 한다.
-    - CANCEL_INVALID_MESSAGE: 메시지 형식이 맞지않아 취소된 상태다.
-    - CANCEL_UNSUPPORTED_MESSAGE_TYPE: 메시지 형식이 맞지않아 취소된 상태다.
-    - CANCEL_UNAUTHORIZED: 인증서 인증 과정에서 실패한 상태다. 인증서 상태를 확인해야 한다.
-    - CANCEL_UNKNOWN: 내부 오류가 발생한 상태다.
-
-#### 메시지 조회
-
-##### Method, URL, Headers
-```
-GET /push/v2.0/appkeys/{appkey}/messages/{message-id}
-Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| messageId | Required, Number | 메시지 아이디 |
-
-##### Request Body
-```
-없음
-```
-##### Response Body
-```json
-{
-    "message" : {
-        "messageId" : 0,
-        "messageIdString": "0",
-        "target" : {
-        "type" : "ALL"
-        },
-        "content" : {
-            "default" : {
-                "title": "title",
-                "body": "body"
-            }
-        },
-        "messageType" : "AD",
-        "contact": "1588-1588",
-        "removeGuide": "매뉴 > 설정",
-        "timeToLive": 60,
-        "createdDateTime": "2017-02-13T09:30:00.000+09:00",
-        "completedDateTime": "2017-02-13T09:30:00.000+09:00",
-        "targetCount": 1000,
-        "messageStatus": "COMPLETE",
-        "provisionedResourceId": "[a-zA-Z0-9]{16}"
-    },
-    "header" : {
-        "isSuccessful" : true,
-        "resultCode": 0,
-        "resultMessage" : "SUCCESS"
-    }
-}
-```
+- "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있다.
+만약, 정의하지 않으면 모든 푸시 타입, GCM, APNS, APNS_SANDBOX, TENCENT로 발송한다.
+- "target.countries" 필드가 "['KR', 'JP']"면 토큰 국가 코드가 "KR" 또는 "JP"인 Token에 발송한다.
+- "content.default" 필드는 필수이며, "content" 필드에 대한 자세한 내용은 아래 [공통 메시지 포맷]을 참고 바란다.
+- 메시지를 광고 타입, "messageType": "AD", 으로 보낼 경우, "contact", "removeGuide" 필드를 반드시 포함해야 한다.
+"contact" 필드에 연락처를 입력해야 하며, "removeGuide" 필드에 수신 철회 방법에 대해 입력해야 한다.
+- timeToLive 필드를 설정하면, 설정한 시간 이상 발송이 지연되는 경우 자동으로 실패 처리된다.
 
 #### 공통 메시지
 "content"에 아래 표대로 메시지를 작성하면, 각 푸시 타입에 맞게 메시지가 생성되어 발송된다.
@@ -669,6 +541,220 @@ Request Body
 }
 ```
 
+#### 메시지 목록 조회
+
+##### Method, URL, Headers
+```
+GET /push/v2.0/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageStatus={messageStatus}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| pageIndex | Optional, Number | 기본 값 0 |
+| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| messageStatus | Optional, String | 'READY', 'PROCESSING', 'COMPLETE', 'CANCEL_NO_TARGET', 'CANCEL_INVALID_CERTIFICATE', 'CANCEL_INVALID_MESSAGE', 'CANCEL_UNSUPPORTED_MESSAGE_TYPE', 'CANCEL_UNAUTHORIZED', 'CANCEL_UNKNOWN' |
+
+##### Request Body
+```
+없음
+```
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" : true,
+        "resultCode": 0,
+        "resultMessage" : "SUCCESS"
+    },
+    "messages" : [{
+        "messageId" : 0,
+        "messageIdString": "0",
+        "target" : {
+        "type" : "ALL"
+        },
+        "content" : {
+            "default" : {
+                "title": "title",
+                "body": "body"
+            }
+        },
+        "messageType" : "AD",
+        "contact": "1588-1588",
+        "removeGuide": "매뉴 > 설정",
+        "timeToLive": 60,
+        "createdDateTime": "2017-02-13T09:30:00.000+09:00",
+        "completedDateTime": "2017-02-13T09:30:00.000+09:00",
+        "targetCount": 1000,
+		"sentCount": 1000,
+        "messageStatus": "COMPLETE",
+        "provisionedResourceId": "[a-zA-Z0-9]{16}"
+    }],
+    "toatalCount": 1
+}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| createdDateTime | - | 메시지가 생성된 일시 (ISO 8601) |
+| completedDateTime | - | 메시지 발송이 완료된 일시 (ISO 8601) |
+| targetCount | - | 발송될 타겟 토큰 수 |
+| sentCount | - | 실제 발송된 토큰 수 |
+| provisionedResourceId | - | 메시지가 발송된 전용 리소스 아이디 |
+| totalCount | - | 필터링된 전체 메시지  수 |
+
+##### Description
+
+- "messageStatus" 필드는 메시지 상태를 나타낸다. 다음과 같은 상태가 있다.
+    - READY: 메시지 발송 요청이 등록된 상태다.
+    - PROCESSING: 메시지 생성이 끝나고, 대기 또는 발송 중이다.
+    - COMPLETE: 메시지 발송이 완료된 상태다.
+    - CANCEL_NO_TARGET: 메시지 발송 대상이 없어서 취소된 상태다. 다음과 같은 이유로 발송이 취소될 수 있다.  
+ 등록된 토큰이 없을 때  
+ 해당 Channel 또는 Uid가 없을 때  
+ 광고 푸시 메시지의 경우, 수신 동의한 사용자가 없을 때  
+ 야간 광고 푸시 메시지(21시 ~ 8시)의 경우, 야간 광고 수신 동의한 사용자가 없을 때  
+ 기존 등록된 토큰들이 삭제되어 토큰이 없을 때    
+    - CANCEL_INVALID_CERTIFICATE: 인증서가 잘 못되어 취소된 상태다. 인증서 상태를 확인해야 한다.
+    - CANCEL_INVALID_MESSAGE: 메시지 형식이 맞지않아 취소된 상태다.
+    - CANCEL_UNSUPPORTED_MESSAGE_TYPE: 메시지 형식이 맞지않아 취소된 상태다.
+    - CANCEL_UNAUTHORIZED: 인증서 인증 과정에서 실패한 상태다. 인증서 상태를 확인해야 한다.
+    - CANCEL_UNKNOWN: 내부 오류가 발생한 상태다.
+
+#### 메시지 조회
+
+##### Method, URL, Headers
+```
+GET /push/v2.0/appkeys/{appkey}/messages/{message-id}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| messageId | Required, Number | 메시지 아이디 |
+
+##### Request Body
+```
+없음
+```
+##### Response Body
+```json
+{
+    "message" : {
+        "messageId" : 0,
+        "messageIdString": "0",
+        "target" : {
+        "type" : "ALL"
+        },
+        "content" : {
+            "default" : {
+                "title": "title",
+                "body": "body"
+            }
+        },
+        "messageType" : "AD",
+        "contact": "1588-1588",
+        "removeGuide": "매뉴 > 설정",
+        "timeToLive": 60,
+        "createdDateTime": "2017-02-13T09:30:00.000+09:00",
+        "completedDateTime": "2017-02-13T09:30:00.000+09:00",
+        "targetCount": 1000,
+        "messageStatus": "COMPLETE",
+        "provisionedResourceId": "[a-zA-Z0-9]{16}"
+    },
+    "header" : {
+        "isSuccessful" : true,
+        "resultCode": 0,
+        "resultMessage" : "SUCCESS"
+    }
+}
+```
+
+#### 실패한 메시지 조회
+발송에 실패한 메시지를 조회할 수 있다.
+단, 토큰이 존재하지는 경우(INVALID_TOKEN)는 발송 실패로 판단하지 않는다.
+
+##### Method, URL, Headers
+```
+GET /push/v2.0/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messagErrorCause={messageErrorCause}&from={from}&to={to}
+HEADER
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| messageId | Optional, Number | 메시지 아이디 |
+| messageErrorType | Optional, String | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR' |
+| messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'GCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR'  |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+
+##### Description
+- messageErrorType와 messageErrorCause는 다음과 같은 뜻을 의미한다.
+    - CLIENT_ERROR: 클라이언트의 잘못된 요청
+        - UNSUPPORTED_MESSAGE_TYPE: 지원하지 않는 메시지 타입
+        - INVALID_MESSAGE: 비정상적인 메시지
+        - INVALID_CERTIFICATE: 인증서 만료 또는 인증서 정보가 옳바르지 않음
+        - UNAUTHORIZED: 인증서 만료 또는 인증서 정보가 옳바르지 않음
+    - EXTERNAL_ERROR: APNS, GCM, Tencent 등 푸시와 연결된 외부 서비스 오류
+        - APNS_ERROR: APNS(iOS)로 발송실패
+        - GCM_ERROR: GCM(Google)로 발송실패
+        - TENCENT_ERROR: Tencent로 발송실패
+    - INTERNAL_ERROR: 푸시 내부에서 발생한 오류
+        - EXPIRED_TIME_OUT: 발송 지연으로 인한 메시지 유효 시간 만료
+        - AGENT_ERROR: Agent 내부 오류로 인한 발송실패
+
+##### Request Body
+```
+없음
+```
+
+##### Response Body
+```
+{
+	"messageErrors" : [{
+			"messageId" : 0,
+			"messageIdString" : "0",
+			"pushType" : "GCM",
+			"messageErrorType" : "ClientError",
+			"messageErrorCause" : "INVALID_CERTIFICATE",
+			"payload" : {
+				"data" : {
+					"title" : "title",
+					"body" : "body"
+				}
+			},
+			"createdDateTime" : "2017-05-18T15:47:00.000+09:00",
+			"tokens" : [{
+					"uid" : "uid-1",
+					"token" : "token-1"
+				}
+			]
+		}
+	],
+	"header" : {
+		"isSuccessful" : true,
+		"resultCode" : 0,
+		"resultMessage" : "Success."
+	}
+}
+```
+| Field | Usage | Description |
+| - | - | - |
+| messageId | - | 실패한 메시지 아이디 |
+| messageIdString | - | 실패한 메시지 아이디 |
+| pushType | - | 'GCM', 'APNS', 'TENCENT' |
+| payload | - | 기기에 발송된 실제 메시지 내용 |
+| tokens | - | 발송한 실패한 수신자의 uid와 token |
+
 #### 메시지 수신, 확인 통계 조회
 메시지 수신, 확인 수집(Message Delivery Receipt) 기능을 화성화 시키고, v1.4 이상 SDK를 적용하면 발송한 메시지에 대해 수신, 확인 정보를 확인할 수 있다.
 수집된 정보를 통계 API로 조회할 수 있다. 기능은 [CONSOLE] > [Settings] 탭에서 활성화 시킬 수 있다.
@@ -684,8 +770,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | event | Optional, String | 'sent', 'sentFailed', 'received', 'opened' |
 | messageId | Optional, Number | 메시지 아이디 |
 
@@ -716,7 +802,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| dateTime | Optional, DateTime String | ISO 86091 |
+| dateTime | Optional, DateTime String | ISO 8601 |
 | sent | Optional, Number | 서버에서 발송한 수 |
 | sentFailed | Optional, Number | 서버에서 발송 실패한 수 |
 | received | Optional, Number | 기기에서 수신한 수 |
@@ -737,8 +823,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | pageIndex | Optional, Number | 기본 값 0 |
 | pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | messageId | Optional, Number | 유효하지 않는 토큰이 발생한 메시지 아이디 |
 
 ###### Request Body
@@ -832,7 +918,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| schedules | - | 일시 (ISO 86091, e.g. YYYY-MM-DDThh:mm) |
+| schedules | - | 일시 (ISO 8601, e.g. YYYY-MM-DDThh:mm) |
 
 #### 예약 메시지 등록
 ##### Method, URL, Headers
@@ -903,7 +989,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-POST /push/v2.0/appkeys/{appkey}/reservations?pageIndex={pageIndex}&pageSize={pageSize}&reservationStatus={reservationsStatus}
+GET /push/v2.0/appkeys/{appkey}/reservations?pageIndex={pageIndex}&pageSize={pageSize}&reservationStatus={reservationsStatus}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -913,8 +999,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | pageIndex | Optional, Number | 기본 값 0 |
 | pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 86091, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | reservationStatus | Optional, String | 'RESERVED', 'COMPLETE' |
 
 ##### Request Body
@@ -977,9 +1063,9 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | reservationIdString | - | 예약 메시지 아이디 문자열 |
-| createdDateTime | - | 예약 메시지 등록 일시 (ISO 86091) |
-| updatedDateTime | - | 예약 메시지 수정 일시 (ISO 86091) |
-| completedDateTime | - | 예약 메시지 발송 완료 일시, 완료가 안되었다면 현재 시간 표시 (ISO 86091) |
+| createdDateTime | - | 예약 메시지 등록 일시 (ISO 8601) |
+| updatedDateTime | - | 예약 메시지 수정 일시 (ISO 8601) |
+| completedDateTime | - | 예약 메시지 발송 완료 일시, 완료가 안되었다면 현재 시간 표시 (ISO 8601) |
 | reservationStatus | - | 'RESERVED', 'COMPLETED' |
 | schedules.scheduleId | - | 예약 메시지 발송 스케줄 아이디 |
 | schedules.scheduleIdString | - | 예약 메시지 발송 스케줄 아이디 문자열 |
@@ -1053,7 +1139,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| updatedDateTime | DateTime String | 예약 수정 일시(ISO 86091) |
+| updatedDateTime | DateTime String | 예약 수정 일시(ISO 8601) |
 
 #### 예약 메시지 수정
 
@@ -1192,5 +1278,6 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | totalCount | - | 발송된 전체 메시지  수 |
 
 * *문서 수정 내역*
+    * *(2017.06.22) 실패한 메시지 조회 API 추가*
     * *(2017.04.25) v2.0 API Reference 추가*
     * *(2017.02.23) 토큰 조회 API 문서 보강*

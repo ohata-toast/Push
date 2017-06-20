@@ -1,5 +1,19 @@
 ## Notification > Push > Release Notes
 
+### 2017.06.22
+#### 기능 추가
+* [API] 실패 처리된 메시지 조회 API 추가
+    * 메시지 발송시 실패된 메시지를 조회할 수 있는 API가 추가되었습니다.
+    이 API를 이용해 발송이 실패 원인에 대한 내용을 확인할 수 있습니다.
+    <a href="/ko/Notification/Push/ko/Developer%60s%20Guide" target="_blank">v2.0 API Reference 바로 가기</a>
+
+#### 버그 수정
+* [API] 메시지 조회시 Internal Error 응답 오류 수정
+    * 메시지 조회시 from, to에 잘 못된 형식의 DateTime(일시)를 입력할 경우 Internal Error로 응답하던 것을 Client Error로 응답하도록 수정했습니다.
+* [API] 예약 메시지 수정시 createdDateTime이 잘못 설정되는 오류 수정
+    * 예약 메시지 수정시 updatedDateTime(수정 일시)뿐만 아니라 createdDateTime(생성 일시)까지 업데이트되는 오류를 수정했습니다.
+
+
 ### 2017.05.25
 #### 기능 추가
 * [SDK] SDK 버전 확인을 위한 API 추가
