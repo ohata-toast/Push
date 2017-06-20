@@ -5,7 +5,7 @@
 * [API] 실패 처리된 메시지 조회 API 추가
     * 메시지 발송시 실패된 메시지를 조회할 수 있는 API가 추가되었습니다.
     이 API를 이용해 발송이 실패 원인에 대한 내용을 확인할 수 있습니다.
-    <a href="/ko/Notification/Push/ko/Developer%60s%20Guide" target="_blank">v2.0 API Reference 바로 가기</a>
+    <a href="/ja/Notification/Push/ja/Developer%60s%20Guide" target="_blank">v2.0 API Reference 바로 가기</a>
 
 #### 버그 수정
 * [API] 메시지 조회시 Internal Error 응답 오류 수정
