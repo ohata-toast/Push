@@ -21,7 +21,7 @@
 
 [KISA 가이드 바로 가기](http://spam.kisa.or.kr/kor/notice/dataView.jsp?p_No=49&b_No=49&d_No=52)
 
-[법령 바로 가기](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)
+[법령 바로 가기](https://spam.kisa.or.kr/spam/sub62.do)
 
 ### 국가 필터링
 
