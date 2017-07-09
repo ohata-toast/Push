@@ -1277,7 +1277,363 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | totalCount | - | 발송된 전체 메시지  수 |
 
+
+### 태그
+
+#### 태그 생성
+
+##### Method, URL, Headers
+```
+POST /push/v2.0/appkeys/{appkey}/tags
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+
+```json
+{
+    "tagName" :  "서른"
+}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| tagName | Required, String | 태그 이름, 최대 길이 32 |
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    },
+    "tag" : {
+        "tagId" :  "12345678"
+    }
+}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| tagId | Required, String | 생성된 태그 아이디, 길이 8 |
+
+#### 태그 조회
+
+##### 목록 조회
+##### Method, URL, Headers
+```
+GET /push/v2.0/appkeys/{appkey}/tags
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+없음
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    },
+    "tags" : [
+        {
+            "tagId" :  "12345678",
+            "tagName" :  "tagName",
+            "createdDateTime" :  "2017-07-07T07:07:07.777+09:00",
+            "updatedDateTime" :  "2017-07-07T07:07:07.777+09:00"
+        }
+    ]
+}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| createdDateTime | Required, Date Time String | 생성 일시 (ISO 8601) |
+| updatedDateTime | Required, Date Time String | 수정 일시 (ISO 8601) |
+
+##### 단건 조회
+##### Method, URL, Headers
+```
+GET /push/v2.0/appkeys/{appkey}/tags/{tag-id}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+없음
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    },
+    "tag" : {
+        "tagId" :  "12345678",
+        "tagName" :  "서른",
+        "createdDateTime" :  "2017-07-07T07:07:07.777+09:00",
+        "updatedDateTime" :  "2017-07-07T07:07:07.777+09:00"
+    }
+}
+```
+
+##### Tag의 Uid 목록 조회
+- 태그가 달린 Uid 목록을 조회한다.
+
+##### Method, URL, Headers
+```
+GET /push/v2.0/appkeys/{appkey}/tags/{tag-id}/uids?offsetUid={uid}&limit={limit}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| offsetUid | Optional, String | 설정된 Uid 다음 부터 조회 |
+| limit | Optional, Number | 조회할 Uid 수 |
+
+##### Request Body
+없음
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    },
+    "uids" : [
+        {
+            "uid" :  "uid-01",
+            "tags" : [
+                {
+                    "tagId" :  "tag-id-01",
+                    "tagName" :  "tag-name-01",
+                    "createdDateTime" :  "2017-07-07T07:07:07.777+09:00",
+                    "updatedDateTime" :  "2017-07-07T07:07:07.777+09:00"
+                }
+            ],
+            "contacts" : [
+                {   
+                    "contactType" :  "TOKEN_GCM",
+                    "contact" :  "token",
+                    "createdDateTime" :  "2017-07-07T07:07:07.777+09:00"
+                }
+            ]
+        }
+    ]
+}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| contacts | -, Object Array | Uid의 연락처, 토큰 정보 목록 |
+| contactType | -, String | 토큰 타입, 'TOKEN_GCM', 'TOKEN_APNS', 'TOKEN_APNS_SANDBOX', 'TOKEN_TENCENT' |
+| contact | -, String | 토큰 |
+| createdDateTime | Required, Date Time String | 생성 일시 (ISO 8601) |
+
+#### 태그 수정
+##### Method, URL, Headers
+```
+PUT /push/v2.0/appkeys/{appkey}/tags/{tag-id}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+```json
+{
+    "tagName" :  "30대"
+}
+```
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    }
+}
+```
+
+#### 태그 삭제
+##### Method, URL, Headers
+```
+DELETE /push/v2.0/appkeys/{appkey}/tags/{tag-id}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+없음
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    }
+}
+```
+
+#### 태그에 Uid 추가
+- 태그에 Uid를 추가(Append)하는 것으로, 기존에 있던 Uid를 추가하면 Uid의 태그는 늘어난다.
+- 한 Uid의 최대 태그 수는 16개다.
+##### Method, URL, Headers
+```
+POST /push/v2.0/appkeys/{appkey}/tags/{tag-id}/uids
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+```json
+{
+    "uids" : [
+         "uid-01",
+         "uid-02"
+    ]
+}
+```
+| Field | Usage | Description |
+| - | - | - |
+| uids | Required, String Array | Uid 배열, 최대 길이 16, Uid 최대 길이 64 |
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    }
+}
+```
+
+#### Uid에 태그 설정
+- Uid의 태그를 교체(Replace)하는 것으로, 기존에 설정된 태그는 삭제되고 새로운 태그로 설정된다.
+##### Method, URL, Headers
+```
+POST /push/v2.0/appkeys/{appkey}/uids
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+```json
+{
+    "uid" :  "uid-01",
+    "tagIds" : [
+         "12345678",
+         "23456789"
+    ]
+}
+```
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    }
+}
+```
+
+#### Uid 조회
+- 태그에 등록된 Uid를 조회한다.
+- 토큰 등록시 Contact(연락처)가 등록된다.
+##### Method, URL, Headers
+```
+GET /push/v2.0/appkeys/{appkey}/uids/{uid}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+없음
+
+##### Response Body
+```json
+{
+"header" : {
+"isSuccessful" :  true,
+"resultCode" :  0,
+"resultMessage" :  "SUCCESS"
+},
+"uid" : {
+    "uid" :  "uid-01",
+        "tags" : [
+            {
+                "tagId" :  "12345678",
+                "tagName" :  "tag-name-01",
+                "createdDateTime" :  "2017-07-07T07:07:07.777+09:00",
+                "updatedDateTime" :  "2017-07-07T07:07:07.777+09:00"
+            }
+            ],
+            "contacts" : [
+            {
+                "contactType" :  "TOKEN_GCM",
+                "contact" :  "token",
+                "createdDateTime" :  "2017-07-07T07:07:07.777+09:00"
+            }
+        ]
+    }
+}
+```
+
+#### Uid 삭제
+- Uid 삭제시 Contact, Token도 같이 삭제된다.
+##### Method, URL, Headers
+```
+DELETE /push/v2.0/appkeys/{appkey}/uids?uids={uid,}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+없음
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    }
+}
+```
+
+#### Tag에 Uid 삭제
+- Tag와 Uid 관계만 삭제한다.
+- Contact, Token이 삭제되진 않는다.
+##### Method, URL, Headers
+```
+DELETE /push/v2.0/appkeys/{appkey}/tags/{tagId}/uids?uids={uid,}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+없음
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    }
+}
+```
+
 * *문서 수정 내역*
-    * *(2017.06.22) 실패한 메시지 조회 API 추가*
+    * *(2017.07.20) v2.0 Tag API Reference 추가*
+    * *(2017.07.20) 실패한 메시지 조회 API 추가*
     * *(2017.04.25) v2.0 API Reference 추가*
     * *(2017.02.23) 토큰 조회 API 문서 보강*
