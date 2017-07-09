@@ -36,14 +36,14 @@
     - 토큰 등록 API, channel 필드 삭제
     - 메시지 발송 API, target.type에서 'CHANNEL' 타입 삭제
     - 채널 API 삭제
-
-### Endpoint
+### 기본 정보
+#### Endpoint
 - 콘솔에서 확인 가능하다.
 ```
 https://api-push.cloud.toast.com
 ```
 
-### Secret Key
+#### Secret Key
 - 콘솔에서 확인 가능하다.
 - Secret Key가 필요한 API를 호출할 때, 해더에 아래와 같이 설정해서 호출해야 한다.
 ```
@@ -53,14 +53,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 [CONSOLE] > [Notification] > [Push] > [URL & AppKey] 에서 생성할 수 있다.
 
-### Response
+#### Response
 
-#### Response HTTP Status Code
+##### Response HTTP Status Code
 200 OK.  
 모든 API 요청에 대해 200 OK로 응답한다.  
 자세한 응답 결과는 Response Body의 Header를 통해 알 수 있다.  
 
-#### Response Header
+##### Response Header
 
 ```
 {
@@ -71,7 +71,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 	}
 }
 ```
-#### resultCode, resultMessage
+##### resultCode, resultMessage
 
 | isSuccessful | resultCode | resultMessage |
 | --- | --- | --- |
@@ -90,10 +90,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | false | 50001 ~ 50501 | Internal Error. Please report this. 'http://cloud.toast.com/support/qaa'. |
 
 ## 토큰
+### 생성
+- 클라이언트에서 조회 가능하다.
 
-### 토큰 등록
-
-#### Method, URL
+##### Method, URL
 ```
 POST /push/v2.0/appkeys/{appkey}/tokens
 Content-Type: application/json;charset=UTF-8
@@ -103,7 +103,7 @@ Content-Type: application/json;charset=UTF-8
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 
-#### Request Body
+##### Request Body
 
 ```
 {
@@ -134,7 +134,7 @@ Content-Type: application/json;charset=UTF-8
 |uid|	Required, String|	사용자 아이디, emoji 허용 안함, 최대 64 bytes|
 
 
-#### Response Body
+##### Response Body
 
 ```
 {
@@ -145,7 +145,7 @@ Content-Type: application/json;charset=UTF-8
 	}
 }
 ```
-#### Description
+##### Description
 
 - 토큰 등록시 이미 토큰이 등록되어 있다면, 토큰 기준으로 다른 정보들이 업데이트 된다.
 - 만약, 토큰이 변경된다면 oldToken에 기존 토큰을, token에 새로운 토큰을 설정하고 등록하면 새로운 토큰으로 업데이트 된다.
@@ -160,9 +160,10 @@ Content-Type: application/json;charset=UTF-8
 - 토큰은 보안적인 이슈, 앱 업데이트, 삭제 등 여러가지 이유로 재발급될 수 있다. 자주 변경되는 것은 아니지만, 수신율을 높이기 위해 구동될 때 마다 최신 토큰을 등록하는 것이 좋다.
 - 앱 삭제 등으로 토큰이 만료되어도 바로 GCM, APNS 서버에 적용되지 않아, 앱 삭제 후 푸시 메시지를 발송했을 때 발송이 성공할 수 있다.
 
-### 토큰과 푸시타입으로 토큰 조회
-
-#### Method, URL
+### 조회
+#### 토큰과 푸시타입으로 토큰 조회
+- 클라이언트에서 조회 가능하다.
+##### Method, URL
 
 ```
 GET /push/v2.0/appkeys/{appkey}/tokens/{token}?&pushType={pushType}
@@ -174,7 +175,7 @@ Content-Type: application/json;charset=UTF-8
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | pushType | Required, String | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT' |
 
-#### Response Body
+##### Response Body
 
 ```
 {
@@ -197,9 +198,9 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-### 사용자 아이디로 토큰 조회
-
-#### Method, URL
+#### 사용자 아이디로 토큰 조회
+- Secret Key가 필요한 API이며, 서버에서 호출되어야 한다.
+##### Method, URL
 
 ```
 GET /push/v2.0/appkeys/{appkey}/tokens?uid={uid}
@@ -212,7 +213,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | uid | Required, String | 조회할 사용자 아이디 |
 
-#### Response Body
+##### Response Body
 
 ```
 {
@@ -234,12 +235,50 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 	}
 }
 ```
-#### Description
-- Secret Key가 필요한 API이며, 서버에서 호출되어야 한다.
 
-### 토큰 속성 통계 조회 API
+#### 유효하지 않는 토큰 조회
+##### Method, URL, Headers
+```
+GET /push/v2.0/appkeys/{appkey}/invalid-tokens?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageId={messageId}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
 
-#### Method, URL, Headers
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| pageIndex | Optional, Number | 기본 값 0 |
+| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| messageId | Optional, Number | 유효하지 않는 토큰이 발생한 메시지 아이디 |
+
+##### Request Body
+```
+없음
+```
+##### Response Body
+```json
+{
+	"header" : {
+		"resultCode" : 0,
+		"resultMessage" : "SUCCESS",
+		"isSuccessful" : true
+	},
+	"invalidTokens" : [{
+			"messageId" : 0,
+			"uid" : "uid",
+			"token" : "invalid-token",
+			"pushType" : "GCM",
+			"createdDateTime" : "2017-02-08T19:39:04.000+09:00"
+		}
+	]
+}
+```
+
+
+#### 토큰 속성 통계 조회 API
+##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
 Content-Type: application/json;charset=UTF-8
@@ -253,12 +292,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | tokenProperties | Optional, String Array | 'agreement', 'country', 'language', 'timezoneId'<br/>','로 구분, e.g. tokenProperties=country,language |
 
-#### Request Body
+##### Request Body
 ```
 없음
 ```
 
-#### Response Body
+##### Response Body
 ```json
 {
 	"tokenPropertyStatistics" : [{
@@ -309,9 +348,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | languages.XX | String | ISO 639-1, ISO 639-2, iOS(language code + script code), 8 byte |
 | timezoneIds.XX | String | Area/Name. IANA time zone database |
 
-### 토큰 등록 통계 조회
-
-#### Method, URL, Headers
+#### 토큰 등록 통계 조회
+##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/statistics/token-registration?from={from}&to={to}
 Content-Type: application/json;charset=UTF-8
@@ -324,12 +362,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
-#### Request Body
+##### Request Body
 ```
 없음
 ```
 
-#### Response Body
+##### Response Body
 ```json
 {
 	"tokenRegistrationStatistics" : [{
@@ -357,15 +395,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | deletedToken | Number | 삭제된 토큰 수 |
 
 ## 메시지
-
-### 메시지 발송
-#### Method, URL, Headers
+### 발송
+##### Method, URL, Headers
 ```
 POST /push/v2.0/appkeys/{appkey}/messages
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
-#### Request Body
+##### Request Body
 ```json
 {
     "target" : {
@@ -386,7 +423,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
-#### Response Body
+##### Response Body
 ```json
 {
     "message" : {
@@ -418,7 +455,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | timeToLiveMinute | Optional, Number | 단위는 분이다. 범위는 1에서 60까지다. 기본 값은 10 이다. |
 | provisionedResourceId | Optional, String | 할당 받은 전용 리소스(provisioned Resource) 아이디다. 사용 문의 support@cloud.toast.com |
 
-#### Description
+##### Description
 - "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있다.
 만약, 정의하지 않으면 모든 푸시 타입, GCM, APNS, APNS_SANDBOX, TENCENT로 발송한다.
 - "target.countries" 필드가 "['KR', 'JP']"면 토큰 국가 코드가 "KR" 또는 "JP"인 Token에 발송한다.
@@ -427,7 +464,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 "contact" 필드에 연락처를 입력해야 하며, "removeGuide" 필드에 수신 철회 방법에 대해 입력해야 한다.
 - timeToLive 필드를 설정하면, 설정한 시간 이상 발송이 지연되는 경우 자동으로 실패 처리된다.
 
-### 공통 메시지
+#### 공통 메시지
 "content"에 아래 표대로 메시지를 작성하면, 각 푸시 타입에 맞게 메시지가 생성되어 발송된다.
 
 |Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT|
@@ -455,7 +492,7 @@ Reserved Word는 메시지 생성시 Platform 별로 알맞는 위치에 설정�
 |---|---|---|---|---|---|
 |customKey|	Android, <br/> iOS, <br/> Tencent|	Optional, <br/> Object, <br/> Array, <br/> String, <br/> Number|	data.customKey|	customKey|	custom_content.customKey|
 
-#### "content" Example
+##### "content" Example
 
 ```
 "content.default"는 필수다. 아래 "content.ko", "content.ja"는 토큰의 언어 코드 값이다.
@@ -540,10 +577,9 @@ Request Body
 	}
 }
 ```
-
-### 메시지 목록 조회
-
-#### Method, URL, Headers
+### 조회
+#### 목록 조회
+##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageStatus={messageStatus}
 Content-Type: application/json;charset=UTF-8
@@ -559,11 +595,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | messageStatus | Optional, String | 'READY', 'PROCESSING', 'COMPLETE', 'CANCEL_NO_TARGET', 'CANCEL_INVALID_CERTIFICATE', 'CANCEL_INVALID_MESSAGE', 'CANCEL_UNSUPPORTED_MESSAGE_TYPE', 'CANCEL_UNAUTHORIZED', 'CANCEL_UNKNOWN' |
 
-#### Request Body
+##### Request Body
 ```
 없음
 ```
-#### Response Body
+##### Response Body
 ```json
 {
     "header" : {
@@ -607,7 +643,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | provisionedResourceId | - | 메시지가 발송된 전용 리소스 아이디 |
 | totalCount | - | 필터링된 전체 메시지  수 |
 
-#### Description
+##### Description
 
 - "messageStatus" 필드는 메시지 상태를 나타낸다. 다음과 같은 상태가 있다.
     - READY: 메시지 발송 요청이 등록된 상태다.
@@ -625,9 +661,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     - CANCEL_UNAUTHORIZED: 인증서 인증 과정에서 실패한 상태다. 인증서 상태를 확인해야 한다.
     - CANCEL_UNKNOWN: 내부 오류가 발생한 상태다.
 
-### 메시지 조회
-
-#### Method, URL, Headers
+#### 단건 조회
+##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/messages/{message-id}
 Content-Type: application/json;charset=UTF-8
@@ -639,11 +674,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | messageId | Required, Number | 메시지 아이디 |
 
-#### Request Body
+##### Request Body
 ```
 없음
 ```
-#### Response Body
+##### Response Body
 ```json
 {
     "message" : {
@@ -676,11 +711,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
-### 실패한 메시지 조회
+#### 실패한 메시지 목록 조회
 발송에 실패한 메시지를 조회할 수 있다.
 단, 토큰이 존재하지는 경우(INVALID_TOKEN)는 발송 실패로 판단하지 않는다.
 
-#### Method, URL, Headers
+##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messagErrorCause={messageErrorCause}&from={from}&to={to}
 HEADER
@@ -697,7 +732,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
-#### Description
+##### Description
 - messageErrorType와 messageErrorCause는 다음과 같은 뜻을 의미한다.
     - CLIENT_ERROR: 클라이언트의 잘못된 요청
         - UNSUPPORTED_MESSAGE_TYPE: 지원하지 않는 메시지 타입
@@ -712,12 +747,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         - EXPIRED_TIME_OUT: 발송 지연으로 인한 메시지 유효 시간 만료
         - AGENT_ERROR: Agent 내부 오류로 인한 발송실패
 
-#### Request Body
+##### Request Body
 ```
 없음
 ```
 
-#### Response Body
+##### Response Body
 ```
 {
 	"messageErrors" : [{
@@ -755,11 +790,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | payload | - | 기기에 발송된 실제 메시지 내용 |
 | tokens | - | 발송한 실패한 수신자의 uid와 token |
 
-### 메시지 수신, 확인 통계 조회
+#### 메시지 수신, 확인 통계 조회
 메시지 수신, 확인 수집(Message Delivery Receipt) 기능을 화성화 시키고, v1.4 이상 SDK를 적용하면 발송한 메시지에 대해 수신, 확인 정보를 확인할 수 있다.
 수집된 정보를 통계 API로 조회할 수 있다. 기능은 [CONSOLE] > [Settings] 탭에서 활성화 시킬 수 있다.
 
-#### Method, URL, Headers
+##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/statistics/message-delivery-receipts?from={from}&to={to}&event={event}&messageId={messageId}
 HEADER
@@ -775,12 +810,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | event | Optional, String | 'sent', 'sentFailed', 'received', 'opened' |
 | messageId | Optional, Number | 메시지 아이디 |
 
-#### Request Body
+##### Request Body
 ```
 없음
 ```
 
-#### Response Body
+##### Response Body
 
 ```
 {
@@ -808,53 +843,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | received | Optional, Number | 기기에서 수신한 수 |
 | opened | Optional, Number | 기기에서 사용자가 클릭해 오픈한 수 |
 
-## 유효하지 않는 토큰
-
-### 유효하지 않는 토큰 조회
-#### Method, URL, Headers
-```
-GET /push/v2.0/appkeys/{appkey}/invalid-tokens?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageId={messageId}
-Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| messageId | Optional, Number | 유효하지 않는 토큰이 발생한 메시지 아이디 |
-
-##### Request Body
-```
-없음
-```
-##### Response Body
-```json
-{
-	"header" : {
-		"resultCode" : 0,
-		"resultMessage" : "SUCCESS",
-		"isSuccessful" : true
-	},
-	"invalidTokens" : [{
-			"messageId" : 0,
-			"uid" : "uid",
-			"token" : "invalid-token",
-			"pushType" : "GCM",
-			"createdDateTime" : "2017-02-08T19:39:04.000+09:00"
-		}
-	]
-}
-```
-
 ## 예약 메시지
 
-### 예약 메시지 발송 스케줄 생성
-
-#### Method, URL, Headers
+### 생성
+#### 예약 메시지 발송 스케줄 생성
+##### Method, URL, Headers
 ```
 POST /push/v2.0/appkeys/{appkey}/schedules
 Content-Type: application/json;charset=UTF-8
@@ -865,7 +858,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 
-#### Request Body
+
+##### Request Body
 
 ```json
 {
@@ -891,7 +885,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | times | Required, Time String | 예약 메시지 발송 시분 (hh:mm) |
 | days | Optional, Number Array | 'EVERY_WEEK' (1: 월, 2: 화, 3: 수, 4: 목, 5: 금, 6: 토, 7: 일), <br/>'EVERY_MONTH' (1, 2, ..., 31: 1일, 2일, ..., 31일) |
 
-#### Response Body
+##### Response Body
 ```json
 {
 	"header" : {
@@ -920,8 +914,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | schedules | - | 일시 (ISO 8601, e.g. YYYY-MM-DDThh:mm) |
 
-### 예약 메시지 등록
-#### Method, URL, Headers
+#### 예약 메시지 생성
+##### Method, URL, Headers
 ```
 POST /push/v2.0/appkeys/{appkey}/reservations
 Content-Type: application/json;charset=UTF-8
@@ -932,7 +926,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 
-#### Request Body
+##### Request Body
 ```json
 {
 	"schedules" : [
@@ -963,7 +957,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | schedules | Required, DateTime String Array | 예약 메시지 발송 스케줄 목록 |
 | isLocalTime | Required, Boolean | 현지 시간 발송 여부 |
 
-#### Response Body
+##### Response Body
 
 ```json
 {
@@ -984,10 +978,9 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | reservationId | Number | 예약 메시지 아이디 |
 | reservationIdString | String | 예약 메시지 아이디 문자열 |
 
-
-### 예약 메시지 목록 조회
-
-#### Method, URL, Headers
+### 조회
+#### 목록 조회
+##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/reservations?pageIndex={pageIndex}&pageSize={pageSize}&reservationStatus={reservationsStatus}
 Content-Type: application/json;charset=UTF-8
@@ -1003,12 +996,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | reservationStatus | Optional, String | 'RESERVED', 'COMPLETE' |
 
-#### Request Body
+##### Request Body
 ```
 없음
 ```
 
-#### Response Body
+##### Response Body
 
 ```json
 {
@@ -1075,16 +1068,15 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | schedules.scheduleStatus | - | 'READY', 'SENDING', 'CANCELED', 'DONE' 예약 메시지 발송 스케줄 상태 |
 | totalCount | - | 등록된 전체 예약 메시지 수 |
 
-### 예약 메시지 조회
-
-#### Method, URL, Headers
+#### 단건 조회
+##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/reservations/{reservation-id}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
-#### Request Body
+##### Request Body
 ```
 없음
 ```
@@ -1141,87 +1133,9 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | updatedDateTime | DateTime String | 예약 수정 일시(ISO 8601) |
 
-### 예약 메시지 수정
 
-#### Method, URL, Headers
-```
-POST /push/v2.0/appkeys/{appkey}/reservations/{reservationId}
-Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-
-#### Request Body
-```json
-{
-	"schedules" : [
-		"2016-12-30T10:05",
-		"2016-12-31T12:40"
-	],
-	"target" : {
-		"type" : "UID",
-		"to" : [
-			"uid"
-		]
-	},
-	"content" : {
-		"default" : {
-			"title" : "default title",
-			"body" : "default body"
-		},
-		"ko" : {
-			"title" : "한국어 제목",
-			"body" : "한국어 내용"
-		}
-	},
-	"isLocalTime" : false,
-	"messageType" : "NOTIFICATION"
-}
-```
-
-#### Response Body
-```json
-{
-	"header" : {
-		"resultCode" : 0,
-		"resultMessage" : "SUCCESS",
-		"isSuccessful" : true
-	}
-}
-```
-
-### 예약 메시지 삭제
-
-#### Method, URL, Headers
-```
-DELETE /push/v2.0/appkeys/{appkey}/reservations?reservationIds={reservationId,}
-Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| reservationIds | Required, Number Array | ','로 구분, e.g. reservationIds=1,2 |
-
-#### Request Body
-```
-없음
-```
-
-#### Response Body
-```json
-{
-	"header" : {
-		"resultCode" : 0,
-		"resultMessage" : "SUCCESS",
-		"isSuccessful" : true
-	}
-}
-```
-
-### 발송된 예약 메시지 조회
-
-#### Method, URL, Headers
+#### 발송된 예약 메시지 조회
+##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/reservations/{reservation-id}/messages?pageIndex={pageIndex}&pageSize={pageSize}
 Content-Type: application/json;charset=UTF-8
@@ -1235,12 +1149,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | pageIndex | Optional, Number | 기본 값 0 |
 | pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
 
-#### Request Body
+##### Request Body
 ```
 없음
 ```
 
-#### Response Body
+##### Response Body
 ```
 {
 	"header" : {
@@ -1278,10 +1192,88 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | totalCount | - | 발송된 전체 메시지  수 |
 
 
-### 태그
+### 수정
+#### 예약 메시지 수정
+##### Method, URL, Headers
+```
+POST /push/v2.0/appkeys/{appkey}/reservations/{reservationId}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
 
+##### Request Body
+```json
+{
+	"schedules" : [
+		"2016-12-30T10:05",
+		"2016-12-31T12:40"
+	],
+	"target" : {
+		"type" : "UID",
+		"to" : [
+			"uid"
+		]
+	},
+	"content" : {
+		"default" : {
+			"title" : "default title",
+			"body" : "default body"
+		},
+		"ko" : {
+			"title" : "한국어 제목",
+			"body" : "한국어 내용"
+		}
+	},
+	"isLocalTime" : false,
+	"messageType" : "NOTIFICATION"
+}
+```
+
+##### Response Body
+```json
+{
+	"header" : {
+		"resultCode" : 0,
+		"resultMessage" : "SUCCESS",
+		"isSuccessful" : true
+	}
+}
+```
+
+### 삭제
+#### 예약 메시지 삭제
+##### Method, URL, Headers
+```
+DELETE /push/v2.0/appkeys/{appkey}/reservations?reservationIds={reservationId,}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| reservationIds | Required, Number Array | ','로 구분, e.g. reservationIds=1,2 |
+
+##### Request Body
+```
+없음
+```
+
+##### Response Body
+```json
+{
+	"header" : {
+		"resultCode" : 0,
+		"resultMessage" : "SUCCESS",
+		"isSuccessful" : true
+	}
+}
+```
+
+## 태그
+
+### 생성
 #### 태그 생성
-
 ##### Method, URL, Headers
 ```
 POST /push/v2.0/appkeys/{appkey}/tags
@@ -1318,9 +1310,72 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | tagId | Required, String | 생성된 태그 아이디, 길이 8 |
 
-#### 태그 조회
 
-##### 목록 조회
+#### 태그에 Uid 추가 생성
+- 태그에 Uid를 추가(Append)하는 것으로, 기존에 있던 Uid를 추가하면 Uid의 태그는 늘어난다.
+- 한 Uid의 최대 태그 수는 16개다.
+##### Method, URL, Headers
+```
+POST /push/v2.0/appkeys/{appkey}/tags/{tag-id}/uids
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+```json
+{
+    "uids" : [
+         "uid-01",
+         "uid-02"
+    ]
+}
+```
+| Field | Usage | Description |
+| - | - | - |
+| uids | Required, String Array | Uid 배열, 최대 길이 16, Uid 최대 길이 64 |
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    }
+}
+```
+
+#### Uid에 태그 목록 설정
+- Uid의 태그를 교체(Replace)하는 것으로, 기존에 설정된 태그는 삭제되고 새로운 태그로 설정된다.
+##### Method, URL, Headers
+```
+POST /push/v2.0/appkeys/{appkey}/uids
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+```json
+{
+    "uid" :  "uid-01",
+    "tagIds" : [
+         "12345678",
+         "23456789"
+    ]
+}
+```
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    }
+}
+```
+
+### 조회
+#### 태그 목록 조회
 ##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/tags
@@ -1354,7 +1409,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | createdDateTime | Required, Date Time String | 생성 일시 (ISO 8601) |
 | updatedDateTime | Required, Date Time String | 수정 일시 (ISO 8601) |
 
-##### 단건 조회
+#### 태그 단건 조회
 ##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/tags/{tag-id}
@@ -1381,7 +1436,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
-##### Tag의 Uid 목록 조회
+#### 태그의 Uid 목록 조회
 - 태그가 달린 Uid 목록을 조회한다.
 
 ##### Method, URL, Headers
@@ -1437,115 +1492,6 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | contact | -, String | 토큰 |
 | createdDateTime | Required, Date Time String | 생성 일시 (ISO 8601) |
 
-#### 태그 수정
-##### Method, URL, Headers
-```
-PUT /push/v2.0/appkeys/{appkey}/tags/{tag-id}
-Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-##### Request Body
-```json
-{
-    "tagName" :  "30대"
-}
-```
-
-##### Response Body
-```json
-{
-    "header" : {
-        "isSuccessful" :  true,
-        "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
-    }
-}
-```
-
-#### 태그 삭제
-##### Method, URL, Headers
-```
-DELETE /push/v2.0/appkeys/{appkey}/tags/{tag-id}
-Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-##### Request Body
-없음
-
-##### Response Body
-```json
-{
-    "header" : {
-        "isSuccessful" :  true,
-        "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
-    }
-}
-```
-
-#### 태그에 Uid 추가
-- 태그에 Uid를 추가(Append)하는 것으로, 기존에 있던 Uid를 추가하면 Uid의 태그는 늘어난다.
-- 한 Uid의 최대 태그 수는 16개다.
-##### Method, URL, Headers
-```
-POST /push/v2.0/appkeys/{appkey}/tags/{tag-id}/uids
-Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-##### Request Body
-```json
-{
-    "uids" : [
-         "uid-01",
-         "uid-02"
-    ]
-}
-```
-| Field | Usage | Description |
-| - | - | - |
-| uids | Required, String Array | Uid 배열, 최대 길이 16, Uid 최대 길이 64 |
-
-##### Response Body
-```json
-{
-    "header" : {
-        "isSuccessful" :  true,
-        "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
-    }
-}
-```
-
-#### Uid에 태그 설정
-- Uid의 태그를 교체(Replace)하는 것으로, 기존에 설정된 태그는 삭제되고 새로운 태그로 설정된다.
-##### Method, URL, Headers
-```
-POST /push/v2.0/appkeys/{appkey}/uids
-Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-##### Request Body
-```json
-{
-    "uid" :  "uid-01",
-    "tagIds" : [
-         "12345678",
-         "23456789"
-    ]
-}
-```
-
-##### Response Body
-```json
-{
-    "header" : {
-        "isSuccessful" :  true,
-        "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
-    }
-}
-```
-
 #### Uid 조회
 - 태그에 등록된 Uid를 조회한다.
 - 토큰 등록시 Contact(연락처)가 등록된다.
@@ -1587,6 +1533,54 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
+### 수정
+#### 태그 수정
+##### Method, URL, Headers
+```
+PUT /push/v2.0/appkeys/{appkey}/tags/{tag-id}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+```json
+{
+    "tagName" :  "30대"
+}
+```
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    }
+}
+```
+
+### 삭제
+#### 태그 삭제
+##### Method, URL, Headers
+```
+DELETE /push/v2.0/appkeys/{appkey}/tags/{tag-id}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+##### Request Body
+없음
+
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    }
+}
+```
+
 #### Uid 삭제
 - Uid 삭제시 Contact, Token도 같이 삭제된다.
 ##### Method, URL, Headers
@@ -1609,7 +1603,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
-#### Tag에 Uid 삭제
+#### 태그의 Uid 삭제
 - Tag와 Uid 관계만 삭제한다.
 - Contact, Token이 삭제되진 않는다.
 ##### Method, URL, Headers
