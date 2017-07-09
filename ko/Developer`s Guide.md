@@ -87,7 +87,9 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | false | 40101 | Client Error. Access is not allowed. |
 | false | 40102 | Client Error. Unavailable key. |
 | false | 40401 | Client Error. Not found. |
-| false | 50001 ~ 50501 | Internal Error. Please report this. 'http://cloud.toast.com/support/qaa'. |
+| false | 50001 ~ 50501 | Internal Error. Please report this. 'http://cloud.toast.com/support/faq'. |
+| false | 400 | Client Error. 태그 API에서 발생한 클라이언트 오류다  |
+| false | 500 | Internal Error. 태그 API에서 발생한 내부 오류다 |
 
 ## 토큰
 ### 생성
@@ -1383,7 +1385,9 @@ Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 ##### Request Body
+```
 없음
+```
 
 ##### Response Body
 ```json
@@ -1417,7 +1421,9 @@ Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 ##### Request Body
+```
 없음
+```
 
 ##### Response Body
 ```json
@@ -1452,7 +1458,9 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | limit | Optional, Number | 조회할 Uid 수 |
 
 ##### Request Body
+```
 없음
+```
 
 ##### Response Body
 ```json
@@ -1502,7 +1510,9 @@ Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 ##### Request Body
+```
 없음
+```
 
 ##### Response Body
 ```json
@@ -1568,7 +1578,9 @@ Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 ##### Request Body
+```
 없음
+```
 
 ##### Response Body
 ```json
@@ -1613,7 +1625,9 @@ Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 ##### Request Body
+```
 없음
+```
 
 ##### Response Body
 ```json
