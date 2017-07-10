@@ -262,8 +262,8 @@ options는 플랫폼에따라 Dictionary 또는 Map, 또는 그에 준하는 Key
 |KEY_AGREE_NOTIFICATION <br/> (isNotificationAgreement)|	boolean|	알림 푸시 메시지 수신 여부|	iOS, Android|
 |KEY_AGREE_AD <br/> (isAdAgreement)|	boolean|	광고 푸시 메시지 알림 수신 여부|	iOS, Android|
 |KEY_AGREE_NIGHT_AD <br/> (isNightAdAgreement)|	boolean|	야간 광고 푸시 메시지 알림 수신 여부|	iOS, Android|
-|KEY_COUNTRY(country)|	string|	국가 코드. 형식 제약은 없다. <br/> 하지만, ISO 3166 사용을 권장한다.|	iOS, Android|
-|KEY_LANGUAGE(language)|	string|	언어 코드. 형식 제약은 없다. <br/> 하지만, ISO 639 사용을 권장한다.|	iOS, Android|
+|KEY_COUNTRY(country)|	string|	국가 코드. ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 byte 제한|	iOS, Android|
+|KEY_LANGUAGE(language)|	string|  언어 코드. ISO 639-1, ISO 639-2, iOS(language code + script code), 8 byte 제한|	iOS, Android|
 |KEY_TIMEOUT(timeout)|	double|	토큰 등록 또는 조회시 사용되는 시간이다. 단위는 초다.|	iOS, Android|
 |KEY_ACTIVITY(activity)|	object|	android.app.Activity|	Android|
 |KEY_SENDER_ID(senderId)|	string|	GCM을 사용하기 위해 필요하다. <br/> [[Google Developer Console](https://console.developers.google.com/project)]에서 확인할 수 있다.|	Android(GCM)|
@@ -597,6 +597,7 @@ public class YourGcmListener extends PushSdk.GcmListener {
 <br/>
 
 * *문서 수정 내역*
+    * *(2017.07.20) 국가 코드, 언어 코드에 대한 제약 추가*
     * *(2017.05.25) 수신 및 오픈 API 수정에 따른 가이드 수정*
     * *(2017.04.20) 수신 및 오픈 여부 적용 가이드 신규 작성*
     * *(2017.04.20) 텐센트 SDK 버전 업데이트 및 가이드 수정(2.47 -> 3.0)*
