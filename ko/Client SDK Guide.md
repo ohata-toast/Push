@@ -262,8 +262,8 @@ options는 플랫폼에따라 Dictionary 또는 Map, 또는 그에 준하는 Key
 |KEY_AGREE_NOTIFICATION <br/> (isNotificationAgreement)|	boolean|	알림 푸시 메시지 수신 여부|	iOS, Android|
 |KEY_AGREE_AD <br/> (isAdAgreement)|	boolean|	광고 푸시 메시지 알림 수신 여부|	iOS, Android|
 |KEY_AGREE_NIGHT_AD <br/> (isNightAdAgreement)|	boolean|	야간 광고 푸시 메시지 알림 수신 여부|	iOS, Android|
-|KEY_COUNTRY(country)|	string|	국가 코드. ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 byte 제한|	iOS, Android|
-|KEY_LANGUAGE(language)|	string|  언어 코드. ISO 639-1, ISO 639-2, iOS(language code + script code), 8 byte 제한|	iOS, Android|
+|KEY_COUNTRY(country)|	string|	국가 코드. <br/> ISO 3166-1 alpha-2, ISO 3166-1 alpha-3 <br/> 3 byte 제한|	iOS, Android|
+|KEY_LANGUAGE(language)|	string|  언어 코드. <br/> ISO 639-1, ISO 639-2, iOS(language code + script code) <br/> 8 byte 제한|	iOS, Android|
 |KEY_TIMEOUT(timeout)|	double|	토큰 등록 또는 조회시 사용되는 시간이다. 단위는 초다.|	iOS, Android|
 |KEY_ACTIVITY(activity)|	object|	android.app.Activity|	Android|
 |KEY_SENDER_ID(senderId)|	string|	GCM을 사용하기 위해 필요하다. <br/> [[Google Developer Console](https://console.developers.google.com/project)]에서 확인할 수 있다.|	Android(GCM)|
