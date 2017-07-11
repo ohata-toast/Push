@@ -5,8 +5,8 @@
 * [API] 태그(Tag) API 추가     
     * Uid에 태그를 붙여 관리할 수 있습니다.
     * Uid에 연락처(Contact)을 추가해 관리할 수 있습니다.
-    * 메시지 발송시 태그와 조건을 설정해 메시지를 발송할 수 있습니다.
-        * 예, 메시지 발송시 target.type을 'TARGET', target.to를 '남자, AND, 30대'로 설정하면, '남자'와 '30대' 태그가 붙은 Uid를 대상으로 메시지가 발송됩니다.
+    * 메시지 발송시 태그와 조건을 설정해 메시지를 발송할 수 있습니다.    
+예, 메시지 발송시 target.type을 'TAG', target.to를 '남자, AND, 30대'로 설정하면, '남자'와 '30대' 태그가 붙은 Uid를 대상으로 메시지가 발송됩니다.
     * API로 먼저 공개되며, 8월 정기 점검 후 CONSOLE에서 태그 기능을 사용하실 수 있습니다.      
     <a href="/ko/Notification/Push/ko/Developer%60s%20Guide/#_32" target="_blank">API Reference 바로 가기</a>
 * [API] 실패 처리된 메시지 조회 API 추가
