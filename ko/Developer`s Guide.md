@@ -124,16 +124,16 @@ Content-Type: application/json;charset=UTF-8
 
 |Field|	Usage | Description |
 |---|---|---|
-|token|	Required, String|	토큰, 최대 255 byte|
-|oldToken|	Optional, String|	기존 토큰, 최대 255 bytes |
+|token|	Required, String|	토큰, 최대 255 글자|
+|oldToken|	Optional, String|	기존 토큰, 최대 255 글자 |
 |pushType|	Required, String|	GCN, APNS, APNS_SANDBOX, TENCENT|
 |isNotificationAgreement|	Required, Boolean|	true or false|
 |isAdAgreement|	Required, Boolean|	true or false|
 |isNightAdAgreement| Required, Boolean|	true or false|
 |timezoneId|	Required, String|	Area/Name. IANA time zone database.|
-|country|	Required, String|	ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 byte|
-|language|	Required, String|	ISO 639-1, ISO 639-2, iOS(language code + script code), 8 byte|
-|uid|	Required, String|	사용자 아이디, emoji 허용 안함, 최대 64 bytes|
+|country|	Required, String|	ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 글자|
+|language|	Required, String|	ISO 639-1, ISO 639-2, iOS(language code + script code), 8 글자|
+|uid|	Required, String|	사용자 아이디, emoji 허용 안함, 최대 64 글자|
 
 
 ##### Response Body
@@ -346,8 +346,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | dateTime | String | 데이터가 수집된 일시 |
 | agreements | String | 'ON'(모두 수신), 'NIGHT_AD_OFF'(야간 광고 수신 거부), 'AD_OFF'(광고 수신 거부), 'OFF'(모두 수신 거부) |
-| countries.XX | String | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 byte |
-| languages.XX | String | ISO 639-1, ISO 639-2, iOS(language code + script code), 8 byte |
+| countries.XX | String | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 글자 |
+| languages.XX | String | ISO 639-1, ISO 639-2, iOS(language code + script code), 8 글자 |
 | timezoneIds.XX | String | Area/Name. IANA time zone database |
 
 #### 토큰 등록 통계 조회
@@ -443,21 +443,25 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| target.type | Required, String | 'ALL', 'UID', 수신 타겟 타입 |
-| target.to | Optional, String Array | target.type이 'UID'일 때, 수신자 UID 목록. (최대 10,000 개) |
+| target.type | Required, String | 'ALL', 'UID', 'TAG' 수신 타겟 타입 |
+| target.to | Optional, String Array | target.type이 수신자 UID 목록(최대 10,000 개) 또는 TAG 조건 |
 | target.pushTypes | Optional, String Array | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT' |
-| target.countries | Optional, String Array | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3 (최대 3 byte) |
-| content | Required, Map | 수신자에게 전달될 내용 (최대 8,192 byte) |
+| target.countries | Optional, String Array | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3 (최대 3 글자) |
+| content | Required, Map | 수신자에게 전달될 내용 (최대 8,192 글자) |
 | content.default | Required, Map | '자세한 내용은 아래 공통 메시지 형식' 참고 |
 | content.default.title | Optional, String |  |
 | content.default.body | Optional, String |  |
 | messageType | Required, String | NOTIFICATION, AD |
-| contact | Optional, String | messageType이 AD이면 경우 필수 |
+| contact | Optional, String | messageType이 AD이면 경우 필수, 숫자(0-9)와 하이픈(Hypen, -)만 가능하다. |
 | removeGuide | Optional, String | messageType이 AD이면 경우 필수 |
 | timeToLiveMinute | Optional, Number | 단위는 분이다. 범위는 1에서 60까지다. 기본 값은 10 이다. |
 | provisionedResourceId | Optional, String | 할당 받은 전용 리소스(provisioned Resource) 아이디다. 사용 문의 support@cloud.toast.com |
 
 ##### Description
+- "target.type"에 'UID'로 설정시 "target.to"에 최대 10,000 개까지 UID를 설정할 수 있다.
+- "target.type"에 'TAG'로 설정시 "target.to"에 태그 아이디와 3 개의 조건과 1 개의 괄호('()')를 넣은 조건을 설정할 수 있다.
+    - 예, 남자, 30대 태그가 붙었거나 여자 태그가 붙은 대상에게 메시지를 발송한다면,    
+    "target.to=(,남자_ID,AND,30대_ID,),OR,여자_ID"로 설정할 수 있다.
 - "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있다.
 만약, 정의하지 않으면 모든 푸시 타입, GCM, APNS, APNS_SANDBOX, TENCENT로 발송한다.
 - "target.countries" 필드가 "['KR', 'JP']"면 토큰 국가 코드가 "KR" 또는 "JP"인 Token에 발송한다.
@@ -731,8 +735,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | messageId | Optional, Number | 메시지 아이디 |
 | messageErrorType | Optional, String | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR' |
 | messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'GCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR'  |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| from | Optional, DateTime String | 최근 30일 까지, 기본 값은 최근 7일 전 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지, 기본 값은 현재 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ##### Description
 - messageErrorType와 messageErrorCause는 다음과 같은 뜻을 의미한다.
