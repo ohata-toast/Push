@@ -1,18 +1,26 @@
 ## Notification > Push > Release Notes
 
-### 2017.06.22
+### 2017.07.20
 #### 기능 추가
+* [API] 태그(Tag) API 추가     
+    * Uid에 태그를 붙여 관리할 수 있습니다.
+    * Uid에 연락처(Contact)을 추가해 관리할 수 있습니다.
+    * 메시지 발송시 태그와 조건을 설정해 메시지를 발송할 수 있습니다.    
+예, 메시지 발송시 target.type을 'TAG', target.to를 '남자, AND, 30대'로 설정하면, '남자'와 '30대' 태그가 붙은 Uid를 대상으로 메시지가 발송됩니다.
+    * API로 먼저 공개되며, 8월 정기 점검 후 CONSOLE에서 태그 기능을 사용하실 수 있습니다.      
+    <a href="/ja/Notification/Push/ja/Developer%60s%20Guide/#_32" target="_blank">API Reference 바로 가기</a>
 * [API] 실패 처리된 메시지 조회 API 추가
     * 메시지 발송시 실패된 메시지를 조회할 수 있는 API가 추가되었습니다.
-    이 API를 이용해 발송이 실패 원인에 대한 내용을 확인할 수 있습니다.
-    <a href="/ja/Notification/Push/ja/Developer%60s%20Guide" target="_blank">v2.0 API Reference 바로 가기</a>
+    이 API를 이용해 발송이 실패 원인에 대한 내용을 확인할 수 있습니다.     
+    <a href="/ja/Notification/Push/ja/Developer%60s%20Guide/#_15" target="_blank">API Reference 바로 가기</a>
 
 #### 버그 수정
+* [API] 토큰 수정시 새로운 토큰이 존재할 때, 기존 토큰은 삭제 안되는 오류 수정
+    * 토큰 등록 API에서 oldToken을 token으로 변경할 때, token이 존재할 경우 oldToken이 삭제 안되던 오류를 수정했습니다.
 * [API] 메시지 조회시 Internal Error 응답 오류 수정
     * 메시지 조회시 from, to에 잘 못된 형식의 DateTime(일시)를 입력할 경우 Internal Error로 응답하던 것을 Client Error로 응답하도록 수정했습니다.
 * [API] 예약 메시지 수정시 createdDateTime이 잘못 설정되는 오류 수정
-    * 예약 메시지 수정시 updatedDateTime(수정 일시)뿐만 아니라 createdDateTime(생성 일시)까지 업데이트되는 오류를 수정했습니다.
-
+    * 예약 메시지 수정시 updatedDateTime(수정 일시)뿐만 아니라 createdDateTime(생성 일시)까지 updatedDateTime 값으로 업데이트되는 오류를 수정했습니다.
 
 ### 2017.05.25
 #### 기능 추가
