@@ -4,7 +4,7 @@
 #### 버그 수정
 * [SDK] v1.4.2 릴리즈
     * [Android,iOS] 토큰 등록시 잘못된 요청으로 인해 토큰이 삭제될 수 있는 로직에 대한 방어 로직이 추가되었습니다.
-    * [Android] PushAnaytics의 초기화 여부를 확인하는 `PushAnalytics.isInitialize` 메소드가 추가되었습니다.
+    * [Android] PushAnaytics의 초기화 여부를 확인하는 **PushAnalytics.isInitialize** 메소드가 추가되었습니다.
 
 ### 2017.07.20
 #### 기능 추가
