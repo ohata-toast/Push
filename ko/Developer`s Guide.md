@@ -190,7 +190,10 @@ Content-Type: application/json;charset=UTF-8
 		"country": "KR",
 		"language": "ko",
 		"uid" : "User ID",
-		"token" : "Token"
+		"token" : "Token",
+		"updateDateTime": "2017-08-12T01:04:18.000+09:00",
+		"adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+		"nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00"
 	},
 	"header" : {
 		"isSuccessful" : true,
@@ -199,6 +202,12 @@ Content-Type: application/json;charset=UTF-8
 	}
 }
 ```
+
+| Field | Usage | Description |
+| - | - | - |
+| updateDateTime | -, DateTime String | 토큰 업데이트 일시 |
+| adAgreementDateTime | -, DateTime String | 홍보성 푸시 메시지 수신 동의 일시 |
+| nightAdAgreementDateTime | -, DateTime String | 야간 홍보성 푸시 메시지 수신 동의 일시 |
 
 #### 사용자 아이디로 토큰 조회
 - Secret Key가 필요한 API이며, 서버에서 호출되어야 한다.
@@ -879,6 +888,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 	"days" : [
 		1,
 		15
+	],
+	"daysOfWeek": [
+		"SUNDAY",
+		"MONDAY"
 	]
 }
 ```
@@ -889,7 +902,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | fromDate | Required, Date String | 예약 메시지 시작 년월일 (YYYY-MM-DD) |
 | toDate | Required, Date String | 예약 메시지 종료 년월일 (YYYY-MM-DD) |
 | times | Required, Time String | 예약 메시지 발송 시분 (hh:mm) |
-| days | Optional, Number Array | 'EVERY_WEEK' (1: 월, 2: 화, 3: 수, 4: 목, 5: 금, 6: 토, 7: 일), <br/>'EVERY_MONTH' (1, 2, ..., 31: 1일, 2일, ..., 31일) |
+| days | Optional, Number Array | type이 'EVERY_MONTH'일 때 설정한다. (1, 2, ..., 31: 1일, 2일, ..., 31일) |
+| daysOfWeek | Optional, Number Array | type이 'EVERY_WEEK'일 때 설정한다. ('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY') |
 
 ##### Response Body
 ```json
