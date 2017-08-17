@@ -3,9 +3,7 @@
 <option selected value="/en/Notification/Push/en/Developer%60s%20Guide">API v2.0</option>
 <option value="/en/Notification/Push/en/Developer%60s%20Guide%20v1.3">API v1.3</option></select>
 
-
 ## API 소개
-
 ### v2.0 API 소개
 
 #### 추가
@@ -209,7 +207,6 @@ Content-Type: application/json;charset=UTF-8
 | updateDateTime | -, DateTime String | 토큰 업데이트 일시 |
 | adAgreementDateTime | -, DateTime String | 홍보성 푸시 메시지 수신 동의 일시 |
 | nightAdAgreementDateTime | -, DateTime String | 야간 홍보성 푸시 메시지 수신 동의 일시 |
-
 
 #### 사용자 아이디로 토큰 조회
 - Secret Key가 필요한 API이며, 서버에서 호출되어야 한다.
@@ -659,8 +656,6 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | sentCount | - | 실제 발송된 토큰 수 |
 | provisionedResourceId | - | 메시지가 발송된 전용 리소스 아이디 |
 | totalCount | - | 필터링된 전체 메시지  수 |
-
-##### Description
 
 - "messageStatus" 필드는 메시지 상태를 나타낸다. 다음과 같은 상태가 있다.
     - READY: 메시지 발송 요청이 등록된 상태다.
