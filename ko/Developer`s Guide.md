@@ -236,7 +236,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"country": "KR",
 		"language": "ko",
 		"uid" : "User ID",
-		"token" : "Token"
+		"token" : "Token",
+        "updateDateTime": "2017-08-12T01:04:18.000+09:00",
+        "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+        "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00"
 	}],
 	"header" : {
 		"isSuccessful" : true,
