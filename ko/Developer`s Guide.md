@@ -4,7 +4,6 @@
 <option value="/ko/Notification/Push/ko/Developer%60s%20Guide%20v1.3">API v1.3</option></select>
 
 ## API 소개
-
 ### v2.0 API 소개
 
 #### 추가
@@ -191,9 +190,9 @@ Content-Type: application/json;charset=UTF-8
 		"language": "ko",
 		"uid" : "User ID",
 		"token" : "Token",
-		"updateDateTime": "2017-08-12T01:04:18.000+09:00",
-		"adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
-		"nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00"
+        	"updateDateTime": "2017-08-12T01:04:18.000+09:00",
+        	"adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+        	"nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00"        
 	},
 	"header" : {
 		"isSuccessful" : true,
@@ -237,7 +236,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"country": "KR",
 		"language": "ko",
 		"uid" : "User ID",
-		"token" : "Token"
+		"token" : "Token",
+        	"updateDateTime": "2017-08-12T01:04:18.000+09:00",
+        	"adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+        	"nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00"
 	}],
 	"header" : {
 		"isSuccessful" : true,
@@ -658,8 +660,6 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | provisionedResourceId | - | 메시지가 발송된 전용 리소스 아이디 |
 | totalCount | - | 필터링된 전체 메시지  수 |
 
-##### Description
-
 - "messageStatus" 필드는 메시지 상태를 나타낸다. 다음과 같은 상태가 있다.
     - READY: 메시지 발송 요청이 등록된 상태다.
     - PROCESSING: 메시지 생성이 끝나고, 대기 또는 발송 중이다.
@@ -888,11 +888,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 	"days" : [
 		1,
 		15
-	],
-	"daysOfWeek": [
-		"SUNDAY",
-		"MONDAY"
-	]
+    	],
+ 	"daysOfWeek": [
+ 		"SUNDAY",
+ 		"MONDAY"
+  	]
 }
 ```
 
@@ -903,7 +903,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | toDate | Required, Date String | 예약 메시지 종료 년월일 (YYYY-MM-DD) |
 | times | Required, Time String | 예약 메시지 발송 시분 (hh:mm) |
 | days | Optional, Number Array | type이 'EVERY_MONTH'일 때 설정한다. (1, 2, ..., 31: 1일, 2일, ..., 31일) |
-| daysOfWeek | Optional, Number Array | type이 'EVERY_WEEK'일 때 설정한다. ('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY') |
+| daysOfWeek | Optional, String Array | type이 'EVERY_WEEK'일 때 설정한다. ('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY') |
 
 ##### Response Body
 ```json
@@ -1659,6 +1659,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
 * *문서 수정 내역*
+    * *(2017.08.24) v2.0 Token, Reservation API 설명 오류 수정*
     * *(2017.07.20) v2.0 Tag API Reference 추가*
     * *(2017.07.20) 실패한 메시지 조회 API 추가*
     * *(2017.04.25) v2.0 API Reference 추가*
