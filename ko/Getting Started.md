@@ -169,22 +169,20 @@
 - 토스트 클라우드로 돌아와 [CONSOLE] > [Notification] > [Push] > [Certificates] 탭 까지 이동한다.
 - 확인한 [Tencent Credential]에 ACCESS ID, SECRET KEY를 입력한다.
 
-### 채널 관리
-
-[CONSOLE] > [Notification] > [Push] > [Channels] 탭 클릭, [ADD], [EDIT], [DELETE]로 채널을 관리할 수 있다.
-
 ### 즉시 전송
 
-[CONSOLE] > [Notification] > [Push] > [Messages] 탭 > [Send] 버튼을 클릭, 푸시 메시지를 즉시 전송할 수 있다.
+[CONSOLE] > [Notification] > [Push] > [Messages] 탭 > [ADD] 버튼을 클릭, 푸시 메시지를 즉시 전송할 수 있다.
 
 즉시 전송 폼은 다음과 같이 구성되어 있다.
 
 |이름|	내용|
 |---|---|
 |Target| 푸시 메시지를 수신 설정할 수 있다. |
-|Target > To | 채널 또는 UID를 입력할 수 있다. Target 우측 [channel/uid] 버튼을 클릭해서 채널, UID로 전환할 수 있다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
-|Target > Type|ALL, CAHNNEL, UID 중에서 하나를 선택할 수 있다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
-|Target > Channels, UIDs|쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
+|Target > Type| ALL, UID, TAG 중에서 하나를 선택할 수 있다. |
+|Target > To | UID를 입력할 수 있다. Target > Type에서 UID를 선택해 UID로 전환할 수 있다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
+|Target > UIDs | 쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
+|Target > Tags | Select 버튼을 클릭해 Tag를 선택할 수 있다. |
+|Target > Selected Tags | 선택된 Tag가 표시된다. 다시 클릭해 선택에서 제외할 수 있다. |
 |Target > Countries|국가 코드를 입력할 수 있다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
 |Target > Push Types|GCM, APNS, APNS Sandbox, Tencent 복수로 선택할 수 있다.|
 |Option > Time To Live|메시지 발송 유효 시간이다. 설정한 시간동안 발송이 지연되는 경우, 자동으로 실패 처리된다. 단위는 분이다. 0이면 발송 지연에 의해 실패 처리되지 않는다.|
@@ -218,4 +216,5 @@
 ```
 
 * *문서 수정 내역*
+    * *(2017.09.21) 즉시 전송 설명 수정*
     * *(2017.07.20) 개인정보 수탁사 고지 안내 추가*
