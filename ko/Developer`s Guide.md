@@ -236,7 +236,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"country": "KR",
 		"language": "ko",
 		"uid" : "User ID",
-		"token" : "Token"
+		"token" : "Token",
+        "updateDateTime": "2017-08-12T01:04:18.000+09:00",
+        "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+        "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00"
 	}],
 	"header" : {
 		"isSuccessful" : true,
@@ -900,7 +903,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | toDate | Required, Date String | 예약 메시지 종료 년월일 (YYYY-MM-DD) |
 | times | Required, Time String | 예약 메시지 발송 시분 (hh:mm) |
 | days | Optional, Number Array | type이 'EVERY_MONTH'일 때 설정한다. (1, 2, ..., 31: 1일, 2일, ..., 31일) |
-| daysOfWeek | Optional, Number Array | type이 'EVERY_WEEK'일 때 설정한다. ('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY') |
+| daysOfWeek | Optional, String Array | type이 'EVERY_WEEK'일 때 설정한다. ('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY') |
 
 ##### Response Body
 ```json
