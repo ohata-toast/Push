@@ -71,20 +71,6 @@
 
 ## CONSOLE 가이드
 
-### 토큰 관리
-
-#### 등록
-
-토큰 등록 API를 통해서 토큰을 등록할 수 있다.
-
-#### 수정
-
-토큰이 새로 발급되었다면, 메시지 전송시 자동으로 최신 토큰으로 수정된다. 또는 토큰 등록 API를 통해서 수정할 수 있다.
-
-#### 삭제
-
-메시지 전송시 사용할 수 없는 토큰이 포함되어 있으면 자동으로 삭제된다. 삭제된 토큰들은 피드백 API를 통해서 얻을 수 있다.
-
 ### 인증서 관리
 
 #### FCM API Key 생성, 가져오기
@@ -169,22 +155,20 @@
 - 토스트 클라우드로 돌아와 [CONSOLE] > [Notification] > [Push] > [Certificates] 탭 까지 이동한다.
 - 확인한 [Tencent Credential]에 ACCESS ID, SECRET KEY를 입력한다.
 
-### 채널 관리
-
-[CONSOLE] > [Notification] > [Push] > [Channels] 탭 클릭, [ADD], [EDIT], [DELETE]로 채널을 관리할 수 있다.
-
 ### 즉시 전송
 
-[CONSOLE] > [Notification] > [Push] > [Messages] 탭 > [Send] 버튼을 클릭, 푸시 메시지를 즉시 전송할 수 있다.
+[CONSOLE] > [Notification] > [Push] > [Messages] 탭 > [ADD] 버튼을 클릭, 푸시 메시지를 즉시 전송할 수 있다.
 
 즉시 전송 폼은 다음과 같이 구성되어 있다.
 
 |이름|	내용|
 |---|---|
 |Target| 푸시 메시지를 수신 설정할 수 있다. |
-|Target > To | 채널 또는 UID를 입력할 수 있다. Target 우측 [channel/uid] 버튼을 클릭해서 채널, UID로 전환할 수 있다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
-|Target > Type|ALL, CAHNNEL, UID 중에서 하나를 선택할 수 있다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
-|Target > Channels, UIDs|쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
+|Target > Type| ALL, UID, TAG 중에서 하나를 선택할 수 있다. |
+|Target > To | UID를 입력할 수 있다. Target > Type에서 UID를 선택해 UID로 전환할 수 있다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
+|Target > UIDs | 쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
+|Target > Tags | Select 버튼을 클릭해 Tag를 선택할 수 있다. |
+|Target > Selected Tags | 선택된 Tag가 표시된다. 다시 클릭해 선택에서 제외할 수 있다. |
 |Target > Countries|국가 코드를 입력할 수 있다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있다.|
 |Target > Push Types|GCM, APNS, APNS Sandbox, Tencent 복수로 선택할 수 있다.|
 |Option > Time To Live|메시지 발송 유효 시간이다. 설정한 시간동안 발송이 지연되는 경우, 자동으로 실패 처리된다. 단위는 분이다. 0이면 발송 지연에 의해 실패 처리되지 않는다.|
@@ -194,7 +178,7 @@
 
 ### 예약 전송
 
-[CONSOLE] > [Notification] > [Push] > [Reservations] 탭 클릭, [ADD], [EDIT], [DELETE] 버튼을 통해 예약 전송을 관리할 수 있다.
+[CONSOLE] > [Notification] > [Push] > [Reservation] 탭 클릭, [ADD], [EDIT], [DELETE] 버튼을 통해 예약 전송을 관리할 수 있다.
 
 예약 전송 폼은 다음과 같이 구성되어 있다.
 
@@ -207,3 +191,48 @@
 |Start Date|메시지를 전송할 시작 날짜를 입력한다. 달력을 이용해 날짜를 선택할 수 있다. 형식은 'YYYY-MM-DD' 이다.|
 |End Date|메시지를 전송하는 마지막 날짜를 입력한다. 달력을 이용해 날짜를 선택할 수 있다. 형식은 'YYYY-MM-DD' 이다.|
 |Local time|true로 설정하면 현지 시간 기준으로 메시지를 전송한다.|
+
+### 토큰 관리
+
+[CONSOLE] > [Notification] > [Push] > [Token] 탭 클릭, [ADD], [DELETE] 버튼을 통해 토큰을 추가 삭제할 수 있다.
+
+#### 토큰 검색
+
+- Search Type을 'TOKEN'으로 선택하고, 적절한 푸시 타입을 선택하고 토큰을 검색할 수 있다.
+
+#### UID 검색
+
+- Search Type을 'UID'로 선택하고, UID를 검색할 수 있다.
+- 일부만 일치되더라도 검색 결과에 포함된다.
+
+### 태그 관리
+
+[CONSOLE] > [Notification] > [Push] > [Tag] 탭 클릭, [ADD], [EDIT], [DELETE] 버튼을 통해 태그를 관리할 수 있다.
+
+#### 태그가 붙은 UID 관리
+- 태그를 클릭하면, 태그가 붙은 UID 목록을 확인할 수 있다.
+- [ADD], [DELETE] 버튼을 통해 UID를 추가, 삭제할 수 있다.
+- UID 추가시 한 번에 1,000개까지 가능하다.
+
+### 메시지 수신 및 확인 데이터 수집
+
+[CONSOLE] > [Notification] > [Push] > [Setting] 탭 클릭, 메시지 수신 및 확인 데이터 수집(Message Delivery Receipt) 기능을 활성화 시킬 수 있다.
+활성화된 기능 동작을 위해 v1.4 이상 SDK가 적용되어야 한다.
+수집된 데이터는 [Statistics] 탭에서 확인할 수 있다.
+
+#### 통계 조회
+- 수집된 데이터는 [Statistics] 탭에서 확인할 수 있다.
+- 최근 30일 내 수집된 데이터를 조회할 수 있으며, 기간과 시간 단위를 설정할 수 있다.
+
+## 개인정보 수탁사 고지 안내
+
+'고객'이 TOAST Cloud > Push 상품 이용 시, '고객' - '당사' 간 개인정보 처리에 관한 업무 위수탁 관계가 발생하는 바 정보통신망법 및 개인정보보호법에 따라 위탁자인 '고객'은 개인정보처리방침을 통해 '당사'에 개인정보를 위탁한 현황(수탁자 및 업무의내용)을 공개하여야 합니다. 이에, '당사'에서는 '고객'이 TOAST Cloud의 Push 상품을 이용함에 있어 관련 법령을 준수하고, 위탁현황 미공개로 인하여 과태료 등의 불이익을 받지 않도록 아래와 같이 가이드 할 수 있습니다.
+
+[개인정보 수탁사 고지 안내] Push 상품 이용 시 고객사에서 운영하시는'개인정보처리방침' > 위탁 현황에 다음의 내용을 표기해주세요.
+```
+수탁사 : 엔에이치엔엔터테인먼트 업무의 내용 : 푸시 메시지 발송 대행
+```
+
+* *문서 수정 내역*
+    * *(2017.09.21) 즉시 전송 설명 수정*
+    * *(2017.07.20) 개인정보 수탁사 고지 안내 추가*
