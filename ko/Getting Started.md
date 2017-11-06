@@ -214,7 +214,7 @@
 - [ADD], [DELETE] 버튼을 통해 UID를 추가, 삭제할 수 있다.
 - UID 추가시 한 번에 1,000개까지 가능하다.
 
-### 메시지 수신 및 확인 데이터 수집
+### 메시지 수신/확인 데이터 수집
 
 [CONSOLE] > [Notification] > [Push] > [Setting] 탭 클릭, 메시지 수신 및 확인 데이터 수집(Message Delivery Receipt) 기능을 활성화 시킬 수 있다.
 활성화된 기능 동작을 위해 v1.4 이상 SDK가 적용되어야 한다.
@@ -223,6 +223,75 @@
 #### 통계 조회
 - 수집된 데이터는 [Statistics] 탭에서 확인할 수 있다.
 - 최근 30일 내 수집된 데이터를 조회할 수 있으며, 기간과 시간 단위를 설정할 수 있다.
+
+### 메시지 발송 내역 저장
+- 메시지 발송 내역을 지정한 Log & Crash Search에 전송하는 기능이다.
+- [CONSOLE] > [Notification] > [Push] > [Setting] 탭 클릭, 로깅(Logging) 기능을 활설화 시킬 수 있다.
+- Appkey에는 사용하는 Log & Crash Search의 Appkey를 입력한다.
+- Log Source는 내역 저장시 같이 남길 값을 입력한다. 다른 로그와 구분하는 값이다.
+- Log Level은 발송 내역중 특정 내역만 남길 수 있도록 한다.
+     - ALL: 발송 성공, 실패 등 모든 내역을 남긴다.
+     - INFO: 만료된 토큰에 대한 발송, 발송 실패에 대한 내역만 남긴다. 발송 성공은 남기지 않는다.
+     - ERROR: 발송 실패에 대한 내역만 남긴다.
+- 연동 후 메시지 발송 내역은 [CONSOLE] > [Analytics] > [Log & Crash Search] > [Log Search] 메뉴에서 확인할 수 있다.
+- 전송되는 메시지 발송 내역은 Log & Crash Search의 과금 정책을 따른다.
+     - https://cloud.toast.com/pricing/analytics
+
+#### 발송 내역 로그 형식
+##### Body
+```
+{
+	"tokens" : [{
+			"uid" : "User Id",
+			"token" : "Device Token",
+            "newToken": "New Deivce Token",
+            "message": "Result Message"
+		}
+	],
+	"payload" : {
+		"priority" : "high",
+		"data" : {
+			"messageDeliveryReceipt" : true,
+			"title" : "타이틀",
+			"body" : "내용",
+			"messageDeliveryReceiptData" : {
+				"messageId" : 963854842757578,
+				"sentDateTime" : "2017-11-06T10:41:55.619+09:00"
+			}
+		},
+		"registration_ids" : ["토큰"]
+	}
+}
+```
+- tokens: 발송된 토큰 정보
+    - uid: 사용자 아이디
+    - token: 토큰
+    - newToken: 새로 발급된 토큰(새로운 토큰이 있을 때만 표시)
+    - message: 결과 메시지(비정상 응답일 때만 표시)
+- payload: 실제 GCM이나, APNS, TENCENT로 발송된 메시지 내용(푸시 타입에 따라 내용이 다름)
+
+##### Fields
+- Appkey: 메시지를 발송한 푸시 appkey
+- messageId: 메시지 아이디
+- pushType: 푸시 타입(GCM, APNS, APNS_SANDBOX, TENCENT)
+- sentResult: 발송 결과(SENT, INVALID_TOKEN, ERROR)
+- messageErrorType: 발송 실패 타입
+    - CLIENT_ERROR: 클라이언트 오류로 잘 못된 발송 요청으로 발송 실패
+    - EXTERNAL_ERROR: 외부 오류로, 발송시 Google이나 Apple, Tencent 서버에서 비정상 응답으로 발송 실패
+    - INTERNAL_ERROR: 내부 오류로 발송 실패
+- messageErrorCause: 발송 실패 원인
+    - SKIP: 잘 못된 토큰이나 인증서
+	- NO_TOKEN: 발송 대상이 없음
+	- INVALID_TOKEN: 잘 못된 토큰으로 발송 요청
+    - INVALID_MESSAGE: 잘 못된 메시지로 발송 요청
+    - INVALID_CERTIFICATE: 인증서 만료
+    - UNAUTHORIZED: 인증서 만료
+	- EXPIRED_TIME_OUT: 발송 요청한 메시지가 만료
+	- APNS_ERROR: APNS에서 비정상 응답
+	- GCM_ERROR: GCM에서 비정상 응답
+	- TENCENT_ERROR: TENCENT에서 비정상 응답
+	- AGENT_ERROR: Google, Apple, Tencent 서버로 통신이 비정상
+    - UNKOWN: 내부에서 알 수 없는 오류 발생
 
 ## 개인정보 수탁사 고지 안내
 
