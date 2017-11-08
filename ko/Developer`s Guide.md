@@ -732,7 +732,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.0/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messagErrorCause={messageErrorCause}&from={from}&to={to}
+GET /push/v2.0/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messagErrorCause={messageErrorCause}&from={from}&to={to}&limit={limit}
 HEADER
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
@@ -746,6 +746,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'GCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR'  |
 | from | Optional, DateTime String | 최근 30일 까지, 기본 값은 최근 7일 전 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지, 기본 값은 현재 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| limit | Optional, Number | 한 번에 조회할 목록 크기, 기본 값과 최대 값은 1,000 |
 
 ##### Description
 - messageErrorType와 messageErrorCause는 다음과 같은 뜻을 의미한다.
@@ -761,6 +762,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     - INTERNAL_ERROR: 푸시 내부에서 발생한 오류
         - EXPIRED_TIME_OUT: 발송 지연으로 인한 메시지 유효 시간 만료
         - AGENT_ERROR: Agent 내부 오류로 인한 발송실패
+- Response Body에서 header.resultCode가 40010인 경우, 조회 기간(from, to)을 줄여서 조회해야 한다.
 
 ##### Request Body
 ```
@@ -794,6 +796,18 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"isSuccessful" : true,
 		"resultCode" : 0,
 		"resultMessage" : "Success."
+	}
+}
+```
+```
+{
+    "messageErrors" : [{
+        ...
+    }],
+	"header" : {
+		"resultCode" :  40010,
+		"resultMessage" :  "Client Error. It's too many. Please, change 'from' and 'to' shortly. totalCount<10>",
+		"isSuccessful" :  false
 	}
 }
 ```
