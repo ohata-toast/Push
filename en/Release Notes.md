@@ -1,6 +1,6 @@
 ## Notification > Push > Release Notes
 
-### 2017-11-23
+### 2017.11.23
 #### 기능 추가
 * [CONSOLE] Logging 기능 추가
     * 메시지 발송 내역을 Log & Crash Search에 저장할 수 있는 기능을 추가했습니다.
