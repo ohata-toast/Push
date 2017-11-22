@@ -1,5 +1,29 @@
 ## Notification > Push > Release Notes
 
+### 2017-11-23
+#### 기능 추가
+* [CONSOLE] Logging 기능 추가
+    * 메시지 발송 내역을 Log & Crash Search에 저장할 수 있는 기능을 추가했습니다.
+    사용하고 있는 Log & Crash Search의 앱키(Appkey)를 Setting 탭 Logging에 등록해 기능을 활성화 시킬 수 있습니다.
+    * 저장된 메시지 발송 내역은 Log & Crash Search 페이지에서 확인할 수 있습니다.
+    * <a href="/zh/Notification/Push/zh/Getting Started/#_20" target="_blank">메시지 발송 내역 저장 설명 바로 가기</a>
+
+#### 버그 수정
+* [CONSOLE] 저해상도에서 팝업이 상품 사용법에 가려지는 오류 수정
+    * 일부 저해상도 화면에서 팝이 노출시 상품 사용법에 가려지는 오류를 수정했습니다.
+* [MAIL] 인증서 만료 안내 메일 발송시 잘 못된 앱키가 표시되는 오류
+    * 푸시 상품 사용 종료 후 다시 사용한 경우, 인증서 만료 안내 메일 발송시 예전 앱키(Appkey)로 표시되는 오류를 수정했습니다.
+* [CONSOLE] Reservation 탭에서 Edit, Delete 버튼 오류 수정
+    * Reservation 탭에서 Edit, Delete 버튼이 클릭할 수 없는 상태에서 클릭되는 오류를 수정했습니다.
+
+##### 기능 개선
+* [API] v2.0 실패한 메지시 조회 API Limit 추가
+    * 기존에는 실패한 메시지 조회시 결과 전체를 응답했습니다.
+    결과 크기가 큰경우, Response Timeout이 발생할 수 있어, 한 번에 최대 1,000개 까지 응답하도록 수정했습니다.
+    * 결과가 1,000개 이상일 경우, 비정상 응답합니다. 비정상 응답일 경우, from, to 기간을 더 짧게 조회해야 합니다.
+    * <a href="/zh/Notification/Push/zh/Developer%60s%20Guide/#_15" target="_blank">API Reference 바로 가기</a>
+        * 메시지 > 조회 > 실패한 메시지 목록 조회
+
 ### 2017.09.21
 #### 버그 수정
 * [CONSOLE] Tag 조회시 정렬 기준이 없는 오류 수정
