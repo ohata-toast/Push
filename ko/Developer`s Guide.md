@@ -1673,6 +1673,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
 * *문서 수정 내역*
+    * *(2017.11.23) v2.0 Message Error API 설명 수정*
     * *(2017.08.24) v2.0 Token, Reservation API 설명 오류 수정*
     * *(2017.07.20) v2.0 Tag API Reference 추가*
     * *(2017.07.20) 실패한 메시지 조회 API 추가*
