@@ -1228,7 +1228,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 #### 예약 메시지 수정
 ##### Method, URL, Headers
 ```
-POST /push/v2.0/appkeys/{appkey}/reservations/{reservationId}
+PUT /push/v2.0/appkeys/{appkey}/reservations/{reservationId}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1410,10 +1410,15 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 #### 태그 목록 조회
 ##### Method, URL, Headers
 ```
-GET /push/v2.0/appkeys/{appkey}/tags
+GET /push/v2.0/appkeys/{appkey}/tags?tagName={tagName}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
+
+| Field | Usage | Description |
+| - | - | - |
+| tagName | Optional, String | 태그 이름 |
+
 ##### Request Body
 ```
 없음
