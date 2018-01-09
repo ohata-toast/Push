@@ -1,7 +1,7 @@
 ## Notification > Push > Developer's Guide > v2.0 API Reference
 이전 버전보기: <select onchange="location.href=this.value">
-<option selected value="/ja/Notification/Push/ja/Developer%60s%20Guide">API v2.0</option>
-<option value="/ja/Notification/Push/ja/Developer%60s%20Guide%20v1.3">API v1.3</option></select>
+<option selected value="/ko/Notification/Push/ko/Developer%60s%20Guide">API v2.0</option>
+<option value="/ko/Notification/Push/ko/Developer%60s%20Guide%20v1.3">API v1.3</option></select>
 
 ## API 소개
 ### v2.0 API 소개
@@ -28,13 +28,14 @@
 - v1.3 피드백 API의 URI가 '/push/v1.3/appkey/{appkey}/feedback'에서 '/push/v2.0/appkeys/{appkey}/invalid-tokens'으로 변경되었다.
 
 #### 삭제
-- v2.0 메시지 발송 API로 발송된 메시지는 발송 내역을 남기지 않는다. CONSOLE에서 발송하는 메시지는 내역을 남긴다.    
+- v2.0 메시지 발송 API로 발송된 메시지는 발송 내역을 남기지 않는다. Console에서 발송하는 메시지는 내역을 남긴다.    
 2017년 6월 추가 예정인 'Log&Crash Search' 연동 기능이 추가되면, 사용자의 'Log&Crash Search'에 메시지 발송 내역을 남길 수 있다.
 - v2.0 API에서 채널(Channel)이 삭제되었다. 채널 기능은 토큰의 그룹핑을 담당했던 기능으로, 하나의 토큰은 하나의 채널에만 속할 수 있는 제한이 있었다.    
 2017년 6월 추가 예정인 태그 기능으로 대체될 예정이다. 태그는 하나의 토큰에 여러 개 태그를 추가할 수 있다.
     - 토큰 등록 API, channel 필드 삭제
     - 메시지 발송 API, target.type에서 'CHANNEL' 타입 삭제
     - 채널 API 삭제
+
 ### 기본 정보
 #### Endpoint
 ```
@@ -50,7 +51,7 @@ Header
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
-[CONSOLE] > [Notification] > [Push] > [URL & AppKey] 에서 생성할 수 있다.
+[Console] > [Notification] > [Push] > [URL & AppKey] 에서 생성할 수 있다.
 
 #### Response
 
@@ -148,21 +149,19 @@ Content-Type: application/json;charset=UTF-8
 ```
 ##### Description
 
-- 토큰 등록시 이미 토큰이 등록되어 있다면, 토큰 기준으로 다른 정보들이 업데이트 된다.
-- 만약, 토큰이 변경된다면 oldToken에 기존 토큰을, token에 새로운 토큰을 설정하고 등록하면 새로운 토큰으로 업데이트 된다.
-- 토큰 등록시 Channel을 등록하면, 메시지 발송시 특정 Channel로 발송할 수 있다. 필수는 아니며, 정의하지 않으면 "default"로 등록된다.
-- 토큰은 하나의 Channel에만 속할 수 있다.
-- "isNotificationAgreement" 푸시 메시지 수신 동의 여부, "isAdAgreement" 광고성 푸시 메시지 수신 여부, "isNightAdAgreement" 야간 광고성 푸시 메시지 수신 여부를 나타낸다.
-- 예로, 모든 푸시 메시지 수신을 원할 경우, 필드 3개 모두 true로 설정하면 된다. 푸시 메시지만 수신할 경우, "isNotificationAgreement"만 true로 설정하면 된다.
+- 토큰이 이미 등록되어 있는 경우에 다시 등록하면, 기존 정보를 업데이트 합니다.
+- 만약, 토큰이 변경된다면 oldToken에 기존 토큰을, token에 새로운 토큰을 설정하고 등록하면 새로운 토큰으로 업데이트된다.
+- "isNotificationAgreement"는 푸시 메시지 수신 동의 여부, "isAdAgreement"는 광고성 푸시 메시지 수신 여부, "isNightAdAgreement"는 야간 광고성 푸시 메시지 수신 여부를 나타낸다.
+- 예로, 모든 푸시 메시지 수신을 원할 경우, 필드 3개를 모두 true로 설정하면 된다. 푸시 메시지만 수신할 경우, "isNotificationAgreement"만 true로 설정하면 된다.
 - 수신 동의 여부는 정보통신망법 규정(제50조부터 제50조의 8)을 따른다.  
     - [KISA 가이드 바로 가기](https://spam.kisa.or.kr/spam/sub62.do)    
     - [법령 바로 가기](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
-- 네트워크 상태가 좋지 않거나 여러 이유로 인한 응답 지연이 발생할 수 있다. 모바일 어플리케이션 구동에 영향을 최소화 하기위해 Timeout을 짧게 설정하고, 구동될 때 마다 토큰을 등록하는 것이 좋다.
+- 네트워크 상태가 좋지 않거나 여러 이유로 응답 지연이 발생할 수 있다. 모바일 애플리케이션 구동에 영향을 최소화하기 위해 Timeout을 짧게 설정하고, 구동될 때마다 토큰을 등록하는 것이 좋다.
 - 토큰은 보안적인 이슈, 앱 업데이트, 삭제 등 여러가지 이유로 재발급될 수 있다. 자주 변경되는 것은 아니지만, 수신율을 높이기 위해 구동될 때 마다 최신 토큰을 등록하는 것이 좋다.
 - 앱 삭제 등으로 토큰이 만료되어도 바로 GCM, APNS 서버에 적용되지 않아, 앱 삭제 후 푸시 메시지를 발송했을 때 발송이 성공할 수 있다.
 
 ### 조회
-#### 토큰과 푸시타입으로 토큰 조회
+#### 토큰과 푸시 입으로 토큰 조회
 - 클라이언트에서 조회 가능하다.
 ##### Method, URL
 
@@ -470,7 +469,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Description
 - "target.type"에 'UID'로 설정시 "target.to"에 최대 10,000 개까지 UID를 설정할 수 있다.
-- "target.type"에 'TAG'로 설정시 "target.to"에 태그 아이디와 3 개의 조건과 1 개의 괄호('()')를 넣은 조건을 설정할 수 있다.
+- "target.type"에 'TAG'로 설정시 "target.to"에 태그 아이디와 3개의 조건과 1개의 괄호('()')를 넣은 조건을 설정할 수 있다.
     - 예, 남자, 30대 태그가 붙었거나 여자 태그가 붙은 대상에게 메시지를 발송한다면,    
     "target.to=(,남자_ID,AND,30대_ID,),OR,여자_ID"로 설정할 수 있다.
 - "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있다.
@@ -502,7 +501,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | messageDeliveryReceipt | Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - |
 | messageDeliveryReceiptData | Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - |
 
-Reserved Word는 메시지 생성시 Platform 별로 알맞는 위치에 설정된다. 사용자가 임의로 데이터 타입과 위치등을 변경할 수 없다.
+Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정된다. 사용자가 임의로 데이터 타입과 위치 등을 변경할 수 없다.
 그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어간다.
 
 |Word|	Platform|	Usage|	GCM|	APNS|	TENCENT|
@@ -666,13 +665,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     - COMPLETE: 메시지 발송이 완료된 상태다.
     - CANCEL_NO_TARGET: 메시지 발송 대상이 없어서 취소된 상태다. 다음과 같은 이유로 발송이 취소될 수 있다.  
  등록된 토큰이 없을 때  
- 해당 Channel 또는 Uid가 없을 때  
  광고 푸시 메시지의 경우, 수신 동의한 사용자가 없을 때  
  야간 광고 푸시 메시지(21시 ~ 8시)의 경우, 야간 광고 수신 동의한 사용자가 없을 때  
  기존 등록된 토큰들이 삭제되어 토큰이 없을 때    
-    - CANCEL_INVALID_CERTIFICATE: 인증서가 잘 못되어 취소된 상태다. 인증서 상태를 확인해야 한다.
-    - CANCEL_INVALID_MESSAGE: 메시지 형식이 맞지않아 취소된 상태다.
-    - CANCEL_UNSUPPORTED_MESSAGE_TYPE: 메시지 형식이 맞지않아 취소된 상태다.
+    - CANCEL_INVALID_CERTIFICATE: 인증서가 잘못되어 취소된 상태다. 인증서 상태를 확인해야 한다.
+    - CANCEL_INVALID_MESSAGE: 메시지 형식이 맞지 않아 취소된 상태다.
+    - CANCEL_UNSUPPORTED_MESSAGE_TYPE: 메시지 형식이 맞지 않아 취소된 상태다.
     - CANCEL_UNAUTHORIZED: 인증서 인증 과정에서 실패한 상태다. 인증서 상태를 확인해야 한다.
     - CANCEL_UNKNOWN: 내부 오류가 발생한 상태다.
 
@@ -728,7 +726,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 #### 실패한 메시지 목록 조회
 발송에 실패한 메시지를 조회할 수 있다.
-단, 토큰이 존재하지는 경우(INVALID_TOKEN)는 발송 실패로 판단하지 않는다.
+단, 토큰이 존재하지 않는 경우(INVALID_TOKEN)는 발송 실패로 판단하지 않는다.
 
 ##### Method, URL, Headers
 ```
@@ -753,15 +751,15 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     - CLIENT_ERROR: 클라이언트의 잘못된 요청
         - UNSUPPORTED_MESSAGE_TYPE: 지원하지 않는 메시지 타입
         - INVALID_MESSAGE: 비정상적인 메시지
-        - INVALID_CERTIFICATE: 인증서 만료 또는 인증서 정보가 옳바르지 않음
-        - UNAUTHORIZED: 인증서 만료 또는 인증서 정보가 옳바르지 않음
+        - INVALID_CERTIFICATE: 인증서 만료 또는 인증서 정보가 올바르지 않음
+        - UNAUTHORIZED: 인증서 만료 또는 인증서 정보가 올바르지 않음
     - EXTERNAL_ERROR: APNS, GCM, Tencent 등 푸시와 연결된 외부 서비스 오류
-        - APNS_ERROR: APNS(iOS)로 발송실패
-        - GCM_ERROR: GCM(Google)로 발송실패
-        - TENCENT_ERROR: Tencent로 발송실패
+        - APNS_ERROR: APNS(iOS)로 발송 실패
+        - GCM_ERROR: GCM(Google)로 발송 실패
+        - TENCENT_ERROR: Tencent로 발송 실패
     - INTERNAL_ERROR: 푸시 내부에서 발생한 오류
         - EXPIRED_TIME_OUT: 발송 지연으로 인한 메시지 유효 시간 만료
-        - AGENT_ERROR: Agent 내부 오류로 인한 발송실패
+        - AGENT_ERROR: Agent 내부 오류로 인한 발송 실패
 - Response Body에서 header.resultCode가 40010인 경우, 조회 기간(from, to)을 줄여서 조회해야 한다.
 
 ##### Request Body
@@ -820,8 +818,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | tokens | - | 발송한 실패한 수신자의 uid와 token |
 
 #### 메시지 수신, 확인 통계 조회
-메시지 수신, 확인 수집(Message Delivery Receipt) 기능을 화성화 시키고, v1.4 이상 SDK를 적용하면 발송한 메시지에 대해 수신, 확인 정보를 확인할 수 있다.
-수집된 정보를 통계 API로 조회할 수 있다. 기능은 [CONSOLE] > [Settings] 탭에서 활성화 시킬 수 있다.
+메시지 수신, 확인 수집(Message Delivery Receipt) 기능을 화성화하고, v1.4 이상 SDK를 적용하면 발송한 메시지에 대해 수신, 확인 정보를 확인할 수 있다.
+수집된 정보를 통계 API로 조회할 수 있다. 기능은 [Console] > [Settings] 탭에서 활성화할 수 있다.
 
 ##### Method, URL, Headers
 ```
@@ -1230,7 +1228,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 #### 예약 메시지 수정
 ##### Method, URL, Headers
 ```
-POST /push/v2.0/appkeys/{appkey}/reservations/{reservationId}
+PUT /push/v2.0/appkeys/{appkey}/reservations/{reservationId}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1412,10 +1410,15 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 #### 태그 목록 조회
 ##### Method, URL, Headers
 ```
-GET /push/v2.0/appkeys/{appkey}/tags
+GET /push/v2.0/appkeys/{appkey}/tags?tagName={tagName}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
+
+| Field | Usage | Description |
+| - | - | - |
+| tagName | Optional, String | 태그 이름 |
+
 ##### Request Body
 ```
 없음
@@ -1633,8 +1636,15 @@ DELETE /push/v2.0/appkeys/{appkey}/uids?uids={uid,}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
+
+| Field | Usage | Description |
+| - | - | - |
+| uids | -, Object Array | 삭제할 Uid 목록, 쉼표(,)로 구분한다. 한번에 16개까지 삭제할 수 있다. |
+
 ##### Request Body
+```
 없음
+```
 
 ##### Response Body
 ```json
@@ -1649,7 +1659,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 #### 태그의 Uid 삭제
 - Tag와 Uid 관계만 삭제한다.
-- Contact, Token이 삭제되진 않는다.
+- Contact, Token이 삭제되지는 않는다.
 ##### Method, URL, Headers
 ```
 DELETE /push/v2.0/appkeys/{appkey}/tags/{tagId}/uids?uids={uid,}
