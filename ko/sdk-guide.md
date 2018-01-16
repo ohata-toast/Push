@@ -1,7 +1,7 @@
 ## Notification > Push > SDK v1.4 사용 가이드
 이전 버전보기: <select onchange="location.href=this.value">
-<option value="/ko/Notification/Push/ko/sdk-guide">SDK v1.4</option>
-<option selected value="/ko/Notification/Push/ko/sdk-guide-v1.3>SDK v1.32</option></select>
+<option selected value="/ko/Notification/Push/ko/sdk-guide">SDK v1.4</option>
+<option value="/ko/Notification/Push/ko/sdk-guide-v1.3>SDK v1.32</option></select>
 
 
 TOAST Cloud Push SDK를 적용하면 모바일 애플리케이션과 TOAST Cloud Push를 쉽게 연동할 수 있다.
