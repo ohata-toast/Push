@@ -1,4 +1,4 @@
-## Notification > Push > v1.3 API Guide
+## Notification > Push > API v1.3 Guide
 이전 버전보기: <select onchange="location.href=this.value">
 <option value="/ja/Notification/Push/ja/api-guide">API v2.0</option>
 <option selected value="/ja/Notification/Push/ja/api-guide-v1.3">API v1.3</option></select>
