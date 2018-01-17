@@ -1,7 +1,4 @@
 ## Notification > Push > API v1.3 Guide
-이전 버전보기: <select onchange="location.href=this.value">
-<option value="/en/Notification/Push/en/api-guide">API v2.0</option>
-<option selected value="/en/Notification/Push/en/api-guide-v1.3">API v1.3</option></select>
 
 ### API 테스트
 
