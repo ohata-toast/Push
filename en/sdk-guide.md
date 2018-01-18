@@ -412,6 +412,17 @@ NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.c
                 put(PushSdk.KEY_ACTIVITY, MainActivity.this); // Required.
                 put(PushSdk.KEY_PUSH_TYPE, pushType); // Optional, Default : PUSH_TYPE_GCM
                 put(PushSdk.KEY_TIMEOUT, 30.0); // Optional. Time Unit: Second. Default: 30.
+
+                // Only GCM
+                if (PushSdk.PUSH_TYPE_GCM.equals(YOUR_PUSH_TYPE)) {
+                    options.put(PushSdk.KEY_SENDER_ID, YOUR_SENDER_ID); // Required.
+                }
+
+                // Only TENCENT
+                if (PushSdk.PUSH_TYPE_TENCENT.equals(YOUR_PUSH_TYPE)) {
+                    options.put(PushSdk.KEY_ACCESS_ID, YOUR_ACCESS_ID); // Required.
+                    options.put(PushSdk.KEY_ACCESS_KEY, YOUR_ACCESS_KEY); // Required.
+                }
             }
         };
         PushSdk.query(YOUR_APPKEY, YOUR_UID, new PushSdk.OnQuery() {
@@ -592,6 +603,7 @@ public class YourGcmListener extends PushSdk.GcmListener {
 <br/>
 
 * *문서 수정 내역*
+    * *(2018.01.25) 토큰 조회 설명 수정*
     * *(2017.07.20) 국가 코드, 언어 코드에 대한 제약 추가*
     * *(2017.05.25) 수신 및 오픈 API 수정에 따른 가이드 수정*
     * *(2017.04.20) 수신 및 오픈 여부 적용 가이드 신규 작성*
