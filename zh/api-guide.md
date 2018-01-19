@@ -18,7 +18,7 @@
 - v2.0 메시지 조회 API에서 기간(from, to)과 메시지 상태(messageStatus)로 조회할 수 있게되었다.
 - v2.0 메시지 조회 API에서 등록일시(createdDateTime), 완료일시(completedDateTime) 필드가 추가되었다.
 - v2.0 메시지 수신, 확인 통계 조회 API가 추가되었다.
-- v2.0 유효하지 않는 토큰 API에서 페이징(PageIndex, PageSize), 기간(from, to), 메시지 아이로 조회할 수 있게되었다.
+- v2.0 유효하지 않는 토큰 API에서 페이징(PageIndex, PageSize), 기간(from, to), 메시지 아이디로 조회할 수 있게되었다.
 
 #### 수정
 - v1.3 피드백 API의 URI가 '/push/v1.3/appkey/{appkey}/feedback'에서 '/push/v2.0/appkeys/{appkey}/invalid-tokens'으로 변경되었다.
