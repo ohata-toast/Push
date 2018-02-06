@@ -830,7 +830,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| event | Optional, String | 'sent', 'sentFailed', 'received', 'opened' |
+| event | Optional, String | 'SENT', 'SENT_FAILED', 'RECEIVED', 'OPENED' |
 | messageId | Optional, Number | 메시지 아이디 |
 
 ##### Request Body
