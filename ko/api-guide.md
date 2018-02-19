@@ -122,7 +122,7 @@ Content-Type: application/json;charset=UTF-8
 |---|---|---|
 |token|	Required, String|	토큰, 최대 255 글자|
 |oldToken|	Optional, String|	기존 토큰, 최대 255 글자 |
-|pushType|	Required, String|	GCN, APNS, APNS_SANDBOX, TENCENT|
+|pushType|	Required, String| 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOX_VOIP' |
 |isNotificationAgreement|	Required, Boolean|	true or false|
 |isAdAgreement|	Required, Boolean|	true or false|
 |isNightAdAgreement| Required, Boolean|	true or false|
@@ -169,7 +169,7 @@ Content-Type: application/json;charset=UTF-8
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pushType | Required, String | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT' |
+| pushType | Required, String | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOX_VOIP' |
 
 ##### Response Body
 
@@ -451,7 +451,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | target.type | Required, String | 'ALL', 'UID', 'TAG' 수신 타겟 타입 |
 | target.to | Optional, String Array | target.type이 수신자 UID 목록(최대 10,000 개) 또는 TAG 조건 |
-| target.pushTypes | Optional, String Array | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT' |
+| target.pushTypes | Optional, String Array | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOX_VOIP' |
 | target.countries | Optional, String Array | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3 (최대 3 글자) |
 | content | Required, Map | 수신자에게 전달될 내용 (최대 8,192 글자) |
 | content.default | Required, Map | '자세한 내용은 아래 공통 메시지 형식' 참고 |
@@ -593,7 +593,7 @@ Request Body
 #### 목록 조회
 ##### Method, URL, Headers
 ```
-GET /push/v2.0/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageStatus={messageStatus}
+GET /push/v2.0/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -605,6 +605,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
 | from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| deliveryType | Optional, String | 'INSTANT'(즉시 발송), 'RESERVATION'(예약 발송) |
 | messageStatus | Optional, String | 'READY', 'PROCESSING', 'COMPLETE', 'CANCEL_NO_TARGET', 'CANCEL_INVALID_CERTIFICATE', 'CANCEL_INVALID_MESSAGE', 'CANCEL_UNSUPPORTED_MESSAGE_TYPE', 'CANCEL_UNAUTHORIZED', 'CANCEL_UNKNOWN' |
 
 ##### Request Body
@@ -809,7 +810,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | messageId | - | 실패한 메시지 아이디 |
 | messageIdString | - | 실패한 메시지 아이디 |
-| pushType | - | 'GCM', 'APNS', 'TENCENT' |
+| pushType | - | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOX_VOIP' |
 | payload | - | 기기에 발송된 실제 메시지 내용 |
 | tokens | - | 발송한 실패한 수신자의 uid와 token |
 
@@ -1679,6 +1680,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
 * *문서 수정 내역*
+    * *(2018.02.22) v2.0 Message 조회 API deliveryType 필드 추가*
+    * *(2018.02.22) pushType APNS_VOIP, APNS_SANDBOX_VOIP 추가*
     * *(2017.11.23) v2.0 Message Error API 설명 수정*
     * *(2017.08.24) v2.0 Token, Reservation API 설명 오류 수정*
     * *(2017.07.20) v2.0 Tag API Reference 추가*
