@@ -128,7 +128,7 @@
     * Uid에 연락처(Contact)을 추가해 관리할 수 있습니다.
     * 메시지 발송시 태그와 조건을 설정해 메시지를 발송할 수 있습니다.    
 예, 메시지 발송시 target.type을 'TAG', target.to를 '남자, AND, 30대'로 설정하면, '남자'와 '30대' 태그가 붙은 Uid를 대상으로 메시지가 발송됩니다.
-    * API로 먼저 공개되며, 8월 정기 점검 후 CONSOLE에서 태그 기능을 사용하실 수 있습니다.      
+    * API로 먼저 공개되며, 8월 정기 점검 후 CONSOLE에서 태그 기능을 사용하실 수 있습니다.
     <a href="/ko/Notification/Push/ko/api-guide/#_13" target="_blank">API Reference 바로 가기</a>
 * [API] 실패 처리된 메시지 조회 API 추가
     * 메시지 발송시 실패된 메시지를 조회할 수 있는 API가 추가되었습니다.
@@ -164,7 +164,7 @@
     * 예약 메시지 API가 추가되었습니다.
     * 메시지 수신, 확인 통계 조회 API가 추가되었습니다.
     * v1.3 피드백 API는 v2.0 유효하지 않은 토큰 API로 변경되었습니다.
-    * 응답 메시지를 더 자세하게 출력합니다.    
+    * 응답 메시지를 더 자세하게 출력합니다.
     <a href="/ko/Notification/Push/ko/api-guide" target="_blank">v2.0 API Reference 바로 가기</a>
 * [CONSOLE] Dashboard, Setting 탭 추가
     * 메시지 수신, 확인 통계를 확인할 수 있는 [Dashboar]d 탭이 추가되었습니다.
