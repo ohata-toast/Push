@@ -47,7 +47,7 @@
  APNS(Production) = Production Provisioning Profile  
  APNS_SANDBOX(Development) = Development Provisioning Profile  
 - 더 자세한 설명은 다음 링크를 참고 바란다.  
- [Provisioning and Development](https://developer.apple.com/library/ios/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ProvisioningDevelopment.html)  
+ [APNs Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1)  
  [App Distribution Quick Start](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppStoreDistributionTutorial/Introduction/Introduction.html#//apple_ref/doc/uid/TP40013839)
 
 ##### APNS 메시지 발송 실패 원인

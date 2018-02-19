@@ -1,6 +1,6 @@
 ## Notification > Push > Release Notes
 
-### 2018.01.22
+### 2018.02.22
 #### 버그 수정
 * [API] 예약 메시지 조회시 응답 시간이 길어져 목록을 가져오지 못하는 오류 수정
     * 등록한 예약 메시지가 많을 경우, 응답 시간이 길어져 목록을 가져오지 못하는 오류를 수정했습니다.
@@ -8,12 +8,35 @@
     * 메시지 조회시 목록 수에 필터링 조건이 포함안되어 목록 수가 맞지 않는 오류를 수정했습니다.
 * [API] 메시지 수신/확인 데이터 수집시 UTC 기준 마이너스(-) 시간대의 데이터 수집 안되는 오류 수정
     * UTC 시간 처리시 마이너스(-) 시간대 시간이 정상적으로 처리되지 않아 수집안되는 오류를 수정했습니다.
+* [API] 메시지 수신/확인 통계 조회 API에서 event 필드가 적용 안되던 문제 수정
+    * event 필드에 값을 설정해도 필터링되지 않는 오류를 수정했습니다.
+    event에 설정할 수 있는 값은 다음과 같습니다.
+    'SENT', 'SENT_FAILED', 'RECEIVED', 'OPENED'
 
 #### 기능 개선
+* [Console] 메시지 발송 페이지 'RemoveGuide' 설명 개선
+    * 광고성 메시지 발송시 광고성 푸시 수신 동의 철회 방법 입력란에 예시를 추가했습니다.
+    '예, 메뉴 > 설정 > 알림 설정'
+* [API] 발송 내역이 있는 예약 메시지 삭제 개선
+    * 기존 예약 메시지를 삭제하면, 이미 발송된 내역이 있어도 예약 메시지가 삭제되어 발송 내역 확인에 어려움이 있었습니다.
+    * 발송 내역이 있는 예약 메시지 삭제 시도시 삭제되신 상태를 'CANCEL'로 수정해 관리하도록 개선했습니다.
 * [ETC] 공통 메시지 발송 개선
     * 기존 공통 메시지 발송시 컨텐츠의 언어 코드와 토큰의 언어 코드가 완전히 같아야 해당 언어 코드로 발송이 되었습니다.
     이번에 언어 코드의 유사성을 측정해 가장 유사한 언어 코드로 발송이 되도록 기능이 개선되었습니다.
     예, 컨텐츠의 언어 코드가 'zh'이고 토큰들의 언어코드가 'zh-Hans', 'zh-Hans-CN'이어도 'zh'로 발송됩니다.
+
+#### 기능 추가
+* [API] 메시지 조회 API 조회조건에 deliveryType 추가
+    * deliveryType에 설정할 수 있는 값은 다음과 같습니다.
+     'INSTANT', 'RESERVATION'
+* [API, Console]iOS VoIP 발송 기능 추가
+    * iOS로 VoIP 푸시 메시지를 발송하는 기능을 추가했습니다.
+    * SDK에서는 현재 지원하지 않으며, 추후 지원 예정입니다.
+    * VoIP 발송을 위해서는 다음과 같은 과정이 필요합니다.
+        1. VoIP 인증서 등록 (VoIP 전용 인증서 또는 Universal 인증서 등록 가능)
+        2. VoIP 토큰 등록 및 푸시 메시지 수신 처리 (토큰의 푸시 타입을 APNS_VOIP 또는 APNS_SANDBOX_VOIP로 설정)
+        <a href="https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/OptimizeVoIP.html" target="_blank">Apple iOS Pushkit 가이드 바로가기</a>
+        3. 메시지 발송시 푸시 타입 'APNS_VOIP' 또는 'APNS_SANDBOX_VOIP'를 선택
 
 ### 2017.12.12
 #### 버그 수정
@@ -31,7 +54,7 @@
     * 메시지 발송 내역을 Log & Crash Search에 저장할 수 있는 기능을 추가했습니다.
     사용하고 있는 Log & Crash Search의 앱키(Appkey)를 Setting 탭 Logging에 등록해 기능을 활성화 시킬 수 있습니다.
     * 저장된 메시지 발송 내역은 Log & Crash Search 페이지에서 확인할 수 있습니다.
-    * <a href="/en/Notification/Push/en/console-guide/#_20" target="_blank">메시지 발송 내역 저장 설명 바로 가기</a>
+    * <a href="/en/Notification/Push/en/console-guide/#_9" target="_blank">메시지 발송 내역 저장 설명 바로 가기</a>
 
 #### 버그 수정
 * [CONSOLE] 저해상도에서 팝업이 상품 사용법에 가려지는 오류 수정
@@ -46,7 +69,7 @@
     * 기존에는 실패한 메시지 조회시 결과 전체를 응답했습니다.
     결과 크기가 큰경우, Response Timeout이 발생할 수 있어, 한 번에 최대 1,000개 까지 응답하도록 수정했습니다.
     * 결과가 1,000개 이상일 경우, 비정상 응답합니다. 비정상 응답일 경우, from, to 기간을 더 짧게 조회해야 합니다.
-    * <a href="/en/Notification/Push/en/Developer%60s%20Guide/#_15" target="_blank">API Reference 바로 가기</a>
+    * <a href="/en/Notification/Push/en/api-guide/#_15" target="_blank">API Reference 바로 가기</a>
         * 메시지 > 조회 > 실패한 메시지 목록 조회
 
 ### 2017.09.21
@@ -106,11 +129,11 @@
     * 메시지 발송시 태그와 조건을 설정해 메시지를 발송할 수 있습니다.    
 예, 메시지 발송시 target.type을 'TAG', target.to를 '남자, AND, 30대'로 설정하면, '남자'와 '30대' 태그가 붙은 Uid를 대상으로 메시지가 발송됩니다.
     * API로 먼저 공개되며, 8월 정기 점검 후 CONSOLE에서 태그 기능을 사용하실 수 있습니다.      
-    <a href="/en/Notification/Push/en/Developer%60s%20Guide/#_32" target="_blank">API Reference 바로 가기</a>
+    <a href="/en/Notification/Push/en/api-guide/#_13" target="_blank">API Reference 바로 가기</a>
 * [API] 실패 처리된 메시지 조회 API 추가
     * 메시지 발송시 실패된 메시지를 조회할 수 있는 API가 추가되었습니다.
     이 API를 이용해 발송이 실패 원인에 대한 내용을 확인할 수 있습니다.     
-    <a href="/en/Notification/Push/en/Developer%60s%20Guide/#_15" target="_blank">API Reference 바로 가기</a>
+    <a href="/en/Notification/Push/en/api-guide/#_15" target="_blank">API Reference 바로 가기</a>
 
 #### 버그 수정
 * [API] 토큰 수정시 새로운 토큰이 존재할 때, 기존 토큰은 삭제 안되는 오류 수정
@@ -135,14 +158,14 @@
     * 메시지 발송 후, 기기에 수신, 사용자의 메시지 확인 데이터를 수집해 통계로 조회할 수 있는 기능을 추가되었습니다.
     * [CONSOLE] > [Settings] 탭에서 활성화 시킬 수 있으며, v2.0 API Reference에서 통계 조회 API 설명을 확인할 수 있습니다.
     * 해당 기능은 v1.4이상 SDK가 적용된 곳에서만 사용할 수 있습니다.    
-    <a href="/en/Notification/Push/en/Client%20SDK%20Guide/#_4" target="_blank">SDK 수신 및 오픈 여부 적용 가이드 바로 가기</a>
+    <a href="/en/Notification/Push/en/sdk-guide/#_4" target="_blank">SDK 수신 및 오픈 여부 적용 가이드 바로 가기</a>
 * [API] v2.0 API 추가
     * 토큰 통계 API가 추가되었습니다.
     * 예약 메시지 API가 추가되었습니다.
     * 메시지 수신, 확인 통계 조회 API가 추가되었습니다.
     * v1.3 피드백 API는 v2.0 유효하지 않은 토큰 API로 변경되었습니다.
     * 응답 메시지를 더 자세하게 출력합니다.    
-    <a href="/en/Notification/Push/en/Developer%60s%20Guide" target="_blank">v2.0 API Reference 바로 가기</a>
+    <a href="/en/Notification/Push/en/api-guide" target="_blank">v2.0 API Reference 바로 가기</a>
 * [CONSOLE] Dashboard, Setting 탭 추가
     * 메시지 수신, 확인 통계를 확인할 수 있는 [Dashboar]d 탭이 추가되었습니다.
     * 메시지 수신, 확인 데이터 수집 기능을 설정할 수 있는 [Settings] 탭이 추가되었습니다.
