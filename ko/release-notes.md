@@ -34,9 +34,9 @@
     * SDK에서는 현재 지원하지 않으며, 추후 지원 예정입니다.
     * VoIP 발송을 위해서는 다음과 같은 과정이 필요합니다.
         1. VoIP 인증서 등록 (VoIP 전용 인증서 또는 Universal 인증서 등록 가능)
-        2. VoIP 토큰 등록 및 푸시 메시지 수신 처리 (토큰의 푸시 타입을 APNS_VOIP 또는 APNS_SANDBOX_VOIP로 설정)
+        2. VoIP 토큰 등록 및 푸시 메시지 수신 처리 (토큰의 푸시 타입을 APNS_VOIP 또는 APNS_SANDBOXVOIP로 설정)
         <a href="https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/OptimizeVoIP.html" target="_blank">Apple iOS Pushkit 가이드 바로가기</a>
-        3. 메시지 발송시 푸시 타입 'APNS_VOIP' 또는 'APNS_SANDBOX_VOIP'를 선택
+        3. 메시지 발송시 푸시 타입 'APNS_VOIP' 또는 'APNS_SANDBOXVOIP'를 선택
 
 ### 2017.12.12
 #### 버그 수정
