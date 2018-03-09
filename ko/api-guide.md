@@ -1679,7 +1679,117 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
+## Uid
+
+### 생성
+
+#### 태그 추가
+- Uid에 태그 아이디로 태그를 추가한다.
+- Secret Key가 필요없다. 앱에서 호출 가능하다.
+##### Method, URL, Headers
+```
+POST /push/v2.0/appkeys/{appkey}/uids/{uid}/tag-ids
+Content-Type: application/json;charset=UTF-8
+```
+##### Request Body
+```json
+{
+    "tagIds": ["TAG_ID01"]
+}
+```
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    }
+}
+```
+
+### 조회
+
+#### Uid의 태그 아이디 조회
+- Uid의 태그 아이디를 조회한다.
+- Secret Key가 필요없다. 앱에서 호출 가능하다.
+##### Method, URL, Headers
+```
+GET /push/v2.0/appkeys/{appkey}/uids/{uid}/tag-ids
+Content-Type: application/json;charset=UTF-8
+```
+##### Request Body
+```
+없음
+```
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    },
+    "tagIds": ["TAG_ID01"]
+}
+```
+
+### 수정
+#### Uid의 태그 수정
+- Uid에 태그 아이디로 태그를 수정한다.
+- Secret Key가 필요없다. 앱에서 호출 가능하다.
+##### Method, URL, Headers
+```
+PUT /push/v2.0/appkeys/{appkey}/uids/{uid}/tag-ids
+Content-Type: application/json;charset=UTF-8
+```
+##### Request Body
+```json
+{
+    "tagIds": ["TAG_ID02"]
+}
+```
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    }
+}
+```
+
+### 태그 삭제
+- Uid의 태그 아이디를 조회한다.
+- Secret Key가 필요없다. 앱에서 호출 가능하다.
+##### Method, URL, Headers
+```
+DELETE /push/v2.0/appkeys/{appkey}/uids/{uid}/tag-ids?tagIds={tagId,}
+Content-Type: application/json;charset=UTF-8
+```
+##### Request Body
+```
+없음
+```
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" :  true,
+        "resultCode" :  0,
+        "resultMessage" :  "SUCCESS"
+    }
+}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| tagIds | Required, String Array | Query String, 삭제할 태그 아이디, 쉼표(,)로 구분 |
+
+
 * *문서 수정 내역*
+    * *(2018.03.22) v2.0 Uid API 추가*
     * *(2018.02.22) v2.0 Message 조회 API deliveryType 필드 추가*
     * *(2018.02.22) pushType APNS_VOIP, APNS_SANDBOXVOIP 추가*
     * *(2017.11.23) v2.0 Message Error API 설명 수정*
