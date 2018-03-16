@@ -381,6 +381,8 @@ APPKEY, UID, options로 등록된 Token을 조회할 수 있다.
 }
 ```
 
+> 광고 푸시 관련 필드(isAdAgreement, isNightAdAgreement)는 토큰 등록시 language가 한글이었을 경우에만 반환한다.
+
 ### iOS, APNS
 
 **pushsdk.m**
@@ -531,7 +533,7 @@ public class YourGcmListener extends PushSdk.GcmListener {
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
 
-	[TCPushAnalytics onReceivedNotificationWithUrl:@"URL"
+	[TCPushAnalytics onReceivedNotificationWithUrl:@"https://collector-push.cloud.toast.com"
 											appKey:@"APPKEY"
 										  userInfo:request.content.userInfo
 								 completionHandler:^{
@@ -574,7 +576,7 @@ public class YourGcmListener extends PushSdk.GcmListener {
     return YES;
 }
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
-    [TCPushAnalytics onOpenedNotificationWithUrl:@"URL"
+    [TCPushAnalytics onOpenedNotificationWithUrl:@"https://collector-push.cloud.toast.com"
                                           appKey:@"APPKEY"
                                         userInfo:response.notification.request.content.userInfo
                                completionHandler:^{
@@ -603,6 +605,7 @@ public class YourGcmListener extends PushSdk.GcmListener {
 <br/>
 
 * *문서 수정 내역*
+    * *(2018.03.22) 토큰 조회 반환값 내용 수정, iOS 수신/오픈 지표 수집서버 URL 수정*
     * *(2018.01.25) 토큰 조회 설명 수정*
     * *(2017.07.20) 국가 코드, 언어 코드에 대한 제약 추가*
     * *(2017.05.25) 수신 및 오픈 API 수정에 따른 가이드 수정*
