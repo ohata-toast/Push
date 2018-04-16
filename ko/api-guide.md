@@ -1,4 +1,4 @@
-## Notification > Push > API v2.0 가이드
+## Notification > Push > API v2.0 Guide
 
 ### v2.0 API 소개
 
@@ -15,7 +15,8 @@
 }
 ```
 - v2.0 토큰 등록, 속성 통계 API가 추가되었다.
-- v2.0 메시지 조회 API에서 기간(from, to)과 메시지 상태(messageStatus)로 조회할 수 있게되었다.
+- v2.0 메시지 조회 API에서 기간(from, to)과 메시지 상태(messageStatus)로 조회할 수 있게되었다. from, to의 형식은 ISO 8601(YYYY-MM-DDThh:mm:ss.SSSTZD)형식을 따른다.
+'2018-04-11T18:39:04.000+09:00'에서 더하기(+)문자는 URL Endcoding해서 '2018-04-11T18:39:04.000%2B09:00'로 입력해야 한다.
 - v2.0 메시지 조회 API에서 등록일시(createdDateTime), 완료일시(completedDateTime) 필드가 추가되었다.
 - v2.0 메시지 수신, 확인 통계 조회 API가 추가되었다.
 - v2.0 유효하지 않는 토큰 API에서 페이징(PageIndex, PageSize), 기간(from, to), 메시지 아이디로 조회할 수 있게되었다.
@@ -257,8 +258,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | pageIndex | Optional, Number | 기본 값 0 |
 | pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | messageId | Optional, Number | 유효하지 않는 토큰이 발생한 메시지 아이디 |
 
 ##### Request Body
@@ -296,8 +297,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | tokenProperties | Optional, String Array | 'agreement', 'country', 'language', 'timezoneId'<br/>','로 구분, e.g. tokenProperties=country,language |
 
 ##### Request Body
@@ -359,7 +360,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 #### 토큰 등록 통계 조회
 ##### Method, URL, Headers
 ```
-GET /push/v2.0/appkeys/{appkey}/statistics/token-registration?from={from}&to={to}
+GET /push/v2.0/appkeys/{appkey}/statistics/token-registrations?from={from}&to={to}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -367,8 +368,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 
 ##### Request Body
 ```
@@ -603,8 +604,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | pageIndex | Optional, Number | 기본 값 0 |
 | pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | deliveryType | Optional, String | 'INSTANT'(즉시 발송), 'RESERVATION'(예약 발송) |
 | messageStatus | Optional, String | 'READY', 'PROCESSING', 'COMPLETE', 'CANCEL_NO_TARGET', 'CANCEL_INVALID_CERTIFICATE', 'CANCEL_INVALID_MESSAGE', 'CANCEL_UNSUPPORTED_MESSAGE_TYPE', 'CANCEL_UNAUTHORIZED', 'CANCEL_UNKNOWN' |
 
@@ -820,7 +821,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.0/appkeys/{appkey}/statistics/message-delivery-receipts?from={from}&to={to}&event={event}&messageId={messageId}
+GET /push/v2.0/appkeys/{appkey}/statistics/message-delivery-receipts?from={from}&to={to}&event={event}&timeUnit={timeUnit}&messageId={messageId}
 HEADER
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
@@ -832,6 +833,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | event | Optional, String | 'SENT', 'SENT_FAILED', 'RECEIVED', 'OPENED' |
+| timeUnit | Optional, String | 'MINUTES', 'HOURS', 'DAYS'<br>값이 없다면 조회기간에 따라 임의로 통계가 제공된다.<br>조회기간이 1일 이상은 일 단위, 1시간에서 24시간 사이는 시간 단위, 1시간 이하는 분 단위로 표시된다. |
 | messageId | Optional, Number | 메시지 아이디 |
 
 ##### Request Body
@@ -1789,6 +1791,8 @@ Content-Type: application/json;charset=UTF-8
 
 
 * *문서 수정 내역*
+    * *(2018.04.24) v2.0 Message Delivery Receipt API에 timeUnit 필드 설명 추가*
+    * *(2018.04.24) v2.0 API에 DateTime 형식 설명 추가*
     * *(2018.03.22) v2.0 Uid API 추가*
     * *(2018.02.22) v2.0 Message 조회 API deliveryType 필드 추가*
     * *(2018.02.22) pushType APNS_VOIP, APNS_SANDBOXVOIP 추가*
