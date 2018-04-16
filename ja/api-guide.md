@@ -833,7 +833,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | event | Optional, String | 'SENT', 'SENT_FAILED', 'RECEIVED', 'OPENED' |
-| timeUnit | Optional, String | 값이 없다면 임의의 단위로 통계가 제공된다. 'MINUTES', 'HOURS', 'DAYS' |
+| timeUnit | Optional, String | 'MINUTES', 'HOURS', 'DAYS'<br>값이 없다면 조회기간에 따라 임의로 통계가 제공된다.<br>조회기간이 1일 이상은 일 단위, 1시간에서 24시간 사이는 시간 단위, 1시간 이하는 분 단위로 표시된다. |
 | messageId | Optional, Number | 메시지 아이디 |
 
 ##### Request Body
