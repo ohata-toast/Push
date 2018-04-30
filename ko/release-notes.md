@@ -1,5 +1,19 @@
 ## Notification > Push > 릴리스 노트
 
+### 2018.05.02
+#### [SDK] v1.4.3 배포
+##### 버그 수정
+* [SDK] [Android] GCM, Tencent를 동시에 사용할 경우, Tencent 토큰이 GCM 토큰을 덮어쓰는 문제를 해결했습니다.
+* [SDK] [iOS] Background Thread에서 Register 요청 시 Warnning 메시지 뜨던 현상을 제거했습니다 
+    * Main Thread에서 요청하도록 수정
+
+##### 기능 개선
+* [SDK] 서버 API를 v1.3에서 v2.0으로 업데이트했습니다.
+* [SDK] 최소 버전을 변경했습니다.
+    * [Android] 기존 최소 버전 API level 9(2.3) 에서 API level 15(4.0.1)로 변경
+    * [iOS] 기존 최소 버전 iOS 7.0 에서 iOS 8.0으로 변경
+* [SDK] [iOS] .a 에서 .framework 로 SDK 제공방식을 변경했습니다.
+
 ### 2018.04.24
 #### 버그 수정
 * [Mail] 인증서 만료 안내 메일 내 HTML 오류
