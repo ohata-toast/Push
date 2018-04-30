@@ -1,12 +1,13 @@
 ## Notification > Push > Release Notes
 
 ### 2018.05.02
-#### 버그 수정
+#### [SDK] Android v1.4.3, iOS v1.5.0 배포
+##### 버그 수정
 * [SDK] [Android] GCM, Tencent를 동시에 사용할 경우, 토큰이 꼬이는 문제를 해결했습니다.
 * [SDK] [iOS] Background Thread에서 Register 요청 시 Warnning 메시지 뜨던 현상을 제거했습니다 
     * Main Thread에서 요청하도록 수정
 
-#### 기능 개선
+##### 기능 개선
 * [SDK] 서버 API를 v1.3에서 v2.0으로 업데이트했습니다.
 * [SDK] 최소 버전을 변경했습니다.
     * [Android] 기존 최소 버전 API level 9(2.3) 에서 API level 15(4.0.1)로 변경
