@@ -3,7 +3,7 @@
 ### 2018.05.02
 #### [SDK] Android v1.4.3, iOS v1.5.0 배포
 ##### 버그 수정
-* [SDK] [Android] GCM, Tencent를 동시에 사용할 경우, 토큰이 꼬이는 문제를 해결했습니다.
+* [SDK] [Android] GCM, Tencent를 동시에 사용할 경우, Tencent 토큰이 GCM 토큰을 덮어쓰는 문제를 해결했습니다.
 * [SDK] [iOS] Background Thread에서 Register 요청 시 Warnning 메시지 뜨던 현상을 제거했습니다 
     * Main Thread에서 요청하도록 수정
 
