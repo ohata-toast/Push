@@ -144,6 +144,12 @@ Content-Type: application/json;charset=UTF-8
 	}
 }
 ```
+
+##### Example
+```
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tokens -d '{"oldToken":"oldToken","token":"token","isNotificationAgreement":true,"isAdAgreement":true,"isNightAdAgreement":true,"pushType":"GCM","timezoneId":"Asia/Seoul","uid":"uid","country":"KR","language":"ko"}'
+```
+
 ##### Description
 
 - 토큰이 이미 등록되어 있는 경우에 다시 등록하면, 기존 정보를 업데이트 합니다.
@@ -163,7 +169,7 @@ Content-Type: application/json;charset=UTF-8
 ##### Method, URL
 
 ```
-GET /push/v2.0/appkeys/{appkey}/tokens/{token}?&pushType={pushType}
+GET /push/v2.0/appkeys/{appkey}/tokens/{token}?pushType={pushType}
 Content-Type: application/json;charset=UTF-8
 ```
 
@@ -203,6 +209,66 @@ Content-Type: application/json;charset=UTF-8
 | updateDateTime | -, DateTime String | 토큰 업데이트 일시 |
 | adAgreementDateTime | -, DateTime String | 홍보성 푸시 메시지 수신 동의 일시 |
 | nightAdAgreementDateTime | -, DateTime String | 야간 홍보성 푸시 메시지 수신 동의 일시 |
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tokens/token?pushType=GCM
+```
+
+#### 토큰으로 토큰 조회
+- 클라이언트에서 조회 가능하다.
+##### Method, URL
+
+```
+GET /push/v2.1/appkeys/{appkey}/tokens/{token}
+Content-Type: application/json;charset=UTF-8
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| pushType | Required, String | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP' |
+
+##### Response Body
+
+```
+{
+	"token" : {
+		"pushType" : "GCM",
+		"isNotificationAgreement": true,
+		"isAdAgreement": true,
+		"isNightAdAgreement": true,
+		"timezoneId" : "Asia/Seoul",
+		"country": "KR",
+		"language": "ko",
+		"uid" : "User ID",
+		"token" : "Token",
+    "updateDateTime": "2017-08-12T01:04:18.000+09:00",
+    "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+    "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+    "deviceId": "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
+    "activatedDateTime": "2017-08-12T01:04:19.000+09:00"
+	},
+	"header" : {
+		"isSuccessful" : true,
+		"resultCode": 0,
+		"resultMessage" : "SUCCESS"
+	}
+}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| updateDateTime | -, DateTime String | 토큰 업데이트 일시 |
+| adAgreementDateTime | -, DateTime String | 홍보성 푸시 메시지 수신 동의 일시 |
+| nightAdAgreementDateTime | -, DateTime String | 야간 홍보성 푸시 메시지 수신 동의 일시 |
+| deviceId | -, String | 디바이스 아이디 |
+| activatedDateTime | -, Datetime String | 토큰의 최근 등록 요청 일시 |
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://alpha-api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tokens/token
+```
 
 #### 사용자 아이디로 토큰 조회
 - Secret Key가 필요한 API이며, 서버에서 호출되어야 한다.
@@ -245,6 +311,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tokens?uid=uid
+```
+
 #### 유효하지 않는 토큰 조회
 ##### Method, URL, Headers
 ```
@@ -283,6 +354,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		}
 	]
 }
+```
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/invalid-tokens
 ```
 
 
@@ -357,6 +433,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | languages.XX | String | ISO 639-1, ISO 639-2, iOS(language code + script code), 8 글자 |
 | timezoneIds.XX | String | Area/Name. IANA time zone database |
 
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/statistics/token-properties
+```
+
 #### 토큰 등록 통계 조회
 ##### Method, URL, Headers
 ```
@@ -402,6 +483,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | dateTime | String | 데이터가 수집된 일시 |
 | registeredToken | Number | 등록된 토큰 수 |
 | deletedToken | Number | 삭제된 토큰 수 |
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/statistics/token-registrations
+```
 
 ## 메시지
 ### 발송
@@ -476,6 +562,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 - 메시지를 광고 타입, "messageType": "AD", 으로 보낼 경우, "contact", "removeGuide" 필드를 반드시 포함해야 한다.
 "contact" 필드에 연락처를 입력해야 하며, "removeGuide" 필드에 수신 철회 방법에 대해 입력해야 한다.
 - timeToLive 필드를 설정하면, 설정한 시간 이상 발송이 지연되는 경우 자동으로 실패 처리된다.
+
+##### Example
+```
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/messages -d '{"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body","customKey1":"It is default"},"ko":{"title":"제목","body":"내용","customKey2":"한국어 입니다."}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
+```
 
 #### 공통 메시지
 "content"에 아래 표대로 메시지를 작성하면, 각 푸시 타입에 맞게 메시지가 생성되어 발송된다.
@@ -648,6 +739,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/messages
+```
+
 | Field | Usage | Description |
 | - | - | - |
 | createdDateTime | - | 메시지가 생성된 일시 (ISO 8601) |
@@ -720,6 +816,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         "resultMessage" : "SUCCESS"
     }
 }
+```
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/messages/{messageId}
 ```
 
 #### 실패한 메시지 목록 조회
@@ -815,6 +916,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | payload | - | 기기에 발송된 실제 메시지 내용 |
 | tokens | - | 발송한 실패한 수신자의 uid와 token |
 
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/message-errors
+```
+
 #### 메시지 수신, 확인 통계 조회
 메시지 수신, 확인 수집(Message Delivery Receipt) 기능을 화성화하고, v1.4 이상 SDK를 적용하면 발송한 메시지에 대해 수신, 확인 정보를 확인할 수 있다.
 수집된 정보를 통계 API로 조회할 수 있다. 기능은 [Console] > [Settings] 탭에서 활성화할 수 있다.
@@ -868,6 +974,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | sentFailed | Optional, Number | 서버에서 발송 실패한 수 |
 | received | Optional, Number | 기기에서 수신한 수 |
 | opened | Optional, Number | 기기에서 사용자가 클릭해 오픈한 수 |
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/statistics/message-delivery-receipts
+```
 
 ## 예약 메시지
 
@@ -945,6 +1056,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | schedules | - | 일시 (ISO 8601, e.g. YYYY-MM-DDThh:mm) |
 
+##### Example
+```
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/schedules -d '{"type":"EVERY_MONTH","fromDate":"2016-12-30","toDate":"2017-01-02","times":["12:00","17:00"],"days":[1,15],"daysOfWeek":["SUNDAY","MONDAY"]}'
+```
+
 #### 예약 메시지 생성
 ##### Method, URL, Headers
 ```
@@ -1008,6 +1124,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | reservationId | Number | 예약 메시지 아이디 |
 | reservationIdString | String | 예약 메시지 아이디 문자열 |
+
+##### Example
+```
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations -d '{"schedules":["2016-12-30T12:40","2016-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
+```
 
 ### 조회
 #### 목록 조회
@@ -1099,6 +1220,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | schedules.scheduleStatus | - | 'READY', 'SENDING', 'CANCELED', 'DONE' 예약 메시지 발송 스케줄 상태 |
 | totalCount | - | 등록된 전체 예약 메시지 수 |
 
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations
+```
+
 #### 단건 조회
 ##### Method, URL, Headers
 ```
@@ -1164,6 +1290,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | updatedDateTime | DateTime String | 예약 수정 일시(ISO 8601) |
 
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations/{reservationId}
+```
 
 #### 발송된 예약 메시지 조회
 ##### Method, URL, Headers
@@ -1222,6 +1352,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | totalCount | - | 발송된 전체 메시지  수 |
 
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations/{reservationId}/messages
+```
 
 ### 수정
 #### 예약 메시지 수정
@@ -1271,6 +1405,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
+##### Example
+```
+curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations/{reservationId} -d '{"schedules":["2018-12-30T12:40","2018-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
+```
+
 ### 삭제
 #### 예약 메시지 삭제
 ##### Method, URL, Headers
@@ -1299,6 +1438,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"isSuccessful" : true
 	}
 }
+```
+
+##### Example
+```
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/reservations?reservationIds={reservationId,}
 ```
 
 ## 태그
@@ -1341,6 +1485,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | tagId | Required, String | 생성된 태그 아이디, 길이 8 |
 
+##### Example
+```
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tags -d '{"tagName":"서른"}'
+```
 
 #### 태그에 Uid 추가 생성
 - 태그에 Uid를 추가(Append)하는 것으로, 기존에 있던 Uid를 추가하면 Uid의 태그는 늘어난다.
@@ -1375,6 +1523,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
+##### Example
+```
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tags/{tagId}/uids -d '{"uids":["uid"]}'
+```
+
 #### Uid에 태그 목록 설정
 - Uid의 태그를 교체(Replace)하는 것으로, 기존에 설정된 태그는 삭제되고 새로운 태그로 설정된다.
 ##### Method, URL, Headers
@@ -1403,6 +1556,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         "resultMessage" :  "SUCCESS"
     }
 }
+```
+
+##### Example
+```
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/uids -d '{"uid":"uid","tagIds":["TAG_ID"]}'
 ```
 
 ### 조회
@@ -1447,6 +1605,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | createdDateTime | Required, Date Time String | 생성 일시 (ISO 8601) |
 | updatedDateTime | Required, Date Time String | 수정 일시 (ISO 8601) |
 
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tags
+```
+
 #### 태그 단건 조회
 ##### Method, URL, Headers
 ```
@@ -1474,6 +1637,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         "updatedDateTime" :  "2017-07-07T07:07:07.777+09:00"
     }
 }
+```
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tags/{tagId}
 ```
 
 #### 태그의 Uid 목록 조회
@@ -1534,8 +1702,13 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | contact | -, String | 토큰 |
 | createdDateTime | Required, Date Time String | 생성 일시 (ISO 8601) |
 
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tags/{tagId}/uids
+```
+
 #### Uid 조회
-- 태그에 등록된 Uid를 조회한다.
+- Uid를 조회한다.
 - 토큰 등록시 Contact(연락처)가 등록된다.
 ##### Method, URL, Headers
 ```
@@ -1577,6 +1750,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/uids/uid
+```
+
 ### 수정
 #### 태그 수정
 ##### Method, URL, Headers
@@ -1603,6 +1781,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
+##### Example
+```
+curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tags/{tagId} -d '{"tagName":"서른셋"}'
+```
+
 ### 삭제
 #### 태그 삭제
 ##### Method, URL, Headers
@@ -1625,6 +1808,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         "resultMessage" :  "SUCCESS"
     }
 }
+```
+
+##### Example
+```
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tags/{tagId}
 ```
 
 #### Uid 삭제
@@ -1656,6 +1844,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
+##### Example
+```
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/uids?uids=uid
+```
+
 #### 태그의 Uid 삭제
 - Tag와 Uid 관계만 삭제한다.
 - Contact, Token이 삭제되지는 않는다.
@@ -1679,6 +1872,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         "resultMessage" :  "SUCCESS"
     }
 }
+```
+
+##### Example
+```
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/tags/{tagId}/uids?uids=uid
 ```
 
 ## Uid
@@ -1710,6 +1908,11 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
+##### Example
+```
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/uids/uid/tag-ids -d '{"tagIds":["TAG_ID"]}'
+```
+
 ### 조회
 
 #### Uid의 태그 아이디 조회
@@ -1736,6 +1939,11 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/uids/uid/tag-ids
+```
+
 ### 수정
 #### Uid의 태그 수정
 - Uid에 태그 아이디로 태그를 수정한다.
@@ -1760,6 +1968,11 @@ Content-Type: application/json;charset=UTF-8
         "resultMessage" :  "SUCCESS"
     }
 }
+```
+
+##### Example
+```
+curl -X PUT -H "Content-Type: application/json;charset=UTF-8" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/uids/uid/tag-ids -d '{"tagIds":["TAG_ID"]}'
 ```
 
 ### 태그 삭제
@@ -1789,8 +2002,15 @@ Content-Type: application/json;charset=UTF-8
 | - | - | - |
 | tagIds | Required, String Array | Query String, 삭제할 태그 아이디, 쉼표(,)로 구분 |
 
+##### Example
+```
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/uids/uid/tag-ids?tagIds=TAG_ID_01,TAG_ID_02
+```
+
 
 * *문서 수정 내역*
+    * *(2018.05.29) v2.1 토큰 조회 API 추가*
+    * *(2018.05.29) API curl 가이드 추가*
     * *(2018.04.24) v2.0 Message Delivery Receipt API에 timeUnit 필드 설명 추가*
     * *(2018.04.24) v2.0 API에 DateTime 형식 설명 추가*
     * *(2018.03.22) v2.0 Uid API 추가*
