@@ -563,7 +563,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 - "content.default" 필드는 필수이며, "content" 필드에 대한 자세한 내용은 아래 [공통 메시지 포맷]을 참고 바란다.
 - 메시지를 광고 타입, "messageType": "AD", 으로 보낼 경우, "contact", "removeGuide" 필드를 반드시 포함해야 한다.
 "contact" 필드에 연락처를 입력해야 하며, "removeGuide" 필드에 수신 철회 방법에 대해 입력해야 한다.
-- timeToLive 필드를 설정하면, 설정한 시간 이상 발송이 지연되는 경우 자동으로 실패 처리된다.
+- timeToLiveMinute 필드를 설정하면, 설정한 시간 이상 발송이 지연되는 경우 자동으로 실패 처리된다.
 
 ##### Example
 ```
@@ -729,7 +729,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         "messageType" : "AD",
         "contact": "1588-1588",
         "removeGuide": "매뉴 > 설정",
-        "timeToLive": 60,
+        "timeToLiveMinute": 60,
         "createdDateTime": "2017-02-13T09:30:00.000+09:00",
         "completedDateTime": "2017-02-13T09:30:00.000+09:00",
         "targetCount": 1000,
@@ -805,7 +805,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         "messageType" : "AD",
         "contact": "1588-1588",
         "removeGuide": "매뉴 > 설정",
-        "timeToLive": 60,
+        "timeToLiveMinute": 60,
         "createdDateTime": "2017-02-13T09:30:00.000+09:00",
         "completedDateTime": "2017-02-13T09:30:00.000+09:00",
         "targetCount": 1000,

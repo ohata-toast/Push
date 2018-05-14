@@ -115,7 +115,8 @@ Content-Type: application/json;charset=UTF-8
   "timezoneId": "Asia/Seoul",
   "uid": "uid",
   "country": "KR",
-  "language": "ko"
+  "language": "ko",
+  "deviceId": "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD"
 }
 ```
 
@@ -131,6 +132,7 @@ Content-Type: application/json;charset=UTF-8
 |country|	Required, String|	ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 글자|
 |language|	Required, String|	ISO 639-1, ISO 639-2, iOS(language code + script code), 8 글자|
 |uid|	Required, String|	사용자 아이디, emoji 허용 안함, 최대 64 글자|
+|deviceId|	Optional, String|	디바이스 아이디, 36 글자|
 
 
 ##### Response Body
@@ -192,9 +194,9 @@ Content-Type: application/json;charset=UTF-8
 		"language": "ko",
 		"uid" : "User ID",
 		"token" : "Token",
-        "updateDateTime": "2017-08-12T01:04:18.000+09:00",
-        "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
-        "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00"        
+    "updateDateTime": "2017-08-12T01:04:18.000+09:00",
+    "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+    "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00"        
 	},
 	"header" : {
 		"isSuccessful" : true,
@@ -561,7 +563,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 - "content.default" 필드는 필수이며, "content" 필드에 대한 자세한 내용은 아래 [공통 메시지 포맷]을 참고 바란다.
 - 메시지를 광고 타입, "messageType": "AD", 으로 보낼 경우, "contact", "removeGuide" 필드를 반드시 포함해야 한다.
 "contact" 필드에 연락처를 입력해야 하며, "removeGuide" 필드에 수신 철회 방법에 대해 입력해야 한다.
-- timeToLive 필드를 설정하면, 설정한 시간 이상 발송이 지연되는 경우 자동으로 실패 처리된다.
+- timeToLiveMinute 필드를 설정하면, 설정한 시간 이상 발송이 지연되는 경우 자동으로 실패 처리된다.
 
 ##### Example
 ```
@@ -727,7 +729,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         "messageType" : "AD",
         "contact": "1588-1588",
         "removeGuide": "매뉴 > 설정",
-        "timeToLive": 60,
+        "timeToLiveMinute": 60,
         "createdDateTime": "2017-02-13T09:30:00.000+09:00",
         "completedDateTime": "2017-02-13T09:30:00.000+09:00",
         "targetCount": 1000,
@@ -803,7 +805,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         "messageType" : "AD",
         "contact": "1588-1588",
         "removeGuide": "매뉴 > 설정",
-        "timeToLive": 60,
+        "timeToLiveMinute": 60,
         "createdDateTime": "2017-02-13T09:30:00.000+09:00",
         "completedDateTime": "2017-02-13T09:30:00.000+09:00",
         "targetCount": 1000,
