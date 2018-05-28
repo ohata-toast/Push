@@ -1,6 +1,10 @@
 ## Notification > Push > Release Notes
 
 ### 2018.05.29
+#### SDK 배포
+* [Android SDK] v1.4.4 배포
+* [iOS SDK] v1.5.0 배포
+
 #### 버그 수정
 * [API] 수신/확인 통계 API 조회 기간이 무시되는 오류 수정
     * 메시지 아이디와 조회 기간을 같이 입력할 경우, 조회 기간이 무시되는 오류를 수정했습니다.
@@ -22,6 +26,10 @@
 - title: '(광고)' 제목 '연락처'
 - body: 내용\n'수신 동의 철회 방법'
 ```
+
+* [Android SDK] PushAnalytics.initialize 호출하지 않아도 동작하도록 수정했습니다.
+    * PushAnalytics.initialize 는 Deprecated 될 예정입니다.
+* [Android SDK] 기본 리시버를 사용할 경우, 안드로이드 8.0 이상에서 Notification Channel을 사용합니다.
 
 #### 기능 추가
 * [API] v2.1 토큰 조회 API 추가
