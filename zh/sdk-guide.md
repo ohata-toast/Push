@@ -151,12 +151,12 @@ public class YourActivity extends Activity {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 26
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 19
+        minSdkVersion 15
+        targetSdkVersion 26
         versionCode 1
         versionName "10"
         multiDexEnabled true
@@ -175,9 +175,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.android.support:support-v4:23.1.0'
-    compile 'com.google.android.gms:play-services-gcm:9.6.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:support-v4:26.1.0'
+    compile 'com.google.android.gms:play-services-gcm:11.0.0'
 }
 ```
 
@@ -268,6 +268,18 @@ options는 플랫폼에 따라 Dictionary나 Map, 또는 그에 준하는 Key/Va
 
 ## 푸시 메시지 수신
 
+### Android, Common
+
+#### Notification Channel
+
+targetSdkVersion이 26 이상일 경우, 안드로이드 8.0 이상의 기기에서 알림바에 푸시 메시지를 등록하기 위해서는 Notification Channel을 생성해서 사용해야 합니다.
+
+기본 리시버를 이용해서 알림바에 푸시 메시지를 등록하면 v1.4.4 이상에서 Notification Channel이 자동으로 생성됩니다. 
+
+커스텀 리시버를 사용하거나, 기본 리시버를 상속했지만 super 메소드를 호출하지 않는 경우는 아래 공식 가이드를 참고해서 Notification Channel을 반드시 적용해야 합니다.
+
+* [Notification Channel 공식 가이드](https://developer.android.com/training/notify-user/channels)
+
 ### Android, GCM
 
 SDK를 사용하면 추가적인 구현 없이 기본적으로 푸시 메시지를 수신하고 화면에 메시지가 표시된다. 필요에 따라 커스텀한 푸시 메시지를 표시하고 싶다면, 아래와 같이 Custom Receiver를 등록한다.
@@ -277,7 +289,7 @@ SDK를 사용하면 추가적인 구현 없이 기본적으로 푸시 메시지�
 ```
 package com.toast.cloud.push.demo.app.your;
 
-public class YourGcmListener extends PushSdk.GcmListener {
+public class YourGcmListener extends GcmListenerService {
     private static final int NOTIFICATION_ID = 1;
 
     @Override
@@ -322,7 +334,7 @@ SDK를 사용하면 추가적인 구현 없이 기본적으로 푸시 메시지�
 ```
 package your.package.name;
 
-public class YourXgListener extends PushSdk.XgListener {
+public class YourXgListener extends XGPushBaseReceiver {
     private static final int NOTIFICATION_ID = 2;
 
     @Override
@@ -344,6 +356,30 @@ public class YourXgListener extends PushSdk.XgListener {
         mBuilder.setContentIntent(contentIntent);
         notificationManager.notify(XgListener.NOTIFICATION_ID, mBuilder.build());
     }
+
+    @Override
+    public void onNotifactionShowedResult(Context context, XGPushShowedResult result) {
+    }
+
+    @Override
+    public void onNotifactionClickedResult(Context context, XGPushClickedResult result) {
+    }
+
+    @Override
+    public void onSetTagResult(Context context, int error, String tag) {
+    }
+
+    @Override
+    public void onDeleteTagResult(Context context, int error, String tag) {
+    }
+
+    @Override
+    public void onRegisterResult(Context context, int error, XGPushRegisterResult result) {
+    }
+
+    @Override
+    public void onUnregisterResult(Context context, int error) {
+    }
 }
 ```
 
@@ -353,7 +389,7 @@ PushSdk$XgListener 부분을 위에서 작성한 커스텀 클래스로 변경�
 
 ```
 	...
-	<receiver android:name="com.toast.cloud.push.demo.app.XgListener">
+	<receiver android:name="your.package.name.YourXgListener">
 		<intent-filter>
 			<action android:name="com.tencent.android.tpush.action.PUSH_MESSAGE" />
 			<action android:name="com.tencent.android.tpush.action.FEEDBACK" />
@@ -454,7 +490,6 @@ public class YourActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        PushAnalytics.initialize(this, "https://collector-push.cloud.toast.com", "appKey");
         PushAnalytics.onOpened(this, getIntent());
         // ... your codes
     }
@@ -470,7 +505,6 @@ public class YourActivity extends AppCompatActivity {
 **YourListener.java**
 
 - 만약 ToastCloud Push SDK에서 제공하는 기본 리스너(PushSdk.GcmListener)를 사용할 경우, 자동으로 수신 및 오픈 여부를 사용할 수 있다. 따라서, 기본 리스너를 사용한다면 이 부분을 생략해도 된다.
-    - **단, 기본 리스너를 사용하더라도 Activity에서 PushAnalytics.initialize와 PushAnalytics.onOpened 메소드는 호출해야 한다.**
 - PendingIntent 생성 시, 액티비티 전환 Intent를 **PushAnalytics.newIntentForOpenedEvent**를 이용해서 생성한다.
 - PendingIntent.getActivity 메소드 호출 시, 마지막 매개변수인 Flag를 **PendingIntent.FLAG_UPDATE_CURRENT**로 전달한다.
 - 수신 확인을 위해 **PushAnalytics.onReceived** 메소드를 호출한다.
@@ -605,6 +639,12 @@ public class YourGcmListener extends PushSdk.GcmListener {
 <br/>
 
 * *문서 수정 내역*
+    * *(2018.05.29) 
+        * Android : v1.4.4 변경내용 적용
+            * Notification Channel 가이드 추가
+            * 의존 라이브러리 버전 및 일부 Gradle 설정 변경
+            * 예제에서 PushAnalytics.initialize 제거
+            * 커스텀 리시버 구현시 GCM, Tencent의 서비스 상속받도록 가이드 수정
     * *(2018.03.22) 토큰 조회 반환값 내용 수정, iOS 수신/오픈 지표 수집서버 URL 수정*
     * *(2018.01.25) 토큰 조회 설명 수정*
     * *(2017.07.20) 국가 코드, 언어 코드에 대한 제약 추가*

@@ -1,18 +1,56 @@
 ## Notification > Push > Release Notes
 
+### 2018.05.29
+#### SDK 배포
+* [Android SDK] v1.4.4 배포
+* [iOS SDK] v1.5.0 배포
+
+#### 버그 수정
+* [API] 수신/확인 통계 API 조회 기간이 무시되는 오류 수정
+    * 메시지 아이디와 조회 기간을 같이 입력할 경우, 조회 기간이 무시되는 오류를 수정했습니다.
+
+#### 기능 개선
+* [Console] 메시지 아이디 추가
+    * 메시지 선택시 팝업의 Details부분에 메시지 아이디를 추가했습니다.
+* [API] 광고성 메시지, 광고 표시 문구 위치 변경
+    * MessageType이 AD인 광고성 메시지를 발송하는 경우, 정보통신망법 규정((제50조부터 제50조의 8)에 따라
+    메시지 제목과 내용에 광고 표시 문구가 추가되고 있습니다.
+    * 광고 표시 문구 위치가 아래와 같이 변경됩니다.
+
+```
+기존 표시 위치, '(광고)'와 연락처 모두 body에 표시됨
+- title: 제목
+- body: '(광고)' '연락처'\n내용\n'수신 동의 철회 방법'
+
+새로운 표시 위치, '(광고)'와 연락처가 title에 표시됨
+- title: '(광고)' 제목 '연락처'
+- body: 내용\n'수신 동의 철회 방법'
+```
+
+* [Android SDK] PushAnalytics.initialize 호출하지 않아도 동작하도록 수정했습니다.
+    * PushAnalytics.initialize 는 Deprecated 될 예정입니다.
+* [Android SDK] 기본 리시버를 사용할 경우, 안드로이드 8.0 이상에서 Notification Channel을 사용합니다.
+
+#### 기능 추가
+* [API] v2.1 토큰 조회 API 추가
+    * 토큰 등록시 같이 수집하는 디바이스 아이디를 확인할 수 있습니다.
+    * 해당 토큰의 최근 등록 요청 일시를 확인할 수 있습니다.
+
 ### 2018.05.02
-#### [SDK] v1.4.3 배포
-##### 버그 수정
-* [Android] GCM, Tencent를 동시에 사용할 경우, Tencent 토큰이 GCM 토큰을 덮어쓰는 문제를 해결했습니다.
-* [iOS] Background Thread에서 Register 요청 시 Warnning 메시지 뜨던 현상을 제거했습니다 
+#### 배포
+* [SDK] v1.4.3 배포
+
+#### 버그 수정
+* [Android SDK] GCM, Tencent를 동시에 사용할 경우, Tencent 토큰이 GCM 토큰을 덮어쓰는 문제를 해결했습니다.
+* [iOS SDK] Background Thread에서 Register 요청 시 Warnning 메시지 뜨던 현상을 제거했습니다
     * Main Thread에서 요청하도록 수정
 
-##### 기능 개선
-* [공통] 서버 API를 v1.3에서 v2.0으로 업데이트했습니다.
-* [공통] 최소 버전을 변경했습니다.
-    * [Android] 기존 최소 버전 API level 9(2.3) 에서 API level 15(4.0.1)로 변경
-    * [iOS] 기존 최소 버전 iOS 7.0 에서 iOS 8.0으로 변경
-* [iOS] .a 에서 .framework 로 SDK 제공방식을 변경했습니다.
+#### 기능 개선
+* [SDK] 서버 API를 v1.3에서 v2.0으로 업데이트했습니다.
+* [SDK] 최소 버전을 변경했습니다.
+    * [Android SDK] 기존 최소 버전 API level 9(2.3) 에서 API level 15(4.0.1)로 변경
+    * [iOS SDK] 기존 최소 버전 iOS 7.0 에서 iOS 8.0으로 변경
+* [iOS SDK] .a 에서 .framework 로 SDK 제공방식을 변경했습니다.
 
 ### 2018.04.24
 #### 버그 수정
