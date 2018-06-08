@@ -124,7 +124,7 @@ Content-Type: application/json;charset=UTF-8
 |---|---|---|
 |token|	Required, String|	토큰, 최대 255 글자|
 |oldToken|	Optional, String|	기존 토큰, 최대 255 글자 |
-|pushType|	Required, String| 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP' |
+|pushType|	Required, String| 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
 |isNotificationAgreement|	Required, Boolean|	true or false|
 |isAdAgreement|	Required, Boolean|	true or false|
 |isNightAdAgreement| Required, Boolean|	true or false|
@@ -178,7 +178,7 @@ Content-Type: application/json;charset=UTF-8
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pushType | Required, String | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP' |
+| pushType | Required, String | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
 
 ##### Response Body
 
@@ -229,7 +229,7 @@ Content-Type: application/json;charset=UTF-8
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pushType | Required, String | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP' |
+| pushType | Required, String | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
 
 ##### Response Body
 
@@ -540,7 +540,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | target.type | Required, String | 'ALL', 'UID', 'TAG' 수신 타겟 타입 |
 | target.to | Optional, String Array | target.type이 수신자 UID 목록(최대 10,000 개) 또는 TAG 조건 |
-| target.pushTypes | Optional, String Array | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP' |
+| target.pushTypes | Optional, String Array | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
 | target.countries | Optional, String Array | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3 (최대 3 글자) |
 | content | Required, Map | 수신자에게 전달될 내용 (최대 8,192 글자) |
 | content.default | Required, Map | '자세한 내용은 아래 공통 메시지 형식' 참고 |
@@ -558,7 +558,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     - 예, 남자, 30대 태그가 붙었거나 여자 태그가 붙은 대상에게 메시지를 발송한다면,    
     "target.to=(,남자_ID,AND,30대_ID,),OR,여자_ID"로 설정할 수 있다.
 - "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있다.
-만약, 정의하지 않으면 모든 푸시 타입, GCM, APNS, APNS_SANDBOX, TENCENT로 발송한다.
+만약, 정의하지 않으면 모든 푸시 타입, GCM, APNS, APNS_SANDBOX, TENCENT, ADM로 발송한다.
 - "target.countries" 필드가 "['KR', 'JP']"면 토큰 국가 코드가 "KR" 또는 "JP"인 Token에 발송한다.
 - "content.default" 필드는 필수이며, "content" 필드에 대한 자세한 내용은 아래 [공통 메시지 포맷]을 참고 바란다.
 - 메시지를 광고 타입, "messageType": "AD", 으로 보낼 경우, "contact", "removeGuide" 필드를 반드시 포함해야 한다.
@@ -573,30 +573,32 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key:
 #### 공통 메시지
 "content"에 아래 표대로 메시지를 작성하면, 각 푸시 타입에 맞게 메시지가 생성되어 발송된다.
 
-|Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT|
-|---|---|---|---|---|---|
-|title|	Android, <br/> iOS Watch, <br/> Tencent|	Optional, String|	data.title|	aps.alert.title|	title|
-|body|	Android, <br/> iOS, <br/> Tencent|	Optional, String|	data.body|	aps.alert.body|	body|
-|title-loc-key|	iOS|	Optional, String| - | aps.alert.title-loc-key| - |
-|title-loc-args|	iOS|	Optional, Array of Strings| - | aps.alert.title-loc-args	| - |
-|action-loc-key|	iOS|	Optional, String| - |aps.alert.action-loc-key	| - |
-|loc-key|	iOS|	Optional, String| - |aps.alert.loc-key	| - |
-|loc-args|	iOS|	Optional, Array of String	| - | aps.alert.loc-args	| - |
-|launch-image|	iOS|	Optional, String	| - | aps.alert.launch-image	| - |
-|badge|	iOS|	Optional, Number| - | aps.badge	| - |
-|sound|	Android, <br/> iOS, <br/> Tencent|	Optional, String|	data.sound|	aps.sound|	custom_content.sound|
-|content-available|	iOS|	Optional, String	| - | aps.content-available	| - |
-|category|	iOS|	Optional, String	| - | aps.category	| - |
-|mutable-content| iOS | Optional, String | - | aps.mutable-content | - |
-| messageDeliveryReceipt | Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - |
-| messageDeliveryReceiptData | Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - |
+|Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT| ADM |
+|---|---|---|---|---|---|---|
+|title|	Android, <br/> iOS Watch, <br/> Tencent, <br/> ADM|	Optional, String|	data.title|	aps.alert.title|	title| data.title |
+|body|	Android, <br/> iOS, <br/> Tencent, <br/> ADM|	Optional, String|	data.body|	aps.alert.body|	content| data.body|
+|title-loc-key|	iOS|	Optional, String| - | aps.alert.title-loc-key| - | - |
+|title-loc-args|	iOS|	Optional, Array of Strings| - | aps.alert.title-loc-args	| - | - |
+|action-loc-key|	iOS|	Optional, String| - |aps.alert.action-loc-key	| - | - |
+|loc-key|	iOS|	Optional, String| - |aps.alert.loc-key	| - | - |
+|loc-args|	iOS|	Optional, Array of String	| - | aps.alert.loc-args	| - | - |
+|launch-image|	iOS|	Optional, String	| - | aps.alert.launch-image	| - | - |
+|badge|	iOS|	Optional, Number| - | aps.badge	| - | - |
+|sound|	Android, <br/> iOS, <br/> Tencent, <br/> ADM|	Optional, String|	data.sound|	aps.sound|	custom_content.sound| data.sound |
+|content-available|	iOS|	Optional, String	| - | aps.content-available	| - | - |
+|category|	iOS|	Optional, String	| - | aps.category	| - | - |
+|mutable-content| iOS | Optional, String | - | aps.mutable-content | - | - |
+|consolidationKey| ADM | Optional, String | - | - | - | consolidationKey |
+|expiresAfter| ADM | Optional, Number | - | - | - | expiresAfter |
+|messageDeliveryReceipt| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
+|messageDeliveryReceiptData| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
 
 Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정된다. 사용자가 임의로 데이터 타입과 위치 등을 변경할 수 없다.
 그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어간다.
 
-|Word|	Platform|	Usage|	GCM|	APNS|	TENCENT|
-|---|---|---|---|---|---|
-|customKey|	Android, <br/> iOS, <br/> Tencent|	Optional, <br/> Object, <br/> Array, <br/> String, <br/> Number|	data.customKey|	customKey|	custom_content.customKey|
+|Word|	Platform|	Usage|	GCM|	APNS|	TENCENT| ADM|
+|---|---|---|---|---|---|---|
+|customKey|	Android, <br/> iOS, <br/> Tencent|	Optional, <br/> Object, <br/> Array, <br/> String, <br/> Number|	data.customKey|	customKey|	custom_content.customKey| data.customKey|
 
 ##### "content" Example
 
@@ -681,6 +683,26 @@ Request Body
 	"custom_content": {
 		"customKey": "value"
 	}
+}
+"ko" ADM 메세지
+{
+  "data":{
+    "title":"제목",
+    "body":"내용",
+    "customKey":"값"
+  },
+  "consolidationKey":"",
+  "expiresAfter":60
+}
+"ja" ADM 메세지
+{
+  "data":{
+    "title":"タイトル",
+    "body":"プッシュ・メッセージ",
+    "customKey":"value"
+  },
+  "consolidationKey":"",
+  "expiresAfter":60
 }
 ```
 ### 조회
@@ -842,7 +864,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | messageId | Optional, Number | 메시지 아이디 |
 | messageErrorType | Optional, String | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR' |
-| messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'GCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR'  |
+| messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'GCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR', 'ADM_ERROR'  |
 | from | Optional, DateTime String | 최근 30일 까지, 기본 값은 최근 7일 전 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지, 기본 값은 현재 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | limit | Optional, Number | 한 번에 조회할 목록 크기, 기본 값과 최대 값은 1,000 |
@@ -854,10 +876,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         - INVALID_MESSAGE: 비정상적인 메시지
         - INVALID_CERTIFICATE: 인증서 만료 또는 인증서 정보가 올바르지 않음
         - UNAUTHORIZED: 인증서 만료 또는 인증서 정보가 올바르지 않음
-    - EXTERNAL_ERROR: APNS, GCM, Tencent 등 푸시와 연결된 외부 서비스 오류
+    - EXTERNAL_ERROR: APNS, GCM, Tencent, ADM 등 푸시와 연결된 외부 서비스 오류
         - APNS_ERROR: APNS(iOS)로 발송 실패
         - GCM_ERROR: GCM(Google)로 발송 실패
         - TENCENT_ERROR: Tencent로 발송 실패
+        - ADM_ERROR: ADM로 발송 실패
     - INTERNAL_ERROR: 푸시 내부에서 발생한 오류
         - EXPIRED_TIME_OUT: 발송 지연으로 인한 메시지 유효 시간 만료
         - AGENT_ERROR: Agent 내부 오류로 인한 발송 실패
@@ -914,7 +937,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | messageId | - | 실패한 메시지 아이디 |
 | messageIdString | - | 실패한 메시지 아이디 |
-| pushType | - | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP' |
+| pushType | - | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
 | payload | - | 기기에 발송된 실제 메시지 내용 |
 | tokens | - | 발송한 실패한 수신자의 uid와 token |
 
@@ -1330,7 +1353,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 			"messageIdString" : "356125922591162",
 			"target" : {
 				"type" : "ALL",
-				"pushTypes" : ["GCM", "APNS", "APNS_SANDBOX", "TENCENT"]
+				"pushTypes" : ["GCM", "APNS", "APNS_SANDBOX", "TENCENT", "ADM"]
 			},
 			"content" : {
 				"default" : {
@@ -1700,7 +1723,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | contacts | -, Object Array | Uid의 연락처, 토큰 정보 목록 |
-| contactType | -, String | 토큰 타입, 'TOKEN_GCM', 'TOKEN_APNS', 'TOKEN_APNS_SANDBOX', 'TOKEN_TENCENT' |
+| contactType | -, String | 토큰 타입, 'TOKEN_GCM', 'TOKEN_APNS', 'TOKEN_APNS_SANDBOX', 'TOKEN_TENCENT', 'TOKEN_ADM' |
 | contact | -, String | 토큰 |
 | createdDateTime | Required, Date Time String | 생성 일시 (ISO 8601) |
 
@@ -2011,6 +2034,7 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" https://alpha-a
 
 
 * *문서 수정 내역*
+    * *(2018.06.26) pushType ADM 추가*
     * *(2018.05.29) v2.1 토큰 조회 API 추가*
     * *(2018.05.29) API curl 가이드 추가*
     * *(2018.04.24) v2.0 Message Delivery Receipt API에 timeUnit 필드 설명 추가*

@@ -84,6 +84,46 @@
 - TOAST Cloud로 돌아와 [Console] > [Notification] > [Push] > [Certificates] 탭 까지 이동한다.
 - 확인한 [Tencent Credential]에 ACCESS ID, SECRET KEY를 입력한다.
 
+### ADM 어플리케이션 및 프로파일 등록 (Client Id, Client Secret 획득)
+- [[ADM 개발자 콘솔](https://developer.amazon.com/home.html)]에 접속한다.
+- 페이지 왼쪽 상단에 APP & SERVICES를 클릭 후, 하단에 ADD a New App 버튼을 클릭한다
+- App 생성 완료한 뒤, 중간 탭에 있는 Device Messaging을 클릭한다. 이 후 Create a New Security Profile 버튼을 클릭한다.
+- 프로필 생성 완료 후, 중간 탭에 있는 Security Profiles을 클릭한다. 그 뒤 View Security Profile 버튼을 클릭한다.
+- General 탭에서 Client ID와 Client Secret 값을 확인할 수 있다.
+
+### ADM Kindle 설정 정보 등록 (API key 획득)
+- Security Profiles 탭 클릭 후 중간에 Android/Kindle Settings 탭 클릭한다.
+- App Key Name, Package, MD5 Signature, SHA256 Signature 정보를 입력한다.
+- 아래와 같은 명령어로 MD5, SHA256 정보 조회가 가능하다.
+```
+> keytool -list -v -keystore {keystoreFileName}
+
+키 저장소 비밀번호 입력:
+키 저장소 유형: JKS
+키 저장소 제공자: SUN
+
+키 저장소에 1개의 항목이 포함되어 있습니다.
+
+별칭 이름: androiddebugkey
+생성 날짜: 2018. 5. 9
+항목 유형: PrivateKeyEntry
+인증서 체인 길이: 1
+인증서[1]:
+소유자: C=US, O=Android, CN=Android Debug
+발행자: C=US, O=Android, CN=Android Debug
+일련 번호: 1
+적합한 시작 날짜: Wed May 09 19:59:46 KST 2018 종료 날짜: Fri May 01 19:59:46 KST 2048
+인증서 지문:
+         MD5:  xxxx
+         SHA1: xxxx
+         SHA256: xxxx
+서명 알고리즘 이름: SHA1withRSA
+주체 공용 키 알고리즘: 1024비트 RSA 키
+버전: 1
+```
+- 등록 완료 후 Show 버튼을 클릭해 보면 API key 정보를 조회할 수 있다.
+
+
 ## 즉시 전송
 
 인증서와 토큰을 정상적으로 등록한 후, [Console] > [Notification] > [Push] > [Messages] 탭 > [ADD] 버튼을 클릭, 푸시 메시지를 즉시 전송할 수 있다.
