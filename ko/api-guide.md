@@ -570,7 +570,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://alpha-api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/messages -d '{"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body","customKey1":"It is default"},"ko":{"title":"제목","body":"내용","customKey2":"한국어 입니다."}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
 ```
 
-#### 공통 메시지
+### 공통 메시지
 "content"에 아래 표대로 메시지를 작성하면, 각 푸시 타입에 맞게 메시지가 생성되어 발송된다.
 
 |Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT| ADM |
@@ -600,111 +600,280 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 |---|---|---|---|---|---|---|
 |customKey|	Android, <br/> iOS, <br/> Tencent|	Optional, <br/> Object, <br/> Array, <br/> String, <br/> Number|	data.customKey|	customKey|	custom_content.customKey| data.customKey|
 
-##### "content" Example
+### 메시지 발송 예제
 
-```
-"content.default"는 필수다. 아래 "content.ko", "content.ja"는 토큰의 언어 코드 값이다.
-해당 토큰의 언어 코드에 맞게 메시지가 발송된다.
-Request Body
+- 메시지 발송 API의 요청 본문(Request Body)의 content.default은 필수다.
+
+#### 1. 전체에게 발송
+##### Request Body
+```json
 {
-	"target" : {
-		"type" : "ALL"
-	},
-	"content" : {
+    "target" : {
+        "type" : "ALL"
+    },
+    "content" : {
+        "default" : {
+            "title": "title",
+            "body": "body"
+        }
+    },
+    "messageType" : "NOTIFICATION"
+}
+```
+##### Description
+- target.type을 'ALL'로 설정하면, 모든 토큰에 메시지를 발송한다.
+
+#### 2. 특정 사용자에게 발송
+##### Request Body
+```json
+{
+    "target" : {
+        "type" : "UID",
+		"to": ["uid-01", "uid-02"]
+    },
+    "content" : {
+        "default" : {
+            "title": "title",
+            "body": "body"
+        }
+    },
+    "messageType" : "NOTIFICATION"
+}
+```
+##### Description
+- target.type을 'UID'로 설정하고, target.to에 사용자 아이디를 설정해 특정 사용자에게 메시지를 발송한다.
+
+#### 3. 일부 국가나 푸시 타입의 사용자들에게 발송
+##### Request Body
+```json
+{
+    "target" : {
+        "type" : "ALL",
+		"countries": ["KR", "JP"],
+    "pushTypes": ["GCM", "APNS"]
+    },
+    "content" : {
+        "default" : {
+            "title": "title",
+            "body": "body"
+        }
+    },
+    "messageType" : "NOTIFICATION"
+}
+```
+##### Description
+- target.countries에 국가 코드, target.pushTypes에 푸시 타입을 설정해 조건에 만족하는 사용자에게 메시지를 발송한다.
+
+#### 4. 푸시 타입별 메시지 변환
+##### Request Body
+```json
+{
+    "target" : {
+        "type" : "ALL"
+    },
+    "content" : {
         "default" : {
             "title": "title",
             "body": "body",
             "badge": 1,
             "customKey": "value"
-        },
-        "ko" : {
-            "title": "제목",
-            "body": "내용"
-            "customKey": "값"
-        },
-        "ja" : {
-            "title": "タイトル",
-            "body": "プッシュ・メッセージ"
         }
-	},
-	"messageType" : "NOTIFICATION"
+    },
+    "messageType" : "NOTIFICATION"
 }
-"ko" GCM 메시지
- {
-    "data": {
-        "title": "제목",
-        "body": "내용",
-        "customKey": "값"
-    }
+```
+
+##### GCM(Android)에 수신되는 메시지
+```json
+{
+	"data": {
+		"title": "title",
+		"body": "body",
+		"customKey": "value"
+	}
 }
-"ja" GCM 메시지
- {
-    "data": {
-        "title": "タイトル",
-        "body": "プッシュ・メッセージ",
-        "customKey": "value"
-    }
-}
-"ko" APNS 메시지
+```
+##### APNS(iOS)에 수신되는 메시지
+```json
 {
     "aps": {
         "alert": {
-            "title": "제목",
-            "body": "내용"
+            "title": "title",
+            "body": "body"
         },
         "badge": 1
     },
     "customKey": "값"
 
 }
-"ja" APNS 메시지
+```
+##### TENCENT(Android)에 수신되는 메시지
+```json
+ {
+    "title": "title",
+    "body": "body",
+    "custom_content": {
+        "customKey": "value"
+    }
+}
+```
+
+##### ADM(Fire OS)에 수신되는 메시지
+```json
 {
-    "aps": {
-        "alert": {
-            "title": "タイトル",
-            "body": "プッシュ・メッセージ"
-        },
-        "badge": 1
-    },
-    "customKey": "value"
-}
-"ko" TENCENT 메시지
- {
-	"title": "제목",
-	"body": "내용",
-	"custom_content": {
-		"customKey": "값"
-	}
-}
-"ja" TENCENT 메시지
- {
-	"title": "タイトル",
-	"body": "プッシュ・メッセージ",
-	"custom_content": {
+	"data": {
+		"title": "title",
+		"body": "body",
 		"customKey": "value"
 	}
 }
-"ko" ADM 메세지
+```
+
+##### Description
+- content에 입력한 메시지 내용은 각 푸시 타입에 맞게 변환되어 발송된다.
+- title, body와 같은 예약어들은 푸시 타입에 맞는 메시지로 변환시 지정된 위치에 설정되어 발송된다.
+그외 사용자가 정의한 필드들은 각 푸시 타입의 Custom Key 위치에 설정된다.
+- badge, consolidationKey와 같이 특정 푸시 타입에만 정의된 예약어는 다른 푸시 타입에서는 제외된다.
+예로, badge는 APNS(iOS) 메시지에만 설정되며, GCM, TENCENT, ADM에는 제외된다.
+
+#### 5. 광고성 메시지
+##### Request Body
+```json
 {
-  "data":{
-    "title":"제목",
-    "body":"내용",
-    "customKey":"값"
-  },
-  "consolidationKey":"",
-  "expiresAfter":60
-}
-"ja" ADM 메세지
-{
-  "data":{
-    "title":"タイトル",
-    "body":"プッシュ・メッセージ",
-    "customKey":"value"
-  },
-  "consolidationKey":"",
-  "expiresAfter":60
+    "target" : {
+        "type" : "ALL"
+    },
+    "content" : {
+        "default" : {
+            "title": "금요일 특별 이벤트",
+            "body": "지금 주문하시면 50% 할안된 가격으로!"
+        }
+    },
+    "messageType" : "AD",
+    "contact": "1588",
+    "removeGuide": "메뉴 > 알림 설정"
 }
 ```
+
+##### GCM(Android), ko(한국어)에 수신되는 메시지
+```json
+ {
+    "data": {
+        "title": "(광고) 금요일 특별 이벤트 1588",
+        "body": "지금 주문하시면 50% 할안된 가격으로!\n메뉴 > 알림 설정"
+    }
+}
+```
+##### APNS(iOS), ko(한국어)에 수신되는 메시지
+```json
+{
+    "aps": {
+        "alert": {
+            "title": "(광고) 금요일 특별 이벤트 1588",
+            "body": "지금 주문하시면 50% 할안된 가격으로!\n메뉴 > 알림 설정"
+        }
+    }
+}
+```
+##### GCM(Android), ja(일본어)에 수신되는 메시지
+```json
+ {
+    "data": {
+        "title": "금요일 특별 이벤트",
+        "body": "지금 주문하시면 50% 할안된 가격으로!"
+    }
+}
+```
+##### APNS(iOS), ja(일본어)에 수신되는 메시지
+```json
+{
+    "aps": {
+        "alert": {
+            "title": "금요일 특별 이벤트",
+            "body": "지금 주문하시면 50% 할안된 가격으로!"
+        }
+    }
+}
+```
+##### Description
+- 광고성 메시지를 발송하기 위해서는 messageType을 AD(광고)로 설정하고, contact와 removeGuide에 대표 번호와 수신 동의 철회 방법을 입력해야 된다.
+- 각 푸시 타입별로 메시지가 발송될때, title에 광고 표시 문구와 대표 번호가, body에 수신 동의 철회 방법이 추가되어 발송된다.
+- 광고성 메시지는 언어 코드가 한국어(ko, ko-)인 사용자들에게만 광고 문구가 추가된다. 위 예처럼 해외 사용자(일본어)들에게는 광고 문구가 추가되지 않는다.
+
+#### 6. 다국어 메시지
+##### Request Body
+```json
+{
+    "target" : {
+        "type" : "ALL"
+    },
+    "content" : {
+        "default" : {
+            "title": "title",
+            "body": "body",
+            "customKey": "value"
+        },
+        "ko" : {
+            "title": "제목",
+            "body": "내용",
+            "customKey": "'ko', 'ko-'로 시작하는 언어 코드에 설정됩니다."
+        },
+        "ja" : {
+            "title": "タイトル",
+            "body": "プッシュ・メッセージ"
+        }
+    },
+    "messageType" : "NOTIFICATION"
+}
+```
+
+##### GCM(Android), ko(한국어)에 수신되는 메시지
+```json
+{
+    "data": {
+        "title": "제목",
+        "body": "내용",
+        "customKey": "'ko', 'ko-'로 시작하는 언어 코드에 설정됩니다."
+    }
+}
+```
+##### GCM(Android), ko-KR(한국어)에 수신되는 메시지
+ ```json
+{
+    "data": {
+        "title": "제목",
+        "body": "내용",
+        "customKey": "'ko', 'ko-'로 시작하는 언어 코드에 설정됩니다."
+    }
+}
+```
+##### GCM(Android), ja(일본어)에 수신되는 메시지
+```json
+{
+    "data": {
+        "title": "タイトル",
+        "body": "プッシュ・メッセージ",
+        "customKey": "value"
+    }
+}
+```
+##### GCM(Android), en(영어)에 수신되는 메시지
+```json
+{
+    "data": {
+        "title": "title",
+        "body": "body",
+        "customKey": "value"
+    }
+}
+```
+##### Description
+- content 하위에 각 언어 코드에 대한 메시지를 입력하면, 토큰의 언어 코드와 일치하거나 유사한 언어의 메시지로 변환되어 발송된다.
+토큰의 언어 코드와 매칭되는 언어 코드가 없다면, default의 내용이 발송 됩니다. 언어 코드가 en(영어)인 사용자에게는 conent.default의 내용이 발송된다.
+- 토큰의 언어 코드와 완벽히 일치하지 않아도, 언어 코드의 유사도를 비교해 최대한 가까운 언어로 변환한다.
+요청 본문에 content.ko만 입력되어 있지만, 언어 코드가 ko-KR(한국어)인 사용자에게도 content.ko의 내용이 발송된다.
+- customKey는 content.ja에 정의되어 있지 않기때문에, content.default의 값으로 발송된다. 공통적인 내용은 content.default에 입력할 수 있다.
+
 ### 조회
 #### 목록 조회
 ##### Method, URL, Headers
@@ -2034,6 +2203,7 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" https://alpha-a
 
 
 * *문서 수정 내역*
+    * *(2018.06.26) 메시지 발송 예제 추가*
     * *(2018.06.26) pushType ADM 추가*
     * *(2018.05.29) v2.1 토큰 조회 API 추가*
     * *(2018.05.29) API curl 가이드 추가*
