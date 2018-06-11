@@ -136,7 +136,6 @@ public class YourActivity extends Activity {
                 // TODO Implement handling error
             }
         }, options);
-        // TDDo Implement handling error
     }
 }
 ```
