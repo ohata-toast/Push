@@ -629,7 +629,7 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 {
     "target" : {
         "type" : "UID",
-		"to": ["uid-01", "uid-02"]
+        "to": ["uid-01", "uid-02"]
     },
     "content" : {
         "default" : {
@@ -649,8 +649,8 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 {
     "target" : {
         "type" : "ALL",
-		"countries": ["KR", "JP"],
-    "pushTypes": ["GCM", "APNS"]
+        "countries": ["KR", "JP"],
+        "pushTypes": ["GCM", "APNS"]
     },
     "content" : {
         "default" : {
@@ -838,7 +838,7 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 }
 ```
 ##### GCM(Android), ko-KR(한국어)에 수신되는 메시지
- ```json
+```json
 {
     "data": {
         "title": "제목",
