@@ -17,10 +17,10 @@
 - [Console] > [Notification] > [Push] > [인증서] 탭 클릭
 - 위에서 생성한 FCM API Key를 복사해서 [GCM API Key]에 붙여넣기 > [REGISTER] 클릭하면, 등록 완료
 
-### Google Project 주의 사항
+### Google Project 사용시 주의 사항
 - Google은 2019년 4월 11일에 GCM 서비스를 종료할 계획이다.
      - [[GCM and FCM Frequently Asked Questions](https://developers.google.com/cloud-messaging/faq)]로 이동
-- Google Project(현재 Google Cloud Platform)에서 생성한 키를 GCM API Key로 사용하고 있는 경우, 설정 변경으로 사용이 불가능할 수 있다.
+- Google Project(현재 Google Cloud Platform)에서 생성한 키를 GCM API Key로 사용하고 있는 경우, 설정 변경으로 사용이 불가능할 수 있다.    
 만약 Google Project에서 생성한 키를 사용하지 못하게되면, Google Project를 Firebase로 옮기고, Firebase에서 생성된 서버키를 사용해야한다.
 - Google에서 Migration Guide를 제공함
     - [[Firebase Migration Guide](https://developers.google.com/cloud-messaging/android/android-migrate-fcm)]로 이동
