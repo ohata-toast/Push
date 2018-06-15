@@ -111,7 +111,7 @@ Content-Type: application/json;charset=UTF-8
 |token|	Required, String|	Token. 255 bytes.|
 |oldToken|	Optional, String|	Old Token. 255 bytes.|
 |channel|	Optional, String|	Channel name. 50 bytes.|
-|pushType|	Required, String|	GCN, APNS, APNS_SANDBOX, TENCENT|
+|pushType|	Required, String|	GCN, APNS, APNS_SANDBOX, TENCENT, ADM|
 |isNotificationAgreement|	Required, Boolean|	true or false|
 |isAdAgreement|	Required, Boolean|	true or false|
 |isNightAdAgreement|	Required, Boolean|	true or false|
@@ -253,7 +253,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | --- | --- | --- |
 | target.type | Required, String | ALL, CHANNEL, UID |
 | target.to | Optional, String Array | target.type이 CHANNEL이면 100개, UID면 10,000개다. |
-| target.pushTypes | Optional, String Array | GCM, APNS, APNS_SANDBOX, TENCENT |
+| target.pushTypes | Optional, String Array | GCM, APNS, APNS_SANDBOX, TENCENT, ADM |
 | target.countries | Optional, String Array | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3. 3 bytes. |
 | content | Required, Map | 8192 bytes |
 | content.default | Required, Map |  |
@@ -266,7 +266,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | isStored | Optional, Boolean | 메시지를 저장할지 여부다. 기본값은 false다. |
 
 - "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있다.
-만약, 정의하지 않으면 모든 푸시 타입, GCM, APNS, APNS_SANDBOX, TENCENT로 발송한다.
+만약, 정의하지 않으면 모든 푸시 타입, GCM, APNS, APNS_SANDBOX, TENCENT, ADM로 발송한다.
 - "target.countries" 필드가 "['KR', 'JP']"면 토큰 국가 코드가 "KR" 또는 "JP"인 Token에 발송한다.
 - "content.default" 필드는 필수이며, "content" 필드에 대한 자세한 내용은 아래 [공통 메시지 포맷]을 참고 바란다.
 - 메시지를 광고 타입, "messageType": "AD", 으로 보낼 경우, "contact", "removeGuide" 필드를 반드시 포함해야 한다.
@@ -347,26 +347,29 @@ Request Body
 
 API v1.3 부터 공통 메시지 형식을 지원 한다. "content"에 아래 표대로 메시지를 작성하면, 각 푸시 타입에 맞게 메시지가 생성되어 발송된다.
 
-|Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT|
-|---|---|---|---|---|---|
-|title|	Android, <br/> iOS Watch, <br/> Tencent|	Optional, String|	data.title|	aps.alert.title|	title|
-|body|	Android, <br/> iOS, <br/> Tencent|	Optional, String|	data.body|	aps.alert.body|	body|
-|title-loc-key|	iOS|	Optional, String| - | aps.alert.title-loc-key| - |
-|title-loc-args|	iOS|	Optional, Array of Strings| - | aps.alert.title-loc-args	| - |
-|action-loc-key|	iOS|	Optional, String| - |aps.alert.action-loc-key	| - |
-|loc-key|	iOS|	Optional, String| - |aps.alert.loc-key	| - |
-|loc-args|	iOS|	Optional, Array of String	| - | aps.alert.loc-args	| - |
-|launch-image|	iOS|	Optional, String	| - | aps.alert.launch-image	| - |
-|badge|	iOS|	Optional, Number| - | aps.badge	| - |
-|sound|	Android, <br/> iOS, <br/> Tencent|	Optional, String|	data.sound|	aps.sound|	custom_content.sound|
-|content-available|	iOS|	Optional, String	| - | aps.content-available	| - |
-|category|	iOS|	Optional, String	| - | aps.category	| - |
+|Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT| ADM |
+|---|---|---|---|---|---|---|
+|title|	Android, <br/> iOS Watch, <br/> Tencent, <br/> ADM|	Optional, String|	data.title|	aps.alert.title|	title| data.title |
+|body|	Android, <br/> iOS, <br/> Tencent, <br/> ADM|	Optional, String|	data.body|	aps.alert.body|	content| data.body|
+|title-loc-key|	iOS|	Optional, String| - | aps.alert.title-loc-key| - | - |
+|title-loc-args|	iOS|	Optional, Array of Strings| - | aps.alert.title-loc-args	| - | - |
+|action-loc-key|	iOS|	Optional, String| - |aps.alert.action-loc-key	| - | - |
+|loc-key|	iOS|	Optional, String| - |aps.alert.loc-key	| - | - |
+|loc-args|	iOS|	Optional, Array of String	| - | aps.alert.loc-args	| - | - |
+|launch-image|	iOS|	Optional, String	| - | aps.alert.launch-image	| - | - |
+|badge|	iOS|	Optional, Number| - | aps.badge	| - | - |
+|sound|	Android, <br/> iOS, <br/> Tencent, <br/> ADM|	Optional, String|	data.sound|	aps.sound|	custom_content.sound| data.sound |
+|content-available|	iOS|	Optional, String	| - | aps.content-available	| - | - |
+|category|	iOS|	Optional, String	| - | aps.category	| - | - |
+|mutable-content| iOS | Optional, String | - | aps.mutable-content | - | - |
+|consolidationKey| ADM | Optional, String | - | - | - | consolidationKey |
+|expiresAfter| ADM | Optional, Number | - | - | - | expiresAfter |
 
 그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어간다.
 
-|Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT|
-|---|---|---|---|---|---|
-|customKey|	Android, <br/> iOS, <br/> Tencent|	Optional, <br/> Object, <br/> Array, <br/> String, <br/> Number|	data.customKey|	customKey|	custom_content.customKey|
+|Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT| ADM|
+|---|---|---|---|---|---|---|
+|customKey|	Android, <br/> iOS, <br/> Tencent, <br/> ADM|	Optional, <br/> Object, <br/> Array, <br/> String, <br/> Number|	data.customKey|	customKey|	custom_content.customKey| data.customKey|
 
 ["content" Example]
 
@@ -451,6 +454,26 @@ Request Body
 	"custom_content": {
 		"key": "value"
 	}
+}
+"ko" ADM 메세지
+{
+  "data":{
+    "title":"제목",
+    "body":"내용",
+    "customKey":"값"
+  },
+  "consolidationKey":"",
+  "expiresAfter":60
+}
+"ja" ADM 메세지
+{
+  "data":{
+    "title":"タイトル",
+    "body":"プッシュ・メッセージ",
+    "customKey":"value"
+  },
+  "consolidationKey":"",
+  "expiresAfter":60
 }
 ```
 

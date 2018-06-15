@@ -136,7 +136,6 @@ public class YourActivity extends Activity {
                 // TODO Implement handling error
             }
         }, options);
-        // TDDo Implement handling error
     }
 }
 ```
@@ -274,7 +273,7 @@ options는 플랫폼에 따라 Dictionary나 Map, 또는 그에 준하는 Key/Va
 
 targetSdkVersion이 26 이상일 경우, 안드로이드 8.0 이상의 기기에서 알림바에 푸시 메시지를 등록하기 위해서는 Notification Channel을 생성해서 사용해야 합니다.
 
-기본 리시버를 이용해서 알림바에 푸시 메시지를 등록하면 v1.4.4 이상에서 Notification Channel이 자동으로 생성됩니다. 
+기본 리시버를 이용해서 알림바에 푸시 메시지를 등록하면 v1.4.4 이상에서 Notification Channel이 자동으로 생성됩니다.
 
 커스텀 리시버를 사용하거나, 기본 리시버를 상속했지만 super 메소드를 호출하지 않는 경우는 아래 공식 가이드를 참고해서 Notification Channel을 반드시 적용해야 합니다.
 
@@ -639,7 +638,7 @@ public class YourGcmListener extends PushSdk.GcmListener {
 <br/>
 
 * *문서 수정 내역*
-    * *(2018.05.29) 
+    * *(2018.05.29)
         * Android : v1.4.4 변경내용 적용
             * Notification Channel 가이드 추가
             * 의존 라이브러리 버전 및 일부 Gradle 설정 변경
