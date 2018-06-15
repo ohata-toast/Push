@@ -605,6 +605,8 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 - 메시지 발송 API의 요청 본문(Request Body)의 content.default은 필수다.
 
 #### 1. 전체에게 발송
+등록된 모든 대상에게 메시지를 발송하는 예제다.
+
 ##### Request Body
 ```json
 {
@@ -624,6 +626,8 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 - target.type을 'ALL'로 설정하면, 모든 토큰에 메시지를 발송한다.
 
 #### 2. 특정 사용자에게 발송
+사용자 아이디를 입력해 특정 사용하에게 메시지를 발송하는 예제다.
+
 ##### Request Body
 ```json
 {
@@ -644,6 +648,8 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 - target.type을 'UID'로 설정하고, target.to에 사용자 아이디를 설정해 특정 사용자에게 메시지를 발송한다.
 
 #### 3. 일부 국가나 푸시 타입의 사용자들에게 발송
+특정 국가나 기기(Android, iOS, ...)를 사용하는 사용자들에게만 메시지를 발송하는 예제다.
+
 ##### Request Body
 ```json
 {
@@ -665,6 +671,8 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 - target.countries에 국가 코드, target.pushTypes에 푸시 타입을 설정해 조건에 만족하는 사용자에게 메시지를 발송한다.
 
 #### 4. 푸시 타입별 메시지 변환
+메시지를 보내게되면 푸시 타입별로 메시지가 변환되어 발송되는데, 변환되는 규칙을 설명한 예제다.
+
 ##### Request Body
 ```json
 {
@@ -703,7 +711,7 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
         },
         "badge": 1
     },
-    "customKey": "값"
+    "customKey": "value"
 
 }
 ```
@@ -737,6 +745,8 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 예로, badge는 APNS(iOS) 메시지에만 설정되며, GCM, TENCENT, ADM에는 제외된다.
 
 #### 5. 광고성 메시지
+광고성 메시지로 발송하면 메시지 내용에 추가되는 광고 문구에대한 예제다.
+
 ##### Request Body
 ```json
 {
@@ -801,6 +811,8 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 - 광고성 메시지는 언어 코드가 한국어(ko, ko-)인 사용자들에게만 광고 문구가 추가된다. 위 예처럼 해외 사용자(일본어)들에게는 광고 문구가 추가되지 않는다.
 
 #### 6. 다국어 메시지
+다양한 언어로 메시지를 발송하는 예제다.
+
 ##### Request Body
 ```json
 {
@@ -869,10 +881,10 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 ```
 ##### Description
 - content 하위에 각 언어 코드에 대한 메시지를 입력하면, 토큰의 언어 코드와 일치하거나 유사한 언어의 메시지로 변환되어 발송된다.
-토큰의 언어 코드와 매칭되는 언어 코드가 없다면, default의 내용이 발송 됩니다. 언어 코드가 en(영어)인 사용자에게는 conent.default의 내용이 발송된다.
+토큰의 언어 코드와 매칭되는 언어 코드가 없다면, default의 내용이 발송된다. 언어 코드가 en(영어)인 사용자에게는 conent.default의 내용이 발송된다.
 - 토큰의 언어 코드와 완벽히 일치하지 않아도, 언어 코드의 유사도를 비교해 최대한 가까운 언어로 변환한다.
 요청 본문에 content.ko만 입력되어 있지만, 언어 코드가 ko-KR(한국어)인 사용자에게도 content.ko의 내용이 발송된다.
-- customKey는 content.ja에 정의되어 있지 않기때문에, content.default의 값으로 발송된다. 공통적인 내용은 content.default에 입력할 수 있다.
+- customKey는 content.ja에 정의되어 있지 않기 때문에, content.default의 값으로 발송된다. 공통적인 내용은 content.default에 입력할 수 있다.
 
 ### 조회
 #### 목록 조회
