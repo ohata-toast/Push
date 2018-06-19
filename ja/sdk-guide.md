@@ -12,7 +12,7 @@ TENCENT 푸시 SDK와 통합하는 방법에 대해 설명한다.
 
 [Tencent Push SDK 다운로드 페이지](http://xg.qq.com/xg/ctr_index/download)
 
-가이드는 TENCENT(Xg Push) 3.0 버전 기준으로 작성되었다.
+가이드는 TENCENT(Xg Push) 3.2.3 버전 기준으로 작성되었다.
 
 ## 토큰 등록
 
@@ -205,7 +205,11 @@ dependencies {
         <action android:name="com.tencent.android.tpush.action.FEEDBACK" />
       </intent-filter>
     </receiver>
-    <service android:name="com.tencent.android.tpush.service.XGDaemonService" android:process=":xg_service_v3" />
+    <service android:name="com.tencent.android.tpush.rpc.XGRemoteService" android:exported="true" >
+        <intent-filter>
+            <action android:name="com.toast.cloud.push.demo.app.PUSH_ACTION" />
+        </intent-filter>
+    </service>
     <provider
     android:name="com.tencent.android.tpush.XGPushProvider"
     android:authorities="your.package.name.AUTH_XGPUSH"
@@ -638,7 +642,9 @@ public class YourGcmListener extends PushSdk.GcmListener {
 <br/>
 
 * *문서 수정 내역*
-    * *(2018.05.29)
+    * *(2018.06.26)*
+        * Android : 텐센트 SDK 버전 업데이트 및 가이드 수정 (3.0 -> 3.2.3)
+    * *(2018.05.29)*
         * Android : v1.4.4 변경내용 적용
             * Notification Channel 가이드 추가
             * 의존 라이브러리 버전 및 일부 Gradle 설정 변경
