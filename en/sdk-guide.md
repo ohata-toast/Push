@@ -12,7 +12,7 @@ TENCENT 푸시 SDK와 통합하는 방법에 대해 설명한다.
 
 [Tencent Push SDK 다운로드 페이지](http://xg.qq.com/xg/ctr_index/download)
 
-가이드는 TENCENT(Xg Push) 3.0 버전 기준으로 작성되었다.
+가이드는 TENCENT(Xg Push) 3.2.3 버전 기준으로 작성되었다.
 
 ## 토큰 등록
 
@@ -136,7 +136,6 @@ public class YourActivity extends Activity {
                 // TODO Implement handling error
             }
         }, options);
-        // TDDo Implement handling error
     }
 }
 ```
@@ -206,7 +205,11 @@ dependencies {
         <action android:name="com.tencent.android.tpush.action.FEEDBACK" />
       </intent-filter>
     </receiver>
-    <service android:name="com.tencent.android.tpush.service.XGDaemonService" android:process=":xg_service_v3" />
+    <service android:name="com.tencent.android.tpush.rpc.XGRemoteService" android:exported="true" >
+        <intent-filter>
+            <action android:name="com.toast.cloud.push.demo.app.PUSH_ACTION" />
+        </intent-filter>
+    </service>
     <provider
     android:name="com.tencent.android.tpush.XGPushProvider"
     android:authorities="your.package.name.AUTH_XGPUSH"
@@ -274,7 +277,7 @@ options는 플랫폼에 따라 Dictionary나 Map, 또는 그에 준하는 Key/Va
 
 targetSdkVersion이 26 이상일 경우, 안드로이드 8.0 이상의 기기에서 알림바에 푸시 메시지를 등록하기 위해서는 Notification Channel을 생성해서 사용해야 합니다.
 
-기본 리시버를 이용해서 알림바에 푸시 메시지를 등록하면 v1.4.4 이상에서 Notification Channel이 자동으로 생성됩니다. 
+기본 리시버를 이용해서 알림바에 푸시 메시지를 등록하면 v1.4.4 이상에서 Notification Channel이 자동으로 생성됩니다.
 
 커스텀 리시버를 사용하거나, 기본 리시버를 상속했지만 super 메소드를 호출하지 않는 경우는 아래 공식 가이드를 참고해서 Notification Channel을 반드시 적용해야 합니다.
 
@@ -639,7 +642,9 @@ public class YourGcmListener extends PushSdk.GcmListener {
 <br/>
 
 * *문서 수정 내역*
-    * *(2018.05.29) 
+    * *(2018.06.26)*
+        * Android : 텐센트 SDK 버전 업데이트 및 가이드 수정 (3.0 -> 3.2.3)
+    * *(2018.05.29)*
         * Android : v1.4.4 변경내용 적용
             * Notification Channel 가이드 추가
             * 의존 라이브러리 버전 및 일부 Gradle 설정 변경

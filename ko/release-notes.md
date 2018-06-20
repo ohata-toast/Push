@@ -1,5 +1,20 @@
 ## Notification > Push > 릴리스 노트
 
+### 2018.06.26
+#### 버그 수정
+* [API] 광고성 푸시 메시지 발송시 일부 대상이 누락되는 오류 수정
+    * 2018년 05월 30일 핫픽스로 수정되었습니다.
+    * 발송 로직 오류로 광고성 푸시 메시지 발송시 일부 대상이 누락되는 오류를 수정했습니다.
+* [API] 예약 메시지 발송시 현지 시간 기능을 사용할 경우, 중복 수신이 되는 오류 수정
+    * 현지 시간 기능을 사용한 경우, 존재하지 않는 시간대로 예약 메시지를 발송하는 오류를 수정했습니다.
+
+#### 기능 추가
+* [API, Console] ADM(Amazon Device Messaging) 푸시 타입 추가
+    * 아마존 디바이스(Kindle Fire)로 푸시 메시지를 발송할 수 있게 ADM 푸시 타입을 추가했습니다.
+    * 아마존 개발자 사이트에서 앱을 등록하고 Client ID, Client Secret을 발급받아 등록 후 발송할 수 있습니다.
+    <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#adm-client-id-client-secret" target="_blank">ADM 가이드 바로가기</a>
+
+
 ### 2018.05.29
 #### SDK 배포
 * [Android SDK] v1.4.4 배포
