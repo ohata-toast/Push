@@ -293,6 +293,13 @@ public static class CustomPushReceiver extends GcmListenerService {
 }
 ```
 
+### 디버그 로그 활성화
+* Push SDK는 SDK의 디버그 로그를 활성화하는 메소드를 제공한다.
+* <span style="color:#f47141">반드시 개발 중에만 디버그 로그를 활성화해야 한다. 릴리즈시에는 제거하거나 false로 설정해야한다.</span>
+```java
+PushSdk.setDebug(true);
+```
+
 ### 오류 코드
 * 오류 코드는 com.toast.android.pushsdk.annotations.PushResultCode 어노테이션에 @IntDef 로 정의되어있다.
 
