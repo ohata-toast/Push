@@ -58,7 +58,7 @@ dependencies {
 android {
     sourceSets {
         main {
-            jniLibs.srcDirs = ['../pushsdk/libs']
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
