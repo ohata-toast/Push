@@ -9,6 +9,7 @@
     * 현지 시간 기능을 사용한 경우, 존재하지 않는 시간대로 예약 메시지를 발송하는 오류를 수정했습니다.
 
 #### 기능 개선
+* [Android SDK] 지원하는 Tencent SDK 버전 업데이트 (3.2.3)
 * [iOS SDK] 지표 수집 및 전송 기능 개선
 
 #### 기능 추가
@@ -16,6 +17,7 @@
     * 아마존 디바이스(Kindle Fire)로 푸시 메시지를 발송할 수 있게 ADM 푸시 타입을 추가했습니다.
     * 아마존 개발자 사이트에서 앱을 등록하고 Client ID, Client Secret을 발급받아 등록 후 발송할 수 있습니다.
     <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#adm-client-id-client-secret" target="_blank">ADM 가이드 바로가기</a>
+* [Android SDK] 개선된 API 추가 (기존 API도 호환)
 * [iOS SDK] 실행(Opened) 지표 수집 및 전송 자동화
 
 
