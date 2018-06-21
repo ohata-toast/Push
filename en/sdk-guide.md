@@ -292,7 +292,7 @@ public static class CustomPushReceiver extends GcmListenerService {
 * 오류 코드는 com.toast.android.pushsdk.annotations.PushResultCode 어노테이션에 @IntDef 로 정의되어있다.
 
 | 에러코드 | 설명 |
-|---|---|---|
+|---|---|
 | ERROR_SYSTEM_FAIL | 시스템 문제로 토큰 획득에 실패한 경우 |
 | ERROR_NETWORK_FAIL | 네트워크 문제로 인해 요청이 실패한 경우 |
 | ERROR_SERVER_FAIL | 서버에서 실패 응답을 반환한 경우 |
@@ -300,6 +300,7 @@ public static class CustomPushReceiver extends GcmListenerService {
 | ERROR_INVALID_PARAMETERS | 매개변수가 잘못된 경우 |
 | ERROR_PERMISSION_REQUIRED | 권한이 필요한 경우 (Tencent Only) |
 | ERROR_PARSE_JSON_FAIL | 서버 응답을 파싱하지 못한 경우 |
+<br><br>
 
 ## iOS
 ### 지원환경
@@ -423,7 +424,7 @@ configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 �
 
 ### 오류 코드
 | 에러코드 | 설명 |
-| -- | -- | -- |
+| -- | -- |
 | TCPushErrorInvalidParameters | 파라미터 오류 |
 | TCPushErrorPermissionDenined | 권한 미획득 |
 | TCPushErrorSystemFail | 시스템 알림 등록 실패 |
