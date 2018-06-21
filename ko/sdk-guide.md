@@ -300,6 +300,7 @@ public static class CustomPushReceiver extends GcmListenerService {
 | ERROR_INVALID_PARAMETERS | 매개변수가 잘못된 경우 |
 | ERROR_PERMISSION_REQUIRED | 권한이 필요한 경우 (Tencent Only) |
 | ERROR_PARSE_JSON_FAIL | 서버 응답을 파싱하지 못한 경우 |
+<br><br>
 
 ## iOS
 ### 지원환경
