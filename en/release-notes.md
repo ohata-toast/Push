@@ -8,14 +8,21 @@
 * [API] 예약 메시지 발송시 현지 시간 기능을 사용할 경우, 중복 수신이 되는 오류 수정
     * 현지 시간 기능을 사용한 경우, 존재하지 않는 시간대로 예약 메시지를 발송하는 오류를 수정했습니다.
 
+#### 기능 개선
+* [Android SDK] 지원하는 Tencent SDK 버전 업데이트 (3.2.3)
+* [iOS SDK] 지표 수집 및 전송 기능 개선
+
 #### 기능 추가
 * [API, Console] ADM(Amazon Device Messaging) 푸시 타입 추가
     * 아마존 디바이스(Kindle Fire)로 푸시 메시지를 발송할 수 있게 ADM 푸시 타입을 추가했습니다.
     * 아마존 개발자 사이트에서 앱을 등록하고 Client ID, Client Secret을 발급받아 등록 후 발송할 수 있습니다.
-    <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#adm-client-id-client-secret" target="_blank">ADM 가이드 바로가기</a>
+    <a href="https://docs.toast.com/en/Notification/Push/en/console-guide/#adm-client-id-client-secret" target="_blank">ADM 가이드 바로가기</a>
+* [Android SDK] 개선된 API 추가 (기존 API도 호환)
+* [iOS SDK] 실행(Opened) 지표 수집 및 전송 자동화
+
 
 ### 2018.05.29
-#### SDK 배포
+#### 배포
 * [Android SDK] v1.4.4 배포
 * [iOS SDK] v1.5.0 배포
 
@@ -226,7 +233,7 @@
 * [API] 알림/홍보성/야간홍보성 푸시 메시지 수신 대상 기준 개선
     * 정보통신망법 규정((제50조부터 제50조의 8)에 따라 대한민국 사용자들의 토큰들은 수신동의 여부에 따라 메시지 발송시 자동 필터링 됩니다.
     * 최근 iOS에서 다양한 언어 코드가 생성되면서 대한민국 사용자 토큰으로 분류되지 않을 수 있는 문제가 있었습니다.
-    * 기존에 언어 코드가 'ko', 'ko-kr'만 대한민국 사용자 토큰으로 분류했지만,     
+    * 기존에 언어 코드가 'en', 'ko-kr'만 대한민국 사용자 토큰으로 분류했지만,     
     'ko', 'kor' 또는 'ko-'를 포함하는 언어 코드를 대한민국 사용자 토큰으로 분류하도록 개선했습니다.
 * [CONSOLE] Channel 메시지 발송 기능 제외
     * Tag 메시지 발송 기능이 추가되면서 CONSOLE에서 Channel 메시지 발송 기능이 제외되었습니다.
@@ -239,7 +246,7 @@
     * Uid에 연락처(Contact)을 추가해 관리할 수 있습니다.
     * 메시지 발송시 태그와 조건을 설정해 메시지를 발송할 수 있습니다.    
 예, 메시지 발송시 target.type을 'TAG', target.to를 '남자, AND, 30대'로 설정하면, '남자'와 '30대' 태그가 붙은 Uid를 대상으로 메시지가 발송됩니다.
-    * API로 먼저 공개되며, 8월 정기 점검 후 CONSOLE에서 태그 기능을 사용하실 수 있습니다.      
+    * API로 먼저 공개되며, 8월 정기 점검 후 CONSOLE에서 태그 기능을 사용하실 수 있습니다.
     <a href="/en/Notification/Push/en/api-guide/#_13" target="_blank">API Reference 바로 가기</a>
 * [API] 실패 처리된 메시지 조회 API 추가
     * 메시지 발송시 실패된 메시지를 조회할 수 있는 API가 추가되었습니다.
@@ -275,7 +282,7 @@
     * 예약 메시지 API가 추가되었습니다.
     * 메시지 수신, 확인 통계 조회 API가 추가되었습니다.
     * v1.3 피드백 API는 v2.0 유효하지 않은 토큰 API로 변경되었습니다.
-    * 응답 메시지를 더 자세하게 출력합니다.    
+    * 응답 메시지를 더 자세하게 출력합니다.
     <a href="/en/Notification/Push/en/api-guide" target="_blank">v2.0 API Reference 바로 가기</a>
 * [CONSOLE] Dashboard, Setting 탭 추가
     * 메시지 수신, 확인 통계를 확인할 수 있는 [Dashboar]d 탭이 추가되었습니다.
