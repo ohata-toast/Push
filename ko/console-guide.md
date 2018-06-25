@@ -14,8 +14,27 @@
 
 ### FCM API Key 등록
 
-- [Console] > [Notification] > [Push] > [Certificates] 탭 클릭
+- [Console] > [Notification] > [Push] > [인증서] 탭 클릭
 - 위에서 생성한 FCM API Key를 복사해서 [GCM API Key]에 붙여넣기 > [REGISTER] 클릭하면, 등록 완료
+
+### Google Project 사용시 주의 사항
+- Google은 2019년 4월 11일에 GCM 서비스를 종료할 계획이다.
+     - [[GCM and FCM Frequently Asked Questions](https://developers.google.com/cloud-messaging/faq)]로 이동
+- Google Project(현재 Google Cloud Platform)에서 생성한 키를 GCM API Key로 사용하고 있는 경우, 설정 변경으로 사용이 불가능할 수 있다.    
+만약 Google Project에서 생성한 키를 사용하지 못하게되면, Google Project를 Firebase로 옮기고, Firebase에서 생성된 서버키를 사용해야한다.
+- Google에서 Migration Guide를 제공함
+    - [[Firebase Migration Guide](https://developers.google.com/cloud-messaging/android/android-migrate-fcm)]로 이동
+
+#### Google Project에서 Firebase로 옮기기
+- [[Google Firebase Console](https://console.firebase.google.com)]로 접속
+- CREATE NEW PROJECT 선택
+- 사용하고 있는 Google Project가 있다면, Project Name 항목에 사용중인 Google Project 목록이 표시됨, 옮길려는 Google Project 선택
+- 프로젝트 아이디가 기존 Google Project와 같게 설정됨, 프로젝트 생성
+- 프로젝트 첫 페이지에서 톱니바퀴(Gear) 아이콘 클릭
+- Project settings 클릭
+- Settings 페이지에서 CLOUD MESSAGING 탭 클릭
+- Server key(API Key), Sender ID 확인
+- Firebase에서 확인한 Server key를 [인증서] 탭에 [GCM API Key]에 붙여넣기
 
 ### APNS 인증서 생성, 가져오기
 
@@ -34,8 +53,8 @@
 
 ### APNS 인증서 등록
 
-- [Console] > [Notification] > [Push] > [Certificates] 탭 클릭
-- [Apple Push Certificates] > [Certificates] 파일 선택 > APNS 인증서 선택
+- [Console] > [Notification] > [Push] > [인증서] 탭 클릭
+- [Apple Push Certificates] > [인증서] 파일 선택 > APNS 인증서 선택
 - [Password]에 인증서 비밀번호 입력
 - [REGISTER] 클릭, 등록 완료
 
@@ -81,8 +100,48 @@
 - 로그인 후, [[Tencent 푸시 서비스 대시보드](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex)]에 접속한다.
 - 应用统计(통계)를 클릭해서, 애플리케이션 대시보드로 들어간다.
 - 좌측 메뉴 중 配置管理(설정) > 应用配置(애플리케이션 설정) 클릭한다. ACCESS ID, ACCESS KEY, SECRET KEY를 확인한다.
-- TOAST Cloud로 돌아와 [Console] > [Notification] > [Push] > [Certificates] 탭 까지 이동한다.
+- TOAST Cloud로 돌아와 [Console] > [Notification] > [Push] > [인증서] 탭 까지 이동한다.
 - 확인한 [Tencent Credential]에 ACCESS ID, SECRET KEY를 입력한다.
+
+### ADM 어플리케이션 및 프로파일 등록 (Client Id, Client Secret 획득)
+- [[ADM 개발자 콘솔](https://developer.amazon.com/home.html)]에 접속한다.
+- 페이지 왼쪽 상단에 APP & SERVICES를 클릭 후, 하단에 ADD a New App 버튼을 클릭한다
+- App 생성 완료한 뒤, 중간 탭에 있는 Device Messaging을 클릭한다. 이 후 Create a New Security Profile 버튼을 클릭한다.
+- 프로필 생성 완료 후, 중간 탭에 있는 Security Profiles을 클릭한다. 그 뒤 View Security Profile 버튼을 클릭한다.
+- General 탭에서 Client ID와 Client Secret 값을 확인할 수 있다.
+
+### ADM Kindle 설정 정보 등록 (API key 획득)
+- Security Profiles 탭 클릭 후 중간에 Android/Kindle Settings 탭 클릭한다.
+- App Key Name, Package, MD5 Signature, SHA256 Signature 정보를 입력한다.
+- 아래와 같은 명령어로 MD5, SHA256 정보 조회가 가능하다.
+```
+> keytool -list -v -keystore {keystoreFileName}
+
+키 저장소 비밀번호 입력:
+키 저장소 유형: JKS
+키 저장소 제공자: SUN
+
+키 저장소에 1개의 항목이 포함되어 있습니다.
+
+별칭 이름: androiddebugkey
+생성 날짜: 2018. 5. 9
+항목 유형: PrivateKeyEntry
+인증서 체인 길이: 1
+인증서[1]:
+소유자: C=US, O=Android, CN=Android Debug
+발행자: C=US, O=Android, CN=Android Debug
+일련 번호: 1
+적합한 시작 날짜: Wed May 09 19:59:46 KST 2018 종료 날짜: Fri May 01 19:59:46 KST 2048
+인증서 지문:
+         MD5:  xxxx
+         SHA1: xxxx
+         SHA256: xxxx
+서명 알고리즘 이름: SHA1withRSA
+주체 공용 키 알고리즘: 1024비트 RSA 키
+버전: 1
+```
+- 등록 완료 후 Show 버튼을 클릭해 보면 API key 정보를 조회할 수 있다.
+
 
 ## 즉시 전송
 
@@ -250,6 +309,7 @@
 ```
 
 * *문서 수정 내역*
+    * *(2018.06.15) GCM에서 Firebase로 옮기는 설명 추가*
     * *(2017.11.23) 메시지 발송 내역 저장 설명 추가*
     * *(2017.09.21) 즉시 전송 설명 수정*
     * *(2017.07.20) 개인정보 수탁사 고지 안내 추가*

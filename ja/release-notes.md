@@ -1,7 +1,28 @@
 ## Notification > Push > Release Notes
 
+### 2018.06.26
+#### 버그 수정
+* [API] 광고성 푸시 메시지 발송시 일부 대상이 누락되는 오류 수정
+    * 2018년 05월 30일 핫픽스로 수정되었습니다.
+    * 발송 로직 오류로 광고성 푸시 메시지 발송시 일부 대상이 누락되는 오류를 수정했습니다.
+* [API] 예약 메시지 발송시 현지 시간 기능을 사용할 경우, 중복 수신이 되는 오류 수정
+    * 현지 시간 기능을 사용한 경우, 존재하지 않는 시간대로 예약 메시지를 발송하는 오류를 수정했습니다.
+
+#### 기능 개선
+* [Android SDK] 지원하는 Tencent SDK 버전 업데이트 (3.2.3)
+* [iOS SDK] 지표 수집 및 전송 기능 개선
+
+#### 기능 추가
+* [API, Console] ADM(Amazon Device Messaging) 푸시 타입 추가
+    * 아마존 디바이스(Kindle Fire)로 푸시 메시지를 발송할 수 있게 ADM 푸시 타입을 추가했습니다.
+    * 아마존 개발자 사이트에서 앱을 등록하고 Client ID, Client Secret을 발급받아 등록 후 발송할 수 있습니다.
+    <a href="https://docs.toast.com/en/Notification/Push/en/console-guide/#adm-client-id-client-secret" target="_blank">ADM 가이드 바로가기</a>
+* [Android SDK] 개선된 API 추가 (기존 API도 호환)
+* [iOS SDK] 실행(Opened) 지표 수집 및 전송 자동화
+
+
 ### 2018.05.29
-#### SDK 배포
+#### 배포
 * [Android SDK] v1.4.4 배포
 * [iOS SDK] v1.5.0 배포
 
@@ -151,7 +172,7 @@
     * 메시지 발송 내역을 Log & Crash Search에 저장할 수 있는 기능을 추가했습니다.
     사용하고 있는 Log & Crash Search의 앱키(Appkey)를 Setting 탭 Logging에 등록해 기능을 활성화 시킬 수 있습니다.
     * 저장된 메시지 발송 내역은 Log & Crash Search 페이지에서 확인할 수 있습니다.
-    * <a href="/ja/Notification/Push/ja/console-guide/#_9" target="_blank">메시지 발송 내역 저장 설명 바로 가기</a>
+    * <a href="/en/Notification/Push/en/console-guide/#_9" target="_blank">메시지 발송 내역 저장 설명 바로 가기</a>
 
 #### 버그 수정
 * [CONSOLE] 저해상도에서 팝업이 상품 사용법에 가려지는 오류 수정
@@ -166,7 +187,7 @@
     * 기존에는 실패한 메시지 조회시 결과 전체를 응답했습니다.
     결과 크기가 큰경우, Response Timeout이 발생할 수 있어, 한 번에 최대 1,000개 까지 응답하도록 수정했습니다.
     * 결과가 1,000개 이상일 경우, 비정상 응답합니다. 비정상 응답일 경우, from, to 기간을 더 짧게 조회해야 합니다.
-    * <a href="/ja/Notification/Push/ja/api-guide/#_15" target="_blank">API Reference 바로 가기</a>
+    * <a href="/en/Notification/Push/en/api-guide/#_15" target="_blank">API Reference 바로 가기</a>
         * 메시지 > 조회 > 실패한 메시지 목록 조회
 
 ### 2017.09.21
@@ -212,7 +233,7 @@
 * [API] 알림/홍보성/야간홍보성 푸시 메시지 수신 대상 기준 개선
     * 정보통신망법 규정((제50조부터 제50조의 8)에 따라 대한민국 사용자들의 토큰들은 수신동의 여부에 따라 메시지 발송시 자동 필터링 됩니다.
     * 최근 iOS에서 다양한 언어 코드가 생성되면서 대한민국 사용자 토큰으로 분류되지 않을 수 있는 문제가 있었습니다.
-    * 기존에 언어 코드가 'ko', 'ko-kr'만 대한민국 사용자 토큰으로 분류했지만,     
+    * 기존에 언어 코드가 'en', 'ko-kr'만 대한민국 사용자 토큰으로 분류했지만,     
     'ko', 'kor' 또는 'ko-'를 포함하는 언어 코드를 대한민국 사용자 토큰으로 분류하도록 개선했습니다.
 * [CONSOLE] Channel 메시지 발송 기능 제외
     * Tag 메시지 발송 기능이 추가되면서 CONSOLE에서 Channel 메시지 발송 기능이 제외되었습니다.
@@ -226,11 +247,11 @@
     * 메시지 발송시 태그와 조건을 설정해 메시지를 발송할 수 있습니다.    
 예, 메시지 발송시 target.type을 'TAG', target.to를 '남자, AND, 30대'로 설정하면, '남자'와 '30대' 태그가 붙은 Uid를 대상으로 메시지가 발송됩니다.
     * API로 먼저 공개되며, 8월 정기 점검 후 CONSOLE에서 태그 기능을 사용하실 수 있습니다.
-    <a href="/ja/Notification/Push/ja/api-guide/#_13" target="_blank">API Reference 바로 가기</a>
+    <a href="/en/Notification/Push/en/api-guide/#_13" target="_blank">API Reference 바로 가기</a>
 * [API] 실패 처리된 메시지 조회 API 추가
     * 메시지 발송시 실패된 메시지를 조회할 수 있는 API가 추가되었습니다.
     이 API를 이용해 발송이 실패 원인에 대한 내용을 확인할 수 있습니다.     
-    <a href="/ja/Notification/Push/ja/api-guide/#_15" target="_blank">API Reference 바로 가기</a>
+    <a href="/en/Notification/Push/en/api-guide/#_15" target="_blank">API Reference 바로 가기</a>
 
 #### 버그 수정
 * [API] 토큰 수정시 새로운 토큰이 존재할 때, 기존 토큰은 삭제 안되는 오류 수정
@@ -254,15 +275,15 @@
 * [API] 메시지 수신, 확인 데이터 수집(Message Delivery Receipt), 통계 조회 기능 추가
     * 메시지 발송 후, 기기에 수신, 사용자의 메시지 확인 데이터를 수집해 통계로 조회할 수 있는 기능을 추가되었습니다.
     * [CONSOLE] > [Settings] 탭에서 활성화 시킬 수 있으며, v2.0 API Reference에서 통계 조회 API 설명을 확인할 수 있습니다.
-    * 해당 기능은 v1.4이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
-    <a href="/ja/Notification/Push/ja/sdk-guide/#_4" target="_blank">SDK 수신 및 오픈 여부 적용 가이드 바로 가기</a>
+    * 해당 기능은 v1.4이상 SDK가 적용된 곳에서만 사용할 수 있습니다.    
+    <a href="/en/Notification/Push/en/sdk-guide/#_4" target="_blank">SDK 수신 및 오픈 여부 적용 가이드 바로 가기</a>
 * [API] v2.0 API 추가
     * 토큰 통계 API가 추가되었습니다.
     * 예약 메시지 API가 추가되었습니다.
     * 메시지 수신, 확인 통계 조회 API가 추가되었습니다.
     * v1.3 피드백 API는 v2.0 유효하지 않은 토큰 API로 변경되었습니다.
-    * 응답 메시지를 더 자세하게 출력합니다.    
-    <a href="/ja/Notification/Push/ja/api-guide" target="_blank">v2.0 API Reference 바로 가기</a>
+    * 응답 메시지를 더 자세하게 출력합니다.
+    <a href="/en/Notification/Push/en/api-guide" target="_blank">v2.0 API Reference 바로 가기</a>
 * [CONSOLE] Dashboard, Setting 탭 추가
     * 메시지 수신, 확인 통계를 확인할 수 있는 [Dashboar]d 탭이 추가되었습니다.
     * 메시지 수신, 확인 데이터 수집 기능을 설정할 수 있는 [Settings] 탭이 추가되었습니다.

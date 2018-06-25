@@ -1,8 +1,8 @@
-## Notification > Push > Console Guide
+## Notification > Push > 콘솔 사용 가이드
 
-### 인증서 관리
+## 인증서 관리
 
-#### FCM API Key 생성, 가져오기
+### FCM API Key 생성, 가져오기
 
 - [[Google Firebase Console](https://console.firebase.google.com)]로 접속
 - CREATE NEW PROJECT 선택
@@ -12,12 +12,31 @@
 - Settings 페이지에서 CLOUD MESSAGING 탭 클릭
 - Server key(API Key), Sender ID 확인
 
-#### FCM API Key 등록
+### FCM API Key 등록
 
-- [Console] > [Notification] > [Push] > [Certificates] 탭 클릭
+- [Console] > [Notification] > [Push] > [인증서] 탭 클릭
 - 위에서 생성한 FCM API Key를 복사해서 [GCM API Key]에 붙여넣기 > [REGISTER] 클릭하면, 등록 완료
 
-#### APNS 인증서 생성, 가져오기
+### Google Project 사용시 주의 사항
+- Google은 2019년 4월 11일에 GCM 서비스를 종료할 계획이다.
+     - [[GCM and FCM Frequently Asked Questions](https://developers.google.com/cloud-messaging/faq)]로 이동
+- Google Project(현재 Google Cloud Platform)에서 생성한 키를 GCM API Key로 사용하고 있는 경우, 설정 변경으로 사용이 불가능할 수 있다.    
+만약 Google Project에서 생성한 키를 사용하지 못하게되면, Google Project를 Firebase로 옮기고, Firebase에서 생성된 서버키를 사용해야한다.
+- Google에서 Migration Guide를 제공함
+    - [[Firebase Migration Guide](https://developers.google.com/cloud-messaging/android/android-migrate-fcm)]로 이동
+
+#### Google Project에서 Firebase로 옮기기
+- [[Google Firebase Console](https://console.firebase.google.com)]로 접속
+- CREATE NEW PROJECT 선택
+- 사용하고 있는 Google Project가 있다면, Project Name 항목에 사용중인 Google Project 목록이 표시됨, 옮길려는 Google Project 선택
+- 프로젝트 아이디가 기존 Google Project와 같게 설정됨, 프로젝트 생성
+- 프로젝트 첫 페이지에서 톱니바퀴(Gear) 아이콘 클릭
+- Project settings 클릭
+- Settings 페이지에서 CLOUD MESSAGING 탭 클릭
+- Server key(API Key), Sender ID 확인
+- Firebase에서 확인한 Server key를 [인증서] 탭에 [GCM API Key]에 붙여넣기
+
+### APNS 인증서 생성, 가져오기
 
 - Mac에서 [키체인]을 실행
 - [체인 접근] > [인증서 지원] > [인증 기관에서 인증서 요청] 버튼 클릭
@@ -32,15 +51,15 @@
 - 저장 위치 설정 후 [저장] 클릭
 - 보낸 항목을 보호하는 데 사용할 암호 입력, APNS 인증서 생성 완료
 
-#### APNS 인증서 등록
+### APNS 인증서 등록
 
-- [Console] > [Notification] > [Push] > [Certificates] 탭 클릭
-- [Apple Push Certificates] > [Certificates] 파일 선택 > APNS 인증서 선택
+- [Console] > [Notification] > [Push] > [인증서] 탭 클릭
+- [Apple Push Certificates] > [인증서] 파일 선택 > APNS 인증서 선택
 - [Password]에 인증서 비밀번호 입력
 - [REGISTER] 클릭, 등록 완료
 
-#### APNS 주의 사항
-##### APNS(Production), APNS_SANDBOX(Development) 차이
+### APNS 주의 사항
+#### APNS(Production), APNS_SANDBOX(Development) 차이
 - Production Provisioning Profile로 빌드한 앱은 APNS(Production)를 이용해야 하며, Development Provisioning Profile로 빌드한 앱은 APNS_SANDBOX(Development)를 이용해야 한다.
 이를 지키지 않으면, 푸시 메시지를 정상적으로 수신할 수 없다.
 - 토스트 클라우드 푸시에 등록한 APNS 인증서와 앱을 빌드할 때 사용한 Provisioning Profile이 달라 메시지 발송이 실패한 경우가 대부분이다.   
@@ -50,13 +69,13 @@
  [APNs Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1)  
  [App Distribution Quick Start](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppStoreDistributionTutorial/Introduction/Introduction.html#//apple_ref/doc/uid/TP40013839)
 
-##### APNS 메시지 발송 실패 원인
+#### APNS 메시지 발송 실패 원인
 - 인증서가 만료되었을 때  
 - 잘못된 인증서를 등록했을 때  
 - 앱에서 푸시 메시지 수신을 거부했을 때  
 - 디바이스가 인터넷에 연결되어 있지 않을 때
 
-#### Tencent 회원가입
+### Tencent 회원가입
 
 - [[Tencent 푸시 서비스 홈페이지](http://xg.qq.com/)]에 접속한다.
 - 페이지 우측 상단 登录(로그인)을 클릭한다.
@@ -67,7 +86,7 @@
 - 인증 코드를 입력하고 다음 단계로 넘어간다.
 - 가입 시 입력한 Email에서 'Activation Email'를 확인하고, 활성화시킨다.
 
-#### Tencent 애플리케이션 등록
+### Tencent 애플리케이션 등록
 
 - 로그인 후, [[Tencent 푸시 서비스 대시보드](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex)]에 접속한다.
 - 페이지 우측 상단 接入推送应用(애플리케이션 등록)을 클릭한다.
@@ -76,15 +95,55 @@
 - 应用平台(애플리케이션 플랫폼)에서 안드로이드를 선택하고, 패키지 네임을 입력한다.
 - 接入应用(애플리케이션 생성)을 클릭한다.
 
-#### Tencent ACCESS ID, SECRET KEY 등록
+### Tencent ACCESS ID, SECRET KEY 등록
 
 - 로그인 후, [[Tencent 푸시 서비스 대시보드](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex)]에 접속한다.
 - 应用统计(통계)를 클릭해서, 애플리케이션 대시보드로 들어간다.
 - 좌측 메뉴 중 配置管理(설정) > 应用配置(애플리케이션 설정) 클릭한다. ACCESS ID, ACCESS KEY, SECRET KEY를 확인한다.
-- TOAST Cloud로 돌아와 [Console] > [Notification] > [Push] > [Certificates] 탭 까지 이동한다.
+- TOAST Cloud로 돌아와 [Console] > [Notification] > [Push] > [인증서] 탭 까지 이동한다.
 - 확인한 [Tencent Credential]에 ACCESS ID, SECRET KEY를 입력한다.
 
-### 즉시 전송
+### ADM 어플리케이션 및 프로파일 등록 (Client Id, Client Secret 획득)
+- [[ADM 개발자 콘솔](https://developer.amazon.com/home.html)]에 접속한다.
+- 페이지 왼쪽 상단에 APP & SERVICES를 클릭 후, 하단에 ADD a New App 버튼을 클릭한다
+- App 생성 완료한 뒤, 중간 탭에 있는 Device Messaging을 클릭한다. 이 후 Create a New Security Profile 버튼을 클릭한다.
+- 프로필 생성 완료 후, 중간 탭에 있는 Security Profiles을 클릭한다. 그 뒤 View Security Profile 버튼을 클릭한다.
+- General 탭에서 Client ID와 Client Secret 값을 확인할 수 있다.
+
+### ADM Kindle 설정 정보 등록 (API key 획득)
+- Security Profiles 탭 클릭 후 중간에 Android/Kindle Settings 탭 클릭한다.
+- App Key Name, Package, MD5 Signature, SHA256 Signature 정보를 입력한다.
+- 아래와 같은 명령어로 MD5, SHA256 정보 조회가 가능하다.
+```
+> keytool -list -v -keystore {keystoreFileName}
+
+키 저장소 비밀번호 입력:
+키 저장소 유형: JKS
+키 저장소 제공자: SUN
+
+키 저장소에 1개의 항목이 포함되어 있습니다.
+
+별칭 이름: androiddebugkey
+생성 날짜: 2018. 5. 9
+항목 유형: PrivateKeyEntry
+인증서 체인 길이: 1
+인증서[1]:
+소유자: C=US, O=Android, CN=Android Debug
+발행자: C=US, O=Android, CN=Android Debug
+일련 번호: 1
+적합한 시작 날짜: Wed May 09 19:59:46 KST 2018 종료 날짜: Fri May 01 19:59:46 KST 2048
+인증서 지문:
+         MD5:  xxxx
+         SHA1: xxxx
+         SHA256: xxxx
+서명 알고리즘 이름: SHA1withRSA
+주체 공용 키 알고리즘: 1024비트 RSA 키
+버전: 1
+```
+- 등록 완료 후 Show 버튼을 클릭해 보면 API key 정보를 조회할 수 있다.
+
+
+## 즉시 전송
 
 인증서와 토큰을 정상적으로 등록한 후, [Console] > [Notification] > [Push] > [Messages] 탭 > [ADD] 버튼을 클릭, 푸시 메시지를 즉시 전송할 수 있다.
 
@@ -105,7 +164,7 @@
 |Message > Message Type |NOTIFICATION, AD 두 가지 Type이 있다. AD 경우, 광고성 푸시 메시지 수신 동의한 사용자들에게만 메시지가 발송된다.|
 
 
-### 예약 전송
+## 예약 전송
 
 [Console] > [Notification] > [Push] > [Reservation] 탭 클릭, [ADD], [EDIT], [DELETE] 버튼을 통해 예약 전송을 관리할 수 있다.
 
@@ -121,37 +180,37 @@
 |End Date|메시지를 전송하는 마지막 날짜를 입력한다. 달력을 이용해 날짜를 선택할 수 있다. 형식은 'YYYY-MM-DD' 이다.|
 |Local time|true로 설정하면 현지 시간 기준으로 메시지를 전송한다.|
 
-### 토큰 관리
+## 토큰 관리
 
 [Console] > [Notification] > [Push] > [Token] 탭 클릭, [ADD], [DELETE] 버튼을 통해 토큰을 추가 삭제할 수 있다.
 
-#### 토큰 검색
+### 토큰 검색
 
 - Search Type을 'TOKEN'으로 선택하고, 적절한 푸시 타입을 선택하고 토큰을 검색할 수 있다.
 
-#### UID 검색
+### UID 검색
 
 - Search Type을 'UID'로 선택하고, UID를 검색할 수 있다.
 - 일부만 일치되더라도 검색 결과에 포함된다.
 
-### 태그 관리
+## 태그 관리
 
 [Console] > [Notification] > [Push] > [Tag] 탭 클릭, [ADD], [EDIT], [DELETE] 버튼을 통해 태그를 관리할 수 있다.
 
-#### 태그가 붙은 UID 관리
+### 태그가 붙은 UID 관리
 - 태그를 클릭하면, 태그가 붙은 UID 목록을 확인할 수 있다.
 - [ADD], [DELETE] 버튼을 통해 UID를 추가, 삭제할 수 있다.
 - UID 추가시 한 번에 1,000개까지 가능하다.
 
-### 토큰 관리 설정 기능
+## 토큰 관리 설정 기능
 [Console] > [Notification] > [Push] > [Setting] 탭 클릭, 토큰 만료 기간과 앱 유형을 설정할 수 있다.
 
-#### 토큰 만료 기간 설정
+### 토큰 만료 기간 설정
 - 설정한 기간동안 등록 요청이 없는 토큰들을 메시지 발송 대상에서 제외한다.
 - 기본값은 12개월이다.
 - 설정한 기간동안 앱을 사용하지 않는 사용자들의 토큰이 메시지 발송 대상에서 자동 제외하여 발송 요금을 절약할 수 있다.
 
-#### 앱 유형 설정
+### 앱 유형 설정
 - 연동된 앱의 유형에따라 토큰을 관리합니다.
 - Multiple
     - 기본 설정이다.
@@ -161,17 +220,17 @@
     - 사용자가 한번에 한 기기에서만 앱을 사용할 수 있다. 한 사용자는 하나의 토큰만 가질 수 있다.
     - 예로, 사용자가 휴대폰과 태블릿을 사용한다면, 한 개의 토큰만 가질 수 있고, 둘중 한곳으로 푸시 메시지를 발송한다.
 
-### 메시지 수신/확인 데이터 수집
+## 메시지 수신/확인 데이터 수집
 
 [Console] > [Notification] > [Push] > [Setting] 탭 클릭, 메시지 수신 및 확인 데이터 수집(Message Delivery Receipt) 기능을 활성화 시킬 수 있다.
 활성화된 기능 동작을 위해 v1.4 이상 SDK가 적용되어야 한다.
 수집된 데이터는 [Statistics] 탭에서 확인할 수 있다.
 
-#### 통계 조회
+### 통계 조회
 - 수집된 데이터는 [Statistics] 탭에서 확인할 수 있다.
 - 최근 30일 내 수집된 데이터를 조회할 수 있으며, 기간과 시간 단위를 설정할 수 있다.
 
-### 메시지 발송 내역 저장
+## 메시지 발송 내역 저장
 - 메시지 발송 내역을 지정한 Log & Crash Search에 전송하는 기능이다.
 - [Console] > [Notification] > [Push] > [Setting] 탭 클릭, 로깅(Logging) 기능을 활설화 시킬 수 있다.
 - Appkey에는 사용하는 Log & Crash Search의 Appkey를 입력한다.
@@ -184,8 +243,8 @@
 - 전송되는 메시지 발송 내역은 Log & Crash Search의 과금 정책을 따른다.
      - [[Log & Crash Search 요금 알아보기](https://toast.com/service/analytics/log_crash_search/#price)]
 
-#### 발송 내역 로그 형식
-##### Body
+### 발송 내역 로그 형식
+#### Body
 ```
 {
 	"tokens" : [{
@@ -217,7 +276,7 @@
     - message: 결과 메시지(비정상 응답일 때만 표시)
 - payload: 실제 GCM이나, APNS, TENCENT로 발송된 메시지 내용(푸시 타입에 따라 내용이 다름)
 
-##### Fields
+#### Fields
 - Appkey: 메시지를 발송한 푸시 appkey
 - messageId: 메시지 아이디
 - pushType: 푸시 타입(GCM, APNS, APNS_SANDBOX, TENCENT)
@@ -250,6 +309,7 @@
 ```
 
 * *문서 수정 내역*
+    * *(2018.06.15) GCM에서 Firebase로 옮기는 설명 추가*
     * *(2017.11.23) 메시지 발송 내역 저장 설명 추가*
     * *(2017.09.21) 즉시 전송 설명 수정*
     * *(2017.07.20) 개인정보 수탁사 고지 안내 추가*

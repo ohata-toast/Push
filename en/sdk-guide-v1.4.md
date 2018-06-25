@@ -1,22 +1,22 @@
-## Notification > Push > SDK v1.32 사용 가이드
-TOAST Cloud Push SDK를 적용하면 모바일 어플리케이션과 토스트 클라우드 푸시를 쉽게 연동할 수 있다.
+## Notification > Push > SDK v1.4 Guide
+TOAST Cloud Push SDK를 적용하면 모바일 애플리케이션과 TOAST Cloud Push를 쉽게 연동할 수 있다.
 
 ## 푸시 SDK Download
 
-SDK는 [SDK 다운로드 페이지] > [Notification > Push]에서 받을 수 있다.
+SDK를 다운로드하려면 메뉴에서 [Downloads > Latest Version]을 클릭한 후, 왼쪽 메뉴에서 [Notification > Push]를 클릭한다.
 
 ## 텐센트(TENCENT) 푸시 SDK Download
 
-GCM 사용이 불가능한 중국에서 푸시 메시지 발송이 필요할 경우, 텐센트(TENCENT) 푸시 서비스를 이용할 수 있다.
+GCM(Google Cloud Messaging) 사용이 불가능한 중국에서 푸시 메시지 발송이 필요할 경우, 텐센트(TENCENT) 푸시 서비스를 이용할 수 있다.
 TENCENT 푸시 SDK와 통합하는 방법에 대해 설명한다.
 
 [Tencent Push SDK 다운로드 페이지](http://xg.qq.com/xg/ctr_index/download)
 
-가이드는 TENCENT(Xg Push) 2.47 버전 기준으로 작성되었다.
+가이드는 TENCENT(Xg Push) 3.2.3 버전 기준으로 작성되었다.
 
 ## 토큰 등록
 
-기기 식별을 위한 Token을 서버에 등록하는 과정이다. 등록이 성공하면 해당 기기에서 푸시 메시지를 수신할 수 있다.
+기기 식별을 위한 토큰(Token)을 서버에 등록하는 과정이다. 등록이 성공하면 해당 기기에서 푸시 메시지를 수신할 수 있다.
 
 ### iOS, APNS
 
@@ -56,7 +56,7 @@ TENCENT 푸시 SDK와 통합하는 방법에 대해 설명한다.
 
 **AndroidManifest.xml**
 
-아래에 'your.package.name'으로 되어있는 모든 부분을 어플리케이션 기본 페키지 네임으로 변경한다.
+아래에 'your.package.name'으로 되어 있는 모든 부분을 애플리케이션 기본 페키지 네임으로 변경한다.
 
 ```
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="your.package.name">
@@ -87,7 +87,7 @@ TENCENT 푸시 SDK와 통합하는 방법에 대해 설명한다.
 </manifest>
 ```
 
-**YourActivity.java**  
+**YourActivity.java**
 YOUR_APPKEY, YOUR_UID, YOUR_SENDER_ID에 값을 설정한다.
 
 ```
@@ -139,7 +139,7 @@ public class YourActivity extends Activity {
     }
 }
 ```
-- 위 설명은 Android SDK v1.3 이상만 적용된다. v1.3이하 사용자는 아래와 같이 토큰 등록시 채널을 꼭 등록해주어야 한다.
+- 위 설명은 Android SDK v1.3 이상에만 적용된다. v1.3이하 사용자는 아래와 같이 토큰 등록시 채널을 꼭 등록해야 한다.
 ```java
  options.put(PushSdk.KEY_CHANNEL, "default");
 ```
@@ -150,12 +150,12 @@ public class YourActivity extends Activity {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 26
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 19
+        minSdkVersion 15
+        targetSdkVersion 26
         versionCode 1
         versionName "10"
         multiDexEnabled true
@@ -174,21 +174,22 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.android.support:support-v4:23.1.0'
-    compile 'com.google.android.gms:play-services-gcm:9.6.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:support-v4:26.1.0'
+    compile 'com.google.android.gms:play-services-gcm:11.0.0'
 }
 ```
 
 ### Android, TENCENT
 
-**AndroidManifest.xml**  
+**AndroidManifest.xml**
 다음 내용을 추가한다.
+'your.package.name' 항목에 앱의 패키지 이름을 입력해야 한다.
 
 ```
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="your.package.name">
   <application android:icon="@drawable/app_icon">
-    <receiver android:name="com.tencent.android.tpush.XGPushReceiver" android:process=":xg_service_v2" >
+    <receiver android:name="com.tencent.android.tpush.XGPushReceiver" android:process=":xg_service_v3" >
       <intent-filter android:priority="0x7fffffff" >
         <action android:name="com.tencent.android.tpush.action.SDK" />
         <action android:name="com.tencent.android.tpush.action.INTERNAL_PUSH_MESSAGE" />
@@ -196,8 +197,7 @@ dependencies {
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
       </intent-filter>
     </receiver>
-    <service android:name="com.tencent.android.tpush.service.XGPushService" android:exported="true"
-        android:persistent="true" android:process=":xg_service_v2">
+    <service android:name="com.tencent.android.tpush.service.XGPushServiceV3" android:exported="true" android:persistent="true" android:process=":xg_service_v3">
     </service>
     <receiver android:name="com.toast.android.pushsdk.PushSdk$XgListener">
       <intent-filter>
@@ -206,10 +206,23 @@ dependencies {
       </intent-filter>
     </receiver>
     <service android:name="com.tencent.android.tpush.rpc.XGRemoteService" android:exported="true" >
-      <intent-filter>
-        <action android:name="your.package.name.PUSH_ACTION" />
-      </intent-filter>
+        <intent-filter>
+            <action android:name="com.toast.cloud.push.demo.app.PUSH_ACTION" />
+        </intent-filter>
     </service>
+    <provider
+    android:name="com.tencent.android.tpush.XGPushProvider"
+    android:authorities="your.package.name.AUTH_XGPUSH"
+    android:exported="true"/>
+    <provider
+        android:name="com.tencent.android.tpush.SettingsContentProvider"
+        android:authorities="your.package.name.TPUSH_PROVIDER"
+        android:exported="false" />
+    <provider
+        android:name="com.tencent.mid.api.MidProvider"
+        android:authorities="your.package.name.TENCENT.MID.V3"
+        android:exported="true" >
+    </provider>
   </application>
   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -233,14 +246,14 @@ dependencies {
 
 - 현재 Android M (6.0 MarshMallow)에서 정상적인 동작을 하지 않을 수 있다. TENCENT SDK 패치가 필요한 부분이며, 패치될 예정이다.
 
-위와 같이 설정 후, options에 PushSdk.pushType을 PushSdk.PUSH_TYPE_TENCENT로 설정한다.  
-그리고, PushSdk.KEY_ACCESS_ID, PushSdk.KEY_ACCESS_KEY에 발급받은 ACCESS ID와 ACCESS KEY를 설정한다.   
-ACCESS ID, ACCESS KEY 발급은 [Developer's Guide]를 참고한다.  
+위와 같이 설정한, options에 PushSdk.pushType을 PushSdk.PUSH_TYPE_TENCENT로 설정한다.
+그리고, PushSdk.KEY_ACCESS_ID, PushSdk.KEY_ACCESS_KEY에 발급받은 ACCESS ID와 ACCESS KEY를 설정한다.
+ACCESS ID, ACCESS KEY 발급은 [Developer's Guide]를 참고한다.
 
 
 ### Options
 
-options는 플랫폼에따라 Dictionary 또는 Map, 또는 그에 준하는 Key/Value Collection으로 정의된다. 각의 Key/Value는 다음과 같다.
+options는 플랫폼에 따라 Dictionary나 Map, 또는 그에 준하는 Key/Value Collection으로 정의된다. 각각의 Key/Value는 다음과 같다.
 
 |Key|	Type|	Values|	Platform|
 |---|---|---|---|
@@ -248,8 +261,8 @@ options는 플랫폼에따라 Dictionary 또는 Map, 또는 그에 준하는 Key
 |KEY_AGREE_NOTIFICATION <br/> (isNotificationAgreement)|	boolean|	알림 푸시 메시지 수신 여부|	iOS, Android|
 |KEY_AGREE_AD <br/> (isAdAgreement)|	boolean|	광고 푸시 메시지 알림 수신 여부|	iOS, Android|
 |KEY_AGREE_NIGHT_AD <br/> (isNightAdAgreement)|	boolean|	야간 광고 푸시 메시지 알림 수신 여부|	iOS, Android|
-|KEY_COUNTRY(country)|	string|	국가 코드. 형식 제약은 없다. <br/> 하지만, ISO 3166 사용을 권장한다.|	iOS, Android|
-|KEY_LANGUAGE(language)|	string|	언어 코드. 형식 제약은 없다. <br/> 하지만, ISO 639 사용을 권장한다.|	iOS, Android|
+|KEY_COUNTRY(country)|	string|	국가 코드 (3 byte 제한). <br/> ISO 3166-1 alpha-2, ISO 3166-1 alpha-3|	iOS, Android|
+|KEY_LANGUAGE(language)|	string|  언어 코드 (8 byte 제한). <br/> ISO 639-1, ISO 639-2, <br/> iOS(language code + script code)|	iOS, Android|
 |KEY_TIMEOUT(timeout)|	double|	토큰 등록 또는 조회시 사용되는 시간이다. 단위는 초다.|	iOS, Android|
 |KEY_ACTIVITY(activity)|	object|	android.app.Activity|	Android|
 |KEY_SENDER_ID(senderId)|	string|	GCM을 사용하기 위해 필요하다. <br/> [[Google Developer Console](https://console.developers.google.com/project)]에서 확인할 수 있다.|	Android(GCM)|
@@ -258,16 +271,28 @@ options는 플랫폼에따라 Dictionary 또는 Map, 또는 그에 준하는 Key
 
 ## 푸시 메시지 수신
 
+### Android, Common
+
+#### Notification Channel
+
+targetSdkVersion이 26 이상일 경우, 안드로이드 8.0 이상의 기기에서 알림바에 푸시 메시지를 등록하기 위해서는 Notification Channel을 생성해서 사용해야 합니다.
+
+기본 리시버를 이용해서 알림바에 푸시 메시지를 등록하면 v1.4.4 이상에서 Notification Channel이 자동으로 생성됩니다.
+
+커스텀 리시버를 사용하거나, 기본 리시버를 상속했지만 super 메소드를 호출하지 않는 경우는 아래 공식 가이드를 참고해서 Notification Channel을 반드시 적용해야 합니다.
+
+* [Notification Channel 공식 가이드](https://developer.android.com/training/notify-user/channels)
+
 ### Android, GCM
 
-SDK를 사용하면 추가적인 구현 없이 기본적으로 푸시 메시지를 수신하고 화면에 표시 된다. 필요에 따라 커스텀한 푸시 메시지를 표시하고 싶다면, 아래 처럼 Custom Receiver를 등록한다.
+SDK를 사용하면 추가적인 구현 없이 기본적으로 푸시 메시지를 수신하고 화면에 메시지가 표시된다. 필요에 따라 커스텀한 푸시 메시지를 표시하고 싶다면, 아래와 같이 Custom Receiver를 등록한다.
 
 **YourGcmListener.java**
 
 ```
 package com.toast.cloud.push.demo.app.your;
 
-public class YourGcmListener extends PushSdk.GcmListener {
+public class YourGcmListener extends GcmListenerService {
     private static final int NOTIFICATION_ID = 1;
 
     @Override
@@ -290,7 +315,7 @@ public class YourGcmListener extends PushSdk.GcmListener {
 }
 ```
 
-**AndroidManifest.xml**   
+**AndroidManifest.xml**
 PushSdk$GcmListener를 YourGcmListener로 수정한다.
 
 ```
@@ -305,14 +330,14 @@ PushSdk$GcmListener를 YourGcmListener로 수정한다.
 
 ### Android, TENCENT
 
-SDK를 사용하면 추가적인 구현 없이 기본적으로 푸시 메시지를 수신하고 화면에 표시 된다. 필요에 따라 커스텀한 푸시 메시지를 표시하고 싶다면, 아래 처럼 Custom Receiver를 등록한다.
+SDK를 사용하면 추가적인 구현 없이 기본적으로 푸시 메시지를 수신하고 화면에 메시지가 표시된다. 필요에 따라 커스텀한 푸시 메시지를 표시하고 싶다면, 아래와 같이 Custom Receiver를 등록한다.
 
-**YourXgListener.java**  
+**YourXgListener.java**
 
 ```
 package your.package.name;
 
-public class YourXgListener extends PushSdk.XgListener {
+public class YourXgListener extends XGPushBaseReceiver {
     private static final int NOTIFICATION_ID = 2;
 
     @Override
@@ -334,16 +359,40 @@ public class YourXgListener extends PushSdk.XgListener {
         mBuilder.setContentIntent(contentIntent);
         notificationManager.notify(XgListener.NOTIFICATION_ID, mBuilder.build());
     }
+
+    @Override
+    public void onNotifactionShowedResult(Context context, XGPushShowedResult result) {
+    }
+
+    @Override
+    public void onNotifactionClickedResult(Context context, XGPushClickedResult result) {
+    }
+
+    @Override
+    public void onSetTagResult(Context context, int error, String tag) {
+    }
+
+    @Override
+    public void onDeleteTagResult(Context context, int error, String tag) {
+    }
+
+    @Override
+    public void onRegisterResult(Context context, int error, XGPushRegisterResult result) {
+    }
+
+    @Override
+    public void onUnregisterResult(Context context, int error) {
+    }
 }
 ```
 
-**AndroidManifest.xml**  
+**AndroidManifest.xml**
 
 PushSdk$XgListener 부분을 위에서 작성한 커스텀 클래스로 변경한다.
 
 ```
 	...
-	<receiver android:name="com.toast.cloud.push.demo.app.XgListener">
+	<receiver android:name="your.package.name.YourXgListener">
 		<intent-filter>
 			<action android:name="com.tencent.android.tpush.action.PUSH_MESSAGE" />
 			<action android:name="com.tencent.android.tpush.action.FEEDBACK" />
@@ -359,7 +408,6 @@ APPKEY, UID, options로 등록된 Token을 조회할 수 있다.
 
 ```
 {
-    "channel": "default",
     "pushType" : "GCM",
     "isNotificationAgreement": true,
     "isAdAgreement": true,
@@ -371,6 +419,8 @@ APPKEY, UID, options로 등록된 Token을 조회할 수 있다.
     "token" : "Token"
 }
 ```
+
+> 광고 푸시 관련 필드(isAdAgreement, isNightAdAgreement)는 토큰 등록시 language가 한글이었을 경우에만 반환한다.
 
 ### iOS, APNS
 
@@ -403,6 +453,17 @@ NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.c
                 put(PushSdk.KEY_ACTIVITY, MainActivity.this); // Required.
                 put(PushSdk.KEY_PUSH_TYPE, pushType); // Optional, Default : PUSH_TYPE_GCM
                 put(PushSdk.KEY_TIMEOUT, 30.0); // Optional. Time Unit: Second. Default: 30.
+
+                // Only GCM
+                if (PushSdk.PUSH_TYPE_GCM.equals(YOUR_PUSH_TYPE)) {
+                    options.put(PushSdk.KEY_SENDER_ID, YOUR_SENDER_ID); // Required.
+                }
+
+                // Only TENCENT
+                if (PushSdk.PUSH_TYPE_TENCENT.equals(YOUR_PUSH_TYPE)) {
+                    options.put(PushSdk.KEY_ACCESS_ID, YOUR_ACCESS_ID); // Required.
+                    options.put(PushSdk.KEY_ACCESS_KEY, YOUR_ACCESS_KEY); // Required.
+                }
             }
         };
         PushSdk.query(YOUR_APPKEY, YOUR_UID, new PushSdk.OnQuery() {
@@ -413,6 +474,153 @@ NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.c
             }
         }, options);
     }
+```
+
+## 수신 및 오픈 여부 적용
+- 클라이언트에서 푸시 수신 및 확인 여부 등에 대한 정보를 서버에 전송할 수 있다.
+- 지표는 웹 콘솔을 통해서 볼 수 있다.
+
+### Android, GCM
+
+**YourActivity.java**
+
+- **PushAnalytics.onOpened** 메소드를 호출한다.
+
+```
+public class YourActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        PushAnalytics.onOpened(this, getIntent());
+        // ... your codes
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        PushAnalytics.onOpened(this, intent);
+        // ... your codes
+    }
+}
+```
+
+**YourListener.java**
+
+- 만약 ToastCloud Push SDK에서 제공하는 기본 리스너(PushSdk.GcmListener)를 사용할 경우, 자동으로 수신 및 오픈 여부를 사용할 수 있다. 따라서, 기본 리스너를 사용한다면 이 부분을 생략해도 된다.
+- PendingIntent 생성 시, 액티비티 전환 Intent를 **PushAnalytics.newIntentForOpenedEvent**를 이용해서 생성한다.
+- PendingIntent.getActivity 메소드 호출 시, 마지막 매개변수인 Flag를 **PendingIntent.FLAG_UPDATE_CURRENT**로 전달한다.
+- 수신 확인을 위해 **PushAnalytics.onReceived** 메소드를 호출한다.
+
+```
+public class YourGcmListener extends PushSdk.GcmListener {
+    private static final int NOTIFICATION_ID = 1;
+
+    @Override
+    public void onMessageReceived(String from, Bundle data) {
+        final NotificationManager notificationManager = (NotificationManager)
+                this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        Intent launchIntent = PushAnalytics.newIntentForOpenedEvent(this, DemoActivity.class, data);
+        final PendingIntent contentIntent = PendingIntent.getActivity(this, 0, launchIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        final String text = data.toString();
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_stat_gcm)
+                        .setContentTitle("GCM Notification")
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
+                        .setContentText(text);
+
+        mBuilder.setContentIntent(contentIntent);
+        notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+
+        PushAnalytics.onReceived(this, data);
+    }
+}
+```
+
+### iOS
+- iOS의 수신 및 오픈 여부는 iOS 10 이상에서만 동작하며, UserNotification 프레임워크의 Notification Service Extension을 이용한다.
+
+#### Notification Service Extension 을 이용한 수신 여부 적용
+- 현재 프로젝트에 Notification Service Extension 타겟을 추가한다.
+    - File > New > Target > Notification Service Extension을 선택한다.
+- 추가된 Notification Service Extension(이하 NSE)의 프로젝트 설정에 Push SDK 라이브러리를 추가한다.
+    - 이미 Push SDK가 프로젝트에 있다면, 추가적인 복사 작업 없이 라이브러리를 추가하면 된다.
+- **NotificationService.m** 파일에 들어가면 기본적인 샘플 코드가 생성돼 있다.
+- 다음과 같이 코드를 수정하면 수신 여부 확인 기능이 적용된다.
+    - URL과 앱키는 웹 콘솔에서 받은 정보를 입력해주면 된다.
+
+**NotificationService.m**
+
+```
+#import "NotificationService.h"
+#import "pushsdk.h"
+
+@interface NotificationService ()
+
+@property (nonatomic, strong) void (^contentHandler)(UNNotificationContent *contentToDeliver);
+@property (nonatomic, strong) UNMutableNotificationContent *bestAttemptContent;
+
+@end
+
+@implementation NotificationService
+
+- (void)didReceiveNotificationRequest:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
+    self.contentHandler = contentHandler;
+    self.bestAttemptContent = [request.content mutableCopy];
+
+	[TCPushAnalytics onReceivedNotificationWithUrl:@"https://collector-push.cloud.toast.com"
+											appKey:@"APPKEY"
+										  userInfo:request.content.userInfo
+								 completionHandler:^{
+		self.contentHandler(self.bestAttemptContent);
+	}];
+}
+
+- (void)serviceExtensionTimeWillExpire {
+    // Called just before the extension will be terminated by the system.
+    // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
+    self.contentHandler(self.bestAttemptContent);
+}
+
+@end
+```
+
+#### UserNotification 프레임워크를 이용한 오픈 여부 적용
+- 자신의 AppDelegate에 UNUserNotificationCenterDelegate 딜리게이트를 적용한다.
+- 그리고 AppDelegate 구현에 **(void)userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:** 메소드를 추가한다.
+- 메소드 내부에 오픈 여부를 위한 API를 호출한다.
+    - URL과 앱키는 웹콘솔에서 받은 정보를 입력해주면 된다.
+
+**AppDelegate.h**
+
+```
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UNUserNotificationCenterDelegate>
+```
+
+**AppDelegate.m**
+
+```
+#import "AppDelegate.h"
+#import "pushsdk.h"
+@interface AppDelegate ()
+@end
+@implementation AppDelegate
+- (BOOL)application:(UIApplication *)app didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
+    return YES;
+}
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    [TCPushAnalytics onOpenedNotificationWithUrl:@"https://collector-push.cloud.toast.com"
+                                          appKey:@"APPKEY"
+                                        userInfo:response.notification.request.content.userInfo
+                               completionHandler:^{
+                                   completionHandler();
+                               }];
+}
+@end
 ```
 
 ## 오류 처리
@@ -434,5 +642,19 @@ NSDictionary* options = @{kTCPushKeyServerUrl : @"https://api-push.cloud.toast.c
 <br/>
 
 * *문서 수정 내역*
+    * *(2018.06.26)*
+        * Android : 텐센트 SDK 버전 업데이트 및 가이드 수정 (3.0 -> 3.2.3)
+    * *(2018.05.29)*
+        * Android : v1.4.4 변경내용 적용
+            * Notification Channel 가이드 추가
+            * 의존 라이브러리 버전 및 일부 Gradle 설정 변경
+            * 예제에서 PushAnalytics.initialize 제거
+            * 커스텀 리시버 구현시 GCM, Tencent의 서비스 상속받도록 가이드 수정
+    * *(2018.03.22) 토큰 조회 반환값 내용 수정, iOS 수신/오픈 지표 수집서버 URL 수정*
+    * *(2018.01.25) 토큰 조회 설명 수정*
+    * *(2017.07.20) 국가 코드, 언어 코드에 대한 제약 추가*
+    * *(2017.05.25) 수신 및 오픈 API 수정에 따른 가이드 수정*
+    * *(2017.04.20) 수신 및 오픈 여부 적용 가이드 신규 작성*
+    * *(2017.04.20) 텐센트 SDK 버전 업데이트 및 가이드 수정(2.47 -> 3.0)*
     * *(2017.02.23) 텐센트 SDK 버전 업데이트 (2.39 -> 2.47)*
     * *(2017.02.23) 텐센트 AndroidManifest.xml 일부 권한 추가*
