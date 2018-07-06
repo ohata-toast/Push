@@ -232,7 +232,7 @@
 
 ## 메시지 발송 내역 저장
 - 메시지 발송 내역을 지정한 Log & Crash Search에 전송하는 기능이다.
-- [Console] > [Notification] > [Push] > [Setting] 탭 클릭, 로깅(Logging) 기능을 활설화 시킬 수 있다.
+- [Console] > [Notification] > [Push] > [Setting] 탭 클릭, 로깅(Logging) 기능을 활성화 시킬 수 있다.
 - Appkey에는 사용하는 Log & Crash Search의 Appkey를 입력한다.
 - Log Source는 내역 저장시 같이 남길 값을 입력한다. 다른 로그와 구분하는 값이다.
 - Log Level은 발송 내역중 특정 내역만 남길 수 있도록 한다.
