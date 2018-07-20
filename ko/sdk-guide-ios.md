@@ -64,7 +64,7 @@ configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 �
 | isAgreeNightAdvertisement | 야간 광고성 알림 표시 동의 여부 | NO |
 
 ### 토큰 등록
->PushSDK 초기화 후에 호출 가능하다.
+>PushSDK 초기화 후에 요청이 가능하다.
 
 ```objc
 [TCPushSdk registerWithPushType:TCPushTypeAPNs completionHandler:^(NSError *error) {
@@ -86,7 +86,7 @@ configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 �
 | TCPushTypeVoIPSandbox | 개발용 VoIP 푸시 메세지 |
 
 ### 토큰 정보 조회
->PushSDK 초기화 후에 호출 가능하다.
+>PushSDK 초기화 후에 요청이 가능하다.
 
 ```objc
 [TCPushSdk queryWithPushType:TCPushTypeAPNs completionHandler:^(TCPushTokenInfo *tokenInfo, NSError *error) {
@@ -118,7 +118,7 @@ configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 �
 | updateDate | NSDate | 최종 업데이트 날짜 |
 
 ### 푸시 수신
->푸시 메세지 수신 Delegate를 제공한다.<br>
+>푸시 메세지 수신에 대해 사용자 코드 실행을 위한 Delegate를 설정 할 수 있다.<br>
 >일반 푸시 메세지의 경우 어플리케이션이 실행 중이 않을 때에는 수신 Delegate를 받을 수 없다.<br>
 >VoIP 푸시 메세지는 어플리케이션이 실행 중이지 않을 때 메세지 수신시 백그라운드에서 자동으로 어플리케이션이 실행되어 수신 Delegate로 메세지를 전달한다.
 
@@ -130,6 +130,7 @@ configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 �
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
     [TCPushSdk setDelegate:self];
 
     return YES;
@@ -147,7 +148,7 @@ configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 �
 ```
 
 ### 지표 수집
->클라이언트에서 푸시 메세지 수신 및 푸시 메세지에 의한 어플리케이션 실행 여부에 대한 이벤트를 서버에 전송하고,<br>
+>클라이언트에서 푸시 메세지 수신 및 알림에 의한 어플리케이션 실행 여부에 대한 이벤트를 서버에 전송하고,<br>
 >이를 웹 콘솔 통계 페이지내에서 확인 가능하다.
 
 #### 수신(Received) 지표
@@ -189,8 +190,8 @@ configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 �
 @end
 ```
 
-#### 실행(Opened) 지표
->실행 지표에 대한 수집 및 전송은 SDK 내부에서 자동으로 진행된다.
+#### 확인(Opened) 지표
+>확인 지표에 대한 수집 및 전송은 SDK 내부에서 자동으로 진행된다.
 
 ### 오류 코드
 | 에러코드 | 설명 |
