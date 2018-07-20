@@ -1,4 +1,4 @@
-## Notification > Push > SDK v1.5 사용 가이드
+## Notification > Push > Android SDK 가이드
 TOAST Cloud Push SDK를 적용하면 모바일 애플리케이션과 TOAST Cloud Push를 쉽게 연동할 수 있다.
 
 ## 주요기능
@@ -15,8 +15,7 @@ TOAST Cloud Push SDK를 적용하면 모바일 애플리케이션과 TOAST Cloud
 ## 지원환경
 * API 레벨 15(4.0.3) 이상
 
-## 프로젝트 설정
-### 공통
+## 공통 프로젝트 설정
 * SDK(AAR) 다운로드 및 추가
     * 프로젝트 폴더 하위에 libs 폴더가 없으면 생성한다.
     * 다운로드 받은 AAR 파일을 프로젝트의 libs 폴더에 추가한다.
@@ -30,7 +29,8 @@ dependencies {
 }
 ```
 
-### GCM을 사용하는 경우
+## GCM을 사용하는 경우
+### 프로젝트 설정
 * build.gradle에 GCM SDK 추가
     * dependencies에 다음과 같이 추가한다
 ```groovy
@@ -39,47 +39,7 @@ dependencies {
 }
 ```
 
-### Tencent를 사용하는 경우
-* (가이드는 Tencent SDK 3.2.3 을 기준으로 작성되었다)
-* 아래 페이지에서 Tencent SDK를 다운로드 한다.
-    * [Tencent SDK 다운로드 페이지](http://xg.qq.com/xg/ctr_index/download)
-* 다운로드받은 SDK의 압축을 해제하고 아래 파일들을 프로젝트 하위의 libs 폴더에 추가한다.
-    * 필수
-        * libs/jg_filter_sdk_1.1.jar
-        * libs/mid-core-sdk-4.0.6.jar
-        * libs/wup-1.0.0.E-SNAPSHOT.jar
-        * libs/Xg_sdk_v3.2.3_20180403_1839.jar
-        * libs/armeabi 폴더 전체
-    * 선택 : 다른 아키텍쳐 사용을 원하는 경우
-        * Other-Platform-SO/{아키텍쳐 이름의 폴더}
-* build.gradle 수정
-```groovy
-android {
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
-}
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-}
-```
-
-### Amazon Device Messaging을 사용하는 경우
-* Amazon Device Messaging(이하 ADM)은 Fire OS 2세대 이상의 기기에서 사용 가능하다.
-* 아래 페이지에서 Amazon Device Messaging SDK를 다운로드 받습니다.
-    * [Amazon Developer SDKs 다운로드 페이지](https://developer.amazon.com/sdk-download)
-* 다운로드받은 SDK의 압축을 해제하고 amazon-device-messaging-*.jar 파일을 프로젝트 하위의 libs 폴더에 추가한다.
-* build.gradle 수정
-```groovy
-dependencies {
-    compileOnly files('libs/amazon-device-messaging-1.0.1.jar')
-}
-```
-
-## AndroidManifest.xml 수정
-### GCM을 사용하는 경우
+### AndroidManifest.xml 수정
 * 아래에 '[YOUR_PACKAGE_NAME]'으로 되어 있는 모든 부분을 애플리케이션 기본 페키지 네임으로 변경한다.
 
 ```xml
@@ -111,7 +71,35 @@ dependencies {
 </manifest>
 ```
 
-### Tencent를 사용하는 경우
+## Tencent를 사용하는 경우
+### 프로젝트 설정
+* (가이드는 Tencent SDK 3.2.3 을 기준으로 작성되었다)
+* 아래 페이지에서 Tencent SDK를 다운로드 한다.
+    * [Tencent SDK 다운로드 페이지](http://xg.qq.com/xg/ctr_index/download)
+* 다운로드받은 SDK의 압축을 해제하고 아래 파일들을 프로젝트 하위의 libs 폴더에 추가한다.
+    * 필수
+        * libs/jg_filter_sdk_1.1.jar
+        * libs/mid-core-sdk-4.0.6.jar
+        * libs/wup-1.0.0.E-SNAPSHOT.jar
+        * libs/Xg_sdk_v3.2.3_20180403_1839.jar
+        * libs/armeabi 폴더 전체
+    * 선택 : 다른 아키텍쳐 사용을 원하는 경우
+        * Other-Platform-SO/{아키텍쳐 이름의 폴더}
+* build.gradle 수정
+```groovy
+android {
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+```
+
+### AndroidManifest.xml 수정
 * 아래에 '[YOUR_PACKAGE_NAME]'으로 되어 있는 모든 부분을 애플리케이션 기본 페키지 네임으로 변경한다.
 
 ```xml
@@ -172,7 +160,22 @@ dependencies {
 </manifest>
 ```
 
-### Amazon Device Messaging을 사용하는 경우
+
+
+## Amazon Device Messaging을 사용하는 경우
+### 프로젝트 설정
+* Amazon Device Messaging(이하 ADM)은 Fire OS 2세대 이상의 기기에서 사용 가능하다.
+* 아래 페이지에서 Amazon Device Messaging SDK를 다운로드 받습니다.
+    * [Amazon Developer SDKs 다운로드 페이지](https://developer.amazon.com/sdk-download)
+* 다운로드받은 SDK의 압축을 해제하고 amazon-device-messaging-*.jar 파일을 프로젝트 하위의 libs 폴더에 추가한다.
+* build.gradle 수정
+```groovy
+dependencies {
+    compileOnly files('libs/amazon-device-messaging-1.0.1.jar')
+}
+```
+
+### AndroidManifest.xml 수정
 * 아래에 '[YOUR_PACKAGE_NAME]'으로 되어 있는 모든 부분을 애플리케이션 기본 페키지 네임으로 변경한다.
 
 #### Namespace 추가
@@ -259,7 +262,7 @@ builder.setLanguage("ko"); // 선택값
 PushParams pushParams = builder.build();
 ```
 
-### 토큰 등록
+## 토큰 등록
 * 푸시 타입에 따라 토큰을 생성해서 서버에 토큰을 등록한다.
 * 예제 코드
 ```java
