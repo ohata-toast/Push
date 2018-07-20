@@ -1,4 +1,4 @@
-## Notification > Push > 콘솔 사용 가이드
+## Notification > Push > Console Guide
 
 ## 인증서 관리
 

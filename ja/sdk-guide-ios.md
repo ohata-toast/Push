@@ -1,4 +1,4 @@
-## Notification > Push > iOS SDK 가이드
+## Notification > Push > iOS SDK Guide
 TOAST Cloud Push SDK를 적용하면 모바일 애플리케이션과 TOAST Cloud Push를 쉽게 연동할 수 있다.
 
 ## 주요기능
@@ -7,7 +7,7 @@ TOAST Cloud Push SDK를 적용하면 모바일 애플리케이션과 TOAST Cloud
 * 메세지 수신 및 수신된 메세지를 통한 어플리케이션 실행 지표 수집
 
 ## 다운로드
-[Downloads](http://docs.toast.com/ko/Download/) 페이지에서 Push SDK를  다운로드 받을 수 있다.
+[Downloads](http://docs.toast.com/en/Download/) 페이지에서 Push SDK를  다운로드 받을 수 있다.
 ```
 [DOCUMENTS] > [Download] > [Notification > Push]
 ```
