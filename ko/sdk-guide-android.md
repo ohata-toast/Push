@@ -13,10 +13,10 @@ TOAST Cloud Push SDK를 적용하면 모바일 애플리케이션과 TOAST Cloud
 ```
 
 ## 지원 환경
-### Android 최소 버전
+##### 최소 버전
 * API 레벨 15(4.0.3) 이상
 
-### 지원 플랫폼
+#### 지원 플랫폼
 * Google Cloud Messaging (이하 GCM)
 * Tencent Mobile Push (이하 Tencent)
 * Amazon Device Messaging (이하 ADM)
@@ -197,7 +197,29 @@ dependencies {
 <uses-permission android:name="android.permission.WAKE_LOCK" />
 ```
 
-#### Handler 및 Receiver 구현
+#### Handler 및 Receiver 추가
+- [YOUR_HANDLER_CLASS] 에는 사용자가 작성한 Handler의 클래스를 입력한다.
+- [YOUR_RECEIVER_CLASS] 에는 사용자가 작성한 Receiver의 클래스를 입력한다.
+    - Handler 및 Receiver 구현은 아래 참고
+```xml
+<amazon:enable-feature android:name="com.amazon.device.messaging" android:required="true"/>
+<service
+    android:name="[YOUR_HANDLER_CLASS]"
+    android:exported="false" />
+
+<receiver
+    android:name="[YOUR_RECEIVER_CLASS]"
+    android:permission="com.amazon.device.messaging.permission.SEND" >
+    <intent-filter>
+        <action android:name="com.amazon.device.messaging.intent.REGISTRATION" />
+        <action android:name="com.amazon.device.messaging.intent.RECEIVE" />
+
+        <category android:name="[YOUR_PACKAGE_NAME]" />
+    </intent-filter>
+</receiver>
+```
+
+### Handler 및 Receiver 구현
 - 알림에 제목/본문만 필요할 경우, 기본 Handler와 Receiver를 사용할 수 있다.
     - 기본 Handler : com.toast.android.pushsdk.listener.DefaultPushSdkADMHandler
     - 기본 Receiver : com.toast.android.pushsdk.listener.DefaultPushSdkADMReceiver
@@ -224,28 +246,6 @@ public class CustomADMReceiver extends ADMMessageReceiver {
     }
 }
 ```
-
-#### Handler 및 Receiver 추가
-- [YOUR_HANDLER_CLASS] 에는 사용자가 작성한 Handler의 클래스를 입력한다.
-- [YOUR_RECEIVER_CLASS] 에는 사용자가 작성한 Receiver의 클래스를 입력한다.
-```xml
-<amazon:enable-feature android:name="com.amazon.device.messaging" android:required="true"/>
-<service
-    android:name="[YOUR_HANDLER_CLASS]"
-    android:exported="false" />
-
-<receiver
-    android:name="[YOUR_RECEIVER_CLASS]"
-    android:permission="com.amazon.device.messaging.permission.SEND" >
-    <intent-filter>
-        <action android:name="com.amazon.device.messaging.intent.REGISTRATION" />
-        <action android:name="com.amazon.device.messaging.intent.RECEIVE" />
-
-        <category android:name="[YOUR_PACKAGE_NAME]" />
-    </intent-filter>
-</receiver>
-```
-
 
 ## PushParams
 ### PushParams 란?
@@ -310,10 +310,10 @@ PushSdk.register(pushParams, new PushRegisterCallback() {
 });
 ```
 
-### Tencent를 사용하는 경우 예외사항
-* Tencent는 WRITE_SETTINGS 권한이 필요하며, API 레벨 23(6.0) 에서는 별도의 다이얼로그가 노출된다.
-* 설정 다이얼로그에서 권한을 허용하더라도, 콜백으로 ERROR_PERMISSION_REQUIRED 오류가 반환된다.
-* 이 경우, 다시 토큰 등록을 호출하면 정상적으로 토큰이 등록된다.
+#### Tencent를 사용하는 경우 예외사항
+- Tencent는 WRITE_SETTINGS 권한이 필요하며, API 레벨 23(6.0) 에서는 별도의 다이얼로그가 노출된다.
+- 설정 다이얼로그에서 권한을 허용하더라도, 콜백으로 ERROR_PERMISSION_REQUIRED 오류가 반환된다.
+- 이 경우, 다시 토큰 등록을 호출하면 정상적으로 토큰이 등록된다.
 
 ## 토큰 정보 조회
 * 현재 서버에 저장된 토큰 정보가 PushQueryResult 객체에 담겨져 콜백으로 반환된다.
