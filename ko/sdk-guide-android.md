@@ -66,6 +66,18 @@ dependencies {
 }
 ```
 
+### Amazon Device Messaging을 사용하는 경우
+* Amazon Device Messaging(이하 ADM)은 Fire OS 2세대 이상의 기기에서 사용 가능하다.
+* 아래 페이지에서 Amazon Device Messaging SDK를 다운로드 받습니다.
+    * [Amazon Developer SDKs 다운로드 페이지](https://developer.amazon.com/sdk-download)
+* 다운로드받은 SDK의 압축을 해제하고 amazon-device-messaging-*.jar 파일을 프로젝트 하위의 libs 폴더에 추가한다.
+* build.gradle 수정
+```groovy
+dependencies {
+    compileOnly files('libs/amazon-device-messaging-1.0.1.jar')
+}
+```
+
 ## AndroidManifest.xml 수정
 ### GCM을 사용하는 경우
 * 아래에 '[YOUR_PACKAGE_NAME]'으로 되어 있는 모든 부분을 애플리케이션 기본 페키지 네임으로 변경한다.
@@ -160,6 +172,47 @@ dependencies {
 </manifest>
 ```
 
+### Amazon Device Messaging을 사용하는 경우
+* 아래에 '[YOUR_PACKAGE_NAME]'으로 되어 있는 모든 부분을 애플리케이션 기본 페키지 네임으로 변경한다.
+
+#### Namespace 추가
+```xml
+<manifest xmlns:amazon="http://schemas.amazon.com/apk/res/android">
+```
+
+#### 권한 추가
+```xml
+<permission
+    android:name="[YOUR_PACKAGE_NAME].permission.RECEIVE_ADM_MESSAGE"
+    android:protectionLevel="signature" />
+<uses-permission android:name="[YOUR_PACKAGE_NAME].permission.RECEIVE_ADM_MESSAGE" />
+<uses-permission android:name="com.amazon.device.messaging.permission.RECEIVE" />
+<uses-permission android:name="android.permission.WAKE_LOCK" />
+```
+
+#### Handler 및 Receiver 추가
+- [YOUR_HANDLER_CLASS] 에는 사용자가 작성한 Handler의 클래스를 입력한다.
+    - Handler는 com.toast.android.pushsdk.listener.AbstractPushSdkADMHandler 클래스를 상속해야 한다.
+- [YOUR_RECEIVER_CLASS] 에는 사용자가 작성한 Receiver의 클래스를 입력한다.
+    - Receiver는 com.amazon.device.messaging.ADMMessageReceiver 클래스를 상속해야 한다.
+```xml
+<amazon:enable-feature android:name="com.amazon.device.messaging" android:required="true"/>
+<service
+    android:name="[YOUR_HANDLER_CLASS]"
+    android:exported="false" />
+
+<receiver
+    android:name="[YOUR_RECEIVER_CLASS]"
+    android:permission="com.amazon.device.messaging.permission.SEND" >
+    <intent-filter>
+        <action android:name="com.amazon.device.messaging.intent.REGISTRATION" />
+        <action android:name="com.amazon.device.messaging.intent.RECEIVE" />
+
+        <category android:name="[YOUR_PACKAGE_NAME]" />
+    </intent-filter>
+</receiver>
+```
+
 ## PushParams
 ### PushParams 란?
 * PushParams는 토큰 등록 및 조회를 위해서 필요한 객체이다.
@@ -185,11 +238,13 @@ dependencies {
 * 예제 코드
 ```java
 PushType pushType = null;
-if (isGCM()) {
+if (isGCM) {
     pushType = PushType.gcm("[YOUR_SENDER_ID]");
 } else if (isTencent) {
     long yourAccessId = 1234567890L; // [YOUR_ACCESS_ID]
     pushType = PushType.tencent(yourAccessId, "[YOUR_ACCESS_KEY]");
+} else if (isADM) {
+    pushType = PushType.adm();
 }
 
 PushParams.Builder builder = new PushParams.Builder(this, "[YOUR_APP_KEY]", "[YOUR_USER_ID]", pushType);
