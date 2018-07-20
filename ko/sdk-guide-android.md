@@ -310,10 +310,11 @@ PushSdk.register(pushParams, new PushRegisterCallback() {
 });
 ```
 
-#### Tencent를 사용하는 경우 예외사항
-- Tencent는 WRITE_SETTINGS 권한이 필요하며, API 레벨 23(6.0) 에서는 별도의 다이얼로그가 노출된다.
-- 설정 다이얼로그에서 권한을 허용하더라도, 콜백으로 ERROR_PERMISSION_REQUIRED 오류가 반환된다.
-- 이 경우, 다시 토큰 등록을 호출하면 정상적으로 토큰이 등록된다.
+> **Tencent를 사용하는 경우 예외사항**
+>
+> Tencent는 WRITE_SETTINGS 권한이 필요하며, API 레벨 23(6.0) 에서는 별도의 다이얼로그가 노출된다.
+> 설정 다이얼로그에서 권한을 허용하더라도, 콜백으로 ERROR_PERMISSION_REQUIRED 오류가 반환된다.
+> 이 경우, 다시 토큰 등록을 호출하면 정상적으로 토큰이 등록된다.
 
 ## 토큰 정보 조회
 * 현재 서버에 저장된 토큰 정보가 PushQueryResult 객체에 담겨져 콜백으로 반환된다.
