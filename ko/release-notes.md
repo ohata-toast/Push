@@ -17,6 +17,7 @@
 
 #### [SDK]
 ##### Android
+* Amazon Device Messaging 지원
 
 ##### iOS
 * VoIP 타입 지원

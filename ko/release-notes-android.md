@@ -1,11 +1,14 @@
 ## Notification > Push > 릴리스 노트 > Android
 
+### 1.6.0 - 2018.07.24
+* Amazon Device Messaging 지원
+
 ### 1.5.0 - 2018.06.26
 #### 기능 개선
-* [Android SDK] 지원하는 Tencent SDK 버전 업데이트 (3.2.3)
+* 지원하는 Tencent SDK 버전 업데이트 (3.2.3)
 
 #### 기능 추가
-* [Android SDK] 개선된 API 추가 (기존 API도 호환)
+* 개선된 API 추가 (기존 API도 호환)
 
 ### 1.4.4 - 2018.05.29
 #### 기능 개선
@@ -15,7 +18,7 @@
 
 ### 1.4.3 - 2018.05.02
 #### 버그 수정
-* [Android SDK] GCM, Tencent를 동시에 사용할 경우, Tencent 토큰이 GCM 토큰을 덮어쓰는 문제를 해결했습니다.
+* GCM, Tencent를 동시에 사용할 경우, Tencent 토큰이 GCM 토큰을 덮어쓰는 문제를 해결했습니다.
 
 #### 기능 개선
 * 기존 최소 버전 API level 9(2.3) 에서 API level 15(4.0.1)로 변경
