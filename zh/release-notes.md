@@ -1,5 +1,10 @@
 ## Notification > Push > Release Notes
 
+### 2018.07.24
+#### 기능 개선
+* [API] 응답 메시지 개선
+    * Response Body의 header.resultMessage에 실패 원인에대해 더 자세한 내용을 추가해 이해를 돕도록 개선했습니다.
+
 ### 2018.06.26
 #### 버그 수정
 * [API] 광고성 푸시 메시지 발송시 일부 대상이 누락되는 오류 수정
