@@ -12,8 +12,13 @@ TOAST Cloud Push SDK를 적용하면 모바일 애플리케이션과 TOAST Cloud
 [DOCUMENTS] > [Download] > [Notification > Push]
 ```
 
-## 지원환경
+## 지원 환경
 * API 레벨 15(4.0.3) 이상
+
+## 지원 플랫폼
+* Google Cloud Messaging (이하 GCM)
+* Tencent Mobile Push (이하 Tencent)
+* Amazon Device Messaging (이하 ADM)
 
 ## 공통 프로젝트 설정
 * SDK(AAR) 다운로드 및 추가
@@ -29,7 +34,7 @@ dependencies {
 }
 ```
 
-## GCM을 사용하는 경우
+## GCM 설정
 ### 프로젝트 설정
 * build.gradle에 GCM SDK 추가
     * dependencies에 다음과 같이 추가한다
@@ -71,7 +76,7 @@ dependencies {
 </manifest>
 ```
 
-## Tencent를 사용하는 경우
+## Tencent 설정
 ### 프로젝트 설정
 * (가이드는 Tencent SDK 3.2.3 을 기준으로 작성되었다)
 * 아래 페이지에서 Tencent SDK를 다운로드 한다.
@@ -160,9 +165,7 @@ dependencies {
 </manifest>
 ```
 
-
-
-## Amazon Device Messaging을 사용하는 경우
+## ADM 설정
 ### 프로젝트 설정
 * Amazon Device Messaging(이하 ADM)은 Fire OS 2세대 이상의 기기에서 사용 가능하다.
 * 아래 페이지에서 Amazon Device Messaging SDK를 다운로드 받습니다.
