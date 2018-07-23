@@ -1,4 +1,4 @@
-## Notification > Push > 콘솔 사용 가이드
+## Notification > Push > Console Guide
 
 ## 인증서 관리
 
@@ -41,14 +41,14 @@
 - Mac에서 [키체인]을 실행
 - [체인 접근] > [인증서 지원] > [인증 기관에서 인증서 요청] 버튼 클릭
 - [사용자 이메일 주소]에 Apple Developer ID 등 필요한 정보를 입력하고, [디스크 저정됨] 선택하고, [본인이 키 쌍 정보 저장]을 선택하고, [계속] 클릭
-- [키 쌍 정보]에서 키 크기, 알고리즘 선택 후 [계속] 클릭, CSR(Certificate Signing Request)) 파일 생성 완료
+- [키 쌍 정보]에서 키 크기, 알고리즘 선택 후 [계속] 클릭, CSR(Certificate Signing Request) 파일 생성 완료
 - [[Apple Developer Certificates](https://developer.apple.com/account/ios/certificate/certificateList.action)]로 이동
 - 우측 상단 '+'(Add) 버튼 클릭, Certificate 발급 페이지로 이동
 - [Select Type] > [Request] > [Generate] 탭에서 [키체인]을 통해서 만든 CSR파일 업로드, [Generate] 버튼 클릭
 - 인증서 생성, 다운로드 가능(승인 권한이 없다면 승인을 받고 다운로드 가능)
 - 인증서 다운로드, [키체인] > [인증서]에서 인증서 선택
 - 인증서에서 마우스 오른쪽 선택, 매뉴 중 ['...' 보내기] 선택
-- 저장 위치 설정 후 [저장] 클릭
+- 저장 위치 설정 후 [저장] 클릭 (파일포맷: .p12)
 - 보낸 항목을 보호하는 데 사용할 암호 입력, APNS 인증서 생성 완료
 
 ### APNS 인증서 등록
@@ -232,7 +232,7 @@
 
 ## 메시지 발송 내역 저장
 - 메시지 발송 내역을 지정한 Log & Crash Search에 전송하는 기능이다.
-- [Console] > [Notification] > [Push] > [Setting] 탭 클릭, 로깅(Logging) 기능을 활설화 시킬 수 있다.
+- [Console] > [Notification] > [Push] > [Setting] 탭 클릭, 로깅(Logging) 기능을 활성화 시킬 수 있다.
 - Appkey에는 사용하는 Log & Crash Search의 Appkey를 입력한다.
 - Log Source는 내역 저장시 같이 남길 값을 입력한다. 다른 로그와 구분하는 값이다.
 - Log Level은 발송 내역중 특정 내역만 남길 수 있도록 한다.
@@ -309,6 +309,7 @@
 ```
 
 * *문서 수정 내역*
+    * *(2018.07.24) APNS 인증서 설명 추가*
     * *(2018.06.15) GCM에서 Firebase로 옮기는 설명 추가*
     * *(2017.11.23) 메시지 발송 내역 저장 설명 추가*
     * *(2017.09.21) 즉시 전송 설명 수정*
