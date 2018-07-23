@@ -1,4 +1,4 @@
-## Notification > Push > API v2.0 Guide
+## Notification > Push > API Guide
 
 ### v2.0 API 소개
 
