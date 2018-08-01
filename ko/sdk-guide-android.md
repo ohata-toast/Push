@@ -187,6 +187,14 @@ dependencies {
 <manifest xmlns:amazon="http://schemas.amazon.com/apk/res/android">
 ```
 
+#### ADM 활성화
+- ADM 활성화를 위해서 아래 태그를 application 태그 하위에 추가한다.
+```xml
+<application>
+    <amazon:enable-feature android:name="com.amazon.device.messaging" android:required="true"/>
+</application>
+```
+
 #### 권한 추가
 ```xml
 <permission
@@ -198,26 +206,34 @@ dependencies {
 ```
 
 #### Handler 및 Receiver 추가
+- 아래 내용을 application 태그 하위에 추가한다.
 - [YOUR_HANDLER_CLASS] 에는 사용자가 작성한 Handler의 클래스를 입력한다.
 - [YOUR_RECEIVER_CLASS] 에는 사용자가 작성한 Receiver의 클래스를 입력한다.
     - Handler 및 Receiver 구현은 아래 참고
 ```xml
-<amazon:enable-feature android:name="com.amazon.device.messaging" android:required="true"/>
-<service
-    android:name="[YOUR_HANDLER_CLASS]"
-    android:exported="false" />
+<application>
+    <service
+        android:name="[YOUR_HANDLER_CLASS]"
+        android:exported="false" />
 
-<receiver
-    android:name="[YOUR_RECEIVER_CLASS]"
-    android:permission="com.amazon.device.messaging.permission.SEND" >
-    <intent-filter>
-        <action android:name="com.amazon.device.messaging.intent.REGISTRATION" />
-        <action android:name="com.amazon.device.messaging.intent.RECEIVE" />
+    <receiver
+        android:name="[YOUR_RECEIVER_CLASS]"
+        android:permission="com.amazon.device.messaging.permission.SEND" >
+        <intent-filter>
+            <action android:name="com.amazon.device.messaging.intent.REGISTRATION" />
+            <action android:name="com.amazon.device.messaging.intent.RECEIVE" />
 
-        <category android:name="[YOUR_PACKAGE_NAME]" />
-    </intent-filter>
-</receiver>
+            <category android:name="[YOUR_PACKAGE_NAME]" />
+        </intent-filter>
+    </receiver>
+</application>
 ```
+
+### API 키 설정
+- 디버그 빌드를 하거나 직접 릴리즈 빌드 사이닝을 위해서는 API 키가 필요하다.
+    - [API 키 발급 가이드](../console-guide/#adm-kindle-api-key)
+- API 키를 발급 받았다면 assets 폴더 하위에 api_key.txt 파일을 만들어서 API 키를 해당 파일에 입력해야 한다.
+- Push를 받기 위해선 API 키 발급때 사용한 인증서로 사이닝을 해야 정상적으로 받을 수 있다.
 
 ### Handler 및 Receiver 구현
 - 알림에 제목/본문만 필요할 경우, 기본 Handler와 Receiver를 사용할 수 있다.
