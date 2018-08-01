@@ -231,7 +231,7 @@ dependencies {
 
 ### API 키 설정
 - 디버그 빌드를 하거나 직접 릴리즈 빌드 사이닝을 위해서는 API 키가 필요하다.
-    - [API 키 발급 가이드](../console-guide/#adm-kindle-api-key)
+    - [API 키 발급 가이드](./console-guide/#adm-kindle-api-key)
 - API 키를 발급 받았다면 assets 폴더 하위에 api_key.txt 파일을 만들어서 API 키를 해당 파일에 입력해야 한다.
 - Push를 받기 위해선 API 키 발급때 사용한 인증서로 사이닝을 해야 정상적으로 받을 수 있다.
 
