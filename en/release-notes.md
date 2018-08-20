@@ -1,5 +1,25 @@
 ## Notification > Push > Release Notes
 
+### 2018.08.28
+#### 버그 수정
+* [API] 토큰 설정에서 앱 유형을 '단일 토큰'으로 했을때 APNS_VOIP 토큰이 삭제되는 오류
+    * APNS_VOIP 토큰은 VoIP을 위한 토큰이므로 푸시 메시지를 위한 GCM, APNS 등과 별개로 관리되어야하지만,
+    단일 토큰으로 설정하면 APNS_VOIP도 다른 토큰들과 동일하게 관리되어 APNS_VOIP 토큰이 삭제되는 오류가 있었습니다.
+    * APNS_VOIP 토큰과 GCM, APNS, TENCENT 토큰이 별개로 관리되도록 수정했습니다.
+* [API] 일부 프로젝트에서 통계 API Timeout 발생하는 오류 개선
+    * 일부 프로젝트에서 통계 조회시 Timeout이 발생하는 오류가 있었습니다. 최적화를 통해 Timeout이 발생하지 않도록 수정했습니다.
+
+#### 기능 추가
+* [API] Logging API 추가
+    * Console에서 활설화할 수 있는 Logging 기능으로 저장된 데이터를 조회하는 API를 추가했습니다.
+    * 일반 조회, 대량 조회, 두 가지 타입의 API를 제공합니다.
+         * <a href="https://docs.toast.com/ko/Notification/Push/ko/api-guide/#_18" target="_blank">로그 조회 바로가기</a>
+* [API] v2.2 API 업데이트
+    * Logging API 추가로 최신 API 버전을 v2.2로 업데이트 했습니다.
+    * v2.2부터 API 인증을 위해 'API 보안 설정'을 이용합니다.
+         * <a href="https://toast.com/account/api_settings" target="_blank">API 보안 설정 바로가기</a>
+    * 최신 API 버전이 v2.2지만, v1.3, v2.0, v2.1 API도 제공하고 있습니다.
+
 ### 2018.07.24
 #### 기능 개선
 * [API] 응답 메시지 개선
