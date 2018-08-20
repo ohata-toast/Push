@@ -28,8 +28,15 @@ TOAST Cloud Push SDK를 적용하면 모바일 애플리케이션과 TOAST Cloud
 * build.gradle에 SDK 추가
     * dependencies에 다음과 같이 추가한다
 ```
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.aar'])
+    def pushSdkVersion = "1.6.0"
+    compile(name: "pushsdk-android-release-v${pushSdkVersion}", ext: 'aar')
+    
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:support-v4:26.1.0'
 }
