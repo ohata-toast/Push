@@ -1190,6 +1190,11 @@ X-Secret-Access-Key: [a-zA-Z0-9]{8}
 }
 ```
 
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://alpha-api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/logs/message?messageId=1&limit=10
+```
+
 #### 대량 로그 카운트 조회
 - 검색 조건으로 검색된 로그의 수를 확인할 수 있다.
 
@@ -1218,6 +1223,11 @@ X-Secret-Access-Key: [a-zA-Z0-9]{8}
         "count" : 0
     }
 }
+```
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://alpha-api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/bulk-logs/message/count
 ```
 
 #### 대량 로그 조회
@@ -1262,6 +1272,11 @@ X-Secret-Access-Key: [a-zA-Z0-9]{8}
     "isNeedStored": "bulk",
     "projectVersion": "v2.2"
 }
+```
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://alpha-api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/bulk-logs/message?messageId=1
 ```
 
 ## 예약 메시지
