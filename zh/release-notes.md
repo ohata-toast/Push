@@ -18,7 +18,7 @@
     * Logging API 추가로 최신 API 버전을 v2.2로 업데이트 했습니다.
     * v2.2부터 API 인증을 위해 'API 보안 설정'을 이용합니다.
          * <a href="https://toast.com/account/api_settings" target="_blank">API 보안 설정 바로가기</a>
-    * 최신 API 버전이 v2.2지만, v1.3, v2.0, v2.1 API도 제공하고 있습니다.
+    * 지원하는 API 버전: v1.3, v2.0, v2.1, v2.2
 
 ### 2018.07.24
 #### [API]
@@ -35,7 +35,7 @@
 * VoIP 타입 추가에 따른 일부 API 변경
 
 <br>
- 
+
 ### 2018.06.26
 #### [Console]
 ##### 기능 추가

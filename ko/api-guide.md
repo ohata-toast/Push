@@ -26,8 +26,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 - v2.2 API부터 Secret Key대신 User Access Key ID를 이용해 호출해야 한다.
 ```
 Header
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 [회원정보] > [API 보안 설정] 에서 생성할 수 있다.
 
@@ -210,8 +210,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.c
 ```
 GET /push/v2.2/appkeys/{appkey}/tokens?uid={uid}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -255,8 +255,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 GET /push/v2.2/appkeys/{appkey}/invalid-tokens?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageId={messageId}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -302,8 +302,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 GET /push/v2.2/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -379,8 +379,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 GET /push/v2.2/appkeys/{appkey}/statistics/token-registrations?from={from}&to={to}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -432,8 +432,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 POST /push/v2.2/appkeys/{appkey}/messages
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```json
@@ -828,8 +828,8 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 ```
 GET /push/v2.2/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -915,8 +915,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 GET /push/v2.2/appkeys/{appkey}/messages/{message-id}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -975,8 +975,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 GET /push/v2.2/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messagErrorCause={messageErrorCause}&from={from}&to={to}&limit={limit}
 HEADER
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1075,8 +1075,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 GET /push/v2.2/appkeys/{appkey}/statistics/message-delivery-receipts?from={from}&to={to}&event={event}&timeUnit={timeUnit}&messageId={messageId}
 HEADER
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1137,8 +1137,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 GET /push/v2.2/appkeys/{appkey}/logs/message?messageId={messageId}&uid={uid}&token={token}&pushType={pusyType}&from={from}&to={to}&limit={limit}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1172,10 +1172,13 @@ X-Secret-Access-Key: [a-zA-Z0-9]{8}
                 "logType" : "message-result",
                 "logSource" : "tc-push",
                 "messageId" : "1",
-                "body" : "{"tokens":[{"uid":"gimbimloki","token":"1"}],"payload":{"aps":{"alert":{"title":"title","body":"body"},"mutable-content":1}}}",
+                "body" : "{\"tokens\":[{\"uid\":\"gimbimloki\",\"token\":\"1\"}],\"payload\":{\"aps\":{\"alert\":{\"title\":\"title\",\"body\":\"body\"},\"mutable-content\":1}}}",
                 "logTime" : "1",
                 "pushType" : "APNS",
                 "sendTime" : "1",
+								"searchKey1": "1746041784729856",
+						    "searchKey2": "GCM",
+						    "searchKey3": "SENT",
                 "sentResult" : "SENT",
                 "host" : "127.0.0.1",
                 "appkey" : "APP_KEY",
@@ -1202,8 +1205,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 GET /push/v2.2/appkeys/{appKey}/bulk-logs/message/count?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 ##### Request Body
@@ -1238,8 +1241,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 GET /push/v2.2/appkeys/{appKey}/bulk-logs/message?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
 Content-Type: application/json;charset=UTF-8
 Accept: application/stream+json
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1254,7 +1257,7 @@ X-Secret-Access-Key: [a-zA-Z0-9]{8}
 #### Response Body
 ```
 {
-    "body": "{"tokens":[{"uid":"gimbimloki","token":"1"}],"payload":{"aps":{"alert":{"title":"title","body":"body"},"mutable-content":1}}}",
+    "body": "{\"tokens\":[{\"uid\":\"gimbimloki\",\"token\":\"1\"}],\"payload\":{\"aps\":{\"alert\":{\"title\":\"title\",\"body\":\"body\"},\"mutable-content\":1}}}",
     "host": "10.161.240.23",
     "appkey": "eCHQcPuPAiI6TgY8",
     "logTime": "1533802967999",
@@ -1287,8 +1290,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 POST /push/v2.2/appkeys/{appkey}/schedules
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1366,8 +1369,8 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 ```
 POST /push/v2.2/appkeys/{appkey}/reservations
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1437,8 +1440,8 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 ```
 GET /push/v2.2/appkeys/{appkey}/reservations?pageIndex={pageIndex}&pageSize={pageSize}&reservationStatus={reservationsStatus}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1532,8 +1535,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 GET /push/v2.2/appkeys/{appkey}/reservations/{reservation-id}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 ##### Request Body
@@ -1603,8 +1606,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 GET /push/v2.2/appkeys/{appkey}/reservations/{reservation-id}/messages?pageIndex={pageIndex}&pageSize={pageSize}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1667,8 +1670,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 PUT /push/v2.2/appkeys/{appkey}/reservations/{reservationId}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 ##### Request Body
@@ -1721,8 +1724,8 @@ curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 DELETE /push/v2.2/appkeys/{appkey}/reservations?reservationIds={reservationId,}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1759,8 +1762,8 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Acce
 ```
 POST /push/v2.2/appkeys/{appkey}/tags
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 
@@ -1804,8 +1807,8 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 ```
 POST /push/v2.2/appkeys/{appkey}/tags/{tag-id}/uids
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```json
@@ -1842,8 +1845,8 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 ```
 POST /push/v2.2/appkeys/{appkey}/uids
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```json
@@ -1878,8 +1881,8 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 ```
 GET /push/v2.2/appkeys/{appkey}/tags?tagName={tagName}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1925,8 +1928,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 GET /push/v2.2/appkeys/{appkey}/tags/{tag-id}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```
@@ -1962,8 +1965,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 GET /push/v2.2/appkeys/{appkey}/tags/{tag-id}/uids?offsetUid={uid}&limit={limit}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -2026,8 +2029,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 GET /push/v2.2/appkeys/{appkey}/uids/{uid}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```
@@ -2074,8 +2077,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 PUT /push/v2.2/appkeys/{appkey}/tags/{tag-id}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```json
@@ -2106,8 +2109,8 @@ curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 DELETE /push/v2.2/appkeys/{appkey}/tags/{tag-id}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```
@@ -2136,8 +2139,8 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Acce
 ```
 DELETE /push/v2.2/appkeys/{appkey}/uids?uids={uid,}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -2172,8 +2175,8 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Acce
 ```
 DELETE /push/v2.2/appkeys/{appkey}/tags/{tagId}/uids?uids={uid,}
 Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{8}
-X-Secret-Access-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```
