@@ -1,6 +1,12 @@
 ## Notification > Push > API v2.2 Guide
 ### v2.2 API 소개
-- API 인증시 Secret Key대신 User Access Key ID를 사용해야 한다.
+
+#### 추가
+- '로그 조회' API가 추가되었다.
+
+#### 수정
+- API 인증시 사용하는 값이 변경되었다.
+- API 인증시 Secret Key대신 User Access Key ID와 Secret Access Key를 사용해야 한다.
 - 자세한 설명은 아래 'API 보안 설정' 항목에서 확인할 수 있다.
 
 ### 기본 정보
@@ -9,16 +15,6 @@
 API Endpoint: https://api-push.cloud.toast.com
 메시지 수신/확인 여부 수집 Endpoint: https://collector-push.cloud.toast.com
 ```
-
-#### Secret Key
-- 콘솔에서 확인 가능하다.
-- Secret Key가 필요한 API를 호출할 때, 해더에 아래와 같이 설정해서 호출해야 한다.
-```
-Header
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-[Console] > [Notification] > [Push] > [URL & AppKey] 에서 생성할 수 있다.
-
 #### API 보안 설정
 - API 보안 설정은 User Access Key ID (TOAST 서비스 이용시, 사용자 인증을 위해 필요한 사용자 설정 키) 를 발급하는 기능입니다.
 - User Access Key ID 는 TOAST ID 에 1개만 발급 가능합니다. 보안을 위해 발급된 키는 안전한 장소에 보관해 주세요.
@@ -2330,18 +2326,3 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" https://api-pus
 * *문서 수정 내역*
     * *(2018.08.28) v2.2 API 업데이트*
     * *(2018.08.28) Logging API 추가*
-    * *(2018.06.26) 메시지 발송 예제 추가*
-    * *(2018.06.26) pushType ADM 추가*
-    * *(2018.05.29) v2.1 토큰 조회 API 추가*
-    * *(2018.05.29) API curl 가이드 추가*
-    * *(2018.04.24) v2.0 Message Delivery Receipt API에 timeUnit 필드 설명 추가*
-    * *(2018.04.24) v2.0 API에 DateTime 형식 설명 추가*
-    * *(2018.03.22) v2.0 Uid API 추가*
-    * *(2018.02.22) v2.0 Message 조회 API deliveryType 필드 추가*
-    * *(2018.02.22) pushType APNS_VOIP, APNS_SANDBOXVOIP 추가*
-    * *(2017.11.23) v2.0 Message Error API 설명 수정*
-    * *(2017.08.24) v2.0 Token, Reservation API 설명 오류 수정*
-    * *(2017.07.20) v2.0 Tag API Reference 추가*
-    * *(2017.07.20) 실패한 메시지 조회 API 추가*
-    * *(2017.04.25) v2.0 API Reference 추가*
-    * *(2017.02.23) 토큰 조회 API 문서 보강*
