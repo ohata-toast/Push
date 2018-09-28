@@ -234,6 +234,7 @@ Go to **Console > Notification > Push** and **Setting** to enable Collect Messag
 ## Log Message Delivery History
 - Send message delivery history to Log & Crash Search as specified.
 
+
 - Click **Console > Notification > Push > Setting**  to enable Logging.
 
 - Enter Appkey of Log & Crash Search used currently, for Appkey.
@@ -313,6 +314,7 @@ When the Customer uses TOAST Push Service, assignment of personal information be
 Assignor: NHN Entertainment
 Content of Business:Deliver Push Messages in lieu of Customers
 ```
+
 
 * Document Updates
     * *(July 24, 2018) Added description of APNS Certificate*
