@@ -15,7 +15,7 @@
     * v2.0 메시지 발송 API부터와 최신 SDK가 적용된 앱에서 사용할 수 있습니다.
 * [Console] 메시지 발송 페이지에 리치 메시지 기능 추가
     * 메시지 발송 페이지에서 리치 메시지를 발송할 수 있습니다.
-        * <a href="https://docs.toast.com/ko/Notification/Push/ko/api-guide/#_3" target="_blank">콘솔 가이드 바로가기</a>
+        * <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#_3" target="_blank">콘솔 가이드 바로가기</a>
     * 미리 보기 기능을 제공해 Android, iOS에서 리치 메시지가 어떻게 표시될지 확인할 수 있습니다.
 * [Console] 광고 표시 문구 위치 설정 기능 추가
     * 광고 메시지임을 표시하는 문구를 제목 또는 내용 부분에 표시할지 설정할 수 있는 기능을 추가했습니다.
