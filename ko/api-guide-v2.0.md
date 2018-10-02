@@ -21,7 +21,8 @@
 - v2.0 메시지 수신, 확인 통계 조회 API가 추가되었습니다.
 - v2.0 유효하지 않은 토큰 API에서 페이징(PageIndex, PageSize), 기간(from, to), 메시지 ID로 조회할 수 있습니다.
 
-#### 수정
+#### 수정'
+- v1.3 Uid로 토큰 조회 API의 URI '/push/v1.3/appkey/{appkey}/uids/{uid}/tokens'에서 '/push/v2.0/appkeys/{appkey}/tokens?uid={uid}'으로 변경되었습니다.
 - v1.3 피드백 API의 URI가 '/push/v1.3/appkey/{appkey}/feedback'에서 '/push/v2.0/appkeys/{appkey}/invalid-tokens'으로 변경되었습니다.
 
 #### 삭제
