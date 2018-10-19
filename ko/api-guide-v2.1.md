@@ -877,7 +877,8 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있다.
             "richMessage" : {
                 "buttons" : [{
                         "name" : "버튼 이름",
-                        "buttonType" : "REPLY | DEEP_LINK | OPEN_APP | OPEN_URL | DISMISS",
+                        "submitName": "전송 버튼 이름",
+                        "buttonType" : "REPLY | OPEN_APP | OPEN_URL | DISMISS",
                         "link" : "URL | ...",
                         "hint" : "메시지를 입력해주세요."
                     }
@@ -909,7 +910,8 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있다.
 | richMessage | Optional, Object | 리치 메시지 사용시 필요 |
 | richMessage.buttons | Optional, Object Array | 리치 메시지에 추가되는 버튼, 최대 3개까지 가능 |
 | richMessage.button.name | Required, String | 버튼 이름 |
-| richMessage.button.buttonType | Required, String | 버튼 타입, REPLY, DEEP_LINK, OPEN_APP, OPEN_URL, DISMISS |
+| richMessage.button.submitName | Optional, String | 전송 버튼 이름, iOS에서 버튼 타입이 REPLY일때 표시 |
+| richMessage.button.buttonType | Required, String | 버튼 타입, REPLY, OPEN_APP, OPEN_URL, DISMISS |
 | richMessage.button.link | Required, String | 버튼을 눌렀을때, 연결되는 링크 |
 | richMessage.button.hint | Required, String | 버튼에대한 힌트 |
 | richMessage.media | Optional, Object | 리치 메시지에 추가되는 미디어 |
