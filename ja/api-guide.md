@@ -884,6 +884,7 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있다.
 | richMessage.group.key | Required, String | 그룹의 키 |
 | richMessage.group | Required, String | 그룹에대한 설명 |
 
+
 ### 조회
 #### 목록 조회
 ##### Method, URL, Headers

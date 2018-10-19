@@ -13,7 +13,7 @@
 * [API] Logging API 추가
     * Console에서 활설화할 수 있는 Logging 기능으로 저장된 데이터를 조회하는 API를 추가했습니다.
     * 일반 조회, 대량 조회, 두 가지 타입의 API를 제공합니다.
-         * <a href="https://docs.toast.com/ja/Notification/Push/ko/api-guide/#_18" target="_blank">로그 조회 바로가기</a>
+         * <a href="https://docs.toast.com/ko/Notification/Push/ko/api-guide/#_18" target="_blank">로그 조회 바로가기</a>
 * [API] v2.2 API 업데이트
     * Logging API 추가로 최신 API 버전을 v2.2로 업데이트 했습니다.
     * v2.2부터 API 인증을 위해 'API 보안 설정'을 이용합니다.
