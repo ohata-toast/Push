@@ -245,7 +245,7 @@ public class CustomADMReceiver extends ADMMessageReceiver {
 ```
 
 ## SDK 사용 가이드
-### PushParams
+### PushParams 클래스
 * PushParams는 토큰 등록 및 조회를 위해서 필요한 객체입니다.
 * PushParams.Builder 클래스를 통해서 객체를 생성할 수 있습니다.
 * PushParams에 포함된 정보는 아래와 같습니다.
@@ -263,7 +263,7 @@ public class CustomADMReceiver extends ADMMessageReceiver {
 | isAdAgreement           | 광고성 정보 알림 표시 동의 여부      | 선택      | false            |
 | isNightAdAgreement      | 야간 광고성 정보 알림 표시 동의 여부 | 선택      | false            |
 
-#### PushParams 생성
+#### PushParams 객체 생성
 * PushParams는 토큰 등록 및 조회를 위해서 필요한 객체입니다.
 * PushParams.Builder 클래스를 통해서 객체를 생성할 수 있습니다.
 * 예제 코드
@@ -309,9 +309,10 @@ PushSdk.register(pushParams, new PushRegisterCallback() {
 
 > **Tencent를 사용하는 경우 예외 사항**
 >
-> Tencent는 WRITE_SETTINGS 권한이 필요하며, API 레벨 23(6.0)에서는 별도의 대화 상자가 나타납니다.
-> 설정 대화 상자에서 권한을 허용하더라도, 콜백으로 ERROR_PERMISSION_REQUIRED 오류가 반환됩니다.
-> 이 경우, 다시 토큰 등록을 호출하면 정상적으로 토큰이 등록됩니다.
+> Tencent는 WRITE_SETTINGS 권한이 필요하며, API 레벨 23(6.0) 이상에서는 별도의 권한 설정창이 노출됩니다.
+> 권한 설정창 노출과 콜백은 비동기이므로, 권한 설정창 노출과 함께 콜백으로 ERROR_PERMISSION_REQUIRED 오류가 반환됩니다.
+> 이 경우, 다시 토큰 등록을 호출하면 사용자가 WRITE_SETTINGS 권한을 허용했다면 정상적으로 토큰이 등록됩니다. 
+> 다시 토큰 등록을 호출했지만, WRITE_SETTINGS 권한이 허용되지 않았다면 계속해서 ERROR_PERMISSION_REQUIRED 오류가 반환됩니다.
 
 ### 토큰 정보 조회
 * 현재 서버에 저장된 토큰 정보가 PushQueryResult 객체에 담겨 콜백으로 반환됩니다.
@@ -334,6 +335,10 @@ PushSdk.query(pushParams, new PushQueryCallback() {
 ### 리치 메시지 수신
 - 제목, 본문과 함께 다양하고 풍부한 메시지를 수신할 수 있습니다.
 
+#### 리치 메시지 수신 방법
+- Push SDK에서 제공하는 기본 리시버들을 그대로 사용 중이라면 별도의 처리없이 리치 메시지를 수신할 수 있습니다.
+- 별도의 리시버를 구현해서 사용 중이라면 아래 *ToastPushMessage 클래스* 를 확인해주세요.
+
 #### 지원하는 리치 메시지 기능
 * **버튼**
     * 알림에 아래 기능을 사용할 수 있는 버튼을 추가할 수 있습니다.
@@ -343,6 +348,8 @@ PushSdk.query(pushParams, new PushQueryCallback() {
             * Custom scheme을 이용한 Activity/BroadcastReceiver 이동도 가능
         * 답장 전송 : 알림에서 바로 답장을 보냅니다.
             * 안드로이드 7.0(API 레벨 24) 이상에서만 사용 가능합니다.
+            * 답장 처리를 위해서 ReplyActionListener 인터페이스를 상속받아서 리스너를 구현해야합니다.
+            * 구현된 리스너의 클래스를 **PushSdk.setReplyActionListenerClass** 메소드를 통해서 등록해야 합니다. 
 
     > 버튼이 추가된 알림 생성은 *NotificationConverter 클래스* 를 참고해주시기 바랍니다.
 
@@ -357,8 +364,10 @@ PushSdk.query(pushParams, new PushQueryCallback() {
 * **그룹**
     * 같은 키의 알림들을 하나로 묶습니다.
         * 안드로이드 7.0(API 레벨 24) 이상에서만 사용가능합니다.
+    
+    > 그룹핑된 알림 생성은 *NotificationConverter 클래스* 를 참고해주시기 바랍니다.
 
-#### ToastPushMessage
+#### ToastPushMessage 클래스
 - Push 제공자별로 다른 데이터 타입을 통합한 데이터 구조입니다.
 - TOAST Push 서버에서 발송한 알림의 제목, 내용 외에 **리치 메시지**가 담겨 있습니다.
 - 사용자는 ToastPushMessage의 데이터를 이용해서 직접 Notification 객체를 만들 수 있습니다.
@@ -368,7 +377,8 @@ PushSdk.query(pushParams, new PushQueryCallback() {
     - Tencent : XGPushTextMessage
 
 #### NotificationConverter을 이용해서 변환하기
-- Push SDK에서는 좀 더 편하게 변환할 수 있도록 NotificationConverter를 제공합니다.
+- ToastPushMessage 객체를 좀 더 편하게 알림(Notification) 객체로 변환할 수 있도록 NotificationConverter를 제공합니다.
+- NotificationConverter는 *리치 메시지가 모두 적용된 알림(Notification) 객체* 를 반환합니다.
 - NotificationConverter에 Extender를 추가해서 Notification을 사용자 정의할 수 있습니다.
     - 추가된 Extender는 NotificationConverter의 내부 처리가 완료된 이후에 추가된 순서대로 처리됩니다.
 - 예제)
