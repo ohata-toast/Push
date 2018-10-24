@@ -244,7 +244,7 @@ public class CustomADMReceiver extends ADMMessageReceiver {
 }
 ```
 
-## SDK 용 가이드
+## SDK 기본 사용 가이드
 - 기본적인 기능을 위한 SDK 가이드입니다.
 
 ### PushParams 정의
