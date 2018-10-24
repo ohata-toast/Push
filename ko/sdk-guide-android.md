@@ -18,7 +18,8 @@ Push SDK를 적용하면 모바일 애플리케이션과 Push를 쉽게 연동�
 * Tencent Mobile Push(이하 Tencent)
 * Amazon Device Messaging(이하 ADM)
 
-## 공통 프로젝트 설정
+## 프로젝트 설정
+### 공통 설정
 * SDK(AAR) 다운로드 및 추가
     * 프로젝트 폴더 하위에 libs 폴더가 없으면 생성합니다.
     * 다운로드한 AAR 파일을 프로젝트의 libs 폴더에 추가합니다.
@@ -32,8 +33,8 @@ dependencies {
 }
 ```
 
-## GCM 설정
-### 프로젝트 설정
+### GCM 설정
+#### 프로젝트 설정
 * build.gradle에 GCM SDK 추가
     * dependencies에 다음과 같이 추가합니다.
 ```groovy
@@ -42,7 +43,7 @@ dependencies {
 }
 ```
 
-### AndroidManifest.xml 수정
+#### AndroidManifest.xml 수정
 * 아래에 '[YOUR_PACKAGE_NAME]'으로 되어 있는 모든 부분을 애플리케이션 기본 페키지 네임으로 변경합니다.
 
 ```xml
@@ -74,8 +75,8 @@ dependencies {
 </manifest>
 ```
 
-## Tencent 설정
-### 프로젝트 설정
+### Tencent 설정
+#### 프로젝트 설정
 가이드는 Tencent SDK 3.2.3을 기준으로 작성되었습니다.
 
 * Tencent SDK 다운로드 페이지인 [腾讯移动推送 | 信鸽](http://xg.qq.com/xg/ctr_index/download)에서 Tencent SDK를 다운로드합니다.
@@ -102,7 +103,7 @@ dependencies {
 }
 ```
 
-### AndroidManifest.xml 수정
+#### AndroidManifest.xml 수정
 * 아래에 '[YOUR_PACKAGE_NAME]'으로 되어 있는 모든 부분을 애플리케이션 기본 페키지 네임으로 변경합니다.
 
 ```xml
@@ -163,8 +164,8 @@ dependencies {
 </manifest>
 ```
 
-## ADM 설정
-### 프로젝트 설정
+### ADM 설정
+#### 프로젝트 설정
 * Amazon Device Messaging(이하 ADM)은 Fire OS 2세대 이상의 기기에서 사용할 수 있습니다.
 * [Amazon Developer SDKs 다운로드 페이지](https://developer.amazon.com/sdk-download)에서 Amazon Device Messaging SDK를 다운로드합니다.
 * 다운로드한 SDK의 압축을 해제하고 amazon-device-messaging-*.jar 파일을 프로젝트 하위의 libs 폴더에 추가합니다.
@@ -175,15 +176,15 @@ dependencies {
 }
 ```
 
-### AndroidManifest.xml 수정
+#### AndroidManifest.xml 수정
 * 아래에 '[YOUR_PACKAGE_NAME]'으로 되어 있는 모든 부분을 애플리케이션 기본 페키지 네임으로 변경합니다.
 
-#### Namespace 추가
+##### Namespace 추가
 ```xml
 <manifest xmlns:amazon="http://schemas.amazon.com/apk/res/android">
 ```
 
-#### 권한 추가
+##### 권한 추가
 ```xml
 <permission
     android:name="[YOUR_PACKAGE_NAME].permission.RECEIVE_ADM_MESSAGE"
@@ -193,7 +194,7 @@ dependencies {
 <uses-permission android:name="android.permission.WAKE_LOCK" />
 ```
 
-#### Handler 및 Receiver 추가
+##### Handler 및 Receiver 추가
 - [YOUR_HANDLER_CLASS]에는 사용자가 작성한 Handler의 클래스를 입력합니다.
 - [YOUR_RECEIVER_CLASS]에는 사용자가 작성한 Receiver의 클래스를 입력합니다.
     - Handler 및 Receiver 구현은 아래를 참고합니다.
@@ -215,7 +216,7 @@ dependencies {
 </receiver>
 ```
 
-### Handler 및 Receiver 구현
+#### Handler 및 Receiver 구현
 - 알림에 제목과 본문만 필요할 경우, 기본 Handler와 Receiver를 사용할 수 있습니다.
     - 기본 Handler : com.toast.android.pushsdk.listener.DefaultPushSdkADMHandler
     - 기본 Receiver : com.toast.android.pushsdk.listener.DefaultPushSdkADMReceiver
