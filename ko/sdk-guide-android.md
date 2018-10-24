@@ -243,8 +243,8 @@ public class CustomADMReceiver extends ADMMessageReceiver {
 }
 ```
 
-## PushParams
-### PushParams란?
+## SDK 사용 가이드
+### PushParams
 * PushParams는 토큰 등록 및 조회를 위해서 필요한 객체입니다.
 * PushParams.Builder 클래스를 통해서 객체를 생성할 수 있습니다.
 * PushParams에 포함된 정보는 아래와 같습니다.
@@ -289,7 +289,7 @@ builder.setLanguage("ko"); // 선택값
 PushParams pushParams = builder.build();
 ```
 
-## 토큰 등록
+### 토큰 등록
 * 푸시 타입에 따라 토큰을 생성해서 서버에 토큰을 등록합니다.
 * 예제 코드
 ```java
@@ -312,7 +312,7 @@ PushSdk.register(pushParams, new PushRegisterCallback() {
 > 설정 대화 상자에서 권한을 허용하더라도, 콜백으로 ERROR_PERMISSION_REQUIRED 오류가 반환됩니다.
 > 이 경우, 다시 토큰 등록을 호출하면 정상적으로 토큰이 등록됩니다.
 
-## 토큰 정보 조회
+### 토큰 정보 조회
 * 현재 서버에 저장된 토큰 정보가 PushQueryResult 객체에 담겨 콜백으로 반환됩니다.
 * 예제 코드
 ```java
@@ -330,8 +330,69 @@ PushSdk.query(pushParams, new PushQueryCallback() {
 });
 ```
 
-## 지표 수집
-### 수신(Received) 지표
+### 리치 메시지
+- 제목, 본문과 함께 다양하고 풍부한 메시지를 수신할 수 있습니다.
+
+#### 지원하는 리치 메시지 기능
+##### 버튼
+* 알림에 아래 기능을 사용할 수 있는 버튼을 추가할 수 있습니다.
+    * 알림 제거 : 현재 알림을 제거합니다.
+    * 앱 열기 : 앱을 실행합니다.
+    * URL 열기 : 특정 URL로 이동합니다.
+        * Custom scheme을 이용한 Activity/BroadcastReceiver 이동 가능
+    * 답장 전송 : 알림에서 바로 답장을 보냅니다.
+        * 안드로이드 7.0(API 레벨 24) 이상에서만 사용 가능합니다.
+
+##### 미디어
+* 알림에 미디어를 추가할 수 있습니다.
+    * 이미지 : 알림에 이미지를 추가합니다. (내부, 외부 이미지 모두 지원)
+    * 그 외 : 그 외의 미디어(동영상, 소리 등)는 지원하지 않습니다.
+
+##### 큰 아이콘
+* 알림에 큰 아이콘을 추가할 수 있습니다. (내부, 외부 이미지 모두 지원)
+
+##### 그룹
+* 같은 키의 알림들을 하나로 묶습니다.
+    * 안드로이드 7.0(API 레벨 24) 이상에서만 사용가능합니다.
+
+#### ToastPushMessage
+- Push 제공자별로 다른 데이터 타입을 통합한 데이터 구조입니다.
+- TOAST Push 서버에서 발송한 알림의 제목, 내용 외에 리치 메시지가 담겨 있습니다.
+- 아래 입력 타입을 지원합니다.
+    - GCM(Google Cloud Messaging) : Bundle
+    - ADM(Amazon Device Messaging) : Bundle
+    - Tencent : XGPushTextMessage
+
+##### Notification 으로 변환
+- 사용자는 ToastPushMessage의 데이터를 이용해서 직접 Notification 객체를 만들 수 있습니다.
+- Push SDK에서는 좀 더 편하게 변환할 수 있도록 NotificationConverter를 제공합니다.
+- NotificationConverter에 Extender를 추가해서 Notification을 사용자 정의할 수 있습니다.
+    - 추가된 Extender는 NotificationConverter의 내부 처리가 완료된 이후에 추가된 순서대로 처리됩니다.
+- 예제)
+
+```java
+final ToastPushMessage message = ToastPushMessage.fromBundle(bundle);
+final NotificationManagerCompat manager = NotificationManagerCompat.from(context);
+final NotificationConverter converter = new NotificationConverter("YOUR_NOTIFICATION_CHANNEL", message);
+// Extends NotificationCompat.Builder when you need
+converter.addExtender(new NotificationCompat.Extender() {
+    @Override
+    public NotificationCompat.Builder extend(NotificationCompat.Builder builder) {
+        // Extends builder
+        // ex) return builder.setAutoCancel(false);
+        return builder;
+    }
+});
+converter.convert(context, new NotificationConverter.ConvertCallback() {
+    @Override
+    public void onConvert(int notificationId, @NonNull Notification notification) {
+        manager.notify(notificationId, notification);
+    }
+});
+```
+
+### 지표 수집
+#### 수신(Received) 지표
 * SDK에서 제공하는 기본 리시버를 사용하는 경우, 수신 지표가 자동으로 수집됩니다.
 * 사용자가 직접 리시버를 구현하는 경우, 수신 지표 수집을 위해서 아래 메서드를 리시버에 추가해야 합니다.
 * 예제 코드
@@ -345,7 +406,7 @@ public static class CustomPushReceiver extends GcmListenerService {
 }
 ```
 
-### 실행(Opened) 지표
+#### 실행(Opened) 지표
 * 알림 영역의 알림을 통해서 실행했을 경우를 실행 지표라고 합니다.
 * 실행 지표 수집을 위해서는 액티비티와 푸시 리시버를 수정해야 합니다.
 * MainActivity 혹은 알림 클릭 시 실행되는 액티비티에 다음과 같은 코드를 추가해야 합니다.
@@ -379,14 +440,14 @@ public static class CustomPushReceiver extends GcmListenerService {
 }
 ```
 
-## 디버그 로그 활성화
+#### 디버그 로그 활성화
 * Push SDK는 SDK의 디버그 로그를 활성화하는 메서드를 제공합니다.
 * <span style="color:#f47141">반드시 개발 중에만 디버그 로그를 활성화해야 합니다. 릴리스할 때는 제거하거나 false로 설정해야 합니다.</span>
 ```java
 PushSdk.setDebug(true);
 ```
 
-## 오류 코드
+### 오류 코드
 * 오류 코드는 com.toast.android.pushsdk.annotations.PushResultCode 어노테이션에 @IntDef 로 정의되어있습니다.
 
 | 오류 코드                      | 설명                      |
