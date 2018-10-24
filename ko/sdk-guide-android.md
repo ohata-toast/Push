@@ -244,9 +244,11 @@ public class CustomADMReceiver extends ADMMessageReceiver {
 }
 ```
 
-## SDK 사용 가이드
-### PushParams 클래스
-* PushParams는 토큰 등록 및 조회를 위해서 필요한 객체입니다.
+## SDK 용 가이드
+- 기본적인 기능을 위한 SDK 가이드입니다.
+
+### PushParams 정의
+* PushParams 객체는 토큰 등록 및 조회를 위해서 필요한 객체입니다.
 * PushParams.Builder 클래스를 통해서 객체를 생성할 수 있습니다.
 * PushParams에 포함된 정보는 아래와 같습니다.
 
@@ -332,42 +334,30 @@ PushSdk.query(pushParams, new PushQueryCallback() {
 });
 ```
 
-### 리치 메시지 수신
-- 제목, 본문과 함께 다양하고 풍부한 메시지를 수신할 수 있습니다.
+#### 디버그 로그 활성화
+* Push SDK는 SDK의 디버그 로그를 활성화하는 메서드를 제공합니다.
+* <span style="color:#f47141">반드시 개발 중에만 디버그 로그를 활성화해야 합니다. 릴리스할 때는 제거하거나 false로 설정해야 합니다.</span>
+```java
+PushSdk.setDebug(true);
+```
 
-#### 리치 메시지 수신 방법
-- Push SDK에서 제공하는 기본 리시버들을 그대로 사용 중이라면 별도의 처리없이 리치 메시지를 수신할 수 있습니다.
-- 별도의 리시버를 구현해서 사용 중이라면 아래 *ToastPushMessage 클래스* 를 확인해주세요.
+### 오류 코드
+* 오류 코드는 com.toast.android.pushsdk.annotations.PushResultCode 어노테이션에 @IntDef 로 정의되어있습니다.
 
-#### 지원하는 리치 메시지 기능
-* **버튼**
-    * 알림에 아래 기능을 사용할 수 있는 버튼을 추가할 수 있습니다.
-        * 알림 제거 : 현재 알림을 제거합니다.
-        * 앱 열기 : 앱을 실행합니다.
-        * URL 열기 : 특정 URL로 이동합니다.
-            * Custom scheme을 이용한 Activity/BroadcastReceiver 이동도 가능
-        * 답장 전송 : 알림에서 바로 답장을 보냅니다.
-            * 안드로이드 7.0(API 레벨 24) 이상에서만 사용 가능합니다.
-            * 답장 처리를 위해서 ReplyActionListener 인터페이스를 상속받아서 리스너를 구현해야합니다.
-            * 구현된 리스너의 클래스를 **PushSdk.setReplyActionListenerClass** 메소드를 통해서 등록해야 합니다. 
+| 오류 코드                      | 설명                      |
+| ------------------------- | ----------------------- |
+| ERROR_SYSTEM_FAIL         | 시스템 문제로 토큰 획득에 실패한 경우   |
+| ERROR_NETWORK_FAIL        | 네트워크 문제로 요청에 실패한 경우     |
+| ERROR_SERVER_FAIL         | 서버에서 실패 응답을 반환한 경우      |
+| ERROR_ALREADY_IN_PROGRESS | 토큰 등록/조회가 이미 실행 중인 경우   |
+| ERROR_INVALID_PARAMETERS  | 파라미터가 잘못된 경우            |
+| ERROR_PERMISSION_REQUIRED | 권한이 필요한 경우(Tencent만 해당) |
+| ERROR_PARSE_JSON_FAIL     | 서버 응답을 파싱하지 못한 경우       |
 
-    > 버튼이 추가된 알림 생성은 *NotificationConverter 클래스* 를 참고해주시기 바랍니다.
+## SDK 고급 사용 가이드
+- 리치 메시지, 지표 수집 등 좀 더 다양한 기능을 위한 SDK 가이드입니다.
 
-* **미디어**
-    * 알림에 미디어를 추가할 수 있습니다.
-        * 이미지 : 알림에 이미지를 추가합니다. (내부, 외부 이미지 모두 지원)
-        * 그 외 : 그 외의 미디어(동영상, 소리 등)는 지원하지 않습니다.
-
-* **큰 아이콘**
-    * 알림에 큰 아이콘을 추가할 수 있습니다. (내부, 외부 이미지 모두 지원)
-
-* **그룹**
-    * 같은 키의 알림들을 하나로 묶습니다.
-        * 안드로이드 7.0(API 레벨 24) 이상에서만 사용가능합니다.
-    
-    > 그룹핑된 알림 생성은 *NotificationConverter 클래스* 를 참고해주시기 바랍니다.
-
-#### ToastPushMessage 클래스
+### ToastPushMessage 정의
 - Push 제공자별로 다른 데이터 타입을 통합한 데이터 구조입니다.
 - TOAST Push 서버에서 발송한 알림의 제목, 내용 외에 **리치 메시지**가 담겨 있습니다.
 - 사용자는 ToastPushMessage의 데이터를 이용해서 직접 Notification 객체를 만들 수 있습니다.
@@ -375,8 +365,59 @@ PushSdk.query(pushParams, new PushQueryCallback() {
     - GCM(Google Cloud Messaging) : Bundle
     - ADM(Amazon Device Messaging) : Bundle
     - Tencent : XGPushTextMessage
+- 데이터 구조는 아래와 같습니다.
+```java
+class ToastPushMessage {
+    CharSequence title;
+    CharSequence body;
+    RichMessage richMessage;
+    Map<String, String> extras;
+}
 
-#### NotificationConverter을 이용해서 변환하기
+class RichMessage {
+    MediaInfo media;
+    LargeIconInfo largeIcon;
+    GroupInfo group;
+    List<ButtonInfo> buttons;
+}
+```
+
+### 리치 메시지 수신
+- 제목, 본문과 함께 다양하고 풍부한 메시지를 수신할 수 있습니다.
+
+#### 리치 메시지 수신 방법
+- Push SDK에서 제공하는 기본 리시버들을 그대로 사용 중이라면 별도의 처리없이 리치 메시지를 수신할 수 있습니다.
+- 별도의 리시버를 구현해서 사용 중이라면 *ToastPushMessage 클래스와 NotificationConverter 클래스* 를 확인해주세요.
+
+#### 지원하는 리치 메시지 기능
+* **버튼**
+* 알림에 아래 기능을 사용할 수 있는 버튼을 추가할 수 있습니다.
+    * 알림 제거 : 현재 알림을 제거합니다.
+    * 앱 열기 : 앱을 실행합니다.
+    * URL 열기 : 특정 URL로 이동합니다.
+        * Custom scheme을 이용한 Activity/BroadcastReceiver 이동도 가능
+    * 답장 전송 : 알림에서 바로 답장을 보냅니다.
+        * 안드로이드 7.0(API 레벨 24) 이상에서만 사용 가능합니다.
+        * 답장 처리를 위해서 ReplyActionListener 인터페이스를 상속받아서 리스너를 구현해야합니다.
+        * 구현된 리스너의 클래스를 **PushSdk.setReplyActionListenerClass** 메소드를 통해서 등록해야 합니다. 
+
+> 버튼이 추가된 알림 생성은 *NotificationConverter 클래스* 를 참고해주시기 바랍니다.
+
+* **미디어**
+* 알림에 미디어를 추가할 수 있습니다.
+    * 이미지 : 알림에 이미지를 추가합니다. (내부, 외부 이미지 모두 지원)
+    * 그 외 : 그 외의 미디어(동영상, 소리 등)는 지원하지 않습니다.
+
+* **큰 아이콘**
+* 알림에 큰 아이콘을 추가할 수 있습니다. (내부, 외부 이미지 모두 지원)
+
+* **그룹**
+* 같은 키의 알림들을 하나로 묶습니다.
+    * 안드로이드 7.0(API 레벨 24) 이상에서만 사용가능합니다.
+
+> 그룹핑된 알림 생성은 *NotificationConverter 클래스* 를 참고해주시기 바랍니다.
+
+### NotificationConverter 사용하기
 - ToastPushMessage 객체를 좀 더 편하게 알림(Notification) 객체로 변환할 수 있도록 NotificationConverter를 제공합니다.
 - NotificationConverter는 *리치 메시지가 모두 적용된 알림(Notification) 객체* 를 반환합니다.
 - NotificationConverter에 Extender를 추가해서 Notification을 사용자 정의할 수 있습니다.
@@ -404,6 +445,7 @@ converter.convert(context, new NotificationConverter.ConvertCallback() {
     }
 });
 ```
+
 
 ### 지표 수집
 #### 수신(Received) 지표
@@ -453,23 +495,3 @@ public static class CustomPushReceiver extends GcmListenerService {
     }
 }
 ```
-
-#### 디버그 로그 활성화
-* Push SDK는 SDK의 디버그 로그를 활성화하는 메서드를 제공합니다.
-* <span style="color:#f47141">반드시 개발 중에만 디버그 로그를 활성화해야 합니다. 릴리스할 때는 제거하거나 false로 설정해야 합니다.</span>
-```java
-PushSdk.setDebug(true);
-```
-
-### 오류 코드
-* 오류 코드는 com.toast.android.pushsdk.annotations.PushResultCode 어노테이션에 @IntDef 로 정의되어있습니다.
-
-| 오류 코드                      | 설명                      |
-| ------------------------- | ----------------------- |
-| ERROR_SYSTEM_FAIL         | 시스템 문제로 토큰 획득에 실패한 경우   |
-| ERROR_NETWORK_FAIL        | 네트워크 문제로 요청에 실패한 경우     |
-| ERROR_SERVER_FAIL         | 서버에서 실패 응답을 반환한 경우      |
-| ERROR_ALREADY_IN_PROGRESS | 토큰 등록/조회가 이미 실행 중인 경우   |
-| ERROR_INVALID_PARAMETERS  | 파라미터가 잘못된 경우            |
-| ERROR_PERMISSION_REQUIRED | 권한이 필요한 경우(Tencent만 해당) |
-| ERROR_PARSE_JSON_FAIL     | 서버 응답을 파싱하지 못한 경우       |
