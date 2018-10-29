@@ -19,6 +19,30 @@ Download file to click **Android SDK (AAR)** under **Notification > Push** from 
 * Amazon Device Messaging, or ADM
 
 ## Common Project Setting  
+### Common Setting (JCenter)
+#### Add dependency
+* Add dependency to build.gradle
+```groovy
+dependencies {
+    implementation 'com.toast.android:pushsdk:1.7.0'
+    // compile 'com.toast.android:pushsdk:1.7.0' // (Gradle < 3.4)
+}
+```
+
+#### When occuping duplicatation of Android Support Library.
+* Exclude Support library
+```groovy
+dependencies {
+    implementation('com.toast.android:pushsdk:1.7.0') {
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+}
+```
+
+### Common Setting (Manual)
+* Download SDK and configure manually, when you don't use, or can't use JCenter.
+
+#### Download and Add dependency
 * Download and Add SDK (AAR)
     * Create libs folder under project, if there's none.
     * Add the downloaded AAR file to the libs folder
@@ -27,7 +51,6 @@ Download file to click **Android SDK (AAR)** under **Notification > Push** from 
 ```
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.aar'])
-    compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:support-v4:26.1.0'
 }
 ```
@@ -67,8 +90,6 @@ dependencies {
         </service>
 </application>
 <permission android:name="[YOUR_PACKAGE_NAME].permission.C2D_MESSAGE" android:protectionLevel="signature"/>
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.WAKE_LOCK" />
 <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 <uses-permission android:name="[YOUR_PACKAGE_NAME].permission.C2D_MESSAGE" />
 </manifest>
@@ -157,8 +178,6 @@ dependencies {
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.READ_LOGS" />
 
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.WAKE_LOCK" />
   <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>
 ```
@@ -191,7 +210,6 @@ dependencies {
     android:protectionLevel="signature" />
 <uses-permission android:name="[YOUR_PACKAGE_NAME].permission.RECEIVE_ADM_MESSAGE" />
 <uses-permission android:name="com.amazon.device.messaging.permission.RECEIVE" />
-<uses-permission android:name="android.permission.WAKE_LOCK" />
 ```
 
 #### Add Handler and Receiver
@@ -244,8 +262,8 @@ public class CustomADMReceiver extends ADMMessageReceiver {
 }
 ```
 
-## PushParams
-### What is PushParams?
+## SDK Guide
+### Define PushParams
 * Refers to an object required to register and query tokens.
 * Can be created through the PushParams.Builder class.
 * PushParams includes information as follows:
@@ -290,7 +308,7 @@ builder.setLanguage("ko"); // Selected value
 PushParams pushParams = builder.build();
 ```
 
-## Register Tokens
+#### Register Tokens
 * Create tokens depending on the push type and register to servers
 * Example  
 ```java
@@ -311,7 +329,7 @@ PushSdk.register(pushParams, new PushRegisterCallback() {
 >
 > Tencent requires WRITE_SETTINGS authority, for which API level 23 (6.0) displays a dialogue box. Even if authority is allowed in the dialogue box, ERROR_PERMISSION_REQUIRED is returned as callback. In this case, call a token registration again and it is normally registered.  
 
-## Query Token Information
+### Query Token Information
 * Token information saved in the current server is returned as callback under the PushQueryResult object.
 * Example
 ```java
@@ -329,8 +347,15 @@ PushSdk.query(pushParams, new PushQueryCallback() {
 });
 ```
 
-## Collect Indicators
-### Received  
+## Enable Debug Logs
+* Push SDK provides a method enabling debug logs of SDK.
+* <span style="color:#f47141">Must enable debug logs only during development: remove or set false, for a release</span>.
+```java
+PushSdk.setDebug(true);
+```
+
+### Collect Indicators (GCM Only)
+#### Received  
 * Automatically collect Received Indicators, when using default receiver provided by SDK.  
 * Add the following method to receiver to collect indicators, when user implements the receiver.
 * Example
@@ -344,7 +369,7 @@ public static class CustomPushReceiver extends GcmListenerService {
 }
 ```
 
-### Opened
+#### Opened
 * Refers to an execution through notifications on the notification bar.
 * Must modify Activity and Push Receiver to collect opened indicators.
 * Add the following code either to MainActivity or activities that run with an alarm click.
@@ -378,13 +403,6 @@ public static class CustomPushReceiver extends GcmListenerService {
 }
 ```
 
-## Enable Debug Logs
-* Push SDK provides a method enabling debug logs of SDK.
-* <span style="color:#f47141">Must enable debug logs only during development: remove or set false, for a release</span>.
-```java
-PushSdk.setDebug(true);
-```
-
 ## Error Codes
 * Error codes are defined as @IntDef in the annotation of com.toast.android.pushsdk.annotations.PushResultCode.  
 
@@ -397,3 +415,140 @@ PushSdk.setDebug(true);
 | ERROR_INVALID_PARAMETERS  | Parameters are invalid                             |
 | ERROR_PERMISSION_REQUIRED | Authority is required (only for Tencent)           |
 | ERROR_PARSE_JSON_FAIL     | Server response has not been parsed.               |
+
+## Rich Message Guide
+- This is guide for rich message feature
+
+### What is Rich Message ?
+- You can notify notifications with title, body, and rich message to users.
+
+### Support features and specification
+#### Button
+- Dismiss : Dismiss current notification.
+- Open Application : Open your application.
+- Open URL : Browse to URL
+    * Can browse Activity/BroadcastReceiver with custom scheme.
+- Reply : Reply message immediately in notification
+    - Only above API level 24 (Android 7.0)
+    - If you convert a notification using NotificationConverter, the reply button is invisiable in a notification under Android 7.0
+    - For processing a reply, you must register listener.
+
+> Maximum of butons is 3
+
+> For button feature, you create a notification using *NotificationConverter class*
+
+#### Media
+- Image : Add image to notification (Support to internal, external images)
+    - Recommend images with a 2 : 1 aspect ratio.
+    - Images in different proportions can be exposed with clipping.
+- Others : Not support other media(Video, Sounds, etc.)
+
+#### Large icon
+- Add large icon to notification (Support to internal, external images)
+    - Recommend 1 : 1 aspect ratio.
+    - Images in different ratios are forced to change to 1 : 1, which can expose different images than you expect.
+
+#### Group
+- Gather notifications with same key
+    - Only above API level 24 (Android 7.0)
+    - If you convert a notification using NotificationConverter, the reply button is invisiable in a notification under Android 7.0
+
+### Receive rich messages and notify
+- If you use default receiver provided by SDK, you can receive and notify notifications without configuration, and additonal codes.
+- If you implement custom receiver, Check *ToastPushMessage class, and NotificationReceiver class*.
+
+### Define ToastPushMessage
+- Integration data structure for providers of push, GCM, Tencent, ADM.
+- Contains rich messages in addition to the subject and content that sent from the TOAST Push server.
+- You can convert notification easily, with NotificationConverter.
+    - Also you can create notification manually using ToastPushMessage.
+- Support input types
+    - GCM(Google Cloud Messaging) : Bundle
+    - ADM(Amazon Device Messaging) : Bundle
+    - Tencent : XGPushTextMessage
+- This is data structure of ToastPushMessage
+```java
+class ToastPushMessage {
+    CharSequence title;
+    CharSequence body;
+    RichMessage richMessage;
+    Map<String, String> extras;
+}
+
+class RichMessage {
+    MediaInfo media;
+    LargeIconInfo largeIcon;
+    GroupInfo group;
+    List<ButtonInfo> buttons;
+}
+```
+
+### Using NotificationConverter
+- Provide NotificationConverter for converting ToastPushMesage to Android Notification.
+- NotificationConverter returns a notification object with rich messages.
+- You can define additonal feature with Extender.
+    - Extenders are processed in the order in which they were added after the internal processing of the NotificationConverter was completed.
+- Example)
+
+
+```java
+// Example for GCM
+final ToastPushMessage message = ToastPushMessage.fromBundle(bundle);
+final NotificationManagerCompat manager = NotificationManagerCompat.from(context);
+final NotificationConverter converter = new NotificationConverter("YOUR_NOTIFICATION_CHANNEL", message);
+// Extends NotificationCompat.Builder when you need
+converter.addExtender(new NotificationCompat.Extender() {
+    @Override
+    public NotificationCompat.Builder extend(NotificationCompat.Builder builder) {
+        // Extends builder
+        // ex) return builder.setAutoCancel(false);
+        return builder;
+    }
+});
+converter.convert(context, new NotificationConverter.ConvertCallback() {
+    @Override
+    public void onConvert(int notificationId, @NonNull Notification notification) {
+        // Notify notification to notification bar
+        manager.notify(notificationId, notification);
+    }
+});
+```
+
+### Register ReplyListener
+* Once you receive user input through the Reply button, the app will have to process user input.
+     * As a messenger, for example, you need to send user input to the messenger server.
+
+#### Implementing a Reply Listener
+* For reply processing, you must implement the listener by inheriting from the ReplyActionListener interface.
+
+> (Note) When the user completes the input and presses the send button, the notification will be exposed and the notification will not be removed.
+> Therefore, once your reply has been processed, you'll need to add code to remove or update your notifications.
+> Please refer to the example code below.
+
+* Example)
+```java
+public class ReplyHandler implements ReplyActionListener {
+    @Override
+    public void onReceive(@NonNull Context context, @NonNull ReplyActionResult result) {
+        // Do Something (ex. Send message contents to server)
+
+        // Choice 1. Remove previous reply notification with notification id
+        NotificationManagerCompat.from(context).cancel(result.getNotificationId());
+
+        // Choice 2. Update previous reply notification with notification id
+        NotificationManagerCompat.from(context).notify(result.getNotificationId(),
+                new NotificationCompat.Builder(context, result.getNotificationChannel())
+                        .setSmallIcon(/* Resource ID of your icon */ getDefaultIcon(context))
+                        .setContentTitle("Send")
+                        .setContentText("Success to send message")
+                        .build());
+    }
+}
+```
+
+#### Register ReplyListener
+* You can register ReplyListener using **PushSdk.setReplyActionListenerClass** method.
+* Example)
+```java
+PushSdk.setReplyActionListenerClass(/* Context */ this, ReplyHandler.class);
+```

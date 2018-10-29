@@ -29,7 +29,7 @@ dependencies {
 }
 ```
 
-#### Android Support 라이브러리 중복일 경우
+#### Android Support 라이브러리 중복이 발생할 경우
 * 아래와 같이 SDK에서 Support 라이브러리를 제외합니다.
 ```groovy
 dependencies {
