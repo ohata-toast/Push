@@ -347,7 +347,7 @@ PushSdk.query(pushParams, new PushQueryCallback() {
 });
 ```
 
-## Enable Debug Logs
+### Enable Debug Logs
 * Push SDK provides a method enabling debug logs of SDK.
 * <span style="color:#f47141">Must enable debug logs only during development: remove or set false, for a release</span>.
 ```java
@@ -403,7 +403,7 @@ public static class CustomPushReceiver extends GcmListenerService {
 }
 ```
 
-## Error Codes
+### Error Codes
 * Error codes are defined as @IntDef in the annotation of com.toast.android.pushsdk.annotations.PushResultCode.  
 
 | Error Code                | Description                                        |
