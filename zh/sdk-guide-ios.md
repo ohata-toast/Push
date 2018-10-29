@@ -91,12 +91,17 @@ NSSet *categories = [NSSet setWithObject:category];
 > Only the system token is registered when requesting token registration without initialization.
 
 ```
-[TCPushSdk registerWithPushType:TCPushTypeAPNs completionHandler:^(NSError *error) {
+[TCPushSdk registerWithPushType:TCPushTypeAPNs completionHandler:^(NSString *token, NSError *error) {
     if (error == nil) {
         // Success
 
     } else {
-        // Fail
+        if (token == nil) {
+            // Fail
+
+        } else {
+            // Success only th system token
+        }
     }
 }];
 ```
@@ -165,12 +170,14 @@ NSSet *categories = [NSSet setWithObject:category];
 
 @end
 
+// Receive general push messages
 - (void)pushSdk:(TCPushSdk *)pushSdk didReceiveAPNsNotificationWithPayload:(NSDictionary *)payload {
-    // Receive general push messages
+    
 }
 
+// Receive VOIP push messages
 - (void)pushSdk:(TCPushSdk *)pushSdk didReceiveVoIPNotificationWithPayload:(NSDictionary *)payload {
-    // Receive VOIP push messages
+
 }
 ```
 
