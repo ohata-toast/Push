@@ -1,24 +1,73 @@
 ## Notification > Push > Release Notes
 
-### 2018.08.28
-#### 버그 수정
-* [API] 토큰 설정에서 앱 유형을 '단일 토큰'으로 했을때 APNS_VOIP 토큰이 삭제되는 오류
-    * APNS_VOIP 토큰은 VoIP을 위한 토큰이므로 푸시 메시지를 위한 GCM, APNS 등과 별개로 관리되어야하지만,
-    단일 토큰으로 설정하면 APNS_VOIP도 다른 토큰들과 동일하게 관리되어 APNS_VOIP 토큰이 삭제되는 오류가 있었습니다.
-    * APNS_VOIP 토큰과 GCM, APNS, TENCENT 토큰이 별개로 관리되도록 수정했습니다.
-* [API] 일부 프로젝트에서 통계 API Timeout 발생하는 오류 개선
-    * 일부 프로젝트에서 통계 조회시 Timeout이 발생하는 오류가 있었습니다. 최적화를 통해 Timeout이 발생하지 않도록 수정했습니다.
+### 2018.10.30
+#### [Console]
 
-#### 기능 추가
-* [API] Logging API 추가
+##### 기능 추가
+* 메시지 발송 페이지에 리치 메시지 기능 추가
+    * 메시지 발송 페이지에서 리치 메시지를 발송할 수 있습니다.
+        * <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#_3" target="_blank">콘솔 가이드 바로가기</a>
+    * 미리 보기 기능을 제공해 Android, iOS에서 리치 메시지가 어떻게 표시될지 확인할 수 있습니다.
+* 광고 표시 문구 위치 설정 기능 추가
+    * 광고 메시지임을 표시하는 문구를 제목 또는 내용 부분에 표시할지 설정할 수 있는 기능을 추가했습니다.
+    * 설정 탭 "광고 표시 문구 위치 설정"에서 설정할 수 있습니다.
+
+##### 버그 수정
+* 토큰 검색시 시간이 UTC로 표시되는 오류 수정
+    * 토큰 검색시 시간이 UTC로 표시되는 오류가 있었습니다. 브라우저의 현지 시간으로 표시되도록 수정했습니다.
+
+#### [API]
+##### 기능 추가
+* 메시지 발송 API에 리치 메시지 기능 추가
+    * 푸시 메시지에 버튼, 미디어(이미지, 동영상, 소리)를 표시할 수 있는 기능을 추가했습니다.
+         * <a href="https://docs.toast.com/ko/Notification/Push/ko/api-guide/#7" target="_blank">API 가이드 바로가기</a>
+    * v2.0 메시지 발송 API부터와 최신 SDK가 적용된 앱에서 사용할 수 있습니다.
+
+#### [SDK]
+##### Android
+* 리치 메세지 기능 추가
+    * 
+
+##### iOS
+* 리치 메세지 기능 추가
+    * 버튼, 이미지, 동영상 등의 리치 메세지를 전송할 수 있습니다.
+* 카테고리 설정 기능 추가
+    * 초기화에서 카테고리를 설정하고 메세지 내에 본인의 카테고리 식별자로 설정하면 해당 카테고리 액션을 수신할 수 있습니다.
+* 지표 수집 방법론 추가
+    * 어플리케이션의 info.plist 파일에 지표 수집 정보(AppKey)를 입력하여 초기화 없이도 확인 지표 수집이 가능합니다.
+    * 사용자 Notification Sarvice Extension의 info.plist 파일네 지표 수집 정보(AppKey)를 입력하여 자동으로 수신 지표 전송이 가능합니다. (TCPushServiceExtension 확장 필수)
+* 토큰 등록 기능 개선
+    * 초기화를 진행하지 않고 토큰 등록 요청시 시스템 토큰만 등록되며, 발급된 토큰을 서비스 서버에서 API를 통해 자유롭게 등록이 가능합니다.
+
+##### 버그 수정
+* 목록 조회 API에서 분까지 조회하면 1초 ~ 59초까지 데이터가 누락되는 오류
+    * 예로, 10시 11분까지 데이터를 조회하면 11분 59초의 데이터는 누락이 되는 오류가 있었습니다.
+    이런 경우 59초까지 포함되도록 개선했습니다.
+
+<br>
+
+### 2018.08.28
+#### [API]
+##### 기능 추가
+* Logging API 추가
     * Console에서 활설화할 수 있는 Logging 기능으로 저장된 데이터를 조회하는 API를 추가했습니다.
     * 일반 조회, 대량 조회, 두 가지 타입의 API를 제공합니다.
          * <a href="https://docs.toast.com/ko/Notification/Push/ko/api-guide/#_18" target="_blank">로그 조회 바로가기</a>
-* [API] v2.2 API 업데이트
+* v2.2 API 업데이트
     * Logging API 추가로 최신 API 버전을 v2.2로 업데이트 했습니다.
     * v2.2부터 API 인증을 위해 'API 보안 설정'을 이용합니다.
          * <a href="https://toast.com/account/api_settings" target="_blank">API 보안 설정 바로가기</a>
     * 지원하는 API 버전: v1.3, v2.0, v2.1, v2.2
+
+##### 버그수정
+* 토큰 설정에서 앱 유형을 '단일 토큰'으로 했을때 APNS_VOIP 토큰이 삭제되는 오류
+    * APNS_VOIP 토큰은 VoIP을 위한 토큰이므로 푸시 메시지를 위한 GCM, APNS 등과 별개로 관리되어야하지만,
+    단일 토큰으로 설정하면 APNS_VOIP도 다른 토큰들과 동일하게 관리되어 APNS_VOIP 토큰이 삭제되는 오류가 있었습니다.
+    * APNS_VOIP 토큰과 GCM, APNS, TENCENT 토큰이 별개로 관리되도록 수정했습니다.
+* 일부 프로젝트에서 통계 API Timeout 발생하는 오류 개선
+    * 일부 프로젝트에서 통계 조회시 Timeout이 발생하는 오류가 있었습니다. 최적화를 통해 Timeout이 발생하지 않도록 수정했습니다.
+
+<br>
 
 ### 2018.07.24
 #### [API]
@@ -42,7 +91,7 @@
 * ADM(Amazon Device Messaging) 푸시 타입 추가
     * 아마존 디바이스(Kindle Fire)로 푸시 메시지를 발송할 수 있게 ADM 푸시 타입을 추가했습니다.
     * 아마존 개발자 사이트에서 앱을 등록하고 Client ID, Client Secret을 발급받아 등록 후 발송할 수 있습니다.
-     <a href="https://docs.toast.com/en/Notification/Push/en/console-guide/#adm-client-id-client-secret" target="_blank">ADM 가이드 바로가기</a>
+     <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#adm-client-id-client-secret" target="_blank">ADM 가이드 바로가기</a>
 
 #### [API]
 ##### 기능 추가
@@ -244,7 +293,7 @@
     * 메시지 발송 내역을 Log & Crash Search에 저장할 수 있는 기능을 추가했습니다.
     사용하고 있는 Log & Crash Search의 앱키(Appkey)를 Setting 탭 Logging에 등록해 기능을 활성화 시킬 수 있습니다.
     * 저장된 메시지 발송 내역은 Log & Crash Search 페이지에서 확인할 수 있습니다.
-    * <a href="/en/Notification/Push/en/console-guide/#_9" target="_blank">메시지 발송 내역 저장 설명 바로 가기</a>
+    * <a href="/ko/Notification/Push/ko/console-guide/#_9" target="_blank">메시지 발송 내역 저장 설명 바로 가기</a>
 
 ##### 버그 수정
 * 저해상도에서 팝업이 상품 사용법에 가려지는 오류 수정
@@ -258,7 +307,7 @@
     * 기존에는 실패한 메시지 조회시 결과 전체를 응답했습니다.
     결과 크기가 큰경우, Response Timeout이 발생할 수 있어, 한 번에 최대 1,000개 까지 응답하도록 수정했습니다.
     * 결과가 1,000개 이상일 경우, 비정상 응답합니다. 비정상 응답일 경우, from, to 기간을 더 짧게 조회해야 합니다.
-    * <a href="/en/Notification/Push/en/api-guide/#_15" target="_blank">API Reference 바로 가기</a>
+    * <a href="/ko/Notification/Push/ko/api-guide/#_15" target="_blank">API Reference 바로 가기</a>
         * 메시지 > 조회 > 실패한 메시지 목록 조회
 
 #### [ETC]
@@ -341,11 +390,11 @@
     * 메시지 발송시 태그와 조건을 설정해 메시지를 발송할 수 있습니다.    
 예, 메시지 발송시 target.type을 'TAG', target.to를 '남자, AND, 30대'로 설정하면, '남자'와 '30대' 태그가 붙은 Uid를 대상으로 메시지가 발송됩니다.
     * API로 먼저 공개되며, 8월 정기 점검 후 CONSOLE에서 태그 기능을 사용하실 수 있습니다.
-    <a href="/en/Notification/Push/en/api-guide/#_13" target="_blank">API Reference 바로 가기</a>
+    <a href="/ko/Notification/Push/ko/api-guide/#_13" target="_blank">API Reference 바로 가기</a>
 * 실패 처리된 메시지 조회 API 추가
     * 메시지 발송시 실패된 메시지를 조회할 수 있는 API가 추가되었습니다.
     이 API를 이용해 발송이 실패 원인에 대한 내용을 확인할 수 있습니다.     
-    <a href="/en/Notification/Push/en/api-guide/#_15" target="_blank">API Reference 바로 가기</a>
+    <a href="/ko/Notification/Push/ko/api-guide/#_15" target="_blank">API Reference 바로 가기</a>
 
 ##### 버그 수정
 * 토큰 수정시 새로운 토큰이 존재할 때, 기존 토큰은 삭제 안되는 오류 수정
@@ -381,14 +430,14 @@
     * 메시지 발송 후, 기기에 수신, 사용자의 메시지 확인 데이터를 수집해 통계로 조회할 수 있는 기능을 추가되었습니다.
     * [CONSOLE] > [Settings] 탭에서 활성화 시킬 수 있으며, v2.0 API Reference에서 통계 조회 API 설명을 확인할 수 있습니다.
     * 해당 기능은 v1.4이상 SDK가 적용된 곳에서만 사용할 수 있습니다.    
-    <a href="/en/Notification/Push/en/sdk-guide/#_4" target="_blank">SDK 수신 및 오픈 여부 적용 가이드 바로 가기</a>
+    <a href="/ko/Notification/Push/ko/sdk-guide/#_4" target="_blank">SDK 수신 및 오픈 여부 적용 가이드 바로 가기</a>
 * v2.0 API 추가
     * 토큰 통계 API가 추가되었습니다.
     * 예약 메시지 API가 추가되었습니다.
     * 메시지 수신, 확인 통계 조회 API가 추가되었습니다.
     * v1.3 피드백 API는 v2.0 유효하지 않은 토큰 API로 변경되었습니다.
     * 응답 메시지를 더 자세하게 출력합니다.
-    <a href="/en/Notification/Push/en/api-guide" target="_blank">v2.0 API Reference 바로 가기</a>
+    <a href="/ko/Notification/Push/ko/api-guide" target="_blank">v2.0 API Reference 바로 가기</a>
 
 <br>
 
