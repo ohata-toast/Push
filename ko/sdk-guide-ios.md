@@ -51,8 +51,22 @@ configuration.isAgreeNotifications = YES;           // 알림 동의 여부 (def
 configuration.isAgreeAdvertisement = YES;           // 광고성 정보 알림 동의 여부 (default:NO)
 configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 정보 알림 동의 여부 (default:NO)
 
-// 토큰 설정만 초기화
+// 토큰 설정 초기화
 [TCPushSdk initWithConfiguration:configuration];
+```
+
+### 카테고리 설정
+
+> 카테고리 설정은 초기화시에만 가능합니다.
+
+```
+TCPushConfiguration *configuration = [[TCPushConfiguration alloc] initWithAppKey:@"INPUT_YOUR_APPKEY"
+                                                                          userId:@"INPUT_USER_ID"];
+
+configuration.channel = @"CHANNEL";                 // 채널 설정 (default:@"default")
+configuration.isAgreeNotifications = YES;           // 알림 동의 여부 (default:YES)
+configuration.isAgreeAdvertisement = YES;           // 광고성 정보 알림 동의 여부 (default:NO)
+configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 정보 알림 동의 여부 (default:NO)
 
 // 토큰 설정과 카테고리 함께 초기화
 UNNotificationCategory *category = ...;
@@ -199,7 +213,9 @@ NSString *token = [TCPushSdk deviceTokenForPushType:TCPushTypeAPNs];
 ### 리치 메세지 수신
 > 수신 지표를 수집하려면 애플리케이션에 Notification Service Extension(iOS 10.0+)을 추가해야 합니다. <br>
 > Notification Service Extension을 생성하고 TCPushServiceExtension을 확장 구현해야 리치 메세지가 자동으로 생성됩니다. <br>
-> **File New > Target > iOS > Notification Service Extension**
+> **File New > Target > iOS > Notification Service Extension** <br>
+> 리치 메세지는 카테고리 기반으로 동작하기 때문에 사용자 카테고리랑 중복하여 사용할 수 없습니다.
+
 
 ```
 // Notification Service Extension 생성할때 함께 생성되는 NotificationService 클래스에
