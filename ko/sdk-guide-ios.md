@@ -189,7 +189,7 @@ NSString *token = [TCPushSdk deviceTokenForPushType:TCPushTypeAPNs];
 
 ### 푸쉬 액션(Action) 수신
 
->  푸쉬 액션이 정의되어 있는 카테고리를 초기화에서 등록하고, 사용자가 해당 카테고리로 메세지를 수신 후 표현된 액션(버튼)에서 터치 등의 이벤트를 주었을때 등록된 Delegate로 액션과 메세지를 전달받을 수 있습니다.
+>  사용자 정의 카테고리로 수신한 메세지의 액션을 수신합니다.
 
 ```
 - (void)pushSdk:(TCPushSdk *)pushSdk
