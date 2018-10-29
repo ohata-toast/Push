@@ -859,6 +859,74 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 요청 본문에 content.ko만 입력되어 있지만, 언어 코드가 ko-KR(한국어)인 사용자에게도 content.ko의 내용이 발송된다.
 - customKey는 content.ja에 정의되어 있지 않기 때문에, content.default의 값으로 발송된다. 공통적인 내용은 content.default에 입력할 수 있다.
 
+#### 7. 리치 메시지
+메시지 발송시 'content'에 'richMessage' 필드를 정의하면 리치 메시지로 메시지를 발송할 수 있다.
+공통 메시지, 광고성 메시지, 다국어 메시지와 함께 사용할 수 있다.
+v1.7이상 SDK가 적용된 곳에서만 사용할 수 있다.
+
+##### Request Body
+```json
+{
+    "target" : {
+        "type" : "ALL"
+    },
+    "content" : {
+        "default" : {
+            "title" : "title",
+            "body" : "body",
+            "richMessage" : {
+                "buttons" : [{
+                        "name" : "버튼 이름",
+                        "submitName": "전송 버튼 이름",
+                        "buttonType" : "REPLY | OPEN_APP | OPEN_URL | DISMISS",
+                        "link" : "URL | ...",
+                        "hint" : "메시지를 입력해주세요."
+                    }
+                ],
+                "media" : {
+                    "sourceType" : "REMOTE | LOCAL",
+                    "source" : "URL | LOCAL_RESOURCE",
+                    "mediaType" : "IMAGE | GIF | VEDIO | AUDIO",
+                    "extension" : "jpg | png",
+                    "expandable" : true
+                },
+                "largeIcon" : {
+                    "sourceType" : "REMOTE | LOCAL",
+                    "source" : "URL | LOCAL_RESOURCE"
+                },
+                "group" : {
+                    "key" : "KEY",
+                    "description" : "알림 모음"
+                }
+            }
+        }
+    },
+    "messageType" : "NOTIFICATION"
+}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| richMessage | Optional, Object | 리치 메시지 사용시 필요 |
+| richMessage.buttons | Optional, Object Array | 리치 메시지에 추가되는 버튼, 최대 3개까지 가능 |
+| richMessage.button.name | Required, String | 버튼 이름 |
+| richMessage.button.submitName | Optional, String | 전송 버튼 이름, iOS에서 버튼 타입이 REPLY일때 표시 |
+| richMessage.button.buttonType | Required, String | 버튼 타입, REPLY, OPEN_APP, OPEN_URL, DISMISS |
+| richMessage.button.link | Required, String | 버튼을 눌렀을때, 연결되는 링크 |
+| richMessage.button.hint | Required, String | 버튼에대한 힌트 |
+| richMessage.media | Optional, Object | 리치 메시지에 추가되는 미디어 |
+| richMessage.media.sourceType | Required, String | 미디어의 위치, REMOTE, LOCAL |
+| richMessage.media.source | Required, String | 미디어의 위치한 곳의 주소 |
+| richMessage.media.mediaType | Required, String | 미디어의 타입, IMAGE, GIF, VEDIO, AUDIO. Android에서는 IMAGE만 지원 |
+| richMessage.media.extension | Required, String | 미디어 파일의 확장자 |
+| richMessage.media.expandable | Required, Boolean | Android에서 미디어를 클릭 시 펼침 기능 사용 여부 |
+| richMessage.largeIcon | Optional, Object | 리치 메시지에 추가되는 큰 아이콘, Android에서만 지원 |
+| richMessage.largeIcon.sourceType | Required, String | 큰 아이콘의 위치, REMOTE, LOCAL |
+| richMessage.largeIcon.source | Required, String | 미디어의 위치한 곳의 주소 |
+| richMessage.group | Optional, Object | 여러 개의 메시지를 그룹 단위로 묶는 기능, Android에서만 지원 |
+| richMessage.group.key | Required, String | 그룹의 키 |
+| richMessage.group | Required, String | 그룹에대한 설명 |
+
 ### 조회
 #### 목록 조회
 ##### Method, URL, Headers

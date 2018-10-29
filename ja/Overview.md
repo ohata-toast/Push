@@ -1,99 +1,105 @@
 ## Notification > Push > Overview
 
-TOAST Cloud Push를 사용하면 다양한 전송 방법으로 메시지를 전송하고 결과를 조회할 수 있다.
-현지 시간에 맞춰 메시지를 예약 전송할 수도 있으며 메시지 전송 결과도 쉽게 확인할 수 있다.
-TOAST Cloud Push의 주요 기능은 다음과 같다.
+Push helps to deliver messages in various methods and query results. You can schedule a message delivery in accordance with recipient's local time and easily track the result.
 
-### 주요 기능
+Here are the main features of Push.    
 
-- Android OS(GCM, TENCENT), iOS(APNS, Apple Push Notification Service) 기기에 메시지를 통합 발송
-- 토큰 관리
-- 즉시 전송
-- 일반 예약 전송과 현지 시간 예약 발송
-- API KEY(GCM), ACCESS ID(TENCENT), Secret Key(TENCENT) 인증서(APNS) 관리
-- 전송 결과 성공/실패 지표 제공
-- 태그 관리, 토큰 기반 메시지 발송
-- 메시지 수신 및 확인 데이터 수집, 통계 제공
+### Main Features
 
-### 서비스 용어
+- Deliver messages to Android OS (GCM, TENCENT) and iOS (APNS, Apple Push Notification Service) altogether
+- Manage tokens
+- Support immediate delivery
+- Support for scheduled delivery for local and different time zones
+- Manage certificates (APNS) for API KEY (GCM), ACCESS ID (TENCENT), and Secret Key (TENCENT)
+- Provide success/failure index for delivery results
+- Manage tags, and deliver messages based on tokens
+- Collect data on receiving/confirming messages and provide statistics
 
-|용어|	설명|
-|---|---|
-|토큰(Token)|	애플리케이션이 설치된 기기의 고유 식별자 |
-|태그(Tag)| UID를 분류하는 체계, UID에 여러 개의 태그를 붙일 수 있다 |
+### Glossary
 
-### 구조
+| Term  | Description                                                  |
+| ----- | ------------------------------------------------------------ |
+| Token | An original identifier of a device where the application is installed |
+| Tag   | A system that classifies UID: many tags can be attached to each UID. |
+
+### Structure
+
+Below shows the structure of Push Service.
 
 ![](http://static.toastoven.net/prod_push/img_02.png)
 
 #### Console
 
-인증서 관리, API 테스트, 메시지 발송 등 모든 기능을 사용할 수 있다.
+Provides many functions such as certificate management, API testing, and message delivery.
 
 #### REST APIs
 
-토큰 등록/조회, 메시지 전송, 피드백 확인 등 Public API를 호출할 수 있다.
+Call Public APIs to register/query tokens, deliver messages, and check feedback
 
-#### client SDK
-토큰 등록/조회 및 푸시 메시지 수신을 편하게 사용할 수 있다.
+#### Client SDK
 
-### 기능
+Can easily register/query tokens and receive push messages
 
-#### 알림/홍보성 푸시 메시지 수신 동의 정보 저장 및 자동 필터링
+### Functions
 
-정보통신망법 규정(제50조부터 제50조의 8)에 따라 토큰 등록 시 알림/홍보성/야간홍보성 푸시 메시지 수신에 관한 동의 여부도 함께 입력 받는다. 메시지 발송 시 수신 동의 여부를 기준으로 자동 필터링 한다.
+#### Save Consent to Receive Notification/Promotional Push Messages and Filter Automatically
 
-[KISA 가이드 바로 가기](https://spam.kisa.or.kr/spam/sub62.do)
+In accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection, etc. (from Article 50 to 50-8), you're also required to enter consent to receive notification/promotional/night-time promotional push messages. Messages are automatically filtered based on such consent, when delivered.
 
-[법령 바로 가기](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)
+[Go to KISA Guidelines](https://spam.kisa.or.kr/spam/sub62.do)
 
-#### 국가 필터링
+[Check the Act](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)
 
-토큰 등록 시 국가 코드를 입력받고, 메시지 발송 시 발송 국가를 지정할 수 있다.
+#### Filter by Country
 
-#### 공통 메시지 포맷
+Required to enter a language code when registering a token. You can also specify a country to send messages to.
 
-공통 메시지 포맷에 맞게 메시지를 작성하면, 기기 종류에 맞게 메시지가 생성되어 발송된다.  
-공통 메시지 포맷에 맞게 입력 받은 언어 코드 기준으로 메시지를 작성하면, 해당 언어와 기기 종류에 맞게 생성되어 발송된다.
+#### Common Message Format
 
-#### 광고성 메시지 발송
+When a message is written on a common format, it is adjusted to each device before delivered.
+Likewise, the ready-made common message format of a language code can be applied to any new messages for a corresponding language code and device.
 
-광고성 푸시 메시지 표시 의무화를 따르고 있다.  
-광고성 메시지 타입으로 메시지를 발송할 경우, (광고), 연락처, 수신 철회 방법 등 광고 표시 문구를 메시지에 삽입해 발송한다.
-광고 표시 문구 삽입 여부는 기기의 언어 설정을 따른다.
-언어가 한국어(ko, ko-KR 등 ko로 시작하는 언어 코드)로 설정된 기기만 정보통신망법에 따라 광고 표시 문구가 삽입되어 발송된다.
+#### Deliver Advertising Messages
 
-#### 예약 메시지 발송
+For advertising messages, it is obliged to specifically show in the push messages.  
 
-한 번, 매일, 매주, 매월 등 다양한 예약 발송 타입을 제공한다.  
-현지 시간에 맞춰 발송할 수 있다.
+When delivering an advertising message (advertisement), include contact information and how to cancel subscription.
+Follow each device's language setting to decide whether to insert advertising messages.
+Only the devices configured in Korean (of which the language code starts with ko, or ko-KR) are required to insert advertising messages, in accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection, etc.
 
-#### 메시지 유효기간 설정
+#### Deliver Scheduled Messages  
 
-메시지에 유효기간(TTL)을 설정할 수 있다. 메시지가 유효기간을 넘길 경우, 실패 처리된다.
-단, 0은 유효기간이 없는 것으로 발송 지연에 의해 실패 처리되지 않는다.
+Many types of scheduled message delivery are available, such as once, daily, weekly and monthly delivery.  
 
-#### 실시간 모니터링
+You may also deliver on local time basis.
+
+#### Configure Time to Live (TTL)   
+
+Your messages can be setup with Time-to-live, or TTL. When a message remains undelivered beyond TTL, it is processed as a failure.
+However, ‘0’ has no TTL and hence, deemed not as a failure due to delivery delay.  
+
+#### Monitor in Real-time  
 
 ![](http://static.toastoven.net/prod_push/img_03.png)
 
-[Messages] 탭에서 메시지 발송 상태를 실시간으로 확인할 수 있다.
+You can check the status of message delivery in real time on **Messages**.  
 
-#### 피드백 제공
+#### Provide Feedbacks
 
-삭제되거나 잘못된 토큰은 메시지 발송 시 자동 삭제되며, 피드백 API로 삭제된 토큰을 조회할 수 있다.
+Deleted or invalid tokens are automatically deleted when a message is delivered. You can query deleted tokens, using feedback API.
 
-#### 인증서 관리
+#### Manage Certificates
 
-푸시 타입별 인증서 또는 API Key를 관리할 수 있다.
+Certificates or API keys are managed by push type.
 
 #### Public APIs
 
-토큰 등록/조회, 메시지 전송, 피드백 확인 API를 제공 한다.  
-[APIs] 탭에서 Public APIs를 테스트할 수 있다.
+Public APIs are available to register/query tokens, deliver messages and check feedbacks.
+You may test Public APIs on **APIs**.
 
-#### 서비스 활성화
-[Console] > [Notification] > [Push] > [상품이용] 버튼 클릭
+#### Enable Service
 
-* *문서 수정 내역*
-    * *(2018.01.25) 광고성 메시지 발송 설명 추가*
+Click **Console > Notification > Push > Enable**.
+
+- *Document Updates*
+  - *Added Deliver Advertising Messages  (Jan.25,2018)*

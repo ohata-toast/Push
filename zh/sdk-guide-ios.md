@@ -1,30 +1,27 @@
 ## Notification > Push > iOS SDK Guide
-TOAST Cloud Push SDK를 적용하면 모바일 애플리케이션과 TOAST Cloud Push를 쉽게 연동할 수 있다.
+With Push SDK, mobile applications and Push can be easily integrated.
 
-## 주요기능
-* OS에 알림 토큰 등록
-* 알림 메세지 수신 및 표시
-* 메세지 수신 및 수신된 메세지를 통한 어플리케이션 실행 지표 수집
+## Main Features
+* Register notification tokens to OS
+* Receive and display notification messages
+* Receive messages and collect application execution indicators through them
 
-## 다운로드
-[Downloads](http://docs.toast.com/en/Download/) 페이지에서 Push SDK를  다운로드 받을 수 있다.
-```
-[DOCUMENTS] > [Download] > [Notification > Push]
-```
+## Downloads
+Download file to click **iOS SDK** under **Notification > Push** from [TOAST Document](http://docs.toast.com/ko/Download/).
 
-## 지원환경
-* iOS 8.0 이상
+## Supporting Environment
+* iOS 8.0 or higher
 
-## 프로젝트 설정
-### 공통
-* Capabilities 설정<br/>
-![Remote Notifications](http://static.toastoven.net/toastcloud/sdk/push/ios/settings_capabilities_1.png)<br/>
-![Push Notifications](http://static.toastoven.net/toastcloud/sdk/push/ios/settings_capabilities_2.png)
-* Linked Framework and Libraries 설정<br/>
-![Linked Frameworks](http://static.toastoven.net/toastcloud/sdk/push/ios/settings_libraries.png)
+## Project Setting
+### Common
+* Set Capabilities <br/>
+  ![Remote Notifications](http://static.toastoven.net/toastcloud/sdk/push/ios/settings_capabilities_1.png)<br/>
+  ![Push Notifications](http://static.toastoven.net/toastcloud/sdk/push/ios/settings_capabilities_2.png)
+* Set Linked Framework and Libraries <br/>
+  ![Linked Frameworks](http://static.toastoven.net/toastcloud/sdk/push/ios/settings_libraries.png)
 
 ### VoIP
-* info.plist 설정
+* Set info.plist
 ```xml
 <key>UIBackgroundModes</key>
 <array>
@@ -33,40 +30,46 @@ TOAST Cloud Push SDK를 적용하면 모바일 애플리케이션과 TOAST Cloud
 </array>
 ```
 
-* Linked Framework and Libraries 설정<br/>
-![Linked Frameworks](http://static.toastoven.net/toastcloud/sdk/push/ios/settings_libraries_voip.png)
+* Set Linked Framework and Libraries<br/>
+  ![Linked Frameworks](http://static.toastoven.net/toastcloud/sdk/push/ios/settings_libraries_voip.png)
 
-## SDK 사용 가이드
 
-### 초기화
->PushSDK 초기화 수행 후에 토큰 등록, 조회 기능의 사용이 가능하다.
 
-```objc
+
+## SDK Guide
+
+### Initialize
+
+> Initialize PushSDK first, to register or search tokens.
+
+```
 TCPushConfiguration *configuration = [[TCPushConfiguration alloc] initWithAppKey:@"INPUT_YOUR_APPKEY"
                                                                           userId:@"INPUT_USER_ID"];
 
-configuration.channel = @"CHANNEL";                 // 채널 설정 (default:@"default")
-configuration.isAgreeNotifications = YES;           // 알림 동의 여부 (default:YES)
-configuration.isAgreeAdvertisement = YES;           // 광고성 알림 동의 여부 (default:NO)
-configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 동의 여부 (default:NO)
+configuration.channel = @"CHANNEL";                 // Channel configuration (default:@"default")
+configuration.isAgreeNotifications = YES;           // Consent to notifications (default:YES)
+configuration.isAgreeAdvertisement = YES;           // Consent to advertisement notifications (default:NO)
+configuration.isAgreeNightAdvertisement = YES;      // Consent to night-time advertisement notifications (default:NO)
 
 [TCPushSdk initWithConfiguration:configuration];
 ```
 
 #### Configuration
-| 프로퍼티 | 설명 | 기본값 |
-| -- | -- | -- |
-| appKey | Push 서비스키 | 필수요소 |
-| userId | 사용자 식별자 | 필수요소 |
-| channel | 채널 | default |
-| isAgreeNotification | 알림 표시 동의 여부 | YES |
-| isAgreeAdvertisement | 광고성 알림 표시 동의 여부 | NO |
-| isAgreeNightAdvertisement | 야간 광고성 알림 표시 동의 여부 | NO |
 
-### 토큰 등록
->PushSDK 초기화 후에 요청이 가능하다.
+| Property                  | Description                                    | Required | Default |
+| ------------------------- | ---------------------------------------------- | -------- | ------- |
+| appKey                    | Push service key                               | Required | N/A     |
+| userId                    | User identifier                                | Required | N/A     |
+| channel                   | Channel                                        | Optional | Default |
+| isAgreeNotification       | Consent to display notifications               | Optional | YES     |
+| isAgreeAdvertisement      | Consent to display ad notifications            | Optional | NO      |
+| isAgreeNightAdvertisement | Consent to display night-time ad notifications | Optional | NO      |
 
-```objc
+### Register Tokens
+
+> Initialize PushSDK first, to make a request.  
+
+```
 [TCPushSdk registerWithPushType:TCPushTypeAPNs completionHandler:^(NSError *error) {
     if (error == nil) {
         // Success
@@ -78,17 +81,19 @@ configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 �
 ```
 
 #### PushType
-| 타입 | 설명 |
-| -- | -- |
-| TCPushTypeAPNs | 일반 푸시 메세지 |
-| TCPushTypeAPNsSandbox | 개발용 일반 푸시 메세지 |
-| TCPushTypeVoIP | VoIP 푸시 메세지 |
-| TCPushTypeVoIPSandbox | 개발용 VoIP 푸시 메세지 |
 
-### 토큰 정보 조회
->PushSDK 초기화 후에 요청이 가능하다.
+| Type                  | Description                           |
+| --------------------- | ------------------------------------- |
+| TCPushTypeAPNs        | General push messages                 |
+| TCPushTypeAPNsSandbox | General push messages for development |
+| TCPushTypeVoIP        | VoIP push messages                    |
+| TCPushTypeVoIPSandbox | VoIP push messages for development    |
 
-```objc
+### Query Token Information
+
+> Initialize PushSDK first, to make a request.
+
+```
 [TCPushSdk queryWithPushType:TCPushTypeAPNs completionHandler:^(TCPushTokenInfo *tokenInfo, NSError *error) {
     if (error == nil) {
         // Success
@@ -100,29 +105,29 @@ configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 �
 ```
 
 #### TokenInfo
->광고성 알림 동의 관련 프로퍼티(isAgreeAdvertisement, isAgreeNightAdvertisement)는<br>
->토큰 등록시 사용자 언어 코드가 한글(ko)이었을 경우에만 설정된 값을 반환하고,<br>
->한글이 아닌 다른 언어 코드에 대해서는 YES 로 반환한다.
 
-| 프로퍼티 | 자료형 | 설명 |
-| -- | -- | -- |
-| userId | NSString | 사용자 식별자 |
-| token | NSString | 등록된 토큰 |
-| countryCode | NSString | 국가 코드 |
-| languageCode | NSString | 언어 코드 |
-| pushType | ENUM | 푸쉬 타입 |
-| isAgreeNotification | BOOL | 알림 표시 동의 여부 |
-| isAgreeAdvertisement | BOOL | 광고성 알림 표시 동의 여부 |
-| isAgreeNightAdvertisement | BOOL | 야간 광고성 알림 표시 동의 여부 |
-| timezone | NSString | 시각대 |
-| updateDate | NSDate | 최종 업데이트 날짜 |
+> Properties relevant to consent to display ad nofitications (such as isAgreeAdvertisement or isAgreeNightAdvertisement) return configured values, only when the user language code is Korean (ko), and return YES for other language codes.
 
-### 푸시 수신
->푸시 메세지 수신에 대해 사용자 코드 실행을 위한 Delegate를 설정 할 수 있다.<br>
->일반 푸시 메세지의 경우 어플리케이션이 실행 중이 않을 때에는 수신 Delegate를 받을 수 없다.<br>
->VoIP 푸시 메세지는 어플리케이션이 실행 중이지 않을 때 메세지 수신시 백그라운드에서 자동으로 어플리케이션이 실행되어 수신 Delegate로 메세지를 전달한다.
+| Property                  | Data Type | Description                                    |
+| ------------------------- | --------- | ---------------------------------------------- |
+| userId                    | NSString  | User identifier                                |
+| token                     | NSString  | Registered tokens                              |
+| countryCode               | NSString  | Country code                                   |
+| languageCode              | NSString  | Language code                                  |
+| pushType                  | ENUM      | Push type                                      |
+| isAgreeNotification       | BOOL      | Consent to display notifications               |
+| isAgreeAdvertisement      | BOOL      | Consent to display ad notifications            |
+| isAgreeNightAdvertisement | BOOL      | Consent to display night-time ad notifications |
+| timezone                  | NSString  | Standard time zone                             |
+| updateDate                | NSDate    | Date of the latest update                      |
 
-```objc
+### Receive Push Messages
+
+> A delegate for user code execution can be configured to receive push messages.<br>
+> The receiving delegate cannot receive general push messages when application is not running.<br>
+> VoIP push messages,received while application is not running, are delivered to the receiving delegate as the application is automatically executed in the background.  
+
+```
 @interface AppDelegate () <TCPushDelegate>
 
 @end
@@ -130,7 +135,7 @@ configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 �
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+
     [TCPushSdk setDelegate:self];
 
     return YES;
@@ -139,25 +144,25 @@ configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 �
 @end
 
 - (void)pushSdk:(TCPushSdk *)pushSdk didReceiveAPNsNotificationWithPayload:(NSDictionary *)payload {
-    // 일반 푸시 메세지 수신
+    // Receive general push messages
 }
 
 - (void)pushSdk:(TCPushSdk *)pushSdk didReceiveVoIPNotificationWithPayload:(NSDictionary *)payload {
-    // VoIP 푸시 메세지 수신
+    // Receive VOIP push messages
 }
 ```
 
-### 지표 수집
->클라이언트에서 푸시 메세지 수신 및 알림에 의한 어플리케이션 실행 여부에 대한 이벤트를 서버에 전송하고,<br>
->이를 웹 콘솔 통계 페이지내에서 확인 가능하다.
+### Collect Indicators
 
-#### 수신(Received) 지표
->수신 지표 수집을 위해서는 어플리케이션에 Notification Service Extension(iOS 10.0+)의 추가가 필요하다.
-```
-[File] > [New] > [Target] > [iOS] > [Notification Service Extension]
-```
+> Client sends whether to execute application on receiving and notifying push messages, to a server. Check more on the **Statistics** tab of the console.  
 
-```objc
+#### Received
+
+> To collect Received Indicators, add Notification Service Extension (iOS 10.0+) to your application.
+
+**File >  New > Target > iOS > Notification Service Extension**
+
+```
 #import "NotificationService.h"
 #import <TCPushSDK/TCPushSDK.h>
 
@@ -172,10 +177,10 @@ configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 �
 
 - (void)didReceiveNotificationRequest:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
     [TCPushSdk setDebugMode:YES];
-    
+
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
-    
+
     [TCPushAnalytics didReceiveNotificationWithAppKey:@"INPUT_YOUR_APPKEY"
                                               request:request
                                     completionHandler:^(NSError *error) {
@@ -190,17 +195,19 @@ configuration.isAgreeNightAdvertisement = YES;      // 야간 광고성 알림 �
 @end
 ```
 
-#### 확인(Opened) 지표
->확인 지표에 대한 수집 및 전송은 SDK 내부에서 자동으로 진행된다.
+#### Opened
 
-### 오류 코드
-| 에러코드 | 설명 |
-| -- | -- |
-| TCPushErrorNotInitialized | 초기화 되지 않음 |
-| TCPushErrorInvalidParameters | 파라미터 오류 |
-| TCPushErrorPermissionDenined | 권한 미획득 |
-| TCPushErrorSystemFail | 시스템 알림 등록 실패 |
-| TCPushErrorNetworkFail | 네트워크 송수신 실패 |
-| TCPushErrorServerFail | 서버 응답 실패 |
-| TCPushErrorInvalidUrl | 잘못된 URL 요청 |
-| TCPushErrorNetworkNotReachable | 네트워크 미연결 |
+> Collecting and sending Opened Indicators are automatically done within SDK.
+
+### Error Codes
+
+| Error Codes                    | Description                             |
+| ------------------------------ | --------------------------------------- |
+| TCPushErrorNotInitialized      | Not initialized                         |
+| TCPushErrorInvalidParameters   | Error in parameters                     |
+| TCPushErrorPermissionDenined   | Failed to acquire authority             |
+| TCPushErrorSystemFail          | Failed to register system notifications |
+| TCPushErrorNetworkFail         | Failed to receive/deliver via network   |
+| TCPushErrorServerFail          | Failed to respond via server            |
+| TCPushErrorInvalidUrl          | Invalid URL request                     |
+| TCPushErrorNetworkNotReachable | Network not connected                   |
