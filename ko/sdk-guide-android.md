@@ -19,7 +19,30 @@ Push SDK를 적용하면 모바일 애플리케이션과 Push를 쉽게 연동�
 * Amazon Device Messaging(이하 ADM)
 
 ## 프로젝트 설정
-### 공통 설정
+### 공통 설정 (JCenter)
+#### 의존성 추가
+* 아래처럼 SDK의 의존을 추가합니다.
+```groovy
+dependencies {
+    implementation 'com.toast.android:pushsdk:1.7.0'
+    // compile 'com.toast.android:pushsdk:1.7.0' // (Gradle < 3.4)
+}
+```
+
+#### Android Support 라이브러리 중복일 경우
+* 아래와 같이 SDK에서 Support 라이브러리를 제외합니다.
+```groovy
+dependencies {
+    implementation('com.toast.android:pushsdk:1.7.0') {
+        exclude group: 'com.android.support', module: 'support-v4'
+    }
+}
+```
+
+### 공통 설정 (Manual)
+* JCenter를 이용하지 않거나 이용할 수 없는 경우, SDK를 다운로드해서 수동으로 설정해줍니다.
+
+#### 다운로드 및 의존성 추가
 * SDK(AAR) 다운로드 및 추가
     * 프로젝트 폴더 하위에 libs 폴더가 없으면 생성합니다.
     * 다운로드한 AAR 파일을 프로젝트의 libs 폴더에 추가합니다.
@@ -28,7 +51,6 @@ Push SDK를 적용하면 모바일 애플리케이션과 Push를 쉽게 연동�
 ```
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.aar'])
-    compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:support-v4:26.1.0'
 }
 ```
@@ -68,8 +90,6 @@ dependencies {
         </service>
 </application>
 <permission android:name="[YOUR_PACKAGE_NAME].permission.C2D_MESSAGE" android:protectionLevel="signature"/>
-<uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.WAKE_LOCK" />
 <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 <uses-permission android:name="[YOUR_PACKAGE_NAME].permission.C2D_MESSAGE" />
 </manifest>
@@ -158,8 +178,6 @@ dependencies {
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.READ_LOGS" />
 
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.WAKE_LOCK" />
   <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>
 ```
@@ -191,7 +209,6 @@ dependencies {
     android:protectionLevel="signature" />
 <uses-permission android:name="[YOUR_PACKAGE_NAME].permission.RECEIVE_ADM_MESSAGE" />
 <uses-permission android:name="com.amazon.device.messaging.permission.RECEIVE" />
-<uses-permission android:name="android.permission.WAKE_LOCK" />
 ```
 
 ##### Handler 및 Receiver 추가
@@ -416,6 +433,8 @@ public static class CustomPushReceiver extends GcmListenerService {
     * 안드로이드 7.0(API 레벨 24) 이상에서만 사용 가능합니다.
     * NotificationConverter를 통해 변환된 알림일 경우, 안드로이드 7.0 미만 기기에서는 답장 버튼이 제거된채로 알림이 노출됩니다.
     * 답장 처리를 위해서는 리스너 등록이 필요합니다. 자세한 내용은 *답장 리스너 구현 및 등록* 을 참고해주세요.
+
+> 버튼은 최대 3개까지 지원합니다.
 
 > 버튼 기능을 사용하기 위해서는 *NotificationConverter 클래스* 를 이용해서 알림을 생성해야 합니다.
 
