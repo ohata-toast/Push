@@ -178,12 +178,14 @@ NSString *token = [TCPushSdk deviceTokenForPushType:TCPushTypeAPNs];
 
 @end
 
+// 일반 푸시 메시지 수신
 - (void)pushSdk:(TCPushSdk *)pushSdk didReceiveAPNsNotificationWithPayload:(NSDictionary *)payload {
-    // 일반 푸시 메시지 수신
+    
 }
 
+// VoIP 푸시 메시지 수신
 - (void)pushSdk:(TCPushSdk *)pushSdk didReceiveVoIPNotificationWithPayload:(NSDictionary *)payload {
-    // VoIP 푸시 메시지 수신
+    
 }
 ```
 
@@ -192,21 +194,21 @@ NSString *token = [TCPushSdk deviceTokenForPushType:TCPushTypeAPNs];
 >  사용자 정의 카테고리로 수신한 메세지의 액션을 수신합니다.
 
 ```
+// 텍스트 입력을 제외한 다른 액션 수신
 - (void)pushSdk:(TCPushSdk *)pushSdk
    handleAction:(NSString *)actionIdentifier
        category:(NSString *)categoryIdentifier
         payload:(NSDictionary *)payload {
 
-    // 텍스트 입력을 제외한 다른 액션 수신
 }
 
+// 텍스트 입력 액션 수신
 - (void)pushSdk:(TCPushSdk *)pushSdk
    handleAction:(NSString *)actionIdentifier
        category:(NSString *)categoryIdentifier
         payload:(NSDictionary *)payload
        userText:(NSString *)userText {
  
-    // 텍스트 입력 액션 수신
 }
 ```
 
@@ -233,21 +235,21 @@ NSString *token = [TCPushSdk deviceTokenForPushType:TCPushTypeAPNs];
  > 사용자 추가 카테고리 액션 수신과 동일하게 Delegate를 통해 액션과 메세지를 전달받을 수 있습니다.
 
 ```
+// 텍스트 입력을 제외한 다른 액션 수신
 - (void)pushSdk:(TCPushSdk *)pushSdk
    handleAction:(NSString *)actionIdentifier
        category:(NSString *)categoryIdentifier
         payload:(NSDictionary *)payload {
 
-    // 텍스트 입력을 제외한 다른 액션 수신
 }
 
+// 텍스트 입력 액션 수신
 - (void)pushSdk:(TCPushSdk *)pushSdk
    handleAction:(NSString *)actionIdentifier
        category:(NSString *)categoryIdentifier
         payload:(NSDictionary *)payload
        userText:(NSString *)userText {
  
-    // 텍스트 입력 액션 수신
 }
 ```
 
