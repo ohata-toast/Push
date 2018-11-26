@@ -54,6 +54,26 @@ configuration.isAgreeNightAdvertisement = YES;      // Consent to night-time adv
 [TCPushSdk initWithConfiguration:configuration];
 ```
 
+### Set Categories
+
+> Category setting is available only in initialization.
+
+```
+TCPushConfiguration *configuration = [[TCPushConfiguration alloc] initWithAppKey:@"INPUT_YOUR_APPKEY"
+                                                                          userId:@"INPUT_USER_ID"];
+
+configuration.channel = @"CHANNEL";                 // Channel configuration (default:@"default")
+configuration.isAgreeNotifications = YES;           // Consent to notifications (default:YES)
+configuration.isAgreeAdvertisement = YES;           // Consent to advertisement notifications (default:NO)
+configuration.isAgreeNightAdvertisement = YES;      // Consent to night-time advertisement notifications (default:NO)
+
+UNNotificationCategory *category = ...;
+NSSet *categories = [NSSet setWithObject:category];
+
+[TCPushSdk initWithConfiguration:configuration
+                      categories:categories];
+```
+
 #### Configuration
 
 | Property                  | Description                                    | Required | Default |
@@ -67,15 +87,21 @@ configuration.isAgreeNightAdvertisement = YES;      // Consent to night-time adv
 
 ### Register Tokens
 
-> Initialize PushSDK first, to make a request.  
+> Initialize PushSDK first, to make a request.<br>
+> Only the system token is registered when requesting token registration without initialization.
 
 ```
-[TCPushSdk registerWithPushType:TCPushTypeAPNs completionHandler:^(NSError *error) {
+[TCPushSdk registerWithPushType:TCPushTypeAPNs completionHandler:^(NSString *token, NSError *error) {
     if (error == nil) {
         // Success
 
     } else {
-        // Fail
+        if (token == nil) {
+            // Fail
+
+        } else {
+            // Success only th system token
+        }
     }
 }];
 ```
@@ -91,7 +117,8 @@ configuration.isAgreeNightAdvertisement = YES;      // Consent to night-time adv
 
 ### Query Token Information
 
-> Initialize PushSDK first, to make a request.
+> Queries the latest token information registered by the device.
+
 
 ```
 [TCPushSdk queryWithPushType:TCPushTypeAPNs completionHandler:^(TCPushTokenInfo *tokenInfo, NSError *error) {
@@ -125,7 +152,7 @@ configuration.isAgreeNightAdvertisement = YES;      // Consent to night-time adv
 
 > A delegate for user code execution can be configured to receive push messages.<br>
 > The receiving delegate cannot receive general push messages when application is not running.<br>
-> VoIP push messages,received while application is not running, are delivered to the receiving delegate as the application is automatically executed in the background.  
+> VoIP push messages, received while application is not running, are delivered to the receiving delegate as the application is automatically executed in the background.  
 
 ```
 @interface AppDelegate () <TCPushDelegate>
@@ -143,12 +170,74 @@ configuration.isAgreeNightAdvertisement = YES;      // Consent to night-time adv
 
 @end
 
+// Receive general push messages
 - (void)pushSdk:(TCPushSdk *)pushSdk didReceiveAPNsNotificationWithPayload:(NSDictionary *)payload {
-    // Receive general push messages
+    
 }
 
+// Receive VOIP push messages
 - (void)pushSdk:(TCPushSdk *)pushSdk didReceiveVoIPNotificationWithPayload:(NSDictionary *)payload {
-    // Receive VOIP push messages
+
+}
+```
+
+### Receive Push Action
+
+> When an action of a message received in a user-defined category occurs, it is passed to the delegate.
+
+```
+// for all actions except text input action
+- (void)pushSdk:(TCPushSdk *)pushSdk
+   handleAction:(NSString *)actionIdentifier
+       category:(NSString *)categoryIdentifier
+        payload:(NSDictionary *)payload {
+
+}
+
+// for text input action
+- (void)pushSdk:(TCPushSdk *)pushSdk
+   handleAction:(NSString *)actionIdentifier
+       category:(NSString *)categoryIdentifier
+        payload:(NSDictionary *)payload
+       userText:(NSString *)userText {
+ 
+}
+```
+
+### Receive Rich Push Message
+> To collect receive righ push message, add Notification Service Extension (iOS 10.0+) and extends TCPushServiceExtension to your application. <br>
+> **File New > Target > iOS > Notification Service Extension** <br>
+> Rich push messages are based on categories and can not be used in duplicate with user categories.
+
+
+```
+#import <UserNotifications/UserNotifications.h>
+#import <TCPushSDK/TCPushSDK.h>
+
+@interface NotificationService : TCPushServiceExtension
+
+@end
+```
+
+#### Receive Righ Push Message Action
+ > Receive actions and messages through the delegate.
+
+```
+// for all actions except text input action
+- (void)pushSdk:(TCPushSdk *)pushSdk
+   handleAction:(NSString *)actionIdentifier
+       category:(NSString *)categoryIdentifier
+        payload:(NSDictionary *)payload {
+
+}
+
+// for text input action
+- (void)pushSdk:(TCPushSdk *)pushSdk
+   handleAction:(NSString *)actionIdentifier
+       category:(NSString *)categoryIdentifier
+        payload:(NSDictionary *)payload
+       userText:(NSString *)userText {
+ 
 }
 ```
 
@@ -158,39 +247,40 @@ configuration.isAgreeNightAdvertisement = YES;      // Consent to night-time adv
 
 #### Received
 
-> To collect Received Indicators, add Notification Service Extension (iOS 10.0+) to your application.
-
+> To collect Received Indicators, add Notification Service Extension (iOS 10.0+) to your application.<br>
 **File >  New > Target > iOS > Notification Service Extension**
 
+##### Set Analytics information
+
+> Entering the analytics information in the extension's info.plist file automatically collects and transmits the Received indicators.
+
+* Property List<br>
+![Remote Notifications](http://static.toastoven.net/toastcloud/sdk/push/ios/analytics_settings_extension.png)<br/>
+
+* Source Code
 ```
-#import "NotificationService.h"
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>TCPushAnalytics</key>
+    <dict>
+        <key>AppKey</key>
+        <string>INPUT_YOUR_APPKEY</string>
+    </dic>
+</dict>
+</plist>
+```
+
+##### Notification Service Extension
+
+> You must extended implementation of TCPushServiceExtension.
+
+```
+#import <UserNotifications/UserNotifications.h>
 #import <TCPushSDK/TCPushSDK.h>
 
-@interface NotificationService ()
-
-@property (nonatomic, strong) void (^contentHandler)(UNNotificationContent *contentToDeliver);
-@property (nonatomic, strong) UNMutableNotificationContent *bestAttemptContent;
-
-@end
-
-@implementation NotificationService
-
-- (void)didReceiveNotificationRequest:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
-    [TCPushSdk setDebugMode:YES];
-
-    self.contentHandler = contentHandler;
-    self.bestAttemptContent = [request.content mutableCopy];
-
-    [TCPushAnalytics didReceiveNotificationWithAppKey:@"INPUT_YOUR_APPKEY"
-                                              request:request
-                                    completionHandler:^(NSError *error) {
-                                        self.contentHandler(self.bestAttemptContent);
-                                    }];
-}
-
-- (void)serviceExtensionTimeWillExpire {
-    self.contentHandler(self.bestAttemptContent);
-}
+@interface NotificationService : TCPushServiceExtension
 
 @end
 ```
@@ -198,6 +288,26 @@ configuration.isAgreeNightAdvertisement = YES;      // Consent to night-time adv
 #### Opened
 
 > Collecting and sending Opened Indicators are automatically done within SDK.
+> Initialization is required <br>
+> If you do not initialize, enter the analytics information in the application's info.plist and the Opend indicator will be automatically collected and transmitted.
+
+* Property List<br>
+![Remote Notifications](http://static.toastoven.net/toastcloud/sdk/push/ios/analytics_settings_app.png)<br/>
+
+* Source Code
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>TCPushAnalytics</key>
+    <dict>
+        <key>AppKey</key>
+        <string>INPUT_YOUR_APPKEY</string>
+    </dic>
+</dict>
+</plist>
+```
 
 ### Error Codes
 
