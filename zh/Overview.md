@@ -26,7 +26,7 @@ Here are the main features of Push.
 
 Below shows the structure of Push Service.
 
-![](http://static.toastoven.net/prod_push/img_02.png)
+![](http://static.toastoven.net/prod_push/img_09.png)
 
 #### Console
 
