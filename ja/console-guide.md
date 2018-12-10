@@ -82,8 +82,8 @@ To send push notification to iOS devices, you need APNS certificate generated fr
 - In most failure cases of message delivery, the APNS certificate registered at TOAST Cloud Push has a different provisioning profile for application buildup.
    APNS(Production) = Production Provisioning Profile
    APNS_SANDBOX(Development) = Development Provisioning Profile 
-- For more details, refer to the following: 
-  [APNS Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1) 
+- For more details, refer to the following:     
+  [APNS Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1)     
   [App Distribution Quick Start](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppStoreDistributionTutorial/Introduction/Introduction.html#//apple_ref/doc/uid/TP40013839)
 
 #### Causes of Delivery Failure of APNS Messages
