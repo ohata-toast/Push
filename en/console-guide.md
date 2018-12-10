@@ -1,54 +1,71 @@
 ## Notification > Push > Console Guide
 
+In order to use Push service, you need other push service certificates.
+Currently, we support following push services:
+- GCM - Google Cloud Messaging (Firebase Cloud Messaging)
+- APNS - Apple Push Notification Service
+- XinGe - Tencent Mobile Push
+- ADM - Amazon Device Messaging
+
 ## Certificate Management
 
-### Create and Import Firebase Cloud Messaging(FCM) API Key
+To manage certificates, go to **Notification > Push > Certificates** from the menu.
 
-1. Sign in the [Google Firebase Console](https://console.firebase.google.com/).
-2. Select **Add Project**.
-3. Enter a project name with information and click **Create Project**.
-4. Click the Gear icon on the first page of the project.
+### GCM API Key
+
+To send push notification to Android devices, you need valid GCM project's API Key.
+
+#### Create and Import Firebase Cloud Messaging(FCM) API Key
+
+1. Sign in to [Google Firebase Console](https://console.firebase.google.com/).
+2. Choose **Add Project**.
+3. Complete the form and click **Create Project**.
+4. Click on the Gear icon on the first page of the project.
 5. Click **Project Settings**.
-6. Select the **Cloud Messaging** tab on the **Settings** page.
+6. Choose **Cloud Messaging** tab on the **Settings** page.
 7. Check your **Server Key** (API Key) and **Sender ID**.
 
-### Register FCM API Key
+#### Register FCM API Key
 
 1. Go to **Console > Notification > Push** and click the **Certificates** tab.
 2. Copy the FCM API Key just created and paste it to the  **GCM API Key**, and press **Register** to complete.
 
-### Caution for Google Project
-- Google is scheduled to [close the GCM service]((https://developers.google.com/cloud-messaging/faq)) as of April 11, 2019.
+#### Caution for Google Project
+- Google is scheduled to [deprecate GCM service]((https://developers.google.com/cloud-messaging/faq)) as of April 11, 2019.
 
-- If a key created from Google Project (now, Google Cloud Platform) is currently used as GCM API Key, the usage may not be available due to different setting. In such case, the Google Project must be relocated to Firebase and create a new server key at Firebase.
+- If the key created from Google Project (now, Google Cloud Platform) is currently used as GCM API Key, it may not be valid in the future. In such case, the Google Project must be migrated to Firebase and a new key must be created through Firebase.
 	- Google provides [Firebase Migration Guide](https://developers.google.com/cloud-messaging/android/android-migrate-fcm).
 
-#### Relocate from Google Project to Firebase
+##### Migrating from Google Project to Firebase
 
-1. Access [Google Firebase Console](https://console.firebase.google.com/).
-2. Select **CREATE NEW PROJECT**.
-3. When there is a Google Project under service, the Project Name shows it on the list; choose a Google Project to relocate.
-4. The Project ID shall be same with the existing Google Project; create a project.  
-5. Click the Gear icon on the first page of the project.
+1. Go to [Google Firebase Console](https://console.firebase.google.com/).
+2. Choose **CREATE NEW PROJECT**.
+3. When there is a Google Project in service, the Project Name shows it on the list; choose the Google Project to migrate.
+4. The new Firebase Project ID will be identical with the existing Google Project.  
+5. Click on the Gear icon on the first page of the project.
 6. Click **Project Settings**.
 7. Click the **CLOUD MESSAGING** tab on the page.
 8. Check your Server Key (API Key) and Sender ID.
-9. Copy the Server Key at Firebase to **GCM API Key** on the **Certificates** tab.
+9. Copy the Server Key at Firebase to **GCM API Key** in the **Certificates** tab.
+
+### APNS Certificate
+
+To send push notification to iOS devices, you need APNS certificate generated from Apple Developer website.
 
 ### Create and Import APNS Certificate
 
-1. Implement **Keychain** on Mac.
+1. Run **Keychain Access** app on Mac.
 2. Choose **Access Keychain > Support Certificates > Request a Certificate** from **Certificate Authority**.
 3. Enter information as required such as Apple Developer’s ID at **User's Email Address**, choose **Disk Saved**, and **I have saved key pair information**, and click **Continue**.
 4. Choose the key size and algorithm at **Key Pair Information** and click **Continue**. Then, a Certificate Signing Request (CSR) file is created.
 5. Go to [Apple Developer Certificates](https://developer.apple.com/account/ios/certificate/certificateList.action).
 6. Click **+**(Add) at the top right to go to the page issuing Certificates.
-7. Select the **Select Type > Request > Generate** tab to upload CSR files made through **Keychain** and click **Generate**.
+7. Choose **Select Type > Request > Generate** tab to upload CSR files made through **Keychain** and click **Generate**.
 8. You can create and download a certificate. If not authorized, you can obtain an authority to download.
-9. Download a certificate and choose it at **Keychain > Certificates**.
-10. Click the right button on the certificate and choose **Send**.
-11. Set where to save it and press **Save** (file format: .p12).
-12. Enter password to protect exported items, and then it is completed.
+9. Download the certificate and select it in **Keychain > Certificates**.
+10. Right-mouse click on the certificate and choose **Send**.
+11. Choose save location and press **Save** (file format: .p12).
+12. Enter password to protect exported items, and the certificate is ready.
 
 
 ### Register APNS Certificate
@@ -56,7 +73,7 @@
 1. Click **Notification > Push > Certificates** on Console.
 2. Click **Select File** at **APNS Certificate > Certificates**.
 3. Enter certificate password at **Password** .
-4. Click **REGISTER**.
+4. Click **Register**.
 
 ### Caution for APNS
 #### Differences between APNS (Production) and APNS_SANDBOX (Development)
@@ -76,18 +93,22 @@
 - When a certificate has been expired
 - When a wrong certificate has been registered
 - When a push message has been rejected by the application
-- When there’s no internet access
+- When there’s no Internet access
+
+### Tencent Credentials
+
+To use Tencent XinGe mobile push service, you need Tencent app's Access ID and Secret Key.
 
 ### Join Tencent
 
-1. Access [[Tencent Push Service Website](http://xg.qq.com/)].
+1. Go to[[Tencent Push Service Website](http://xg.qq.com/)].
 2. Click Login(登录) at the top right of the page.
 3. Click Join (注册新帐号) at the bottom right of the pop-up page.
 4. Enter information required for **Email Account**, including Email Account, Nickname, Password, and Verification Code, and click **Sign up now**.
 5. Click **Select your country/region** under **Send Verification Code**.
 6. Select **South Korea 0082** for **region**, and your mobile number for **Mobile Number** in the 010AAAABBBB format.
 7. Enter verification code and move on to the next step.
-8. Check **Activation Email** entered for subscription and enable it.
+8. Verify your email address.
 
 ### Register Tencent Application
 
@@ -104,13 +125,17 @@
 2. Click Statistics (**应用统计**) and enter into Application Dashboard.
 3. Click Setting(**配置管理**) > Application Setting (**应用配置**) on the left. Check ACCESS ID, ACCESS KEY, and SECRET KEY.
 4. Come back to TOAST and click **Notification > Push > Certificates** at Console.
-5. Enter ACCESS ID and SECRET KEY to **Tencent Credential** as confirmed.
+5. Enter ACCESS ID and SECRET KEY into **Tencent Credential**.
+
+### ADM Credentials
+
+To send push notification to Kindle Fire app, you need its Client ID and Client Secret.
 
 ### Register ADM Application and Profiles (Acquire Client Id and Client Secret)
-1. Access [ADM Developer Console](https://developer.amazon.com/home.html).
-2. Click **APP & SERVICES** at the top left and **ADD a New App** at the bottom.
-3. After app is created, click **Device Messaging** in the middle. Then, click **Create a New Security Profile**.
-4. After profile is completely created, click **Security Profiles** in the middle and **View Security Profile**.
+1. Go to [ADM Developer Console](https://developer.amazon.com/home.html).
+2. Click **APP & SERVICES** at the top left and choose **Add a New App** at the bottom.
+3. When the app is created, click **Device Messaging** in the middle. Then, click **Create a New Security Profile**.
+4. When the profile is created, click **Security Profiles** in the middle and choose **View Security Profile**.
 5. Go to the **General** tab to check Client ID and Client Secret.
 
 ### Register Setting Information for ADM Kindle (Acquire API Key)
@@ -147,110 +172,230 @@ Version: 1
 - After registration is completed, click Show and query API key information.
 
 
-## Immediate Delivery
+## Message Delivery
 
-After certificate and token are properly registered, go to Console and click **Notification > Push > Messages > ADD **and end push messages immediately.
+After certificates and tokens are properly set, go to Console and click **Notification > Push > Messages > Add **and send immediate push messages.
 
-Here are the formats for immediate delivery:
+The following is the format for immediate delivery:
+
+### Target
 
 | Name                   | Description                                                  |
 | ---------------------- | ------------------------------------------------------------ |
-| Target                 | You can configure who to receive push messages.              |
-| Target > Type          | Choose one out of ALL, UID, and TAG.                         |
-| Target > To            | You can enter UID. Conversion to UID is available by choosing UID in Target > Type: use comma (',') as delimiter to enter many. |
-| Target > UIDs          | Use comma (',') as delimiter to enter many.                  |
-| Target > Tags          | Click Select and choose tags.                                |
-| Target > Selected Tags | Display selected tags: click again to unselect.              |
-| Target > Countries     | Enter a country code: use comma (',') as delimiter to enter many. |
-| Target > Push Types    | You can choose many, among GCM, APNS, APNS Sandbox, and Tencent. |
-| Option > Time To Live  | Refers to effective time for message delivery. If a delivery is delayed during the time set, it is automatically processed as a failure. It is set by the minute: '0' is not deemed as failure due to delivery delay. |
-| Message > Editor Type  | Categorized into two types: SIMPLE and JSON. In the case of JSON, you can type in your messages. |
-| Message > Message Type | Categorized into two types: NOTIFICATION and AD. In the case of AD, the messages are delivered only to the users who agreed to receive advertising push messages. |
+| Type          | Choose one out of ALL, UID, and TAG.                         |
+| To            | You can enter UIDs. Conversion to UID is available by choosing UID in Target > Type: use comma (',') as delimiter to enter many. |
+| UIDs          | Use comma (',') as delimiter to enter multiple UIDs.                  |
+| Tags          | Click Select and choose tags.                                |
+| Selected Tags | Display selected tags: click again to deselect.              |
+| Countries     | Enter country code: use comma (',') as delimiter to enter mutiple country codes. |
+| Push Types    | You can choose multiple types among GCM, APNS, APNS Sandbox, and Tencent. |
 
-## Scheduled Delivery  
+### Option
 
-Go to Console and click **Notification > Push > Reservation**. You can manage your delivery on schedule, using **ADD**, **EDIT**, and **DELETE**.
+| Name                   | Description                                                  |
+| ---------------------- | ------------------------------------------------------------ |
+| Time To Live  | Refers to effective time for message delivery. If a delivery is delayed during the time set, it is automatically processed as a failure. It is set by minute. Setting it as '0' will not make the delivery to automatically fail. |
 
-Here are the formats for scheduled delivery:
+### Message
+
+| Name                   | Description                                                  |
+| ---------------------- | ------------------------------------------------------------ |
+| Editor Type  | Two types: SIMPLE and JSON. In the case of JSON, you can type in your messages. |
+| Message Type | Two types: NOTIFICATION and AD. In the case of AD, the messages are delivered only to the users who agreed to receive advertising push messages. |
+
+### Rich Message
+You can send push notifications with buttons, images, and various other things included. You can also preview how the message would look like in Android and iOS smartphones. You need SDK version 1.7 or above to use this feature.
+
+![push_04_201812_en](https://static.toastoven.net/prod_push/12-10/push_04_201812_en.png)
+
+#### 1. Button
+
+|Name | Description |
+|---|---|
+| Name | Name of the button. |
+| Type | Types of button are: Reply, Open App, Open URL, and Dismiss |
+| Submit Button Name | If the type of the button is "Reply" you can configure the name of the submit button in iOS. |
+| Link | URL link to refer to when pressed. Only applies when the type of the button is "Open URL". |
+| Hint | Description of the button. |
+
+#### 2. Media
+
+| Name | Description |
+|---|---|
+| Source | Source of the media: Remote or Local |
+| Address | URL or URI of the media. |
+| Type | Three types of media: Image, GIF, Video, and Audio. (Only Image type is available for Android) |
+| Extension | File extension of the media file. ex)png, avi, mp4 |
+| Expand | Unfolds the image media, Only avaiable on Android. |
+
+#### 3. Large Icon
+
+Only supported by Android
+
+| Name | Description |
+|---|---|
+| Source  | Source of the icon image: Remote or Local |
+| Address | URL or URI of the icon image. |
+
+#### 4. Group
+
+Only supported by Android
+
+| Name | Description |
+|---|---|
+| Key | Group key |
+| Description | Group Description |
+
+## Scheduled Delivery 
+
+You can send push notificaition at the scheduled time. Go Console and click **Notification > Push > Reservation** to do so.
+
+The following is the format for scheduled delivery:
 
 | Name                                                    | Description                                                  |
 | ------------------------------------------------------- | ------------------------------------------------------------ |
-| Schedule Type <br /> | EVERY_DAY: Send messages at a specific time, on a daily basis between StartDate and EndDate.<br />EVERY_WEEK: Send messages on a specific day as set in the Reservation Condition, on a weekly basis.<br />EVERY_MONTH: Send messages on a specific date as set in the Reservation Condition, on a monthly basis. |
+| Schedule Type | EVERY_DAY: Send messages at a specific time, on a daily basis between StartDate and EndDate.<br />EVERY_WEEK: Send messages on a specific day as set in the Reservation Condition, on a weekly basis.<br />EVERY_MONTH: Send messages on a specific date as set in the Reservation Condition, on a monthly basis. |
 | Day of Week                                | You may choose a day of the week.                            |
 | Day of Month                                            | You can enter date (month), using comma (',') as delimiter.  |
-| Delivery Time                                   | You can enter time to deliver messages, in the format of 'HH:mm'. |
-| Start Date                                              | You can enter a date to start delivering messages in the format of 'YYYY-MM-DD'. You may use the calendar. |
-| End Date                                                | You can enter the last date to deliver messages in the format of 'YYYY-MM-DD'. You may use the calendar. |
-| Local Time                                              | When it is set 'true', the messages are delivered on the local time basis. |
+| Delivery Time                                   | You can enter the time for messages to be delivered in format of 'HH:mm'. |
+| Start Date                                              | You can enter a date to start delivering messages in format of 'YYYY-MM-DD'. You can enter the date with calendar. |
+| End Date                                                | You can enter the last date to deliver messages in format of 'YYYY-MM-DD'. You can enter the date with calendar. |
+| Local Time                                              | When it is set 'true', the messages are delivered based on the local time. |
 
-## Manage Tokens
+## API
 
-Go to **Console > Notification > Push** > and click **Token**, and click **ADD** or **DELETE** to add or delete tokens.  
+You can use API calls in the console besides, curl or Postman app.
+Go to **Console > Notification > Push** > and click **API** tab.
+
+### Check Token
+
+Choose push types and you can look up or delete a token. 
+Deleting a token is not supported in Public API for now, and is only available in **API** and **Token** tabs.
+
+### Public APIs 
+
+These are API calls provided in public API.
+You can add tokens, send messages, and get feedbacks through API calls.
+You can choose which API version to use.
+For further detail, please refer to [API Guide](./api-guide/).
+
+
+## Tokens
+
+You can map the tokens on specific UIDs.
+You can search by UIDs or tokens.
+
+Go to **Console > Notification > Push** > and click **Token** tab.
+
+### Add Token
+
+![push_11_201812_en](https://static.toastoven.net/prod_push/12-10/push_11_201812_en.png)
+
+1. Click **Add**.
+2. Enter 'UID' and 'Token' on the **Add Token** modal.
+3. Complete the rest of the form and click **Ok**.
 
 ### Search Tokens
 
-- Select 'TOKEN' for Search Type and choose an appropriate push type to search tokens.
+Select **TOKEN** for **Search Type** and choose an appropriate push type to search tokens.
+
+![push_12_201812_en](https://static.toastoven.net/prod_push/12-10/push_12_201812_en.png)
+
+- Click on **Details** button to see detailed information of the token.
 
 ### Search UIDs
 
-- Select 'UID' for Search Type to search UIDs.
-- Only a partial match can show on the search result.
+Select **UID** for **Search Type** to search UIDs.
+
+![push_13_201812_en](https://static.toastoven.net/prod_push/12-10/push_13_201812_en.png)
+
+- Partial match will show up on the search result too.
+- Click on **Details** button to see detailed information of the token.
 
 ## Manage Tags
 
-Go to **Console > Notification > Push** > and click **Tag**, and click **ADD** or **DELETE** to add or delete tags.  
+Go to **Console > Notification > Push** > and click **Tag** tab.
 
-### Manage UIDs with Tags Attached
-- Click Tag to check the list of UIDs with the tag attached.
-- Click **ADD**or **DELETE** to add or delete UIDs.  
+### Add Tag
+
+![push_15_201812_en](https://static.toastoven.net/prod_push/12-10/push_15_201812_en.png)
+
+1. Click **Add** and enter the name of the tag on **Add Tags** modal.
+2. Click **Ok** to add the token.
+
+### Manage UIDs attached on Tags
+ Click on the tag to check the list of UIDs attached to it.
+
+![push_16_201812_en](https://static.toastoven.net/prod_push/12-10/push_16_201812_en.png)
+
+To add UIDs on to the tag:
+1. Click **Add**.
+2. Type in the UIDs with new line as a delimiter.  
+
 - Up to 1,000 UIDs can be added.
 
+## Statistics
+
+You can visualize push notification data collected within 30 days.
+Go to **Consoel > Notification > Push** and click **Statistics** tab.
+
+![push_21_201812_en](https://static.toastoven.net/prod_push/12-10/push_21_201812_en.png)
+
+- You can set date range.
+    - You can manually set the date with a minimun range of one minute and maximum of 30 days.
+- You can change the type of graph
+    - Default will show you the graph with appropriate horizontal-axis.
+
 ## Token Setting
-Go to **Console > Notification > Push** > and click **Setting** to set Token Expiration Period and App Type.  
 
-### Token Expiration Period
-- Exclude tokens that are not requested to register during set period from the target of message delivery.
-- Default is 12 months.
-- Tokens of the users who do not use the app during the period are automatically excluded from the message delivery target, so as to save delivery costs.  
+You can configure Push service.
 
-### App Type
-- Manage tokens by the type of interfaced app.
-- Multiple Tokens
-    - The setting is default.
-    - User can use the app installed on many devices all at once, and one user can have many tokens.  
-    - For instance, if a user has a mobile phone and a tablet PC, he can have two tokens, and push messages are delivered to the two locations: mobile phone and tablet PC.
-- Single Token
-    - User can use app on one device only. One user can have only one token.
-    - For instance, if a user has a mobile phone and a tablet PC, he can have only one token, and push messages are delivered to one of the two.
+Go to **Console > Notification > Push** > and click **Setting** to set Token Expiration Period and App Type. 
 
-## Collect Message Receipt/Check Data
+### Position Setting of Ad Phrase
 
-Go to **Console > Notification > Push** and **Setting** to enable Collect Message Receipt/Check Data. To operate the enabled function, the SDK must be v1.4 or higher. Check collected data in **Statistics**.     
+- You can configure the position of the Ad phrase displayed on the advertisement push notification. 
+- Title
+    - Default 
+    - '(Ad)' will be prepended in the title along with contact information.
+- Body
+    - '(Ad)' phrase, contact information, and unsubscription method will be displayed in the body.
 
-### Query Statistics
-- Check collected data in **Statistics**.
-- You can retrieve data collected in the latest 30 days, and the period and time can be configured.
+### Token Setting
 
-## Log Message Delivery History
+- Token Expiration Period
+    - Exclude tokens that did not request registration during set period from the list of message delivery.
+    - Default is 12 months.
+    - Tokens of the users who do not use the app during the period are automatically excluded from the message delivery list, thus saving costs.  
+
+- App Type
+    - Manage tokens by the type of the app.
+    - Multiple Tokens
+        - Default
+        - User can use the app installed on many devices all at once, and a user can have multiple tokens.  
+        - For instance, if a user has a mobile phone and a tablet PC, he can have two tokens, and push messages are delivered to both of the devices.
+    - Single Token
+        - User can use app on one device only and a user can have only one token.
+        - For instance, if a user has a mobile phone and a tablet PC, he can have only one token, and push messages are delivered to one of the two.
+
+### Collect Message Receipt/Check Data
+
+To use this function, the SDK must be v1.4 or above. 
+Check collected data in **Statistics** tab.     
+
+### Log Message Delivery History
 - Send message delivery history to Log & Crash Search as specified.
+- **Appkey**: Enter Appkey from Log & Crash Search service.
+- **Log Source**: Enter a value to log along with history logging, as a separator from other logs.
+- **Log Level**: Record specific parts only from the delivery history:
+    - ALL: Log all history, including success/failure of delivery.
+    - INFO: Log delivery, and failed delivery of expired tokens only: do not log successful deliveries.
+    - ERROR: Log history of failed deliveries only.
+- You can view the logs in **Analytics > Log & Crash Search > Log Search**.
+- Delivered message will follow the pricing from [Log & Crash Search](https://toast.com/service/analytics/log_crash_search/#price)
 
-
-- Click **Console > Notification > Push > Setting**  to enable Logging.
-
-- Enter Appkey of Log & Crash Search used currently, for Appkey.
-
-- For Log Source, enter a value to log along with history logging, as a separator from other logs.
-
-- Enter specific parts only, of the delivery history:
-
-      ALL: Log all history, including success/failure of delivery.
-
-      INFO: Log delivery, and failed delivery of expired tokens only: do not log successful deliveries.
-
-      ERROR: Log history of failed deliveries only.
-
-### Log Type for Delivery History
-#### Body
+#### Log Type for Delivery History
+##### Body
 ```
 {
 	"tokens" : [{
@@ -282,7 +427,7 @@ Go to **Console > Notification > Push** and **Setting** to enable Collect Messag
     - message: Result message (shows only for abnormal responses)
 - payload: Messages actually delivered to GCM, APNS, or TENCENT (with different content for each push type)
 
-#### Fields
+##### Fields
 - Appkey: Push Appkey delivering messages
 - messageId: Message ID
 - pushType: Push types (GCM, APNS, APNS_SANDBOX, or TENCENT)
