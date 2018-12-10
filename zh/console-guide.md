@@ -78,14 +78,12 @@ To send push notification to iOS devices, you need APNS certificate generated fr
 ### Caution for APNS
 #### Differences between APNS (Production) and APNS_SANDBOX (Development)
 
-- Applications built with Production Provisioning Profile must use APNS (Production) while those built with Development Provisioning Profile must use APNS_SANDBOX (Development). Otherwise, push messages may not be properly received.  
-
+- Applications built with Production Provisioning Profile must use APNS (Production) while those built with Development Provisioning Profile must use APNS_SANDBOX (Development). Otherwise, push messages may not be properly received. 
 - In most failure cases of message delivery, the APNS certificate registered at TOAST Cloud Push has a different provisioning profile for application buildup.
    APNS(Production) = Production Provisioning Profile
-   APNS_SANDBOX(Development) = Development Provisioning Profile  
-
-- For more details, refer to the following:  
-  [APNS Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1)  
+   APNS_SANDBOX(Development) = Development Provisioning Profile 
+- For more details, refer to the following: 
+  [APNS Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1) 
   [App Distribution Quick Start](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppStoreDistributionTutorial/Introduction/Introduction.html#//apple_ref/doc/uid/TP40013839)
 
 #### Causes of Delivery Failure of APNS Messages
@@ -312,7 +310,9 @@ Select **UID** for **Search Type** to search UIDs.
 - Partial match will show up on the search result too.
 - Click on **Details** button to see detailed information of the token.
 
-## Manage Tags
+## Tags
+
+You can map multiple UIDs to tags. Tags are used globally in Notification service.
 
 Go to **Console > Notification > Push** > and click **Tag** tab.
 
@@ -331,8 +331,7 @@ Go to **Console > Notification > Push** > and click **Tag** tab.
 To add UIDs on to the tag:
 1. Click **Add**.
 2. Type in the UIDs with new line as a delimiter.  
-
-- Up to 1,000 UIDs can be added.
+	- Up to 1,000 UIDs can be added.
 
 ## Statistics
 
