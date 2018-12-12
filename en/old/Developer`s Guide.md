@@ -126,7 +126,7 @@ Content-Type: application/json;charset=UTF-8
 |---|---|---|
 |token|	Required, String|	토큰, 최대 255 글자|
 |oldToken|	Optional, String|	기존 토큰, 최대 255 글자 |
-|pushType|	Required, String|	GCN, APNS, APNS_SANDBOX, TENCENT|
+|pushType|	Required, String|	GCM, APNS, APNS_SANDBOX, TENCENT|
 |isNotificationAgreement|	Required, Boolean|	true or false|
 |isAdAgreement|	Required, Boolean|	true or false|
 |isNightAdAgreement| Required, Boolean|	true or false|

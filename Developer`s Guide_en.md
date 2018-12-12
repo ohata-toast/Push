@@ -269,7 +269,7 @@ API v1.3 Reference
 | token                   | Required, String  | Token. 255 bytes.                                                |
 | oldToken                | Optional, String  | Old Token. 255 bytes.                                            |
 | channel                 | Optional, String  | Channel name. 50 bytes.                                          |
-| pushType                | Required, String  | GCN, APNS, APNS\_SANDBOX, TENCENT                                |
+| pushType                | Required, String  | GCM, APNS, APNS\_SANDBOX, TENCENT                                |
 | isNotificationAgreement | Required, Boolean | true or false                                                    |
 | isAdAgreement           | Required, Boolean | true or false                                                    |
 | isNightAdAgreement      | Required, Boolean | true or false                                                    |

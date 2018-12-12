@@ -111,7 +111,7 @@ Content-Type: application/json;charset=UTF-8
 |token|	Required, String|	Token. 255 bytes.|
 |oldToken|	Optional, String|	Old Token. 255 bytes.|
 |channel|	Optional, String|	Channel name. 50 bytes.|
-|pushType|	Required, String|	GCN, APNS, APNS_SANDBOX, TENCENT, ADM|
+|pushType|	Required, String|	GCM, APNS, APNS_SANDBOX, TENCENT, ADM|
 |isNotificationAgreement|	Required, Boolean|	true or false|
 |isAdAgreement|	Required, Boolean|	true or false|
 |isNightAdAgreement|	Required, Boolean|	true or false|
