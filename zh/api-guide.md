@@ -200,7 +200,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.c
 ```
 
 #### 사용자 아이디로 토큰 조회
-- Secret Key가 필요한 API이며, 서버에서 호출되어야 한다.
+- Secret Key가 필요한 API이며, 서버에서 호출되어야 합니다.
 ##### Method, URL
 
 ```
@@ -448,7 +448,8 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
     "contact": "1588-1588",
     "removeGuide": "매뉴 > 설정",
     "timeToLiveMinute": 1,
-	"provisionedResourceId": "id"
+    "provisionedResourceId": "id",
+    "adWordPosition": "TITLE"
 }
 ```
 
@@ -481,8 +482,9 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 | messageType | Required, String | NOTIFICATION, AD |
 | contact | Optional, String | messageType이 AD이면 경우 필수, 숫자(0-9)와 하이픈(Hypen, -)만 가능합니다. |
 | removeGuide | Optional, String | messageType이 AD이면 경우 필수 |
-| timeToLiveMinute | Optional, Number | 단위는 분이다. 범위는 1에서 60까지다. 기본 값은 10 이다. |
+| timeToLiveMinute | Optional, Number | 단위는 분입니다. 범위는 1에서 60까지다. 기본 값은 10 입니다. |
 | provisionedResourceId | Optional, String | 할당 받은 전용 리소스(provisioned Resource) 아이디입니다. 사용 문의 support@cloud.toast.com |
+| adWordPosition | Optional, String | 'TITLE', 'BODY' 광고 표시 문구 위치. 기본 값은 'TITLE' 입니다. |
 
 ##### Description
 - "target.type"에 'UID'로 설정시 "target.to"에 최대 10,000 개까지 UID를 설정할 수 있습니다.
@@ -1053,7 +1055,7 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 | limit | Optional, Number | 한 번에 조회할 목록 크기, 기본 값과 최대 값은 1,000 |
 
 ##### Description
-- messageErrorType와 messageErrorCause는 다음과 같은 뜻을 의미한다.
+- messageErrorType와 messageErrorCause는 다음과 같은 뜻을 의미합니다.
     - CLIENT_ERROR: 클라이언트의 잘못된 요청
         - UNSUPPORTED_MESSAGE_TYPE: 지원하지 않는 메시지 타입
         - INVALID_MESSAGE: 비정상적인 메시지
