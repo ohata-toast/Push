@@ -2,12 +2,12 @@
 ### v2.2 API 소개
 
 #### 추가
-- '로그 조회' API가 추가되었다.
+- '로그 조회' API가 추가되었습니다.
 
 #### 수정
-- API 인증시 사용하는 값이 변경되었다.
-- API 인증시 Secret Key대신 User Access Key ID와 Secret Access Key를 사용해야 한다.
-- 자세한 설명은 아래 'API 보안 설정' 항목에서 확인할 수 있다.
+- API 인증시 사용하는 값이 변경되었습니다.
+- API 인증시 Secret Key대신 User Access Key ID와 Secret Access Key를 사용해야 합니다.
+- 자세한 설명은 아래 'API 보안 설정' 항목에서 확인할 수 있습니다.
 
 ### 기본 정보
 #### Endpoint
@@ -19,21 +19,21 @@ API Endpoint: https://api-push.cloud.toast.com
 - API 보안 설정은 User Access Key ID (TOAST 서비스 이용시, 사용자 인증을 위해 필요한 사용자 설정 키) 를 발급하는 기능입니다.
 - User Access Key ID 는 TOAST ID 에 1개만 발급 가능합니다. 보안을 위해 발급된 키는 안전한 장소에 보관해 주세요.
 - User Access Key ID 는 90일마다 변경하기를 권장합니다.
-- v2.2 API부터 Secret Key대신 User Access Key ID를 이용해 호출해야 한다.
+- v2.2 API부터 Secret Key대신 User Access Key ID를 이용해 호출해야 합니다.
 ```
 Header
 X-User-Access-Key-ID: [a-zA-Z0-9]{20}
 X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
-[회원정보] > [API 보안 설정] 에서 생성할 수 있다.
+[회원정보] > [API 보안 설정] 에서 생성할 수 있습니다.
 
 
 #### Response
 
 ##### Response HTTP Status Code
 200 OK.  
-모든 API 요청에 대해 200 OK로 응답한다.  
-자세한 응답 결과는 Response Body의 Header를 통해 알 수 있다.  
+모든 API 요청에 대해 200 OK로 응답합니다.  
+자세한 응답 결과는 Response Body의 Header를 통해 알 수 있습니다.  
 
 ##### Response Header
 
@@ -63,12 +63,12 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 | false | 40102 | Client Error. Unavailable key. |
 | false | 40401 | Client Error. Not found. |
 | false | 50001 ~ 50501 | Internal Error. Please report this. 'http://cloud.toast.com/support/faq'. |
-| false | 400 | Client Error. 태그 API에서 발생한 클라이언트 오류다  |
-| false | 500 | Internal Error. 태그 API에서 발생한 내부 오류다 |
+| false | 400 | Client Error. 태그 API에서 발생한 클라이언트 오류입니다  |
+| false | 500 | Internal Error. 태그 API에서 발생한 내부 오류입니다 |
 
 ## 토큰
 ### 생성
-- 클라이언트에서 조회 가능하다.
+- 클라이언트에서 조회 가능합니다.
 
 ##### Method, URL
 ```
@@ -133,19 +133,19 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.
 ##### Description
 
 - 토큰이 이미 등록되어 있는 경우에 다시 등록하면, 기존 정보를 업데이트 합니다.
-- 만약, 토큰이 변경된다면 oldToken에 기존 토큰을, token에 새로운 토큰을 설정하고 등록하면 새로운 토큰으로 업데이트된다.
-- "isNotificationAgreement"는 푸시 메시지 수신 동의 여부, "isAdAgreement"는 광고성 푸시 메시지 수신 여부, "isNightAdAgreement"는 야간 광고성 푸시 메시지 수신 여부를 나타낸다.
-- 예로, 모든 푸시 메시지 수신을 원할 경우, 필드 3개를 모두 true로 설정하면 된다. 푸시 메시지만 수신할 경우, "isNotificationAgreement"만 true로 설정하면 된다.
+- 만약, 토큰이 변경된다면 oldToken에 기존 토큰을, token에 새로운 토큰을 설정하고 등록하면 새로운 토큰으로 업데이트됩니다.
+- "isNotificationAgreement"는 푸시 메시지 수신 동의 여부, "isAdAgreement"는 광고성 푸시 메시지 수신 여부, "isNightAdAgreement"는 야간 광고성 푸시 메시지 수신 여부를 나타냅니다.
+- 예로, 모든 푸시 메시지 수신을 원할 경우, 필드 3개를 모두 true로 설정하면 됩니다. 푸시 메시지만 수신할 경우, "isNotificationAgreement"만 true로 설정하면 됩니다.
 - 수신 동의 여부는 정보통신망법 규정(제50조부터 제50조의 8)을 따른다.  
     - [KISA 가이드 바로 가기](https://spam.kisa.or.kr/spam/sub62.do)    
     - [법령 바로 가기](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
-- 네트워크 상태가 좋지 않거나 여러 이유로 응답 지연이 발생할 수 있다. 모바일 애플리케이션 구동에 영향을 최소화하기 위해 Timeout을 짧게 설정하고, 구동될 때마다 토큰을 등록하는 것이 좋다.
-- 토큰은 보안적인 이슈, 앱 업데이트, 삭제 등 여러가지 이유로 재발급될 수 있다. 자주 변경되는 것은 아니지만, 수신율을 높이기 위해 구동될 때 마다 최신 토큰을 등록하는 것이 좋다.
-- 앱 삭제 등으로 토큰이 만료되어도 바로 GCM, APNS 서버에 적용되지 않아, 앱 삭제 후 푸시 메시지를 발송했을 때 발송이 성공할 수 있다.
+- 네트워크 상태가 좋지 않거나 여러 이유로 응답 지연이 발생할 수 있습니다. 모바일 애플리케이션 구동에 영향을 최소화하기 위해 Timeout을 짧게 설정하고, 구동될 때마다 토큰을 등록하는 것이 좋습니다.
+- 토큰은 보안적인 이슈, 앱 업데이트, 삭제 등 여러가지 이유로 재발급될 수 있습니다. 자주 변경되는 것은 아니지만, 수신율을 높이기 위해 구동될 때 마다 최신 토큰을 등록하는 것이 좋습니다.
+- 앱 삭제 등으로 토큰이 만료되어도 바로 GCM, APNS 서버에 적용되지 않아, 앱 삭제 후 푸시 메시지를 발송했을 때 발송이 성공할 수 있습니다.
 
 ### 조회
 #### 토큰으로 토큰 조회
-- 클라이언트에서 조회 가능하다.
+- 클라이언트에서 조회 가능합니다.
 ##### Method, URL
 
 ```
@@ -479,23 +479,23 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 | content.default.title | Optional, String |  |
 | content.default.body | Optional, String |  |
 | messageType | Required, String | NOTIFICATION, AD |
-| contact | Optional, String | messageType이 AD이면 경우 필수, 숫자(0-9)와 하이픈(Hypen, -)만 가능하다. |
+| contact | Optional, String | messageType이 AD이면 경우 필수, 숫자(0-9)와 하이픈(Hypen, -)만 가능합니다. |
 | removeGuide | Optional, String | messageType이 AD이면 경우 필수 |
 | timeToLiveMinute | Optional, Number | 단위는 분이다. 범위는 1에서 60까지다. 기본 값은 10 이다. |
-| provisionedResourceId | Optional, String | 할당 받은 전용 리소스(provisioned Resource) 아이디다. 사용 문의 support@cloud.toast.com |
+| provisionedResourceId | Optional, String | 할당 받은 전용 리소스(provisioned Resource) 아이디입니다. 사용 문의 support@cloud.toast.com |
 
 ##### Description
-- "target.type"에 'UID'로 설정시 "target.to"에 최대 10,000 개까지 UID를 설정할 수 있다.
-- "target.type"에 'TAG'로 설정시 "target.to"에 태그 아이디와 3개의 조건과 1개의 괄호('()')를 넣은 조건을 설정할 수 있다.
+- "target.type"에 'UID'로 설정시 "target.to"에 최대 10,000 개까지 UID를 설정할 수 있습니다.
+- "target.type"에 'TAG'로 설정시 "target.to"에 태그 아이디와 3개의 조건과 1개의 괄호('()')를 넣은 조건을 설정할 수 있습니다.
     - 예, 남자, 30대 태그가 붙었거나 여자 태그가 붙은 대상에게 메시지를 발송한다면,    
-    "target.to=(,남자_ID,AND,30대_ID,),OR,여자_ID"로 설정할 수 있다.
-- "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있다.
-만약, 정의하지 않으면 모든 푸시 타입, GCM, APNS, APNS_SANDBOX, TENCENT, ADM로 발송한다.
-- "target.countries" 필드가 "['KR', 'JP']"면 토큰 국가 코드가 "KR" 또는 "JP"인 Token에 발송한다.
-- "content.default" 필드는 필수이며, "content" 필드에 대한 자세한 내용은 아래 [공통 메시지 포맷]을 참고 바란다.
-- 메시지를 광고 타입, "messageType": "AD", 으로 보낼 경우, "contact", "removeGuide" 필드를 반드시 포함해야 한다.
-"contact" 필드에 연락처를 입력해야 하며, "removeGuide" 필드에 수신 철회 방법에 대해 입력해야 한다.
-- timeToLiveMinute 필드를 설정하면, 설정한 시간 이상 발송이 지연되는 경우 자동으로 실패 처리된다.
+    "target.to=(,남자_ID,AND,30대_ID,),OR,여자_ID"로 설정할 수 있습니다.
+- "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있습니다.
+만약, 정의하지 않으면 모든 푸시 타입, GCM, APNS, APNS_SANDBOX, TENCENT, ADM로 발송합니다.
+- "target.countries" 필드가 "['KR', 'JP']"면 토큰 국가 코드가 "KR" 또는 "JP"인 Token에 발송합니다.
+- "content.default" 필드는 필수이며, "content" 필드에 대한 자세한 내용은 아래 [공통 메시지 포맷]을 참고 바랍니다.
+- 메시지를 광고 타입, "messageType": "AD", 으로 보낼 경우, "contact", "removeGuide" 필드를 반드시 포함해야 합니다.
+"contact" 필드에 연락처를 입력해야 하며, "removeGuide" 필드에 수신 철회 방법에 대해 입력해야 합니다.
+- timeToLiveMinute 필드를 설정하면, 설정한 시간 이상 발송이 지연되는 경우 자동으로 실패 처리됩니다.
 
 ##### Example
 ```
@@ -503,7 +503,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 ```
 
 ### 공통 메시지
-"content"에 아래 표대로 메시지를 작성하면, 각 푸시 타입에 맞게 메시지가 생성되어 발송된다.
+"content"에 아래 표대로 메시지를 작성하면, 각 푸시 타입에 맞게 메시지가 생성되어 발송됩니다.
 
 |Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT| ADM |
 |---|---|---|---|---|---|---|
@@ -525,8 +525,8 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 |messageDeliveryReceipt| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
 |messageDeliveryReceiptData| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
 
-Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정된다. 사용자가 임의로 데이터 타입과 위치 등을 변경할 수 없다.
-그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어간다.
+Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정됩니다. 사용자가 임의로 데이터 타입과 위치 등을 변경할 수 없습니다.
+그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어갑니다.
 
 |Word|	Platform|	Usage|	GCM|	APNS|	TENCENT| ADM|
 |---|---|---|---|---|---|---|
@@ -534,10 +534,10 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 
 ### 메시지 발송 예제
 
-- 메시지 발송 API의 요청 본문(Request Body)의 content.default은 필수다.
+- 메시지 발송 API의 요청 본문(Request Body)의 content.default은 필수입니다.
 
 #### 1. 전체에게 발송
-등록된 모든 대상에게 메시지를 발송하는 예제다.
+등록된 모든 대상에게 메시지를 발송하는 예제입니다.
 
 ##### Request Body
 ```json
@@ -555,10 +555,10 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 }
 ```
 ##### Description
-- target.type을 'ALL'로 설정하면, 모든 토큰에 메시지를 발송한다.
+- target.type을 'ALL'로 설정하면, 모든 토큰에 메시지를 발송합니다.
 
 #### 2. 특정 사용자에게 발송
-사용자 아이디를 입력해 특정 사용하에게 메시지를 발송하는 예제다.
+사용자 아이디를 입력해 특정 사용자에게 메시지를 발송하는 예제입니다.
 
 ##### Request Body
 ```json
@@ -577,10 +577,10 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 }
 ```
 ##### Description
-- target.type을 'UID'로 설정하고, target.to에 사용자 아이디를 설정해 특정 사용자에게 메시지를 발송한다.
+- target.type을 'UID'로 설정하고, target.to에 사용자 아이디를 설정해 특정 사용자에게 메시지를 발송합니다.
 
 #### 3. 일부 국가나 푸시 타입의 사용자들에게 발송
-특정 국가나 기기(Android, iOS, ...)를 사용하는 사용자들에게만 메시지를 발송하는 예제다.
+특정 국가나 기기(Android, iOS, ...)를 사용하는 사용자들에게만 메시지를 발송하는 예제입니다.
 
 ##### Request Body
 ```json
@@ -600,10 +600,10 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 }
 ```
 ##### Description
-- target.countries에 국가 코드, target.pushTypes에 푸시 타입을 설정해 조건에 만족하는 사용자에게 메시지를 발송한다.
+- target.countries에 국가 코드, target.pushTypes에 푸시 타입을 설정해 조건에 만족하는 사용자에게 메시지를 발송합니다.
 
 #### 4. 푸시 타입별 메시지 변환
-메시지를 보내게되면 푸시 타입별로 메시지가 변환되어 발송되는데, 변환되는 규칙을 설명한 예제다.
+메시지를 보내게되면 푸시 타입별로 메시지가 변환되어 발송되는데, 변환되는 규칙을 설명한 예제입니다.
 
 ##### Request Body
 ```json
@@ -670,14 +670,14 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 ```
 
 ##### Description
-- content에 입력한 메시지 내용은 각 푸시 타입에 맞게 변환되어 발송된다.
-- title, body와 같은 예약어들은 푸시 타입에 맞는 메시지로 변환시 지정된 위치에 설정되어 발송된다.
-그외 사용자가 정의한 필드들은 각 푸시 타입의 Custom Key 위치에 설정된다.
-- badge, consolidationKey와 같이 특정 푸시 타입에만 정의된 예약어는 다른 푸시 타입에서는 제외된다.
-예로, badge는 APNS(iOS) 메시지에만 설정되며, GCM, TENCENT, ADM에는 제외된다.
+- content에 입력한 메시지 내용은 각 푸시 타입에 맞게 변환되어 발송됩니다.
+- title, body와 같은 예약어들은 푸시 타입에 맞는 메시지로 변환시 지정된 위치에 설정되어 발송됩니다.
+그외 사용자가 정의한 필드들은 각 푸시 타입의 Custom Key 위치에 설정됩니다.
+- badge, consolidationKey와 같이 특정 푸시 타입에만 정의된 예약어는 다른 푸시 타입에서는 제외됩니다.
+예로, badge는 APNS(iOS) 메시지에만 설정되며, GCM, TENCENT, ADM에는 제외됩니다.
 
 #### 5. 광고성 메시지
-광고성 메시지로 발송하면 메시지 내용에 추가되는 광고 문구에대한 예제다.
+광고성 메시지로 발송하면 메시지 내용에 추가되는 광고 문구에대한 예제입니다.
 
 ##### Request Body
 ```json
@@ -738,12 +738,12 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 }
 ```
 ##### Description
-- 광고성 메시지를 발송하기 위해서는 messageType을 AD(광고)로 설정하고, contact와 removeGuide에 대표 번호와 수신 동의 철회 방법을 입력해야 된다.
-- 각 푸시 타입별로 메시지가 발송될때, title에 광고 표시 문구와 대표 번호가, body에 수신 동의 철회 방법이 추가되어 발송된다.
-- 광고성 메시지는 언어 코드가 한국어(ko, ko-)인 사용자들에게만 광고 문구가 추가된다. 위 예처럼 해외 사용자(일본어)들에게는 광고 문구가 추가되지 않는다.
+- 광고성 메시지를 발송하기 위해서는 messageType을 AD(광고)로 설정하고, contact와 removeGuide에 대표 번호와 수신 동의 철회 방법을 입력해야 됩니다.
+- 각 푸시 타입별로 메시지가 발송될때, title에 광고 표시 문구와 대표 번호가, body에 수신 동의 철회 방법이 추가되어 발송됩니다.
+- 광고성 메시지는 언어 코드가 한국어(ko, ko-)인 사용자들에게만 광고 문구가 추가됩니다. 위 예처럼 해외 사용자(일본어)들에게는 광고 문구가 추가되지 않습니다.
 
 #### 6. 다국어 메시지
-다양한 언어로 메시지를 발송하는 예제다.
+다양한 언어로 메시지를 발송하는 예제입니다.
 
 ##### Request Body
 ```json
@@ -812,16 +812,16 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 }
 ```
 ##### Description
-- content 하위에 각 언어 코드에 대한 메시지를 입력하면, 토큰의 언어 코드와 일치하거나 유사한 언어의 메시지로 변환되어 발송된다.
-토큰의 언어 코드와 매칭되는 언어 코드가 없다면, default의 내용이 발송된다. 언어 코드가 en(영어)인 사용자에게는 conent.default의 내용이 발송된다.
-- 토큰의 언어 코드와 완벽히 일치하지 않아도, 언어 코드의 유사도를 비교해 최대한 가까운 언어로 변환한다.
-요청 본문에 content.ko만 입력되어 있지만, 언어 코드가 ko-KR(한국어)인 사용자에게도 content.ko의 내용이 발송된다.
-- customKey는 content.ja에 정의되어 있지 않기 때문에, content.default의 값으로 발송된다. 공통적인 내용은 content.default에 입력할 수 있다.
+- content 하위에 각 언어 코드에 대한 메시지를 입력하면, 토큰의 언어 코드와 일치하거나 유사한 언어의 메시지로 변환되어 발송됩니다.
+토큰의 언어 코드와 매칭되는 언어 코드가 없다면, default의 내용이 발송됩니다. 언어 코드가 en(영어)인 사용자에게는 conent.default의 내용이 발송됩니다.
+- 토큰의 언어 코드와 완벽히 일치하지 않아도, 언어 코드의 유사도를 비교해 최대한 가까운 언어로 변환합니다.
+요청 본문에 content.ko만 입력되어 있지만, 언어 코드가 ko-KR(한국어)인 사용자에게도 content.ko의 내용이 발송됩니다.
+- customKey는 content.ja에 정의되어 있지 않기 때문에, content.default의 값으로 발송됩니다. 공통적인 내용은 content.default에 입력할 수 있습니다.
 
 #### 7. 리치 메시지
-메시지 발송시 'content'에 'richMessage' 필드를 정의하면 리치 메시지로 메시지를 발송할 수 있다.
-공통 메시지, 광고성 메시지, 다국어 메시지와 함께 사용할 수 있다.
-v1.7이상 SDK가 적용된 곳에서만 사용할 수 있다.
+메시지 발송시 'content'에 'richMessage' 필드를 정의하면 리치 메시지로 메시지를 발송할 수 있습니다.
+공통 메시지, 광고성 메시지, 다국어 메시지와 함께 사용할 수 있습니다.
+v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
 
 ##### Request Body
 ```json
@@ -958,20 +958,20 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 | provisionedResourceId | - | 메시지가 발송된 전용 리소스 아이디 |
 | totalCount | - | 필터링된 전체 메시지  수 |
 
-- "messageStatus" 필드는 메시지 상태를 나타낸다. 다음과 같은 상태가 있다.
-    - READY: 메시지 발송 요청이 등록된 상태다.
-    - PROCESSING: 메시지 생성이 끝나고, 대기 또는 발송 중이다.
-    - COMPLETE: 메시지 발송이 완료된 상태다.
-    - CANCEL_NO_TARGET: 메시지 발송 대상이 없어서 취소된 상태다. 다음과 같은 이유로 발송이 취소될 수 있다.  
+- "messageStatus" 필드는 메시지 상태를 나타냅니다. 다음과 같은 상태가 있습니다.
+    - READY: 메시지 발송 요청이 등록된 상태입니다.
+    - PROCESSING: 메시지 생성이 끝나고, 대기 또는 발송 중입니다.
+    - COMPLETE: 메시지 발송이 완료된 상태입니다.
+    - CANCEL_NO_TARGET: 메시지 발송 대상이 없어서 취소된 상태입니다. 다음과 같은 이유로 발송이 취소될 수 있습니다.  
  등록된 토큰이 없을 때  
  광고 푸시 메시지의 경우, 수신 동의한 사용자가 없을 때  
  야간 광고 푸시 메시지(21시 ~ 8시)의 경우, 야간 광고 수신 동의한 사용자가 없을 때  
  기존 등록된 토큰들이 삭제되어 토큰이 없을 때    
-    - CANCEL_INVALID_CERTIFICATE: 인증서가 잘못되어 취소된 상태다. 인증서 상태를 확인해야 한다.
-    - CANCEL_INVALID_MESSAGE: 메시지 형식이 맞지 않아 취소된 상태다.
-    - CANCEL_UNSUPPORTED_MESSAGE_TYPE: 메시지 형식이 맞지 않아 취소된 상태다.
-    - CANCEL_UNAUTHORIZED: 인증서 인증 과정에서 실패한 상태다. 인증서 상태를 확인해야 한다.
-    - CANCEL_UNKNOWN: 내부 오류가 발생한 상태다.
+    - CANCEL_INVALID_CERTIFICATE: 인증서가 잘못되어 취소된 상태입니다. 인증서 상태를 확인해야 합니다.
+    - CANCEL_INVALID_MESSAGE: 메시지 형식이 맞지 않아 취소된 상태입니다.
+    - CANCEL_UNSUPPORTED_MESSAGE_TYPE: 메시지 형식이 맞지 않아 취소된 상태입니다.
+    - CANCEL_UNAUTHORIZED: 인증서 인증 과정에서 실패한 상태입니다. 인증서 상태를 확인해야 합니다.
+    - CANCEL_UNKNOWN: 내부 오류가 발생한 상태입니다.
 
 #### 단건 조회
 ##### Method, URL, Headers
@@ -1030,8 +1030,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 
 #### 실패한 메시지 목록 조회
-발송에 실패한 메시지를 조회할 수 있다.
-단, 토큰이 존재하지 않는 경우(INVALID_TOKEN)는 발송 실패로 판단하지 않는다.
+발송에 실패한 메시지를 조회할 수 있습니다.
+단, 토큰이 존재하지 않는 경우(INVALID_TOKEN)는 발송 실패로 판단하지 않습니다.
 
 ##### Method, URL, Headers
 ```
@@ -1067,7 +1067,7 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
     - INTERNAL_ERROR: 푸시 내부에서 발생한 오류
         - EXPIRED_TIME_OUT: 발송 지연으로 인한 메시지 유효 시간 만료
         - AGENT_ERROR: Agent 내부 오류로 인한 발송 실패
-- Response Body에서 header.resultCode가 40010인 경우, 조회 기간(from, to)을 줄여서 조회해야 한다.
+- Response Body에서 header.resultCode가 40010인 경우, 조회 기간(from, to)을 줄여서 조회해야 합니다.
 
 ##### Request Body
 ```
@@ -1130,8 +1130,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 
 #### 메시지 수신, 확인 통계 조회
-메시지 수신, 확인 수집(Message Delivery Receipt) 기능을 화성화하고, v1.4 이상 SDK를 적용하면 발송한 메시지에 대해 수신, 확인 정보를 확인할 수 있다.
-수집된 정보를 통계 API로 조회할 수 있다. 기능은 [Console] > [Settings] 탭에서 활성화할 수 있다.
+메시지 수신, 확인 수집(Message Delivery Receipt) 기능을 화성화하고, v1.4 이상 SDK를 적용하면 발송한 메시지에 대해 수신, 확인 정보를 확인할 수 있습니다.
+수집된 정보를 통계 API로 조회할 수 있습니다. 기능은 [Console] > [Settings] 탭에서 활성화할 수 있습니다.
 
 ##### Method, URL, Headers
 ```
@@ -1148,7 +1148,7 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 | from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | event | Optional, String | 'SENT', 'SENT_FAILED', 'RECEIVED', 'OPENED' |
-| timeUnit | Optional, String | 'MINUTES', 'HOURS', 'DAYS'<br>값이 없다면 조회기간에 따라 임의로 통계가 제공된다.<br>조회기간이 1일 이상은 일 단위, 1시간에서 24시간 사이는 시간 단위, 1시간 이하는 분 단위로 표시된다. |
+| timeUnit | Optional, String | 'MINUTES', 'HOURS', 'DAYS'<br>값이 없다면 조회기간에 따라 임의로 통계가 제공됩니다.<br>조회기간이 1일 이상은 일 단위, 1시간에서 24시간 사이는 시간 단위, 1시간 이하는 분 단위로 표시됩니다. |
 | messageId | Optional, Number | 메시지 아이디 |
 
 ##### Request Body
@@ -1191,10 +1191,10 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 
 ### 로그 조회
 - 로그 조회 API는 Logging 기능을 활성화한 상태에서만 호출가능 하다.
-- Logging 기능은 [Console] > [Notification] > [Push] > [Setting] 탭에서 활성화 시킬 수 있다.
+- Logging 기능은 [Console] > [Notification] > [Push] > [Setting] 탭에서 활성화 시킬 수 있습니다.
 
 #### 일반 로그 조회
-- 최대 100개까지 조회 가능하다.
+- 최대 100개까지 조회 가능합니다.
 
 ##### Method, URL, Headers
 ```
@@ -1262,7 +1262,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 
 #### 대량 로그 카운트 조회
-- 검색 조건으로 검색된 로그의 수를 확인할 수 있다.
+- 검색 조건으로 검색된 로그의 수를 확인할 수 있습니다.
 
 ##### Method, URL, Headers
 ```
@@ -1297,8 +1297,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 
 #### 대량 로그 조회
-- 대량으로 로그를 조회하는 API다.
-- 응답시 application/stream+json로 응답한다.
+- 대량으로 로그를 조회하는 API입니다.
+- 응답시 application/stream+json로 응답합니다.
 
 ```
 GET /push/v2.2/appkeys/{appKey}/bulk-logs/message?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
@@ -1310,7 +1310,7 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 
 | Field | Usage | Description |
 | - | - | - |
-| sendResult | Optional, String | 발송 결과다. 'SENT', 'SENT_FAILED' |
+| sendResult | Optional, String | 발송 결과입니다. 'SENT', 'SENT_FAILED' |
 
 #### Request Body
 ```
@@ -1390,8 +1390,8 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 | fromDate | Required, Date String | 예약 메시지 시작 년월일 (YYYY-MM-DD) |
 | toDate | Required, Date String | 예약 메시지 종료 년월일 (YYYY-MM-DD) |
 | times | Required, Time String | 예약 메시지 발송 시분 (hh:mm) |
-| days | Optional, Number Array | type이 'EVERY_MONTH'일 때 설정한다. (1, 2, ..., 31: 1일, 2일, ..., 31일) |
-| daysOfWeek | Optional, String Array | type이 'EVERY_WEEK'일 때 설정한다. ('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY') |
+| days | Optional, Number Array | type이 'EVERY_MONTH'일 때 설정합니다. (1, 2, ..., 31: 1일, 2일, ..., 31일) |
+| daysOfWeek | Optional, String Array | type이 'EVERY_WEEK'일 때 설정합니다. ('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY') |
 
 ##### Response Body
 ```json
@@ -1864,7 +1864,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 ```
 
 #### 태그에 Uid 추가 생성
-- 태그에 Uid를 추가(Append)하는 것으로, 기존에 있던 Uid를 추가하면 Uid의 태그는 늘어난다.
+- 태그에 Uid를 추가(Append)하는 것으로, 기존에 있던 Uid를 추가하면 Uid의 태그는 늘어납니다.
 - 한 Uid의 최대 태그 수는 16개다.
 ##### Method, URL, Headers
 ```
@@ -1903,7 +1903,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 ```
 
 #### Uid에 태그 목록 설정
-- Uid의 태그를 교체(Replace)하는 것으로, 기존에 설정된 태그는 삭제되고 새로운 태그로 설정된다.
+- Uid의 태그를 교체(Replace)하는 것으로, 기존에 설정된 태그는 삭제되고 새로운 태그로 설정됩니다.
 ##### Method, URL, Headers
 ```
 POST /push/v2.2/appkeys/{appkey}/uids
@@ -2022,7 +2022,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 
 #### 태그의 Uid 목록 조회
-- 태그가 달린 Uid 목록을 조회한다.
+- 태그가 달린 Uid 목록을 조회합니다.
 
 ##### Method, URL, Headers
 ```
@@ -2086,8 +2086,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 
 #### Uid 조회
-- Uid를 조회한다.
-- 토큰 등록시 Contact(연락처)가 등록된다.
+- Uid를 조회합니다.
+- 토큰 등록시 Contact(연락처)가 등록됩니다.
 ##### Method, URL, Headers
 ```
 GET /push/v2.2/appkeys/{appkey}/uids/{uid}
@@ -2197,7 +2197,7 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Acce
 ```
 
 #### Uid 삭제
-- Uid 삭제시 Contact, Token도 같이 삭제된다.
+- Uid 삭제시 Contact, Token도 같이 삭제됩니다.
 ##### Method, URL, Headers
 ```
 DELETE /push/v2.2/appkeys/{appkey}/uids?uids={uid,}
@@ -2208,7 +2208,7 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 
 | Field | Usage | Description |
 | - | - | - |
-| uids | -, Object Array | 삭제할 Uid 목록, 쉼표(,)로 구분한다. 한번에 16개까지 삭제할 수 있다. |
+| uids | -, Object Array | 삭제할 Uid 목록, 쉼표(,)로 구분합니다. 한번에 16개까지 삭제할 수 있습니다. |
 
 ##### Request Body
 ```
@@ -2232,8 +2232,8 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Acce
 ```
 
 #### 태그의 Uid 삭제
-- Tag와 Uid 관계만 삭제한다.
-- Contact, Token이 삭제되지는 않는다.
+- Tag와 Uid 관계만 삭제합니다.
+- Contact, Token이 삭제되지는 않습니다.
 ##### Method, URL, Headers
 ```
 DELETE /push/v2.2/appkeys/{appkey}/tags/{tagId}/uids?uids={uid,}
@@ -2267,8 +2267,8 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Acce
 ### 생성
 
 #### 태그 추가
-- Uid에 태그 아이디로 태그를 추가한다.
-- Secret Key가 필요없다. 앱에서 호출 가능하다.
+- Uid에 태그 아이디로 태그를 추가합니다.
+- Secret Key가 필요없다. 앱에서 호출 가능합니다.
 ##### Method, URL, Headers
 ```
 POST /push/v2.2/appkeys/{appkey}/uids/{uid}/tag-ids
@@ -2299,8 +2299,8 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.
 ### 조회
 
 #### Uid의 태그 아이디 조회
-- Uid의 태그 아이디를 조회한다.
-- Secret Key가 필요없다. 앱에서 호출 가능하다.
+- Uid의 태그 아이디를 조회합니다.
+- Secret Key가 필요없다. 앱에서 호출 가능합니다.
 ##### Method, URL, Headers
 ```
 GET /push/v2.2/appkeys/{appkey}/uids/{uid}/tag-ids
@@ -2329,8 +2329,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.c
 
 ### 수정
 #### Uid의 태그 수정
-- Uid에 태그 아이디로 태그를 수정한다.
-- Secret Key가 필요없다. 앱에서 호출 가능하다.
+- Uid에 태그 아이디로 태그를 수정합니다.
+- Secret Key가 필요없다. 앱에서 호출 가능합니다.
 ##### Method, URL, Headers
 ```
 PUT /push/v2.2/appkeys/{appkey}/uids/{uid}/tag-ids
@@ -2359,8 +2359,8 @@ curl -X PUT -H "Content-Type: application/json;charset=UTF-8" https://api-push.c
 ```
 
 ### 태그 삭제
-- Uid의 태그 아이디를 조회한다.
-- Secret Key가 필요없다. 앱에서 호출 가능하다.
+- Uid의 태그 아이디를 조회합니다.
+- Secret Key가 필요없다. 앱에서 호출 가능합니다.
 ##### Method, URL, Headers
 ```
 DELETE /push/v2.2/appkeys/{appkey}/uids/{uid}/tag-ids?tagIds={tagId,}
