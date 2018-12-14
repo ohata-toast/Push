@@ -402,6 +402,9 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 			},
 			"timezoneIds": {
 				"Asia/Seoul": 260
+			},
+			"agreements": {
+				"ON": 260
 			}
 		}, {
 			"dateTime" : "2016-07-11 17:51:00.00+9:00",
@@ -417,6 +420,9 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 			},
 			"timezoneIds": {
 				"Asia/Seoul": 260
+			},
+			"agreements": {
+				"ON": 260
 			}
 		}
 	],
