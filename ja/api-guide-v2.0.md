@@ -391,7 +391,7 @@ N/A
 ##### Response Body
 ```json
 {
-	"tokenPropertyStatistics" : [{
+	"tokenPropertiesStatistics" : [{
 			"dateTime" : "2016-07-11 17:50:00.00+9:00",
 			"countries" : {
 				"KR" : 100,
