@@ -387,7 +387,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### Response Body
 ```json
 {
-	"tokenPropertyStatistics" : [{
+	"tokenPropertiesStatistics" : [{
 			"dateTime" : "2016-07-11 17:50:00.00+9:00",
 			"countries" : {
 				"KR" : 100,
@@ -464,12 +464,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 {
 	"tokenRegistrationStatistics" : [{
 			"dateTime" : "2016-07-11 17:50:00.00+9:00",
-			"registeredToken" : 90,
-			"deletedToken" : 20
+			"registered" : 90,
+			"deleted" : 20
 		}, {
 			"dateTime" : "2016-07-11 17:51:00.00+9:00",
-			"registeredToken" : 45,
-			"deletedToken" : 10
+			"registered" : 45,
+			"deleted" : 10
 		}
 	],
 	"header" : {
@@ -483,8 +483,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | dateTime | String | 데이터가 수집된 일시 |
-| registeredToken | Number | 등록된 토큰 수 |
-| deletedToken | Number | 삭제된 토큰 수 |
+| registered | Number | 등록된 토큰 수 |
+| deleted | Number | 삭제된 토큰 수 |
 
 ##### Example
 ```
@@ -626,7 +626,7 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 - target.type을 'ALL'로 설정하면, 모든 토큰에 메시지를 발송한다.
 
 #### 2. 특정 사용자에게 발송
-사용자 아이디를 입력해 특정 사용하에게 메시지를 발송하는 예제다.
+사용자 아이디를 입력해 특정 사용자에게 메시지를 발송하는 예제다.
 
 ##### Request Body
 ```json

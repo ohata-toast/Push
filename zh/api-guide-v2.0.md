@@ -391,7 +391,7 @@ N/A
 ##### Response Body
 ```json
 {
-	"tokenPropertyStatistics" : [{
+	"tokenPropertiesStatistics" : [{
 			"dateTime" : "2016-07-11 17:50:00.00+9:00",
 			"countries" : {
 				"KR" : 100,
@@ -405,6 +405,9 @@ N/A
 			},
 			"timezoneIds": {
 				"Asia/Seoul": 260
+			},
+			"agreements": {
+				"ON": 260
 			}
 		}, {
 			"dateTime" : "2016-07-11 17:51:00.00+9:00",
@@ -420,6 +423,9 @@ N/A
 			},
 			"timezoneIds": {
 				"Asia/Seoul": 260
+			},
+			"agreements": {
+				"ON": 260
 			}
 		}
 	],
@@ -468,12 +474,12 @@ N/A
 {
 	"tokenRegistrationStatistics" : [{
 			"dateTime" : "2016-07-11 17:50:00.00+9:00",
-			"registeredToken" : 90,
-			"deletedToken" : 20
+			"registered" : 90,
+			"deleted" : 20
 		}, {
 			"dateTime" : "2016-07-11 17:51:00.00+9:00",
-			"registeredToken" : 45,
-			"deletedToken" : 10
+			"registered" : 45,
+			"deleted" : 10
 		}
 	],
 	"header" : {
@@ -487,8 +493,8 @@ N/A
 | Field           | Usage  | Description                      |
 | --------------- | ------ | -------------------------------- |
 | dateTime        | String | Date and time of data collection |
-| registeredToken | Number | Number of registered tokens      |
-| deletedToken    | Number | Number of deleted tokens         |
+| registered | Number | Number of registered tokens      |
+| deleted    | Number | Number of deleted tokens         |
 
 ##### Example
 ```

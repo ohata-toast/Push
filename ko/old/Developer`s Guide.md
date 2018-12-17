@@ -126,7 +126,7 @@ Content-Type: application/json;charset=UTF-8
 |---|---|---|
 |token|	Required, String|	토큰, 최대 255 글자|
 |oldToken|	Optional, String|	기존 토큰, 최대 255 글자 |
-|pushType|	Required, String|	GCN, APNS, APNS_SANDBOX, TENCENT|
+|pushType|	Required, String|	GCM, APNS, APNS_SANDBOX, TENCENT|
 |isNotificationAgreement|	Required, Boolean|	true or false|
 |isAdAgreement|	Required, Boolean|	true or false|
 |isNightAdAgreement| Required, Boolean|	true or false|
@@ -312,7 +312,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### Response Body
 ```json
 {
-	"tokenPropertyStatistics" : [{
+	"tokenPropertiesStatistics" : [{
 			"dateTime" : "2016-07-11 17:50:00.00+9:00",
 			"countries" : {
 				"KR" : 100,
@@ -384,12 +384,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 {
 	"tokenRegistrationStatistics" : [{
 			"dateTime" : "2016-07-11 17:50:00.00+9:00",
-			"registeredToken" : 90,
-			"deletedToken" : 20
+			"registered" : 90,
+			"deleted" : 20
 		}, {
 			"dateTime" : "2016-07-11 17:51:00.00+9:00",
-			"registeredToken" : 45,
-			"deletedToken" : 10
+			"registered" : 45,
+			"deleted" : 10
 		}
 	],
 	"header" : {
@@ -403,8 +403,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | dateTime | String | 데이터가 수집된 일시 |
-| registeredToken | Number | 등록된 토큰 수 |
-| deletedToken | Number | 삭제된 토큰 수 |
+| registered | Number | 등록된 토큰 수 |
+| deleted | Number | 삭제된 토큰 수 |
 
 ## 메시지
 ### 발송

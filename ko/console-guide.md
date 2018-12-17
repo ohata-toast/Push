@@ -1,8 +1,22 @@
 ## Notification > Push > Console Guide
 
+Push 서비스를 활용하려면 먼저 타사 푸시 알림 서비스 인증서를 등록해야합니다.
+
+지원하는 푸시 알림 서비스 인증서는 현재 다음과 같습니다:
+- GCM - Google Cloud Messaging (Firebase Cloud Messaging)
+- APNS - Apple Push Notification Service
+- XinGe - Tencent Mobile Push
+- ADM - Amazon Device Messaging
+
 ## 인증서 관리
 
-### Firebase 클라우드 메시징(FCM) API Key 가져오기
+인증서 관리를 하기 위하여 콘솔에서 **Notification > Push > 인증서**를 클릭합니다.
+
+### GCM API Key
+
+안드로이드 기기에 푸시 알림 메시지를 전송하기 위해서는 유효한 GCM 서비스의 API Key가 필요합니다.
+
+#### Firebase 클라우드 메시징(FCM) API Key 가져오기
 
 1. [Google Firebase Console](https://console.firebase.google.com)에 접속합니다.
 2. **Add Project**를 클릭합니다.
@@ -12,18 +26,19 @@
 6. **Settings** 페이지에서 **Cloud Messaging** 탭을 클릭합니다.
 7. **Server key**(API Key)와 **Sender ID**를 확인합니다.
 
-### FCM API Key 등록
+#### FCM API Key 등록
 
 1. TOAST 콘솔에서 **Notification > Push > 인증서**를 클릭합니다.
 2. 위에서 생성한 FCM API Key를 복사해서 **GCM API Key**에 붙여넣고 **등록** 버튼을 클릭합니다.
 
-### Google Project 사용 시 주의 사항
-- Google은 2019년 4월 11일에 [GCM 서비스를 종료](https://developers.google.com/cloud-messaging/faq)할 계획입니다.
+#### Google Project 사용 시 주의 사항
+- Google은 2019년 4월 11일에 [GCM 서비스를 종료](https://developers.google.com/cloud-messaging/faq)할 예정입니다.
 - Google Project(현재 Google Cloud Platform)에서 생성한 키를 GCM API Key로 사용하고 있는 경우, 사용이 불가능할 수도 있습니다.    
   만약 Google Project에서 생성한 키를 사용하지 못하게 되면, Google Project를 Firebase로 옮기고, Firebase에서 생성된 서버 키를 사용해야 합니다.
 
 GCM에서 FCM으로 옮기는 자세한 방법은 [Firebase Migration Guide](https://developers.google.com/cloud-messaging/android/android-migrate-fcm)를 참고하시기 바랍니다.
-#### Google Project에서 Firebase로 옮기기
+
+##### Google Project에서 Firebase로 옮기기
 
 1. [Google Firebase Console](https://console.firebase.google.com/)에 접속합니다.
 2. **CREATE NEW PROJECT**를 클릭합니다.
@@ -35,7 +50,11 @@ GCM에서 FCM으로 옮기는 자세한 방법은 [Firebase Migration Guide](htt
 8. Server key(API Key)와 Sender ID를 확인합니다.
 9. Firebase에서 확인한 Server key를 **인증서** 탭에 **GCM API Key**에 붙여 넣습니다.
 
-### APNS 인증서 생성, 가져오기
+### APNS 인증서
+
+iOS 기기에 푸시 알림 메시지를 전송하기 위해서는 Apple Developer 사이트에서 발급 받은 APNS 인증서가 필요합니다.
+
+#### APNS 인증서 생성, 가져오기
 
 1. Mac에서 **키체인**을 실행합니다.
 2. **체인 접근 > 인증서 지원 > 인증 기관**에서 **인증서 요청** 버튼을 클릭합니다.
@@ -50,15 +69,16 @@ GCM에서 FCM으로 옮기는 자세한 방법은 [Firebase Migration Guide](htt
 11. 저장 위치를 설정하고 **저장**을 클릭합니다(파일 형식: .p12).
 12. 보낸 항목을 보호하는 데 사용할 암호를 입력하면 APNS 인증서 생성이 완료됩니다.
 
-### APNS 인증서 등록
+#### APNS 인증서 등록
 
 1. 콘솔에서 **Notification > Push > 인증서**를 클릭합니다.
 2. **APNS 인증서** 아래 **인증서**에서 **파일 선택**을 클릭합니다.
 3. **비밀번호**에 인증서 비밀번호를 입력합니다.
 4. **등록**을 클릭합니다.
 
-### APNS 주의 사항
-#### APNS(Production), APNS_SANDBOX(Development) 차이
+#### APNS 주의 사항
+
+##### APNS(Production), APNS_SANDBOX(Development) 차이
 - Production Provisioning Profile로 빌드한 앱은 APNS(Production)를 이용해야 하며, Development Provisioning Profile로 빌드한 앱은 APNS_SANDBOX(Development)를 이용해야 합니다.
   이를 지키지 않으면, 푸시 메시지를 정상적으로 수신할 수 없습니다.
 - Push에 등록한 APNS 인증서와 앱을 빌드할 때 사용한 Provisioning Profile이 달라 메시지 발송에 실패한 경우가 대부분입니다.   
@@ -68,24 +88,28 @@ GCM에서 FCM으로 옮기는 자세한 방법은 [Firebase Migration Guide](htt
    [APNs Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1)  
    [App Distribution Quick Start](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppStoreDistributionTutorial/Introduction/Introduction.html#//apple_ref/doc/uid/TP40013839)
 
-#### APNS 메시지 발송 실패 원인
+##### APNS 메시지 발송 실패 원인
 - 인증서가 만료되었을 때  
 - 잘못된 인증서를 등록했을 때  
 - 앱에서 푸시 메시지 수신을 거부했을 때  
 - 디바이스가 인터넷에 연결되어 있지 않을 때
 
-### Tencent 회원 가입
+### Tencent 자격 증명
+
+Tencent의 푸시 알림 서비스 XinGe 를 사용하기 위해서는 Tencent에서 등록한 애플리케이션의 Access ID와 Secret Key가 필요합니다.
+
+#### Tencent 회원 가입
 
 1. [Tencent 푸시 서비스 홈페이지](http://xg.qq.com/)에 접속합니다.
 2. 페이지 오른쪽 상단에서 **登录**(로그인)을 클릭합니다.
 3. 팝업 오른쪽 하단에서 **注册新帐号**(회원 가입)을 클릭합니다.
 4. **Email Account** 항목에서 Email Account, Nickname, Password, Verification Code 등을 빠짐없이 입력하고 **Sign up now**를 클릭합니다.
 5. **Send verification code** 아래에 **select your country/region**을 클릭합니다.
-6. **region**에서 **South Korea 0082**를 선택하고, **Mobile Number**에 010AAAABBBB 형식으로 번호를 입력합니다.
+6. **Region**에서 **South Korea 0082**를 선택하고, **Mobile Number**에 010AAAABBBB 형식으로 번호를 입력합니다.
 7. 인증 코드를 입력하고 다음 단계로 넘어갑니다.
 8. 가입 시 입력한 Email에서 **Activation Email**을 확인하고, 활성화합니다.
 
-### Tencent 애플리케이션 등록
+#### Tencent 애플리케이션 등록
 
 1. 로그인 후, [Tencent 푸시 서비스 대시보드](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex)에 접속합니다.
 2. 페이지 오른쪽 상단에서 **接入推送应用**(애플리케이션 등록)을 클릭합니다.
@@ -94,7 +118,7 @@ GCM에서 FCM으로 옮기는 자세한 방법은 [Firebase Migration Guide](htt
 5. **应用平台**(애플리케이션 플랫폼)에서 안드로이드를 선택하고, 패키지 네임을 입력합니다.
 6. **接入应用**(애플리케이션 생성)을 클릭합니다.
 
-### Tencent ACCESS ID, SECRET KEY 등록
+#### Tencent ACCESS ID, SECRET KEY 등록
 
 1. 로그인한 후, [Tencent 푸시 서비스 대시보드](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex)에 접속합니다.
 2. **应用统计**(통계)를 클릭해서, 애플리케이션 대시보드에 접속합니다.
@@ -102,14 +126,18 @@ GCM에서 FCM으로 옮기는 자세한 방법은 [Firebase Migration Guide](htt
 4. TOAST로 돌아와 콘솔에서 **Notification > Push > 인증서**를 클릭합니다.
 5. 확인한 **Tencent Credential**에 ACCESS ID, SECRET KEY를 입력합니다.
 
-### ADM 애플리케이션 및 프로파일 등록(Client Id, Client Secret 획득)
+### ADM 자격 증명
+
+Kindle Fire 앱에 푸시 알림 메시지를 전송하기 위해서는 앱의 Client ID와 Client Secret이 필요합니다.
+
+#### ADM 애플리케이션 및 프로파일 등록(Client Id, Client Secret 획득)
 1. [ADM 개발자 콘솔](https://developer.amazon.com/home.html)에 접속합니다.
-2. 페이지 왼쪽 상단에서 **APP & SERVICES**를 클릭한 후, 하단에 **ADD a New App** 버튼을 클릭합니다.
+2. 페이지 왼쪽 상단에서 **APP & SERVICES**를 클릭한 후, 하단에 **Add a New App** 버튼을 클릭합니다.
 3. 앱이 생성되면 중간 탭에 있는 **Device Messaging**을 클릭하고 **Create a New Security Profile** 버튼을 클릭합니다.
 4. 프로필 생성 완료 후, 중간 탭에 있는 **Security Profiles**을 클릭하고 **View Security Profile** 버튼을 클릭합니다.
 5. **General** 탭에서 Client ID와 Client Secret 값을 확인할 수 있습니다.
 
-### ADM Kindle 설정 정보 등록(API key 획득)
+#### ADM Kindle 설정 정보 등록(API key 획득)
 1. **Security Profiles** 탭을 클릭한 후 중간에 있는 **Android/Kindle Setting** 탭을 클릭합니다.
 2. App Key Name, Package, MD5 Signature, SHA256 Signature 정보를 입력합니다.
 3. 아래와 같은 명령어로 MD5, SHA256 정보를 조회할 수 있습니다.
@@ -142,51 +170,66 @@ GCM에서 FCM으로 옮기는 자세한 방법은 [Firebase Migration Guide](htt
 - 등록 완료 후 **Show** 버튼을 클릭하면 API key 정보를 조회할 수 있습니다.
 
 
-## 즉시 전송
+## 메시지 전송
 
 인증서와 토큰을 정상적으로 등록한 후, 콘솔에서 **Notification > Push > 메시지**를 클릭하고 **추가** 버튼을 클릭합니다. 양식을 작성해 메시지를 즉시 전송할 수 있습니다.
 
 즉시 전송 양식 구성은 다음과 같습니다.
 
+### 대상
+
 | 이름                     | 내용                                       |
 | ---------------------- | ---------------------------------------- |
-| 대상                     | 수신 대상을 설정할 수 있습니다.                       |
 | 대상 유형                  | ALL, UID, TAG 중에서 하나를 선택할 수 있습니다.        |
-| 대상 > To                | UID를 입력할 수 있습니다. Target > Type에서 UID를 선택해 UID로 전환할 수 있습니다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있습니다. |
-| 대상 > UIDs              | 쉼표(',')를 구분자로 여러 개를 입력할 수 있습니다.          |
-| 대상 > 태그                | **선택** 버튼을 클릭해 태그를 선택할 수 있습니다.           |
-| 대상 > 선택된 태그            | 선택된 태그가 표시됩니다. 다시 클릭해 선택에서 제외할 수 있습니다.   |
-| 대상 > 국가 코드             | 국가 코드를 입력할 수 있습니다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있습니다. |
-| 대상 > 푸시 유형             | GCM, APNS, APNS Sandbox, Tencent 복수로 선택할 수 있습니다. |
-| 옵션 > TTL(Time To Live) | 메시지 발송 유효 시간입니다. 설정한 시간 동안 발송이 지연되는 경우, 자동으로 실패 처리됩니다. 단위는 분입니다. 0이면 발송 지연으로 실패 처리되지 않습니다. |
-| 메시지 > 편집기 유형           | SIMPLE, JSON 두 가지 유형이 있습니다. JSON을 선택하면 직접 메시지를 작성할 수 있습니다. |
-| 메시지 > 메시지 유형           | NOTIFICATION, AD 두 가지 유형이 있습니다. AD 경우, 광고성 푸시 메시지 수신에 동의한 사용자에게만 메시지가 발송됩니다. |
+| To                | UID를 입력할 수 있습니다. Target > Type에서 UID를 선택해 UID로 전환할 수 있습니다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있습니다. |
+| UIDs              | 쉼표(',')를 구분자로 여러 개를 입력할 수 있습니다.          |
+| 태그                | **선택** 버튼을 클릭해 태그를 선택할 수 있습니다.           |
+| 선택된 태그            | 선택된 태그가 표시됩니다. 다시 클릭해 선택에서 제외할 수 있습니다.   |
+| 국가 코드             | 국가 코드를 입력할 수 있습니다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있습니다. |
+| 푸시 유형             | GCM, APNS, APNS Sandbox, Tencent 복수로 선택할 수 있습니다. |
 
-## 리치 메시지 작성
+### 옵션
+
+| 이름                     | 내용                                       |
+| ---------------------- | ---------------------------------------- |
+| TTL(Time To Live) | 메시지 발송 유효 시간입니다. 설정한 시간 동안 발송이 지연되는 경우, 자동으로 실패 처리됩니다. 단위는 분입니다. 0이면 발송 지연으로 실패 처리되지 않습니다. |
+
+### 메시지
+
+| 이름                     | 내용                                       |
+| ---------------------- | ---------------------------------------- |
+| 편집기 유형           | SIMPLE, JSON 두 가지 유형이 있습니다. JSON을 선택하면 직접 메시지를 작성할 수 있습니다. |
+| 메시지 유형           | NOTIFICATION, AD 두 가지 유형이 있습니다. AD 경우, 광고성 푸시 메시지 수신에 동의한 사용자에게만 메시지가 발송됩니다. |
+
+### 리치 메시지 작성
 푸시 메시지에 버튼, 이미지 등을 넣어 다양한 형태로 푸시 메시지를 발송할 수 있습니다.
-v1.7이상 SDK가 적용된 곳에서만 사용할 수 있는 기능입니다.
+입력한 메시지가 Android와 iOS 스마트폰 어떻게 보이는지 미리 확인할 수 있습니다.
+v1.7 이상 SDK가 적용된 곳에서만 사용할 수 있는 기능입니다.
 
-### 버튼
+![push_04_201812](https://static.toastoven.net/prod_push/12-10/push_04_201812.png)
+
+#### 1. 버튼
+
 |이름|내용|
 |---|---|
-| 버튼 | 메시지에 버튼을 추가합니다. |
-| 버튼 > 이름 | 버튼의 이름 |
-| 버튼 > 전송 버튼 이름 | 버튼 유형이 응답 버튼이면 iOS에서 전송 버튼 이름을 설정할 수 있습니다. |
-| 버튼 > 타입 | 버튼의 유형, 응답(REPLY), 앱 열기(OPEN_APP), URL 열기(OPEN_URL), 닫기(DISMISS) |
-| 버튼 > 링크 | 버튼을 눌렀을때 이동하거나 실행할 링크입니다. 버튼 유형이 URL 열기이면 해당됩니다. |
-| 버튼 > 힌트 | 버튼에대한 설명이다. |
+| 이름 | 버튼의 이름 |
+| 유형 | 버튼의 유형, 응답(REPLY), 앱 열기(OPEN_APP), URL 열기(OPEN_URL), 닫기(DISMISS) |
+| 전송 버튼 이름 | 버튼 유형이 응답 버튼이면 iOS에서 전송 버튼 이름을 설정할 수 있습니다. |
+| 링크 | 버튼을 눌렀을때 이동하거나 실행할 링크입니다. 버튼 유형이 URL 열기이면 해당됩니다. |
+| 힌트 | 버튼에대한 설명입니다. |
 
-### 미디어
+#### 2. 미디어
 
 |이름|내용|
 |---|---|
 | 위치 | 미디어의 위치한 곳, 'REMOTE' 또는 'LOCAL' |
 | 주소 | 미디어가 위치한 주소, URL, URI 등이 될수 있습니다. |
-| 유형 | 이미지, GIF, 동영상, 소리를 선택할 수 있다. (Android는 이미지만 가능)
-| 확장자 | 미디어의 확장자 | .png, .avi 등 미디어의 확장자입니다.
+| 유형 | 이미지, GIF, 동영상, 소리를 선택할 수 있습니다. (Android는 이미지만 가능) |
+| 확장자 | 미디어의 확장자 | .png, .avi 등 미디어의 확장자입니다. |
 | 펼치기 | 미디어 펼짐 기능, Android에서만 가능합니다. |
 
-### 큰 아이콘
+#### 3. 큰 아이콘
+
 Android에서만 제공하는 기능입니다.
 
 |이름|내용|
@@ -194,7 +237,8 @@ Android에서만 제공하는 기능입니다.
 | 위치 | 위치한 곳, 'REMOTE' 또는 'LOCAL' |
 | 주소 | 이미지가 위치한 주소, URL, URI 등이 될수 있습니다. |
 
-### 그룹
+#### 4. 그룹
+
 Android에서만 제공하는 기능입니다.
 
 |이름|내용|
@@ -204,9 +248,9 @@ Android에서만 제공하는 기능입니다.
 
 ## 예약 전송
 
-콘솔에서 **Notification > Push > 예약**을 클릭합니다. **추가**, **수정**, **삭제** 버튼을 클릭해 예약 전송을 관리할 수 있습니다.
+Push의 예약 전송 기능을 사용하면 원하는 시간에 메시지를 전송할 수 있습니다. 메시지를 예약 전송 하려면 콘솔에서 **Notification > Push > 예약**을 클릭합니다.
 
-예약 전송 양식은 다음과 같이 구성돼 있습니다.
+예약 전송 양식은 다음과 같습니다.
 
 | 이름           | 내용                                       |
 | ------------ | ---------------------------------------- |
@@ -218,68 +262,130 @@ Android에서만 제공하는 기능입니다.
 | 종료일          | 메시지를 전송하는 마지막 날짜를 입력합니다. 달력에서 날짜를 선택할 수 있습니다. 형식은 'YYYY-MM-DD'입니다. |
 | 현지 시간        | true로 설정하면 현지 시간 기준으로 메시지를 전송합니다.        |
 
-## 토큰 관리
+## API
 
-콘솔에서 **Notification > Push > 토큰**을 클릭합니다. **추가**, **삭제** 버튼을 클릭해 토큰을 추가하거나 삭제할 수 있습니다.
+Curl, Postman 외 콘솔에서 API호출을 사용할 수 있습니다.
+콘솔에서 **Notification > Push > API**를 클릭합니다.
+
+### 토큰 조회
+
+푸시 유형을 선택 후 토큰을 입력해 조회 및 삭제가 가능합니다.
+토큰 삭제 기능은 현재 콘솔 API탭과 토큰 탭에서만 지원됩니다.
+
+### Public APIs
+
+Public API에서 제공되는 API 호출입니다.
+토큰 생성, 메시지 전송, 피드백 조회 API 호출이 제공됩니다.
+API 버전을 선택하여 버전별로 요청 할 수 있습니다.
+자세한 API 가이드는 [API 가이드](./api-guide/) 에서 확인하실 수 있습니다.
+
+## 토큰
+
+토큰을 특정 UID에 추가할 수 있습니다.
+UID, 토큰별로 검색할 수 있습니다.
+
+콘솔에서 **Notification > Push > 토큰**을 클릭합니다.
+
+### 토큰 추가
+
+![push_11_201812](https://static.toastoven.net/prod_push/12-10/push_11_201812.png)
+
+1. **추가** 버튼 클릭합니다.
+2. 추가 모달창에서 UID 와 토큰을 입력합니다.
+3. 푸시유형 및 나머지 옵션을 확인 후 **확인** 버튼을 눌러 토큰을 추가합니다.
 
 ### 토큰 검색
 
-- **검색 유형**을 **TOKEN**으로 선택하면 나타나는 목록에서 원하는 푸시 유형을 선택하고 토큰을 검색할 수 있습니다.
+**검색 유형**을 **TOKEN**으로 선택하면 나타나는 목록에서 원하는 푸시 유형을 선택하고 토큰을 검색할 수 있습니다.
+
+![push_12_201812](https://static.toastoven.net/prod_push/12-10/push_12_201812.png)
+
+- **Details** 버튼 클릭 시 상세 항목을 확인할 수 있습니다.
 
 ### UID 검색
 
-- **검색 유형**을 **UID**로 선택하고 UID를 검색할 수 있습니다.
+**검색 유형**을 **UID**로 선택하고 UID를 검색할 수 있습니다.
+
+![push_13_201812](https://static.toastoven.net/prod_push/12-10/push_13_201812.png)
+
 - 일부만 일치되더라도 검색 결과에 나타납니다.
+- **Details** 버튼 클릭 시 상세 항목을 확인할 수 있습니다.
 
-## 태그 관리
+## 태그
 
-콘솔에서 **Notification > Push > 태그**를 클릭하고 **추가**, **수정**, **삭제** 버튼을 클릭해 태그를 관리할 수 있습니다.
+여러 UID를 태그에 묶을 수 있습니다. 태그는 전체 Notification 서비스 전역으로 사용됩니다.
+
+콘솔에서 **Notification > Push > 태그**를 클릭합니다.
+
+### 태그 추가
+
+![push_15_201812](https://static.toastoven.net/prod_push/12-10/push_15_201812.png)
+
+1. **추가** 버튼 클릭 후 태그 이름을 입력합니다.
+2. **확인** 버튼을 눌러 태그를 추가 합니다.
 
 ### 태그가 붙은 UID 관리
-- 태그를 클릭하면, 태그가 붙은 UID 목록을 확인할 수 있습니다.
-- **추가**, **삭제** 버튼을 클릭해 UID를 추가하거나 삭제할 수 있습니다.
-- UID는 한 번에 1,000개까지 추가할 수 있습니다.
+태그를 클릭하면, 태그가 붙은 UID 목록을 확인할 수 있습니다.
 
-## 광고 표시 문구 위치 설정
-[Console] > [Notification] > [Push] > [Setting] 탭 클릭, 광고 표시 문구 위치를 설정할 수 있다.
+![push_16_201812](https://static.toastoven.net/prod_push/12-10/push_16_201812.png)
 
-- 광고성 메시지 발송 시 표시되는 광고 표시 문구 위치를 설정할 수 있다.
+1.  **추가** 버튼을 클릭합니다.
+2. UID를 입력 후 **확인** 버튼을 클릭합니다.
+	- UID는 한 번에 1,000개까지 추가할 수 있습니다.
+
+## 통계
+
+ 최근 30일 내 수집된 메시지 수신/확인 데이터를 조회할 수 있습니다.
+
+콘솔에서 **Notification > Push > 통계**를 클릭합니다.
+
+![push_21_201812](https://static.toastoven.net/prod_push/12-10/push_21_201812.png)
+
+1. 기간을 검색 조건으로 설정 할 수 있습니다.
+    - 간편 기간 설정 버튼 외 수동 설정 시 1분을 최소 기간, 30일을 최대 기간으로 설정할 수 있습니다.
+2. 유형으로 그래프가 표시되는 방식을 설정 할 수 있습니다.
+    - 기본은 설정된 기간에 따라 자동으로 최적화된 유형으로 그래프를 표시합니다.
+
+## 설정
+
+푸시 서비스를 설정할 수 있습니다.
+
+콘솔에서 **Notification > Push > 설정**을 클릭합니다.
+
+### 광고 표시 문구 위치 설정
+
+- 광고성 메시지 발송 시 표시되는 광고 표시 문구 위치를 설정할 수 있습니다.
 - 제목(title)
-    - 기본 설정이다.
-    - 제목에 '(광고)' 표시와 연락처가 표시된다.
-- 내용(body)
-    - 내용에 '(광고)', 연락처, 수신 동의 철회 방법이 표시된다.
-
-## 토큰 관리 설정 기능
-콘솔에서 **Notification > Push > 설정**을 클릭해 토큰 만료 기간과 앱 유형을 설정할 수 있습니다.
-
-### 토큰 만료 기간 설정
-- 설정한 기간 동안 등록 요청이 없는 토큰들을 메시지 발송 대상에서 제외합니다.
-- 기본값은 12개월입니다.
-- 설정한 기간 동안 앱을 사용하지 않는 사용자들의 토큰이 메시지 발송 대상에서 자동으로 제외되어 발송 요금을 절약할 수 있습니다.
-
-### 앱 유형 설정
-- 연동된 앱의 유형에 따라 토큰을 관리합니다.
-- 다중 토큰
     - 기본 설정입니다.
-    - 앱의 사용자가 여러 기기에 설치된 앱을 동시에 사용할 수 있는 앱이며, 한 사용자는 여러 개의 토큰을 가질 수 있습니다.
-    - 예를 들어 사용자가 휴대폰과 태블릿을 사용한다면, 두 개의 토큰을 가질 수 있고, 휴대폰과 태블릿, 두 곳으로 푸시 메시지를 발송합니다.
-- 단일 토큰
-    - 사용자가 한 번에 한 기기에서만 앱을 사용할 수 있습니다. 한 사용자는 하나의 토큰만 가질 수 있습니다.
-    - 예를 들어 사용자가 휴대폰과 태블릿을 사용한다면, 한 개의 토큰만 가질 수 있고, 둘 중 한 곳으로 푸시 메시지를 발송합니다.
+    - 제목에 '(광고)' 표시와 연락처가 표시됩니다.
+- 내용(body)
+    - 내용에 '(광고)', 연락처, 수신 동의 철회 방법이 표시됩니다.
 
-## 메시지 수신/확인 데이터 수집
+### 토큰 설정
 
-콘솔에서 **Notification > Push > 설정**을 클릭해 메시지 수신 및 확인 데이터 수집(Message Delivery Receipt) 기능을 활성화할 수 있습니다.
-활성화된 기능 동작을 위해 SDK v1.4 이상이 적용되어야 합니다.
-수집된 데이터는 **통계** 탭에서 확인할 수 있습니다.
+- 토큰 만료 기간 설정
+    - 설정한 기간 동안 등록 요청이 없는 토큰들을 메시지 발송 대상에서 제외합니다.
+    - 기본값은 12개월입니다.
+    - 설정한 기간 동안 앱을 사용하지 않는 사용자들의 토큰이 메시지 발송 대상에서 자동으로 제외되어 발송 요금을 절약할 수 있습니다.
 
-### 통계 조회
-- **통계** 탭에서 최근 30일 내 수집된 데이터를 조회할 수 있으며, 기간과 시간 단위를 설정할 수 있습니다.
+- 앱 유형 설정
+    - 연동된 앱의 유형에 따라 토큰을 관리합니다.
+    - 다중 토큰
+        - 기본 설정입니다.
+        - 앱의 사용자가 여러 기기에 설치된 앱을 동시에 사용할 수 있는 앱이며, 한 사용자는 여러 개의 토큰을 가질 수 있습니다.
+        - 예를 들어 사용자가 휴대폰과 태블릿을 사용한다면, 두 개의 토큰을 가질 수 있고, 휴대폰과 태블릿, 두 곳으로 푸시 메시지를 발송합니다.
+    - 단일 토큰
+        - 사용자가 한 번에 한 기기에서만 앱을 사용할 수 있습니다. 한 사용자는 하나의 토큰만 가질 수 있습니다.
+        - 예를 들어 사용자가 휴대폰과 태블릿을 사용한다면, 한 개의 토큰만 가질 수 있고, 둘 중 한 곳으로 푸시 메시지를 발송합니다.
 
-## 메시지 발송 내역 저장
+### 메시지 수신/확인
+
+- 메시지 수신 및 확인 데이터 수집(Message Delivery Receipt) 기능을 활성화할 수 있습니다.
+- 활성화된 기능 동작을 위해 SDK v1.4 이상이 적용되어야 합니다.
+- 수집된 데이터는 **통계** 탭에서 확인할 수 있습니다.
+
+### 발송 내역 저장
 - 메시지 발송 내역을 지정한 Log & Crash Search에 전송하는 기능입니다.
-- 콘솔에서 **Notification > Push > 설정**을 클릭해 로깅 (logging) 기능을 활성화할 수 있습니다.
 - **Appkey**에는 사용하는 Log & Crash Search의 Appkey를 입력합니다.
 - **Log Source**는 내역 저장 시 같이 남길 값을 입력합니다. 다른 로그와 구분하는 값입니다.
 - **Log Level**은 발송 내역 중 특정 내역만 남길 수 있게 합니다.
@@ -289,8 +395,8 @@ Android에서만 제공하는 기능입니다.
 - 연동 후 메시지 발송 내역은 콘솔에서 **Analytics > Log & Crash Search > 로그 검색**에서 확인할 수 있습니다.
 - 전송되는 메시지 발송 내역은 [Log & Crash Search의 요금 정책](https://toast.com/service/analytics/log_crash_search/#price)을 따릅니다.
 
-### 발송 내역 로그 형식
-#### Body
+#### 발송 내역 로그 형식
+##### Body
 ```
 {
 	"tokens" : [{
@@ -322,7 +428,7 @@ Android에서만 제공하는 기능입니다.
     - message: 결과 메시지(비정상 응답일 때만 표시)
 - payload: 실제 GCM이나, APNS, TENCENT로 발송된 메시지 내용(푸시 타입에 따라 내용이 다름)
 
-#### Fields
+##### Fields
 - Appkey: 메시지를 발송한 푸시 앱키
 - messageId: 메시지 아이디
 - pushType: 푸시 타입(GCM, APNS, APNS_SANDBOX, TENCENT)
