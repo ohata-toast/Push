@@ -443,12 +443,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 {
 	"tokenRegistrationStatistics" : [{
 			"dateTime" : "2016-07-11 17:50:00.00+9:00",
-			"registeredToken" : 90,
-			"deletedToken" : 20
+			"registered" : 90,
+			"deleted" : 20
 		}, {
 			"dateTime" : "2016-07-11 17:51:00.00+9:00",
-			"registeredToken" : 45,
-			"deletedToken" : 10
+			"registered" : 45,
+			"deleted" : 10
 		}
 	],
 	"header" : {
@@ -462,8 +462,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | dateTime | String | 데이터가 수집된 일시 |
-| registeredToken | Number | 등록된 토큰 수 |
-| deletedToken | Number | 삭제된 토큰 수 |
+| registered | Number | 등록된 토큰 수 |
+| deleted | Number | 삭제된 토큰 수 |
 
 ##### Example
 ```
