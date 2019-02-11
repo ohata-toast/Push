@@ -904,11 +904,7 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
 ```
 {
     "target" : {
-        "type" : "UID",
-        "to" : [
-            "uid-1",
-            "uid-2"
-        ]
+        "type" : "ALL"
     },
     "content" : {
         "default" : {
@@ -950,6 +946,35 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
 | notification.icon | Android | Optiontal, String | notification.icon | 알림 아이콘입니다. |
 | notification.color | Android | Optiontal, String | notification.color | 알림 아이콘 색상입니다. |
 | notification.tag | Android | Optiontal, String | notification.tag | 동일한 태그인 메시지가 수신되면 기존 메시지를 대체합니다. |
+
+##### FCM(Android)에 수신되는 메시지
+```json
+{
+    "registration_ids" : [
+        "토큰"
+    ],
+    "notification" : {
+        "title" : "제목",
+        "body" : "내용",
+        "android_channel_id": "안드로이드 채널",
+        "sound" : "소리",
+        "click_action" : "메시지 클릭시 액션",
+        "title_loc_key" : "문자열 키",
+        "title_loc_args" : [
+            "문자열"
+        ],
+        "body_loc_key" : "문자열 키",
+        "body_loc_args" : [
+            "문자열"
+        ],
+        "icon" : "notification_off",
+        "color" : "#4286f4",
+        "tag" : "tag"
+    }
+}
+```
+
+
 
 ### 조회
 #### 목록 조회
