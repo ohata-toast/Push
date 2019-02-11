@@ -2457,6 +2457,4 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" https://api-pus
 ```
 
 * *문서 수정 내역*
-    * *(2018.08.28) v2.2 API 업데이트*
-    * *(2018.08.28) Logging API 추가*
-ㄴ
+    * *(2019.02.26) v2.3 API 업데이트, 토큰 삭제 API 추가, FCM notification 필드 설명 추가*
