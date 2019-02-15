@@ -37,7 +37,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 	"header" : {
 		"isSuccessful" : true,
 		"resultCode": 0,
-		"resultMessage" : "SUCCESS"
+		"resultMessage" : "success"
 	}
 }
 ```
@@ -86,7 +86,7 @@ Content-Type: application/json;charset=UTF-8
 |country|	Required, String|	ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 글자|
 |language|	Required, String|	ISO 639-1, ISO 639-2, iOS(language code + script code), 8 글자|
 |uid|	Required, String|	사용자 아이디, emoji 허용 안함, 최대 64 글자|
-|deviceId|	Optional, String|	디바이스 아이디, 36 글자|
+|deviceId|	Required, String|	디바이스 아이디, 최대 36 글자|
 
 
 ##### Response Body
@@ -96,14 +96,14 @@ Content-Type: application/json;charset=UTF-8
 	"header" : {
 		"isSuccessful" : true,
 		"resultCode": 0,
-		"resultMessage" : "SUCCESS"
+		"resultMessage" : "success"
 	}
 }
 ```
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tokens -d '{"oldToken":"oldToken","token":"token","isNotificationAgreement":true,"isAdAgreement":true,"isNightAdAgreement":true,"pushType":"FCM","timezoneId":"Asia/Seoul","uid":"uid","country":"KR","language":"ko"}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tokens -d '{"oldToken":"oldToken","token":"token","isNotificationAgreement":true,"isAdAgreement":true,"isNightAdAgreement":true,"pushType":"FCM","timezoneId":"Asia/Seoul","uid":"uid","country":"KR","language":"ko","deviceId": "deviceId"}'
 ```
 
 ##### Description
@@ -125,7 +125,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.
 ##### Method, URL
 
 ```
-GET /push/v2.3/appkeys/{appkey}/tokens/{token}
+GET /push/v2.3/appkeys/{appkey}/tokens/{token}?pushType={pushType}
 Content-Type: application/json;charset=UTF-8
 ```
 
@@ -138,27 +138,27 @@ Content-Type: application/json;charset=UTF-8
 
 ```
 {
-	"token" : {
-		"pushType" : "FCM",
-		"isNotificationAgreement": true,
-		"isAdAgreement": true,
-		"isNightAdAgreement": true,
-		"timezoneId" : "Asia/Seoul",
-		"country": "KR",
-		"language": "ko",
-		"uid" : "User ID",
-		"token" : "Token",
-    "updateDateTime": "2017-08-12T01:04:18.000+09:00",
-    "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
-    "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
-    "deviceId": "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
-    "activatedDateTime": "2017-08-12T01:04:19.000+09:00"
-	},
-	"header" : {
-		"isSuccessful" : true,
-		"resultCode": 0,
-		"resultMessage" : "SUCCESS"
-	}
+    "token" : {
+        "pushType" : "FCM",
+        "isNotificationAgreement" : true,
+        "isAdAgreement" : true,
+        "isNightAdAgreement" : true,
+        "timezoneId" : "Asia/Seoul",
+        "country" : "KR",
+        "language" : "ko",
+        "uid" : "User ID",
+        "token" : "Token",
+        "updateDateTime" : "2017-08-12T01:04:18.000+09:00",
+        "adAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
+        "nightAdAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
+        "deviceId" : "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
+        "activatedDateTime" : "2017-08-12T01:04:19.000+09:00"
+    },
+    "header" : {
+        "isSuccessful" : true,
+        "resultCode" : 0,
+        "resultMessage" : "success"
+    }
 }
 ```
 
@@ -172,7 +172,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tokens/token
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tokens/token?pushType={pushType}
 ```
 
 #### 사용자 아이디로 토큰 조회
@@ -206,12 +206,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"token" : "Token",
         "updateDateTime": "2017-08-12T01:04:18.000+09:00",
         "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
-        "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00"
+        "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+        "deviceId" : "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
+        "activatedDateTime" : "2017-08-12T01:04:19.000+09:00"
 	}],
 	"header" : {
 		"isSuccessful" : true,
 		"resultCode": 0,
-		"resultMessage" : "SUCCESS"
+		"resultMessage" : "success"
 	}
 }
 ```
@@ -247,7 +249,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 {
 	"header" : {
 		"resultCode" : 0,
-		"resultMessage" : "SUCCESS",
+		"resultMessage" : "success",
 		"isSuccessful" : true
 	},
 	"invalidTokens" : [{
@@ -331,7 +333,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 	"header" : {
 		"isSuccessful" : true,
 		"resultCode" : 0,
-		"resultMessage" : "SUCCESS"
+		"resultMessage" : "success"
 	}
 }
 ```
@@ -384,7 +386,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 	"header" : {
 		"isSuccessful" : true,
 		"resultCode" : 0,
-		"resultMessage" : "SUCCESS"
+		"resultMessage" : "success"
 	}
 }
 ```
@@ -472,7 +474,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" : true,
         "resultCode": 0,
-        "resultMessage" : "SUCCESS"
+        "resultMessage" : "success"
     }
 }
 ```
@@ -1005,7 +1007,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" : true,
         "resultCode": 0,
-        "resultMessage" : "SUCCESS"
+        "resultMessage" : "success"
     },
     "messages" : [{
         "messageId" : 0,
@@ -1108,7 +1110,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" : true,
         "resultCode": 0,
-        "resultMessage" : "SUCCESS"
+        "resultMessage" : "success"
     }
 }
 ```
@@ -1258,7 +1260,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 	"header" : {
 		"isSuccessful" : true,
 		"resultCode" : 0,
-		"resultMessage" : "SUCCESS"
+		"resultMessage" : "success"
 	}
 }
 ```
@@ -1481,7 +1483,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 {
 	"header" : {
 		"resultCode" : 0,
-		"resultMessage" : "SUCCESS",
+		"resultMessage" : "success",
 		"isSuccessful" : true
 	},
 	"schedules" : [
@@ -1559,7 +1561,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 {
 	"header" : {
 		"resultCode" : 0,
-		"resultMessage" : "SUCCESS",
+		"resultMessage" : "success",
 		"isSuccessful" : true
 	},
 	"reservation" : {
@@ -1608,7 +1610,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 {
 	"header" : {
 		"resultCode" : 0,
-		"resultMessage" : "SUCCESS",
+		"resultMessage" : "success",
 		"isSuccessful" : true
 	},
 	"reservations" : [{
@@ -1692,7 +1694,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 {
 	"header" : {
 		"resultCode" : 0,
-		"resultMessage" : "SUCCESS",
+		"resultMessage" : "success",
 		"isSuccessful" : true
 	},
 	"reservation" : {
@@ -1848,7 +1850,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 {
 	"header" : {
 		"resultCode" : 0,
-		"resultMessage" : "SUCCESS",
+		"resultMessage" : "success",
 		"isSuccessful" : true
 	}
 }
@@ -1883,7 +1885,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 {
 	"header" : {
 		"resultCode" : 0,
-		"resultMessage" : "SUCCESS",
+		"resultMessage" : "success",
 		"isSuccessful" : true
 	}
 }
@@ -1922,7 +1924,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" :  "success"
     },
     "tag" : {
         "tagId" :  "12345678"
@@ -1967,7 +1969,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" :  "success"
     }
 }
 ```
@@ -2002,7 +2004,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" :  "success"
     }
 }
 ```
@@ -2036,7 +2038,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" :  "success"
     },
     "tags" : [
         {
@@ -2077,7 +2079,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" :  "success"
     },
     "tag" : {
         "tagId" :  "12345678",
@@ -2119,7 +2121,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" :  "success"
     },
     "uids" : [
         {
@@ -2176,7 +2178,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 "header" : {
 "isSuccessful" :  true,
 "resultCode" :  0,
-"resultMessage" :  "SUCCESS"
+"resultMessage" :  "success"
 },
 "uid" : {
     "uid" :  "uid-01",
@@ -2225,7 +2227,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" :  "success"
     }
 }
 ```
@@ -2254,7 +2256,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" :  "success"
     }
 }
 ```
@@ -2288,7 +2290,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" :  "success"
     }
 }
 ```
@@ -2318,7 +2320,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" :  "success"
     }
 }
 ```
@@ -2352,7 +2354,7 @@ Content-Type: application/json;charset=UTF-8
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" :  "success"
     }
 }
 ```
@@ -2382,7 +2384,7 @@ Content-Type: application/json;charset=UTF-8
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" :  "success"
     },
     "tagIds": ["TAG_ID01"]
 }
@@ -2414,7 +2416,7 @@ Content-Type: application/json;charset=UTF-8
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" : "success"
     }
 }
 ```
@@ -2442,7 +2444,7 @@ Content-Type: application/json;charset=UTF-8
     "header" : {
         "isSuccessful" :  true,
         "resultCode" :  0,
-        "resultMessage" :  "SUCCESS"
+        "resultMessage" : "success"
     }
 }
 ```
