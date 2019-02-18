@@ -1351,12 +1351,15 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 
 #### 대량 로그 카운트 조회
 - 검색 조건으로 검색된 로그의 수를 확인할 수 있습니다.
+- 다른 v2.3 API와 다르게 'User Access Key ID'를 사용해야 합니다.
+[회원정보] > [API 보안 설정] 에서 생성할 수 있습니다.
 
 ##### Method, URL, Headers
 ```
 GET /push/v2.3/appkeys/{appKey}/bulk-logs/message/count?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 ##### Request Body
@@ -1391,7 +1394,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 GET /push/v2.3/appkeys/{appKey}/bulk-logs/message?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
 Content-Type: application/json;charset=UTF-8
 Accept: application/stream+json
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
