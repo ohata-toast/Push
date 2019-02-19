@@ -76,8 +76,8 @@ Content-Type: application/json;charset=UTF-8
 
 |Field|	Usage | Description |
 |---|---|---|
-|token|	Required, String|	토큰, 최대 255 글자|
-|oldToken|	Optional, String|	기존 토큰, 최대 255 글자 |
+|token|	Required, String|	토큰, 최대 1600 글자|
+|oldToken|	Optional, String|	기존 토큰, 최대 1600 글자 |
 |pushType|	Required, String| 'FCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
 |isNotificationAgreement|	Required, Boolean|	true or false|
 |isAdAgreement|	Required, Boolean|	true or false|
