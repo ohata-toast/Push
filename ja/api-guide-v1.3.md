@@ -108,17 +108,17 @@ Content-Type: application/json;charset=UTF-8
 
 |Parameter|	Usage||
 |---|---|---|
-|token|	Required, String|	Token. 255 bytes.|
-|oldToken|	Optional, String|	Old Token. 255 bytes.|
+|token|	Required, String|	Token. 최대 1,600 글자.|
+|oldToken|	Optional, String|	Old Token. 최대 1,600 글자.|
 |channel|	Optional, String|	Channel name. 50 bytes.|
 |pushType|	Required, String|	GCM, APNS, APNS_SANDBOX, TENCENT, ADM|
 |isNotificationAgreement|	Required, Boolean|	true or false|
 |isAdAgreement|	Required, Boolean|	true or false|
 |isNightAdAgreement|	Required, Boolean|	true or false|
 |timezoneId|	Required, String|	Area/Name. IANA time zone database.|
-|country|	Required, String|	ISO 3166-1 alpha-2, ISO 3166-1 alpha-3. 3 bytes.|
-|language|	Required, String|	ISO 639-1, ISO 639-2, iOS(language code + script code). 8 bytes.|
-|uid|	Required, String|	User ID, 64 bytes.|
+|country|	Required, String|	ISO 3166-1 alpha-2, ISO 3166-1 alpha-3. 3 글자.|
+|language|	Required, String|	ISO 639-1, ISO 639-2, iOS(language code + script code). 8 글자.|
+|uid|	Required, String|	User ID, 64 글자.|
 
 - 토큰 등록시 이미 토큰이 등록되어 있다면, 토큰 기준으로 다른 정보들이 업데이트 된다.
 - 만약, 토큰이 변경된다면 oldToken에 기존 토큰을, token에 새로운 토큰을 설정하고 등록하면 새로운 토큰으로 업데이트 된다.

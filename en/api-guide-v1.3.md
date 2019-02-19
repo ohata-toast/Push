@@ -108,8 +108,8 @@ Content-Type: application/json;charset=UTF-8
 
 |Parameter|	Usage||
 |---|---|---|
-|token|	Required, String|	Token. 255 bytes.|
-|oldToken|	Optional, String|	Old Token. 255 bytes.|
+|token|	Required, String|	Token. the maximum length is 1,600.|
+|oldToken|	Optional, String|	Old Token. the maximum length is 1,600.|
 |channel|	Optional, String|	Channel name. 50 bytes.|
 |pushType|	Required, String|	GCM, APNS, APNS_SANDBOX, TENCENT, ADM|
 |isNotificationAgreement|	Required, Boolean|	true or false|

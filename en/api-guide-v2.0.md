@@ -126,8 +126,8 @@ Content-Type: application/json;charset=UTF-8
 
 | Field                   | Usage             | Description                                                  |
 | ----------------------- | ----------------- | ------------------------------------------------------------ |
-| token                   | Required, String  | Token, no more than 255 bytes                                |
-| oldToken                | Optional, String  | Old token, no more than 255 bytes                            |
+| token                   | Required, String  | Token, the maximum length is 1,600                               |
+| oldToken                | Optional, String  | Old token, the maximum length is 1,600                            |
 | pushType                | Required, String  | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', and 'ADM' |
 | isNotificationAgreement | Required, Boolean | True or false                                                |
 | isAdAgreement           | Required, Boolean | True or false                                                |
