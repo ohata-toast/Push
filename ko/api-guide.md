@@ -1400,6 +1400,8 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 
 | Field | Usage | Description |
 | - | - | - |
+| from | Required, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Required, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | messageId | Optional, String | 조회할 메시지 아이디 |
 | pushType | Optional, String | 조회할 푸시 타입 |
 | sendResult | Optional, String | 발송 결과입니다. 'SENT', 'SENT_FAILED' |
@@ -1922,7 +1924,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| tagName | Required, String | 태그 이름, 최대 길이 32, 공백(Space) 문자 불가 |
+| tagName | Required, String | 태그 이름, 최대 길이 255, 공백(Space) 문자 불가 |
 
 ##### Response Body
 ```json

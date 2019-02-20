@@ -1846,7 +1846,7 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 
 | Field | Usage | Description |
 | - | - | - |
-| tagName | Required, String | 태그 이름, 최대 길이 32 |
+| tagName | Required, String | 태그 이름, 최대 길이 255 |
 
 ##### Response Body
 ```json
