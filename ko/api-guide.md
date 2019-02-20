@@ -76,7 +76,7 @@ Content-Type: application/json;charset=UTF-8
 
 |Field|	Usage | Description |
 |---|---|---|
-|token|	Required, String|	토큰, 최대 1,600 글자|
+|token|	Required, String|	토큰, 최대 1,600 글자, 한글 사용 불가 |
 |oldToken|	Optional, String|	기존 토큰, 최대 1,600 글자 |
 |pushType|	Required, String| 'FCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
 |isNotificationAgreement|	Required, Boolean|	true or false|
@@ -1400,6 +1400,8 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 
 | Field | Usage | Description |
 | - | - | - |
+| messageId | Optional, String | 조회할 메시지 아이디 |
+| pushType | Optional, String | 조회할 푸시 타입 |
 | sendResult | Optional, String | 발송 결과입니다. 'SENT', 'SENT_FAILED' |
 
 #### Request Body
@@ -1920,7 +1922,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| tagName | Required, String | 태그 이름, 최대 길이 32 |
+| tagName | Required, String | 태그 이름, 최대 길이 32, 공백(Space) 문자 불가 |
 
 ##### Response Body
 ```json
