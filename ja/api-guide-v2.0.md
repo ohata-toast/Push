@@ -126,17 +126,17 @@ Content-Type: application/json;charset=UTF-8
 
 | Field                   | Usage             | Description                                                  |
 | ----------------------- | ----------------- | ------------------------------------------------------------ |
-| token                   | Required, String  | Token, no more than 255 bytes                                |
-| oldToken                | Optional, String  | Old token, no more than 255 bytes                            |
+| token                   | Required, String  | Token, the maximum length is 1,600                                |
+| oldToken                | Optional, String  | Old token, the maximum length is 1,600                            |
 | pushType                | Required, String  | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', and 'ADM' |
 | isNotificationAgreement | Required, Boolean | True or false                                                |
 | isAdAgreement           | Required, Boolean | True or false                                                |
 | isNightAdAgreement      | Required, Boolean | True or false                                                |
 | timezoneId              | Required, String  | Area/Name. IANA time zone database.                          |
-| country                 | Required, String  | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 bytes              |
-| language                | Required, String  | ISO 639-1, ISO 639-2, iOS (language code + script code), 8 bytes |
-| uid                     | Required, String  | User ID, no emojis allowed, no more than 64 bytes            |
-| deviceId                | Optional, String  | Device ID, 36 bytes                                          |
+| country                 | Required, String  | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 글자              |
+| language                | Required, String  | ISO 639-1, ISO 639-2, iOS (language code + script code), 8 글자 |
+| uid                     | Required, String  | User ID, no emojis allowed, no more than 64 글자            |
+| deviceId                | Optional, String  | Device ID, 36 글자                                          |
 
 
 ##### Response Body

@@ -12,11 +12,11 @@ Push 서비스를 활용하려면 먼저 타사 푸시 알림 서비스 인증�
 
 인증서 관리를 하기 위하여 콘솔에서 **Notification > Push > 인증서**를 클릭합니다.
 
-### GCM API Key
+### FCM Server Key
 
-안드로이드 기기에 푸시 알림 메시지를 전송하기 위해서는 유효한 GCM 서비스의 API Key가 필요합니다.
+안드로이드 기기에 푸시 알림 메시지를 전송하기 위해서는 유효한 FCM 서비스의 Server Key가 필요합니다.
 
-#### Firebase 클라우드 메시징(FCM) API Key 가져오기
+#### Firebase 클라우드 메시징(FCM) Server Key 가져오기
 
 1. [Google Firebase Console](https://console.firebase.google.com)에 접속합니다.
 2. **Add Project**를 클릭합니다.
@@ -24,12 +24,12 @@ Push 서비스를 활용하려면 먼저 타사 푸시 알림 서비스 인증�
 4. 프로젝트 첫 페이지 왼쪽 위에서 톱니바퀴 아이콘을 클릭합니다.
 5. **Project settings**를 클릭합니다.
 6. **Settings** 페이지에서 **Cloud Messaging** 탭을 클릭합니다.
-7. **Server key**(API Key)와 **Sender ID**를 확인합니다.
+7. **Server key**와 **Sender ID**를 확인합니다.
 
 #### FCM API Key 등록
 
 1. TOAST 콘솔에서 **Notification > Push > 인증서**를 클릭합니다.
-2. 위에서 생성한 FCM API Key를 복사해서 **GCM API Key**에 붙여넣고 **등록** 버튼을 클릭합니다.
+2. 위에서 생성한 FCM Server Key를 복사해서 **FCM Server Key**에 붙여넣고 **등록** 버튼을 클릭합니다.
 
 #### Google Project 사용 시 주의 사항
 - Google은 2019년 4월 11일에 [GCM 서비스를 종료](https://developers.google.com/cloud-messaging/faq)할 예정입니다.
@@ -48,7 +48,7 @@ GCM에서 FCM으로 옮기는 자세한 방법은 [Firebase Migration Guide](htt
 6. **Project settings**를 클릭합니다.
 7. **Settings** 페이지에서 **CLOUD MESSAGING** 탭을 클릭합니다.
 8. Server key(API Key)와 Sender ID를 확인합니다.
-9. Firebase에서 확인한 Server key를 **인증서** 탭에 **GCM API Key**에 붙여 넣습니다.
+9. Firebase에서 확인한 Server key를 **인증서** 탭에 **FCM Server Key**에 붙여 넣습니다.
 
 ### APNS 인증서
 
