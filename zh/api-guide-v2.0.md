@@ -1682,7 +1682,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field   | Usage            | Description                        |
 | ------- | ---------------- | ---------------------------------- |
-| tagName | Required, String | Tag name, the maximum length is 32 |
+| tagName | Required, String | Tag name, the maximum length is 255 |
 
 ##### Response Body
 ```json

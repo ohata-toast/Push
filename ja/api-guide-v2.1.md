@@ -1720,7 +1720,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| tagName | Required, String | 태그 이름, 최대 길이 32 |
+| tagName | Required, String | 태그 이름, 최대 길이 255 |
 
 ##### Response Body
 ```json
