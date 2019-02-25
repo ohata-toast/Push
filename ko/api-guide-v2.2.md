@@ -1,10 +1,13 @@
-## Notification > Push > API v2.1 Guide
-
-### v2.1 API 소개
+## Notification > Push > API v2.2 Guide
+### v2.2 API 소개
 
 #### 추가
-- '토큰으로 토큰 조회' API가 추가되었습니다.
-- 푸시 타입에 'ADM'이 추가되었습니다.
+- '로그 조회' API가 추가되었습니다.
+
+#### 수정
+- API 인증시 사용하는 값이 변경되었습니다.
+- API 인증시 Secret Key대신 User Access Key ID와 Secret Access Key를 사용해야 합니다.
+- 자세한 설명은 아래 'API 보안 설정' 항목에서 확인할 수 있습니다.
 
 ### 기본 정보
 #### Endpoint
@@ -12,23 +15,25 @@
 API Endpoint: https://api-push.cloud.toast.com
 메시지 수신/확인 여부 수집 Endpoint: https://collector-push.cloud.toast.com
 ```
-
-#### Secret Key
-- 콘솔에서 확인 가능합니다.
-- Secret Key가 필요한 API를 호출할 때, 해더에 아래와 같이 설정해서 호출해야 합니다.
+#### API 보안 설정
+- API 보안 설정은 User Access Key ID (TOAST 서비스 이용시, 사용자 인증을 위해 필요한 사용자 설정 키) 를 발급하는 기능입니다.
+- User Access Key ID 는 TOAST ID 에 1개만 발급 가능합니다. 보안을 위해 발급된 키는 안전한 장소에 보관해 주세요.
+- User Access Key ID 는 90일마다 변경하기를 권장합니다.
+- v2.2 API부터 Secret Key대신 User Access Key ID를 이용해 호출해야 합니다.
 ```
 Header
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
+[회원정보] > [API 보안 설정] 에서 생성할 수 있습니다.
 
-[Console] > [Notification] > [Push] > [URL & AppKey] 에서 생성할 수 있습니다.
 
 #### Response
 
 ##### Response HTTP Status Code
 200 OK.  
 모든 API 요청에 대해 200 OK로 응답합니다.  
-자세한 응답 결과는 Response Body의 Header를 통해 알 수 있습니다.
+자세한 응답 결과는 Response Body의 Header를 통해 알 수 있습니다.  
 
 ##### Response Header
 
@@ -58,8 +63,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | false | 40102 | Client Error. Unavailable key. |
 | false | 40401 | Client Error. Not found. |
 | false | 50001 ~ 50501 | Internal Error. Please report this. 'http://cloud.toast.com/support/faq'. |
-| false | 400 | Client Error. 태그 API에서 발생한 클라이언트 오류입니다.  |
-| false | 500 | Internal Error. 태그 API에서 발생한 내부 오류입니다. |
+| false | 400 | Client Error. 태그 API에서 발생한 클라이언트 오류입니다  |
+| false | 500 | Internal Error. 태그 API에서 발생한 내부 오류입니다 |
 
 ## 토큰
 ### 생성
@@ -67,7 +72,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Method, URL
 ```
-POST /push/v2.1/appkeys/{appkey}/tokens
+POST /push/v2.2/appkeys/{appkey}/tokens
 Content-Type: application/json;charset=UTF-8
 ```
 
@@ -122,16 +127,16 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tokens -d '{"oldToken":"oldToken","token":"token","isNotificationAgreement":true,"isAdAgreement":true,"isNightAdAgreement":true,"pushType":"GCM","timezoneId":"Asia/Seoul","uid":"uid","country":"KR","language":"ko"}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tokens -d '{"oldToken":"oldToken","token":"token","isNotificationAgreement":true,"isAdAgreement":true,"isNightAdAgreement":true,"pushType":"GCM","timezoneId":"Asia/Seoul","uid":"uid","country":"KR","language":"ko"}'
 ```
 
 ##### Description
 
 - 토큰이 이미 등록되어 있는 경우에 다시 등록하면, 기존 정보를 업데이트 합니다.
-- 만약, 토큰이 변경된다면 oldToken에 기존 토큰을, token에 새로운 토큰을 설정하고 등록하면 새로운 토큰으로 업데이트합니다.
+- 만약, 토큰이 변경된다면 oldToken에 기존 토큰을, token에 새로운 토큰을 설정하고 등록하면 새로운 토큰으로 업데이트됩니다.
 - "isNotificationAgreement"는 푸시 메시지 수신 동의 여부, "isAdAgreement"는 광고성 푸시 메시지 수신 여부, "isNightAdAgreement"는 야간 광고성 푸시 메시지 수신 여부를 나타냅니다.
-- 예로, 모든 푸시 메시지 수신을 원할 경우, 필드 3개를 모두 true로 설정하면 됩니다. 푸시 메시지만 수신할 경우, "isNotificationAgreement"만 true로 설정해야 합니다.
-- 수신 동의 여부는 정보통신망법 규정(제50조부터 제50조의 8)을 따릅니다.  
+- 예로, 모든 푸시 메시지 수신을 원할 경우, 필드 3개를 모두 true로 설정하면 됩니다. 푸시 메시지만 수신할 경우, "isNotificationAgreement"만 true로 설정하면 됩니다.
+- 수신 동의 여부는 정보통신망법 규정(제50조부터 제50조의 8)을 따른다.  
     - [KISA 가이드 바로 가기](https://spam.kisa.or.kr/spam/sub62.do)    
     - [법령 바로 가기](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
 - 네트워크 상태가 좋지 않거나 여러 이유로 응답 지연이 발생할 수 있습니다. 모바일 애플리케이션 구동에 영향을 최소화하기 위해 Timeout을 짧게 설정하고, 구동될 때마다 토큰을 등록하는 것이 좋습니다.
@@ -139,63 +144,12 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.
 - 앱 삭제 등으로 토큰이 만료되어도 바로 GCM, APNS 서버에 적용되지 않아, 앱 삭제 후 푸시 메시지를 발송했을 때 발송이 성공할 수 있습니다.
 
 ### 조회
-#### 토큰과 푸시 타입으로 토큰 조회
-- 클라이언트에서 조회 가능합니다.
-##### Method, URL
-
-```
-GET /push/v2.1/appkeys/{appkey}/tokens/{token}?pushType={pushType}
-Content-Type: application/json;charset=UTF-8
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pushType | Required, String | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
-
-##### Response Body
-
-```
-{
-	"token" : {
-		"pushType" : "GCM",
-		"isNotificationAgreement": true,
-		"isAdAgreement": true,
-		"isNightAdAgreement": true,
-		"timezoneId" : "Asia/Seoul",
-		"country": "KR",
-		"language": "ko",
-		"uid" : "User ID",
-		"token" : "Token",
-    "updateDateTime": "2017-08-12T01:04:18.000+09:00",
-    "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
-    "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00"        
-	},
-	"header" : {
-		"isSuccessful" : true,
-		"resultCode": 0,
-		"resultMessage" : "SUCCESS"
-	}
-}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| updateDateTime | -, DateTime String | 토큰 업데이트 일시 |
-| adAgreementDateTime | -, DateTime String | 홍보성 푸시 메시지 수신 동의 일시 |
-| nightAdAgreementDateTime | -, DateTime String | 야간 홍보성 푸시 메시지 수신 동의 일시 |
-
-##### Example
-```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tokens/token?pushType=GCM
-```
-
 #### 토큰으로 토큰 조회
 - 클라이언트에서 조회 가능합니다.
 ##### Method, URL
 
 ```
-GET /push/v2.1/appkeys/{appkey}/tokens/{token}
+GET /push/v2.2/appkeys/{appkey}/tokens/{token}
 Content-Type: application/json;charset=UTF-8
 ```
 
@@ -242,7 +196,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tokens/token
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tokens/token
 ```
 
 #### 사용자 아이디로 토큰 조회
@@ -250,9 +204,10 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.c
 ##### Method, URL
 
 ```
-GET /push/v2.1/appkeys/{appkey}/tokens?uid={uid}
+GET /push/v2.2/appkeys/{appkey}/tokens?uid={uid}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -288,15 +243,16 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tokens?uid=uid
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tokens?uid=uid
 ```
 
 #### 유효하지 않는 토큰 조회
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/invalid-tokens?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageId={messageId}
+GET /push/v2.2/appkeys/{appkey}/invalid-tokens?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageId={messageId}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -333,16 +289,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/invalid-tokens
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/invalid-tokens
 ```
 
 
 #### 토큰 속성 통계 조회 API
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
+GET /push/v2.2/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -416,15 +373,16 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/statistics/token-properties
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/statistics/token-properties
 ```
 
 #### 토큰 등록 통계 조회
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/statistics/token-registrations?from={from}&to={to}
+GET /push/v2.2/appkeys/{appkey}/statistics/token-registrations?from={from}&to={to}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -467,16 +425,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/statistics/token-registrations
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/statistics/token-registrations
 ```
 
 ## 메시지
 ### 발송
 ##### Method, URL, Headers
 ```
-POST /push/v2.1/appkeys/{appkey}/messages
+POST /push/v2.2/appkeys/{appkey}/messages
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```json
@@ -529,7 +488,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | messageType | Required, String | NOTIFICATION, AD |
 | contact | Optional, String | messageType이 AD이면 경우 필수, 숫자(0-9)와 하이픈(Hypen, -)만 가능합니다. |
 | removeGuide | Optional, String | messageType이 AD이면 경우 필수 |
-| timeToLiveMinute | Optional, Number | 단위는 분이다. 범위는 1에서 60까지다. 기본 값은 10 입니다. |
+| timeToLiveMinute | Optional, Number | 단위는 분입니다. 범위는 1에서 60까지다. 기본 값은 10 입니다. |
 | provisionedResourceId | Optional, String | 할당 받은 전용 리소스(provisioned Resource) 아이디입니다. 사용 문의 support@cloud.toast.com |
 | adWordPosition | Optional, String | 'TITLE', 'BODY' 광고 표시 문구 위치. 기본 값은 'TITLE' 입니다. |
 
@@ -541,14 +500,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 - "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있습니다.
 만약, 정의하지 않으면 모든 푸시 타입, GCM, APNS, APNS_SANDBOX, TENCENT, ADM로 발송합니다.
 - "target.countries" 필드가 "['KR', 'JP']"면 토큰 국가 코드가 "KR" 또는 "JP"인 Token에 발송합니다.
-- "content.default" 필드는 필수이며, "content" 필드에 대한 자세한 내용은 아래 [공통 메시지 포맷]을 참고 바란다.
+- "content.default" 필드는 필수이며, "content" 필드에 대한 자세한 내용은 아래 [공통 메시지 포맷]을 참고 바랍니다.
 - 메시지를 광고 타입, "messageType": "AD", 으로 보낼 경우, "contact", "removeGuide" 필드를 반드시 포함해야 합니다.
 "contact" 필드에 연락처를 입력해야 하며, "removeGuide" 필드에 수신 철회 방법에 대해 입력해야 합니다.
 - timeToLiveMinute 필드를 설정하면, 설정한 시간 이상 발송이 지연되는 경우 자동으로 실패 처리됩니다.
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/messages -d '{"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body","customKey1":"It is default"},"ko":{"title":"제목","body":"내용","customKey2":"한국어 입니다."}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/messages -d '{"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body","customKey1":"It is default"},"ko":{"title":"제목","body":"내용","customKey2":"한국어 입니다."}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
 ```
 
 ### 공통 메시지
@@ -574,8 +533,8 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key:
 |messageDeliveryReceipt| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
 |messageDeliveryReceiptData| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
 
-Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정됩니다. 사용자가 임의로 데이터 타입과 위치 등을 변경할 수 없다.
-그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어간다.
+Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정됩니다. 사용자가 임의로 데이터 타입과 위치 등을 변경할 수 없습니다.
+그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어갑니다.
 
 |Word|	Platform|	Usage|	GCM|	APNS|	TENCENT| ADM|
 |---|---|---|---|---|---|---|
@@ -583,7 +542,7 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 
 ### 메시지 발송 예제
 
-- 메시지 발송 API의 요청 본문(Request Body)의 content.default은 필수다.
+- 메시지 발송 API의 요청 본문(Request Body)의 content.default은 필수입니다.
 
 #### 1. 전체에게 발송
 등록된 모든 대상에게 메시지를 발송하는 예제입니다.
@@ -885,8 +844,7 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
             "richMessage" : {
                 "buttons" : [{
                         "name" : "버튼 이름",
-                        "submitName": "전송 버튼 이름",
-                        "buttonType" : "REPLY | OPEN_APP | OPEN_URL | DISMISS",
+                        "buttonType" : "REPLY | DEEP_LINK | OPEN_APP | OPEN_URL | DISMISS",
                         "link" : "URL | ...",
                         "hint" : "메시지를 입력해주세요."
                     }
@@ -918,8 +876,7 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
 | richMessage | Optional, Object | 리치 메시지 사용시 필요 |
 | richMessage.buttons | Optional, Object Array | 리치 메시지에 추가되는 버튼, 최대 3개까지 가능 |
 | richMessage.button.name | Required, String | 버튼 이름 |
-| richMessage.button.submitName | Optional, String | 전송 버튼 이름, iOS에서 버튼 타입이 REPLY일때 표시 |
-| richMessage.button.buttonType | Required, String | 버튼 타입, REPLY, OPEN_APP, OPEN_URL, DISMISS |
+| richMessage.button.buttonType | Required, String | 버튼 타입, REPLY, DEEP_LINK, OPEN_APP, OPEN_URL, DISMISS |
 | richMessage.button.link | Required, String | 버튼을 눌렀을때, 연결되는 링크 |
 | richMessage.button.hint | Required, String | 버튼에대한 힌트 |
 | richMessage.media | Optional, Object | 리치 메시지에 추가되는 미디어 |
@@ -935,13 +892,15 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
 | richMessage.group.key | Required, String | 그룹의 키 |
 | richMessage.group | Required, String | 그룹에대한 설명 |
 
+
 ### 조회
 #### 목록 조회
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
+GET /push/v2.2/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -995,7 +954,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/messages
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/messages
 ```
 
 | Field | Usage | Description |
@@ -1007,7 +966,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 | provisionedResourceId | - | 메시지가 발송된 전용 리소스 아이디 |
 | totalCount | - | 필터링된 전체 메시지  수 |
 
-- "messageStatus" 필드는 메시지 상태를 나타낸다. 다음과 같은 상태가 있습니다.
+- "messageStatus" 필드는 메시지 상태를 나타냅니다. 다음과 같은 상태가 있습니다.
     - READY: 메시지 발송 요청이 등록된 상태입니다.
     - PROCESSING: 메시지 생성이 끝나고, 대기 또는 발송 중입니다.
     - COMPLETE: 메시지 발송이 완료된 상태입니다.
@@ -1025,9 +984,10 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 #### 단건 조회
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/messages/{message-id}
+GET /push/v2.2/appkeys/{appkey}/messages/{message-id}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1074,7 +1034,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/messages/{messageId}
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/messages/{messageId}
 ```
 
 #### 실패한 메시지 목록 조회
@@ -1083,10 +1043,11 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messagErrorCause={messageErrorCause}&from={from}&to={to}&limit={limit}
+GET /push/v2.2/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messagErrorCause={messageErrorCause}&from={from}&to={to}&limit={limit}
 HEADER
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1173,7 +1134,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/message-errors
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/message-errors
 ```
 
 #### 메시지 수신, 확인 통계 조회
@@ -1182,10 +1143,11 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/statistics/message-delivery-receipts?from={from}&to={to}&event={event}&timeUnit={timeUnit}&messageId={messageId}
+GET /push/v2.2/appkeys/{appkey}/statistics/message-delivery-receipts?from={from}&to={to}&event={event}&timeUnit={timeUnit}&messageId={messageId}
 HEADER
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1232,7 +1194,163 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/statistics/message-delivery-receipts
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/statistics/message-delivery-receipts
+```
+
+### 로그 조회
+- 로그 조회 API는 Logging 기능을 활성화한 상태에서만 호출가능 하다.
+- Logging 기능은 [Console] > [Notification] > [Push] > [Setting] 탭에서 활성화 시킬 수 있습니다.
+
+#### 일반 로그 조회
+- 최대 100개까지 조회 가능합니다.
+
+##### Method, URL, Headers
+```
+GET /push/v2.2/appkeys/{appkey}/logs/message?messageId={messageId}&uid={uid}&token={token}&pushType={pusyType}&from={from}&to={to}&limit={limit}
+Content-Type: application/json;charset=UTF-8
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| messageId | Optional, Number | 메시지 아이디 |
+| uid | Optional, String | 사용자 아이디 |
+| token | Optional, String | 사용자 토큰 |
+| pushType | Optional, String | 푸시 타입 |
+| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| limit | Optional, Number | 최대 조회 개수, 기본 값 100 |
+
+##### Request Body
+```
+없음
+```
+
+##### Response Body
+
+```
+{
+    "header" : {
+        "resultCode" : 0,
+        "resultMessage" : "success",
+        "isSuccessful" : true
+    },
+    "data" : {
+        "count" : 0,
+        "logs" : [{
+                "logType" : "message-result",
+                "logSource" : "tc-push",
+                "messageId" : "1",
+                "body" : "{\"tokens\":[{\"uid\":\"gimbimloki\",\"token\":\"1\"}],\"payload\":{\"aps\":{\"alert\":{\"title\":\"title\",\"body\":\"body\"},\"mutable-content\":1}}}",
+                "logTime" : "1",
+                "pushType" : "APNS",
+                "sendTime" : "1",
+								"searchKey1": "1746041784729856",
+						    "searchKey2": "GCM",
+						    "searchKey3": "SENT",
+                "sentResult" : "SENT",
+                "host" : "127.0.0.1",
+                "appkey" : "APP_KEY",
+                "logVersion" : "v2",
+                "isNeedStored" : "bulk",
+                "projectName" : "L&CS_APP_KEY",
+                "SinkVersion" : "-",
+                "projectVersion" : "v2.2"
+            }
+        ]
+    }
+}
+```
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/logs/message?messageId=1&limit=10
+```
+
+#### 대량 로그 카운트 조회
+- 검색 조건으로 검색된 로그의 수를 확인할 수 있습니다.
+
+##### Method, URL, Headers
+```
+GET /push/v2.2/appkeys/{appKey}/bulk-logs/message/count?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
+Content-Type: application/json;charset=UTF-8
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
+```
+
+##### Request Body
+```
+없음
+```
+
+##### Response Body
+```
+{
+    "header" : {
+        "resultCode" : 0,
+        "resultMessage" : "success",
+        "isSuccessful" : true
+    },
+    "data" : {
+        "count" : 0
+    }
+}
+```
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/bulk-logs/message/count
+```
+
+#### 대량 로그 조회
+- 대량으로 로그를 조회하는 API입니다.
+- 응답시 application/stream+json로 응답합니다.
+
+```
+GET /push/v2.2/appkeys/{appKey}/bulk-logs/message?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
+Content-Type: application/json;charset=UTF-8
+Accept: application/stream+json
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| sendResult | Optional, String | 발송 결과입니다. 'SENT', 'SENT_FAILED' |
+
+#### Request Body
+```
+없음
+```
+
+#### Response Body
+```
+{
+    "body": "{\"tokens\":[{\"uid\":\"gimbimloki\",\"token\":\"1\"}],\"payload\":{\"aps\":{\"alert\":{\"title\":\"title\",\"body\":\"body\"},\"mutable-content\":1}}}",
+    "host": "10.161.240.23",
+    "appkey": "eCHQcPuPAiI6TgY8",
+    "logTime": "1533802967999",
+    "logType": "message-result",
+    "pushType": "GCM",
+    "sendTime": "1533802967999",
+    "logSource": "tc-push",
+    "messageId": "1746041784729856",
+    "logVersion": "v2",
+    "searchKey1": "1746041784729856",
+    "searchKey2": "GCM",
+    "searchKey3": "SENT",
+    "sentResult": "SENT",
+    "projectName": "4x7ybimqlRZImbfV",
+    "isNeedStored": "bulk",
+    "projectVersion": "v2.2"
+}
+```
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/bulk-logs/message?messageId=1
 ```
 
 ## 예약 메시지
@@ -1241,9 +1359,10 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 #### 예약 메시지 발송 스케줄 생성
 ##### Method, URL, Headers
 ```
-POST /push/v2.1/appkeys/{appkey}/schedules
+POST /push/v2.2/appkeys/{appkey}/schedules
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1313,15 +1432,16 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/schedules -d '{"type":"EVERY_MONTH","fromDate":"2016-12-30","toDate":"2017-01-02","times":["12:00","17:00"],"days":[1,15],"daysOfWeek":["SUNDAY","MONDAY"]}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/schedules -d '{"type":"EVERY_MONTH","fromDate":"2016-12-30","toDate":"2017-01-02","times":["12:00","17:00"],"days":[1,15],"daysOfWeek":["SUNDAY","MONDAY"]}'
 ```
 
 #### 예약 메시지 생성
 ##### Method, URL, Headers
 ```
-POST /push/v2.1/appkeys/{appkey}/reservations
+POST /push/v2.2/appkeys/{appkey}/reservations
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1382,16 +1502,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations -d '{"schedules":["2016-12-30T12:40","2016-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/reservations -d '{"schedules":["2016-12-30T12:40","2016-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
 ```
 
 ### 조회
 #### 목록 조회
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/reservations?pageIndex={pageIndex}&pageSize={pageSize}&reservationStatus={reservationsStatus}
+GET /push/v2.2/appkeys/{appkey}/reservations?pageIndex={pageIndex}&pageSize={pageSize}&reservationStatus={reservationsStatus}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1477,15 +1598,16 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/reservations
 ```
 
 #### 단건 조회
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/reservations/{reservation-id}
+GET /push/v2.2/appkeys/{appkey}/reservations/{reservation-id}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 ##### Request Body
@@ -1547,15 +1669,16 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations/{reservationId}
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/reservations/{reservationId}
 ```
 
 #### 발송된 예약 메시지 조회
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/reservations/{reservation-id}/messages?pageIndex={pageIndex}&pageSize={pageSize}
+GET /push/v2.2/appkeys/{appkey}/reservations/{reservation-id}/messages?pageIndex={pageIndex}&pageSize={pageSize}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1609,16 +1732,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations/{reservationId}/messages
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/reservations/{reservationId}/messages
 ```
 
 ### 수정
 #### 예약 메시지 수정
 ##### Method, URL, Headers
 ```
-PUT /push/v2.1/appkeys/{appkey}/reservations/{reservationId}
+PUT /push/v2.2/appkeys/{appkey}/reservations/{reservationId}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 ##### Request Body
@@ -1662,16 +1786,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations/{reservationId} -d '{"schedules":["2018-12-30T12:40","2018-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
+curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/reservations/{reservationId} -d '{"schedules":["2018-12-30T12:40","2018-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
 ```
 
 ### 삭제
 #### 예약 메시지 삭제
 ##### Method, URL, Headers
 ```
-DELETE /push/v2.1/appkeys/{appkey}/reservations?reservationIds={reservationId,}
+DELETE /push/v2.2/appkeys/{appkey}/reservations?reservationIds={reservationId,}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1697,7 +1822,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations?reservationIds={reservationId,}
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/reservations?reservationIds={reservationId,}
 ```
 
 ## 태그
@@ -1706,9 +1831,10 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Ke
 #### 태그 생성
 ##### Method, URL, Headers
 ```
-POST /push/v2.1/appkeys/{appkey}/tags
+POST /push/v2.2/appkeys/{appkey}/tags
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 
@@ -1720,7 +1846,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| tagName | Required, String | 태그 이름, 최대 길이 255 |
+| tagName | Required, String | 태그 이름, 최대 길이 255, 공백(Space) 문자 불가 |
 
 ##### Response Body
 ```json
@@ -1742,17 +1868,18 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags -d '{"tagName":"서른"}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tags -d '{"tagName":"서른"}'
 ```
 
 #### 태그에 Uid 추가 생성
 - 태그에 Uid를 추가(Append)하는 것으로, 기존에 있던 Uid를 추가하면 Uid의 태그는 늘어납니다.
-- 한 Uid의 최대 태그 수는 16개입니다.
+- 한 Uid의 최대 태그 수는 16개다.
 ##### Method, URL, Headers
 ```
-POST /push/v2.1/appkeys/{appkey}/tags/{tag-id}/uids
+POST /push/v2.2/appkeys/{appkey}/tags/{tag-id}/uids
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```json
@@ -1780,16 +1907,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags/{tagId}/uids -d '{"uids":["uid"]}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tags/{tagId}/uids -d '{"uids":["uid"]}'
 ```
 
 #### Uid에 태그 목록 설정
 - Uid의 태그를 교체(Replace)하는 것으로, 기존에 설정된 태그는 삭제되고 새로운 태그로 설정됩니다.
 ##### Method, URL, Headers
 ```
-POST /push/v2.1/appkeys/{appkey}/uids
+POST /push/v2.2/appkeys/{appkey}/uids
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```json
@@ -1815,16 +1943,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/uids -d '{"uid":"uid","tagIds":["TAG_ID"]}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/uids -d '{"uid":"uid","tagIds":["TAG_ID"]}'
 ```
 
 ### 조회
 #### 태그 목록 조회
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/tags?tagName={tagName}
+GET /push/v2.2/appkeys/{appkey}/tags?tagName={tagName}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1862,15 +1991,16 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tags
 ```
 
 #### 태그 단건 조회
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/tags/{tag-id}
+GET /push/v2.2/appkeys/{appkey}/tags/{tag-id}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```
@@ -1896,7 +2026,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags/{tagId}
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tags/{tagId}
 ```
 
 #### 태그의 Uid 목록 조회
@@ -1904,9 +2034,10 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/tags/{tag-id}/uids?offsetUid={uid}&limit={limit}
+GET /push/v2.2/appkeys/{appkey}/tags/{tag-id}/uids?offsetUid={uid}&limit={limit}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -1959,7 +2090,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags/{tagId}/uids
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tags/{tagId}/uids
 ```
 
 #### Uid 조회
@@ -1967,9 +2098,10 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 - 토큰 등록시 Contact(연락처)가 등록됩니다.
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/uids/{uid}
+GET /push/v2.2/appkeys/{appkey}/uids/{uid}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```
@@ -2007,16 +2139,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/uids/uid
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/uids/uid
 ```
 
 ### 수정
 #### 태그 수정
 ##### Method, URL, Headers
 ```
-PUT /push/v2.1/appkeys/{appkey}/tags/{tag-id}
+PUT /push/v2.2/appkeys/{appkey}/tags/{tag-id}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```json
@@ -2038,16 +2171,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags/{tagId} -d '{"tagName":"서른셋"}'
+curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tags/{tagId} -d '{"tagName":"서른셋"}'
 ```
 
 ### 삭제
 #### 태그 삭제
 ##### Method, URL, Headers
 ```
-DELETE /push/v2.1/appkeys/{appkey}/tags/{tag-id}
+DELETE /push/v2.2/appkeys/{appkey}/tags/{tag-id}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```
@@ -2067,16 +2201,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags/{tagId}
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tags/{tagId}
 ```
 
 #### Uid 삭제
 - Uid 삭제시 Contact, Token도 같이 삭제됩니다.
 ##### Method, URL, Headers
 ```
-DELETE /push/v2.1/appkeys/{appkey}/uids?uids={uid,}
+DELETE /push/v2.2/appkeys/{appkey}/uids?uids={uid,}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
 | Field | Usage | Description |
@@ -2101,7 +2236,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/uids?uids=uid
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/uids?uids=uid
 ```
 
 #### 태그의 Uid 삭제
@@ -2109,9 +2244,10 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Ke
 - Contact, Token이 삭제되지는 않습니다.
 ##### Method, URL, Headers
 ```
-DELETE /push/v2.1/appkeys/{appkey}/tags/{tagId}/uids?uids={uid,}
+DELETE /push/v2.2/appkeys/{appkey}/tags/{tagId}/uids?uids={uid,}
 Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
+X-User-Access-Key-ID: [a-zA-Z0-9]{20}
+X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 ##### Request Body
 ```
@@ -2131,7 +2267,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags/{tagId}/uids?uids=uid
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tags/{tagId}/uids?uids=uid
 ```
 
 ## Uid
@@ -2143,7 +2279,7 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Ke
 - Secret Key가 필요없다. 앱에서 호출 가능합니다.
 ##### Method, URL, Headers
 ```
-POST /push/v2.1/appkeys/{appkey}/uids/{uid}/tag-ids
+POST /push/v2.2/appkeys/{appkey}/uids/{uid}/tag-ids
 Content-Type: application/json;charset=UTF-8
 ```
 ##### Request Body
@@ -2165,7 +2301,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/uids/uid/tag-ids -d '{"tagIds":["TAG_ID"]}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/uids/uid/tag-ids -d '{"tagIds":["TAG_ID"]}'
 ```
 
 ### 조회
@@ -2175,7 +2311,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.
 - Secret Key가 필요없다. 앱에서 호출 가능합니다.
 ##### Method, URL, Headers
 ```
-GET /push/v2.1/appkeys/{appkey}/uids/{uid}/tag-ids
+GET /push/v2.2/appkeys/{appkey}/uids/{uid}/tag-ids
 Content-Type: application/json;charset=UTF-8
 ```
 ##### Request Body
@@ -2196,7 +2332,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/uids/uid/tag-ids
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/uids/uid/tag-ids
 ```
 
 ### 수정
@@ -2205,7 +2341,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.c
 - Secret Key가 필요없다. 앱에서 호출 가능합니다.
 ##### Method, URL, Headers
 ```
-PUT /push/v2.1/appkeys/{appkey}/uids/{uid}/tag-ids
+PUT /push/v2.2/appkeys/{appkey}/uids/{uid}/tag-ids
 Content-Type: application/json;charset=UTF-8
 ```
 ##### Request Body
@@ -2227,7 +2363,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X PUT -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/uids/uid/tag-ids -d '{"tagIds":["TAG_ID"]}'
+curl -X PUT -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/uids/uid/tag-ids -d '{"tagIds":["TAG_ID"]}'
 ```
 
 ### 태그 삭제
@@ -2235,7 +2371,7 @@ curl -X PUT -H "Content-Type: application/json;charset=UTF-8" https://api-push.c
 - Secret Key가 필요없다. 앱에서 호출 가능합니다.
 ##### Method, URL, Headers
 ```
-DELETE /push/v2.1/appkeys/{appkey}/uids/{uid}/tag-ids?tagIds={tagId,}
+DELETE /push/v2.2/appkeys/{appkey}/uids/{uid}/tag-ids?tagIds={tagId,}
 Content-Type: application/json;charset=UTF-8
 ```
 ##### Request Body
@@ -2259,12 +2395,9 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/uids/uid/tag-ids?tagIds=TAG_ID_01,TAG_ID_02
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/uids/uid/tag-ids?tagIds=TAG_ID_01,TAG_ID_02
 ```
 
-
 * *문서 수정 내역*
-		* *(2018.12.26) 광고 표시 위치 설정 필드 추가, 오타 수정*
-    * *(2018.06.26) 메시지 발송 예제 추가*
-    * *(2018.06.26) pushType ADM 추가*
-    * *(2018.05.29) v2.1 토큰 조회 API 추가*
+    * *(2018.08.28) v2.2 API 업데이트*
+    * *(2018.08.28) Logging API 추가*
