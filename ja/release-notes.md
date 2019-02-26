@@ -1,4 +1,4 @@
-## Notification > Push > 릴리스 노트
+## Notification > Push > Release Notes
 
 ### 2019.02.26
 #### [API]
