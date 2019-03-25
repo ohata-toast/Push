@@ -1137,7 +1137,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | messageId | Optional, Number | 메시지 아이디 |
 | messageErrorType | Optional, String | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR' |
-| messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'FCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR', 'ADM_ERROR'  |
+| messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'FCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR', 'ADM_ERROR', 'DUPLICATED_MESSAGE_TOKEN'  |
 | from | Optional, DateTime String | 최근 30일 까지, 기본 값은 최근 7일 전 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일 까지, 기본 값은 현재 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | limit | Optional, Number | 한 번에 조회할 목록 크기, 기본 값과 최대 값은 1,000 |
@@ -1149,6 +1149,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         - INVALID_MESSAGE: 비정상적인 메시지
         - INVALID_CERTIFICATE: 인증서 만료 또는 인증서 정보가 올바르지 않음
         - UNAUTHORIZED: 인증서 만료 또는 인증서 정보가 올바르지 않음
+        - DUPLICATED_MESSAGE_TOKEN: 해당 토큰으로 동일한 메시지가 중복 발송 요청되어 실패
     - EXTERNAL_ERROR: APNS, FCM, Tencent, ADM 등 푸시와 연결된 외부 서비스 오류
         - APNS_ERROR: APNS(iOS)로 발송 실패
         - FCM_ERROR: FCM(Google)로 발송 실패
