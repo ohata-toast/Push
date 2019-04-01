@@ -1,8 +1,8 @@
-## Notification > Push > API v1.3 Guide
+﻿## Notification > Push > API v1.3 Guide
 
-### API 테스트
+### APIテスト
 
-[CONSOLE] > [Notification] > [Push] > [APIs] 탭에서 할 수 있다.
+[CONSOLE] > [Notification] > [Push] > [APIs]タブで行えます。
 
 ### Secret Key
 
@@ -11,15 +11,15 @@ Header
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
-[CONSOLE] > [Notification] > [Push] > [URL & AppKey] 에서 생성할 수 있다.
+[CONSOLE] > [Notification] > [Push] > [URL & AppKey]で作成できます。
 
 ### Response
 
 [Response HTTP Status Code]  
 
 200 OK.  
-모든 API 요청에 대해 200 OK로 응답한다.  
-자세한 응답 결과는 Response Body의 Header를 통해 알 수 있다.  
+すべてのAPIリクエストに対して200 OKレスポンスを返します。
+詳細なレスポンス結果は、Response BodyのHeaderで確認できます。
 
 [Response Header]  
 
@@ -63,11 +63,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | false | 40013 | Client Error. Duplicate certificate. |
 | false | 40014 | Client Error. Wrong message type. Check contact or removeGuide. |
 | false | 40015 | Client Error. Wrong reservationDays. |
-| false | 50001 ~ 50501 | Internal Error. Please report this. 'http://cloud.toast.com/support/qaa'. |
+| false | 50001 ～ 50501 | Internal Error. Please report this. 'http://cloud.toast.com/support/qaa'. |
 
-### 토큰
+### トークン
 
-##### 토큰 등록
+##### トークンの登録
 
 [Method, URL]
 
@@ -108,35 +108,35 @@ Content-Type: application/json;charset=UTF-8
 
 |Parameter|	Usage||
 |---|---|---|
-|token|	Required, String|	Token. 최대 1,600 글자.|
-|oldToken|	Optional, String|	Old Token. 최대 1,600 글자.|
-|channel|	Optional, String|	Channel name. 50 bytes.|
+|token|	Required, String|	Token. 最大1,600文字。|
+|oldToken|	Optional, String|	Old Token. 最大1,600文字。|
+|channel|	Optional, String|	Channel name. 最大50文字。|
 |pushType|	Required, String|	GCM, APNS, APNS_SANDBOX, TENCENT, ADM|
 |isNotificationAgreement|	Required, Boolean|	true or false|
 |isAdAgreement|	Required, Boolean|	true or false|
 |isNightAdAgreement|	Required, Boolean|	true or false|
 |timezoneId|	Required, String|	Area/Name. IANA time zone database.|
-|country|	Required, String|	ISO 3166-1 alpha-2, ISO 3166-1 alpha-3. 3 글자.|
-|language|	Required, String|	ISO 639-1, ISO 639-2, iOS(language code + script code). 8 글자.|
-|uid|	Required, String|	User ID, 64 글자.|
+|country|	Required, String|	ISO 3166-1 alpha-2, ISO 3166-1 alpha-3. 3文字。|
+|language|	Required, String|	ISO 639-1, ISO 639-2, iOS(language code + script code). 8文字。|
+|uid|	Required, String|	User ID、64文字。|
 
-- 토큰 등록시 이미 토큰이 등록되어 있다면, 토큰 기준으로 다른 정보들이 업데이트 된다.
-- 만약, 토큰이 변경된다면 oldToken에 기존 토큰을, token에 새로운 토큰을 설정하고 등록하면 새로운 토큰으로 업데이트 된다.
-- 토큰 등록시 Channel을 등록하면, 메시지 발송시 특정 Channel로 발송할 수 있다. 필수는 아니며, 정의하지 않으면 "default"로 등록된다.
-- 토큰은 하나의 Channel에만 속할 수 있다.
-- "isNotificationAgreement" 푸시 메시지 수신 동의 여부, "isAdAgreement" 광고성 푸시 메시지 수신 여부, "isNightAdAgreement" 야간 광고성 푸시 메시지 수신 여부를 나타낸다.
-- 예로, 모든 푸시 메시지 수신을 원할 경우, 필드 3개 모두 true로 설정하면 된다. 푸시 메시지만 수신할 경우, "isNotificationAgreement"만 true로 설정하면 된다.
-- 수신 동의 여부는 정보통신망법 규정(제50조부터 제50조의 8)을 따른다.  
-[KISA 가이드 바로 가기](http://spam.kisa.or.kr/enr/notice/dataView.jsp?p_No=49&b_No=49&d_No=52)    
-[법령 바로 가기](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
+- トークン登録時、すでにトークンが登録されている場合は、トークン基準で別の情報がアップデートされる。
+- もしトークンが変更された場合は、oldTokenに既存トークンを、 tokenに新しいトークンを設定して登録すると新しいトークンにアップデートされる。
+- トークン登録時にChannelを登録すると、メッセージ送信時に特定Channelに送信できる。必須ではなく、定義しなければ"default"で登録される。
+- トークンは1つのChannelにのみ属すことができる。
+- "isNotificationAgreement"プッシュメッセージの受信に同意するかどうか、"isAdAgreement"広告性プッシュメッセージを受信するかどうか。"isNightAdAgreement"夜間広告性プッシュメッセージを受信するかどうかを表します。
+- 例えば、すべてのプッシュメッセージの受信を希望する場合は、フィールド3個をすべてtrueに設定してください。プッシュメッセージのみ受信する場合は、 "isNotificationAgreement"のみtrueに設定してください。
+- 受信に同意するかどうかは、韓国情報通信網法の規定(第50条から第50条の8)に従う。
+[KISAガイドリンク](http://spam.kisa.or.kr/enr/notice/dataView.jsp?p_No=49&b_No=49&d_No=52)    
+[法令リンク](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
 
-- 네트워크 상태가 좋지 않거나 여러 이유로 인한 응답 지연이 발생할 수 있다. 모바일 어플리케이션 구동에 영향을 최소화 하기위해 Timeout을 짧게 설정하고, 구동될 때 마다 토큰을 등록하는 것이 좋다.
-- 토큰은 보안적인 이슈, 앱 업데이트, 삭제 등 여러가지 이유로 재발급될 수 있다. 자주 변경되는 것은 아니지만, 수신율을 높이기 위해 구동될 때 마다 최신 토큰을 등록하는 것이 좋다.
-- 앱 삭제 등으로 토큰이 만료되어도 바로 GCM, APNS 서버에 적용되지 않아, 앱 삭제 후 푸시 메시지를 발송했을 때 발송이 성공할 수 있다.
+- ネットワーク状態が良くないか、複数の理由によるレスポンス遅延が発生することがある。モバイルアプリケーション起動への影響を最小化するためにTimeoutを短く設定し、起動するたびにトークンを登録することを推奨する。
+- トークンはセキュリティ的なイシュー、アプリアップデート、削除など、さまざまな理由で再発行されることがある。頻繁に変更されることはないが、受信率を高めるため、起動するたびに最新トークンを登録することを推奨する。
+- アプリ削除などでトークンが満了してもすぐにGCM、APNSサーバーに適用されず、アプリ削除後にプッシュメッセージを送信した時、送信が成功することがある。
 
-#### 토큰 조회
+#### トークン照会
 
-###### a. 토큰과 푸시타입으로 토큰 조회
+###### a. トークンとプッシュタイプでトークン照会
 
 [Method, URL]
 
@@ -169,7 +169,7 @@ Content-Type: application/json;charset=UTF-8
 }
 ```
 
-##### b. uid로 토큰 조회
+##### b. uidでトークン照会
 
 [Method, URL]
 
@@ -203,11 +203,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 }
 ```
 
-- Secret Key가 필요한 API이며, 서버에서 호출되어야 한다.
+- Secret Keyが必要なAPIで、サーバーで呼び出される必要があります。
 
-### 메시지
+### メッセージ
 
-#### 메시지 발송
+#### メッセージ送信
 
 [Method, URL]
 
@@ -252,7 +252,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Parameter | Usage |  |
 | --- | --- | --- |
 | target.type | Required, String | ALL, CHANNEL, UID |
-| target.to | Optional, String Array | target.type이 CHANNEL이면 100개, UID면 10,000개다. |
+| target.to | Optional, String Array | target.typeがCHANNELの場合は100個、 UIDは10,000個。 |
 | target.pushTypes | Optional, String Array | GCM, APNS, APNS_SANDBOX, TENCENT, ADM |
 | target.countries | Optional, String Array | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3. 3 bytes. |
 | content | Required, Map | 8192 bytes |
@@ -260,24 +260,24 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | content.default.title | Optional, String |  |
 | content.default.body | Optional, String |  |
 | messageType | Required, String | NOTIFICATION, AD |
-| contact | Optional, String | messageType이 AD일 경우 필요하다. |
-| removeGuide | Optional, String | messageType이 AD일 경우 필요하다. |
-| timeToLive | Optional, Number | 단위는 분이다. 범위는 0(무제한)포함 1 이상이다. 기본 값은 60 이다. |
-| isStored | Optional, Boolean | 메시지를 저장할지 여부다. 기본값은 false다. |
+| contact | Optional, String | messageTypeがADの場合に必要。 |
+| removeGuide | Optional, String | messageTypeがADの場合に必要。 |
+| timeToLive | Optional, Number | 単位は分。範囲は0(無制限)含む1以上。基本値は60。 |
+| isStored | Optional, Boolean | メッセージを保存するかどうか。デフォルト値はfalse。 |
 
-- "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있다.
-만약, 정의하지 않으면 모든 푸시 타입, GCM, APNS, APNS_SANDBOX, TENCENT, ADM로 발송한다.
-- "target.countries" 필드가 "['KR', 'JP']"면 토큰 국가 코드가 "KR" 또는 "JP"인 Token에 발송한다.
-- "content.default" 필드는 필수이며, "content" 필드에 대한 자세한 내용은 아래 [공통 메시지 포맷]을 참고 바란다.
-- 메시지를 광고 타입, "messageType": "AD", 으로 보낼 경우, "contact", "removeGuide" 필드를 반드시 포함해야 한다.
-"contact" 필드에 연락처를 입력해야 하며, "removeGuide" 필드에 수신 철회 방법에 대해 입력해야 한다.
-- timeToLive 필드를 설정하면, 설정한 시간 이상 발송이 지연되는 경우 자동으로 실패 처리된다.
+- "target.pushTypes"フィールドに特定プッシュタイプでのみメッセージを送信できる。
+定義しなければ、すべてのプッシュタイプ、 GCM、APNS、APNS_SANDBOX、TENCENT、ADMに送信する。
+- "target.countries"フィールドが"['KR', 'JP']"の場合、トークン国コードが"KR"または"JP"のTokenに送信する。
+- "content.default"フィールドは必須で、"content"フィールドについての詳細は下記[共通メッセージフォーマット]を参照。
+- メッセージを広告タイプ、"messageType": "AD"に送る場合、"contact"、"removeGuide"フィールドを必ず含める必要がある。
+"contact"フィールドに連絡先を入力する必要があり、"removeGuide"フィールドに受信解除方法について入力する必要がある。
+- timeToLiveフィールドを設定すると、設定した時間以上に送信が遅延する場合、自動的に失敗処理される。
 
 
 ["target" Example]
 
 ```
-"target.type"이 "ALL"이면 "target.to"는 필요 없다.
+"target.type"が"ALL"の場合、"target.to"は必要ない。
 Request Body
 {
 	"target" : {
@@ -290,7 +290,7 @@ Request Body
 		}
 	}
 }
-"target.type"이 "UID" 또는 "CHANNEL"이면 "target.to"에 전송할 uid 또는 channel name을 입력해야 한다.
+"target.type"が"UID"または"CHANNEL"の場合、"target.to"に送信するuidまたはchannel nameを入力する必要がある。
 Request Body
 {
 	"target" : {
@@ -309,8 +309,8 @@ Request Body
 ["messageType" Example]
 
 ```
-광고성 푸시 메시지가 아닌 일반 알림 푸시 메시지로 보낼 경우,
-"messageType"를 "NOTIFICATION"으로 하고, "contact", "removeGuide"는 입력하지 않는다.
+広告性プッシュメッセージではなく、一般通知プッシュメッセージで送信する場合、
+"messageType"を"NOTIFICATION"にして、 "contact"、"removeGuide"は入力しない。
 Request Body
 {
 	"target" : {
@@ -324,8 +324,8 @@ Request Body
 	},
 	"messageType" : "NOTIFICATION"
 }
-광고성 푸시 메시지로 보낼 경우, "messageType"를 "AD"하고, "contact"에 연락처,
-"removeGuide"에 수신 동의 철회 방법을 입력한다.
+広告性プッシュメッセージで送る場合、 "messageType"を"AD"にして、"contact"に連絡先、
+"removeGuide"に受信同意撤回方法を入力する。
 Request Body
 {
 	"target" : {
@@ -338,14 +338,14 @@ Request Body
         }
 	},
 	"messageType" : "AD",
-	"contact" : "연락처",
-	"removeGuide" : "수신 철회 방법"
+	"contact" : "連絡先",
+	"removeGuide" : "受信解除方法"
 }
 ```
 
-#### 공통 메시지
+#### 共通メッセージ
 
-API v1.3 부터 공통 메시지 형식을 지원 한다. "content"에 아래 표대로 메시지를 작성하면, 각 푸시 타입에 맞게 메시지가 생성되어 발송된다.
+API v1.3から共通メッセージ形式をサポートする。 "content"に下記表の通りにメッセージを作成すると、各プッシュタイプに合わせてメッセージが作成され、送信される。
 
 |Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT| ADM |
 |---|---|---|---|---|---|---|
@@ -365,7 +365,7 @@ API v1.3 부터 공통 메시지 형식을 지원 한다. "content"에 아래 �
 |consolidationKey| ADM | Optional, String | - | - | - | consolidationKey |
 |expiresAfter| ADM | Optional, Number | - | - | - | expiresAfter |
 
-그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어간다.
+その他のユーザーが定義したWordは、次のようにCustom Key/Valueフィールドに入る。
 
 |Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT| ADM|
 |---|---|---|---|---|---|---|
@@ -374,8 +374,8 @@ API v1.3 부터 공통 메시지 형식을 지원 한다. "content"에 아래 �
 ["content" Example]
 
 ```
-"content.default"는 필수다. 아래 "content.ko", "content.ja"는 토큰의 언어 코드 값이다.
-해당 토큰의 언어 코드에 맞게 메시지가 발송된다.
+"content.default"は必須。下記"content.ko"、"content.ja"は、トークンの言語コード値。
+該当トークンの言語コードに合わせてメッセージが送信される。
 Request Body
 {
 	"target" : {
@@ -389,9 +389,9 @@ Request Body
             "key": "value"
         },
         "ko" : {
-            "title": "제목",
-            "body": "내용"
-            "key": "값"
+            "title": "タイトル",
+            "body": "内容"
+            "key": "値"
         },
         "ja" : {
             "title": "タイトル",
@@ -400,15 +400,15 @@ Request Body
 	},
 	"messageType" : "NOTIFICATION"
 }
-"ko" GCM 메시지
+"ko" GCMメッセージ
  {
     "data": {
-        "title": "제목",
-        "body": "내용",
-        "key": "값"
+        "title": "タイトル",
+        "body": "内容",
+        "key": "値"
     }
 }
-"ja" GCM 메시지
+"ja" GCMメッセージ
  {
     "data": {
         "title": "タイトル",
@@ -416,19 +416,19 @@ Request Body
         "key": "value"
     }
 }
-"ko" APNS 메시지
+"ko" APNSメッセージ
 {
     "aps": {
         "alert": {
-            "title": "제목",
-            "body": "내용"
+            "title": "タイトル",
+            "body": "内容"
         },
         "badge": 1
     },
-    "key": "값"
+    "key": "値"
 
 }
-"ja" APNS 메시지
+"ja" APNSメッセージ
 {
     "aps": {
         "alert": {
@@ -439,15 +439,15 @@ Request Body
     },
     "key": "value"
 }
-"ko" TENCENT 메시지
+"ko" TENCENTメッセージ
  {
-	"title": "제목",
-	"body": "내용",
+	"title": "タイトル",
+	"body": "内容",
 	"custom_content": {
-		"key": "값"
+		"key": "値"
 	}
 }
-"ja" TENCENT 메시지
+"ja" TENCENTメッセージ
  {
 	"title": "タイトル",
 	"body": "プッシュ・メッセージ",
@@ -455,17 +455,17 @@ Request Body
 		"key": "value"
 	}
 }
-"ko" ADM 메세지
+"ko" ADMメッセージ
 {
   "data":{
-    "title":"제목",
-    "body":"내용",
-    "customKey":"값"
+    "title":"タイトル",
+    "body":"内容",
+    "customKey":"値"
   },
   "consolidationKey":"",
   "expiresAfter":60
 }
-"ja" ADM 메세지
+"ja" ADMメッセージ
 {
   "data":{
     "title":"タイトル",
@@ -477,7 +477,7 @@ Request Body
 }
 ```
 
-#### 메시지 조회
+#### メッセージ照会
 
 [Method, URL]
 
@@ -523,26 +523,26 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ```
 
-"messageStatus" 필드는 메시지 상태를 나타낸다. 다음과 같은 상태가 있다.
+"messageStatus"フィールドはメッセージの状態を表す。次のような状態がある。
 
-- READY: 메시지 발송 요청이 등록된 상태다.
-- IN_MQ: 메시지 생성이 끝나고, 대기 또는 발송 중이다.
-- COMPLETE: 메시지 발송이 완료된 상태다.
-- CANCEL_NO_TARGET: 메시지 발송 대상이 없어서 취소된 상태다. 다음과 같은 이유로 발송이 취소될 수 있다.  
- 등록된 토큰이 없을 때  
- 해당 Channel 또는 Uid가 없을 때  
- 광고 푸시 메시지의 경우, 수신 동의한 사용자가 없을 때  
- 야간 광고 푸시 메시지(21시 ~ 8시)의 경우, 야간 광고 수신 동의한 사용자가 없을 때  
- 기존 등록된 토큰들이 삭제되어 토큰이 없을 때    
-- CANCEL_INVALID_CERTIFICATE: 인증서가 잘 못되어 취소된 상태다. 인증서 상태를 확인해야 한다.
-- CANCEL_INVALID_MESSAGE: 메시지 형식이 맞지않아 취소된 상태다.
-- CANCEL_UNSUPPORTED_MESSAGE_TYPE: 메시지 형식이 맞지않아 취소된 상태다.
-- CANCEL_UNAUTHORIZED: 인증서 인증 과정에서 실패한 상태다. 인증서 상태를 확인해야 한다.
-- CANCEL_UNKNOWN: 내부 오류가 발생한 상태다.
+- READY：メッセージ送信リクエストが登録された状態。
+- IN_MQ：メッセージの作成が完了し、待機または送信中。
+- COMPLETE：メッセージの送信が完了した状態。
+- CANCEL_NO_TARGET：メッセージ送信対象が存在しないためキャンセルされた状態。次のような理由で送信がキャンセルされることがある。
+ 登録されたトークンがない時
+ 該当ChannelまたはUidがない時
+ 広告プッシュメッセージの場合、受信に同意したユーザーがいない時
+ 夜間広告プッシュメッセージ(21時～ 8時)の場合、夜間広告受信に同意したユーザーがいない時
+ 登録されたトークンが削除され、トークンがない時
+- CANCEL_INVALID_CERTIFICATE：証明書が無効でキャンセルされた状態。証明書の状態を確認する必要がある。
+- CANCEL_INVALID_MESSAGE：メッセージ形式が合っておらずキャンセルされた状態。
+- CANCEL_UNSUPPORTED_MESSAGE_TYPE：メッセージ形式が合っておらずキャンセルされた状態。
+- CANCEL_UNAUTHORIZED：証明書の認証プロセスで失敗した状態。証明書の状態を確認する必要がある。
+- CANCEL_UNKNOWN：内部エラーが発生した状態。
 
-### 피드백
+### フィードバック
 
-#### 피드백 확인
+#### フィードバックの確認
 
 [Method, URL]
 
@@ -575,5 +575,5 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 <br/>
 <br/>
 
-* *문서 수정 내역*
-    * *(2017.02.23) 토큰 조회 API 문서 보강*
+* *文書修正履歴*
+    * *(2017.02.23)トークン照会API文書の補強*
