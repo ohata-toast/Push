@@ -455,7 +455,7 @@ When the Customer uses TOAST Push Service, assignment of personal information be
 
 **Notice of Personal Information Assignor** To use Push Service, make sure the following is displayed for 'Personal Information Handling Policy' > Assignment Status of the Customer.  
 ```
-Assignor: NHN Entertainment
+Assignor: NHN
 Content of Business:Deliver Push Messages in lieu of Customers
 ```
 
