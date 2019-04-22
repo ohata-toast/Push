@@ -1,4 +1,4 @@
-﻿## Notification > Push > エラーコード
+## Notification > Push > エラーコード
 
 | isSuccessful | resultCode    | resultMessage                                                |
 | ------------ | ------------- | ------------------------------------------------------------ |
