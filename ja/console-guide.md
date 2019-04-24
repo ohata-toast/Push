@@ -206,7 +206,7 @@ Kindle Fireアプリにプッシュ通知メッセージを送信するには、
 入力したメッセージがAndroidとiOSスマートフォンでどのように表示されるかを確認できます。
 v1.7以上のSDKが適用された場所でのみ使用できる機能です。
 
-![push_04_201812](https://static.toastoven.net/prod_push/12-10/push_04_201812.png)
+![push_04_201812](https://static.toastoven.net/prod_push/12-10/push_04_201812_en.png)
 
 #### 1. ボタン
 
@@ -288,7 +288,7 @@ UID、トークンごとに検索できます。
 
 ### トークンの追加
 
-![push_11_201812](https://static.toastoven.net/prod_push/12-10/push_11_201812.png)
+![push_11_201812](https://static.toastoven.net/prod_push/12-10/push_11_201812_en.png)
 
 1. **追加**ボタンをクリックします。
 2. 追加モーダルウィンドウでUIDとトークンを入力します。
@@ -298,7 +298,7 @@ UID、トークンごとに検索できます。
 
 **検索タイプ**を**TOKEN**に選択すると現れるリストから、希望するプッシュタイプを選択してトークンを検索できます。
 
-![push_12_201812](https://static.toastoven.net/prod_push/12-10/push_12_201812.png)
+![push_12_201812](https://static.toastoven.net/prod_push/12-10/push_12_201812_en.png)
 
 - **Details**ボタンをクリックすると、詳細項目を確認できます。
 
@@ -306,7 +306,7 @@ UID、トークンごとに検索できます。
 
 **検索タイプ**を**UID**に選択して、UIDを検索できます。
 
-![push_13_201812](https://static.toastoven.net/prod_push/12-10/push_13_201812.png)
+![push_13_201812](https://static.toastoven.net/prod_push/12-10/push_13_201812_en.png)
 
 - 一部のみ一致しても検索結果に表示されます。
 - **Details**ボタンをクリックすると、詳細項目を確認できます。
@@ -319,7 +319,7 @@ UID、トークンごとに検索できます。
 
 ### タグの追加
 
-![push_15_201812](https://static.toastoven.net/prod_push/12-10/push_15_201812.png)
+![push_15_201812](https://static.toastoven.net/prod_push/12-10/push_15_201812_en.png)
 
 1. **追加**ボタンをクリックしてタグ名を入力します。
 2. **確認** ボタンをクリックしてタグを追加します。
@@ -327,7 +327,7 @@ UID、トークンごとに検索できます。
 ### タグがついたUIDの管理
 タグをクリックすると、タグがついたUIDのリストを確認できます。
 
-![push_16_201812](https://static.toastoven.net/prod_push/12-10/push_16_201812.png)
+![push_16_201812](https://static.toastoven.net/prod_push/12-10/push_16_201812_en.png)
 
 1.  **追加**ボタンをクリックします。
 2. UIDを入力して**確認**ボタンをクリックします。
@@ -339,7 +339,7 @@ UID、トークンごとに検索できます。
 
 コンソールで**Notification > Push > 統計**をクリックします。
 
-![push_21_201812](https://static.toastoven.net/prod_push/12-10/push_21_201812.png)
+![push_21_201812](https://static.toastoven.net/prod_push/12-10/push_21_201812_en.png)
 
 1. 期間を検索条件に設定できます。
     - 簡単期間設定ボタンの他、手動設定時は1分を最短期間、30日を最長期間に設定できます。
