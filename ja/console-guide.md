@@ -1,399 +1,405 @@
-## Notification > Push > Console Guide
+﻿## Notification > Push > Console Guide
 
-In order to use Push service, you need other push service certificates.
-Currently, we support following push services:
+Pushサービスを活用するには、先に他社プッシュ通知サービスの証明書を登録する必要があります。
+
+現在サポートしているプッシュ通知サービス証明書は次の通りです。
 - GCM - Google Cloud Messaging (Firebase Cloud Messaging)
 - APNS - Apple Push Notification Service
 - XinGe - Tencent Mobile Push
 - ADM - Amazon Device Messaging
 
-## Certificate Management
+## 証明書管理
 
-To manage certificates, go to **Notification > Push > Certificates** from the menu.
+証明書を管理するためにコンソールで**Notification > Push > 証明書**をクリックします。
 
-### GCM API Key
+### FCM Server Key
 
-To send push notification to Android devices, you need valid GCM project's API Key.
+Android端末にプッシュ通知メッセージを送信するためには、有効なFCMサービスのServer Keyが必要です。
 
-#### Create and Import Firebase Cloud Messaging(FCM) API Key
+#### Firebaseクラウドメッセージング(FCM) Server Keyのインポート
 
-1. Sign in to [Google Firebase Console](https://console.firebase.google.com/).
-2. Choose **Add Project**.
-3. Complete the form and click **Create Project**.
-4. Click on the Gear icon on the first page of the project.
-5. Click **Project Settings**.
-6. Choose **Cloud Messaging** tab on the **Settings** page.
-7. Check your **Server Key** (API Key) and **Sender ID**.
+1. [Google Firebase Console](https://console.firebase.google.com)にアクセスします。
+2. **Add Project**をクリックします。
+3. プロジェクト名と情報を入力し、**Create Project**をクリックします。
+4. プロジェクトの最初のページで左上にある歯車アイコンをクリックします。
+5. **Project settings**をクリックします。
+6. **Settings**ページで**Cloud Messaging**タブをクリックします。
+7. **Server key**と**Sender ID**を確認します。
 
-#### Register FCM API Key
+#### FCM API Keyの登録
 
-1. Go to **Console > Notification > Push** and click the **Certificates** tab.
-2. Copy the FCM API Key just created and paste it to the  **GCM API Key**, and press **Register** to complete.
+1. TOASTコンソールで**Notification > Push > 証明書**をクリックします。
+2. 上で作成したFCM Server Keyをコピーして**FCM Server Key**に貼り付け、**登録**ボタンをクリックします。
 
-#### Caution for Google Project
-- Google is scheduled to [deprecate GCM service]((https://developers.google.com/cloud-messaging/faq)) as of April 11, 2019.
+#### Google Project使用時の注意事項
+- Googleは2019年4月11日に[GCMサービスを終了](https://developers.google.com/cloud-messaging/faq)する予定です。
+- Google Project(現在Google Cloud Platform)で作成したキーをGCM API Keyに使用している場合、使用できないこともあります。
+ Google Projectで作成したキーを使用できなくなった場合、Google ProjectをFirebaseに移行し、Firebaseで作成されたサーバーキーを使用する必要があります。
 
-- If the key created from Google Project (now, Google Cloud Platform) is currently used as GCM API Key, it may not be valid in the future. In such case, the Google Project must be migrated to Firebase and a new key must be created through Firebase.
-	- Google provides [Firebase Migration Guide](https://developers.google.com/cloud-messaging/android/android-migrate-fcm).
+GCMからFCMに移行する方法の詳細は、[Firebase Migration Guide](https://developers.google.com/cloud-messaging/android/android-migrate-fcm)を参照してください。
 
-##### Migrating from Google Project to Firebase
+##### Google ProjectからFirebaseに移行
 
-1. Go to [Google Firebase Console](https://console.firebase.google.com/).
-2. Choose **CREATE NEW PROJECT**.
-3. When there is a Google Project in service, the Project Name shows it on the list; choose the Google Project to migrate.
-4. The new Firebase Project ID will be identical with the existing Google Project.  
-5. Click on the Gear icon on the first page of the project.
-6. Click **Project Settings**.
-7. Click the **CLOUD MESSAGING** tab on the page.
-8. Check your Server Key (API Key) and Sender ID.
-9. Copy the Server Key at Firebase to **GCM API Key** in the **Certificates** tab.
+1. [Google Firebase Console](https://console.firebase.google.com/)にアクセスします。
+2. **CREATE NEW PROJECT**をクリックします。
+3. 使用しているGoogle Projectがある場合は、Project Name項目に使用中のGoogle Projectリストが表示されます。移行するGoogle Projectを選択します。
+4. プロジェクトIDが既存Google Projectと同じに設定されます。
+5. プロジェクトの最初のページで歯車(gear)アイコンをクリックします。
+6. **Project settings**をクリックします。
+7. **Settings**ページで**CLOUD MESSAGING**タブをクリックします。
+8. Server key(API Key)とSender IDを確認します。
+9. Firebaseで確認したServer keyを**証明書**タブの**FCM Server Key**に貼り付けます。
 
-### APNS Certificate
+### APNS証明書
 
-To send push notification to iOS devices, you need APNS certificate generated from Apple Developer website.
+iOS端末にプッシュ通知メッセージを送信するには、Apple Developerサイトで発行したAPNS証明書が必要です。
 
-### Create and Import APNS Certificate
+#### APNS証明書の作成、インポート
 
-1. Run **Keychain Access** app on Mac.
-2. Choose **Access Keychain > Support Certificates > Request a Certificate** from **Certificate Authority**.
-3. Enter information as required such as Apple Developer’s ID at **User's Email Address**, choose **Disk Saved**, and **I have saved key pair information**, and click **Continue**.
-4. Choose the key size and algorithm at **Key Pair Information** and click **Continue**. Then, a Certificate Signing Request (CSR) file is created.
-5. Go to [Apple Developer Certificates](https://developer.apple.com/account/ios/certificate/certificateList.action).
-6. Click **+**(Add) at the top right to go to the page issuing Certificates.
-7. Choose **Select Type > Request > Generate** tab to upload CSR files made through **Keychain** and click **Generate**.
-8. You can create and download a certificate. If not authorized, you can obtain an authority to download.
-9. Download the certificate and select it in **Keychain > Certificates**.
-10. Right-mouse click on the certificate and choose **Send**.
-11. Choose save location and press **Save** (file format: .p12).
-12. Enter password to protect exported items, and the certificate is ready.
+1. Macで**キーチェーン**を実行します。
+2. **チェーンアクセス > 証明書のサポート > 認証機関**で**証明書リクエスト**ボタンをクリックします。
+3. **ユーザーメールアドレス**にApple Developer IDなどの必要な情報を入力します。**ディスク指定済**を選択し、**本人がキーペア情報保存**を選択して**続ける**をクリックします。
+4. **キーペア情報**でキーサイズ、アルゴリズムを選択し、**続ける**をクリックします。 CSR(Certificate Signing Request)ファイルが作成されます。
+5. [Apple Developer Certificates](https://developer.apple.com/account/ios/certificate/certificateList.action)に移動します。
+6. 右上にある**+**(Add)ボタンをクリックして、Certificate発行ページに移動します。
+7. **Select Type > Request > Generate**タブで、**キーチェーン**で作成したCSRファイルをアップロードします。**Generate**ボタンをクリックします。
+8. 証明書を作成してダウンロードできます。承認権限がない場合は、承認を受けてダウンロードできます。
+9. 証明書をダウンロードした後、**キーチェーン > 証明書**から証明書を選択します。
+10. 証明書で右クリックして、**送信**をクリックします。
+11. 保存位置を設定し、**保存**をクリックします(ファイル形式：.p12)。
+12. 送信した項目を保護するのに使用するパスワードを入力すると、APNS証明書の作成が完了します。
 
+#### APNS証明書登録
 
-### Register APNS Certificate
+1. コンソールで**Notification > Push > 証明書**をクリックします。
+2. **APNS証明書**の下にある**証明書**で**ファイル選択**をクリックします。
+3. **パスワード**に証明書パスワードを入力します。
+4. **登録**をクリックします。
 
-1. Click **Notification > Push > Certificates** on Console.
-2. Click **Select File** at **APNS Certificate > Certificates**.
-3. Enter certificate password at **Password** .
-4. Click **Register**.
+#### APNS注意事項
 
-### Caution for APNS
-#### Differences between APNS (Production) and APNS_SANDBOX (Development)
+##### APNS(Production)とAPNS_SANDBOX(Development)の違い
+- Production Provisioning Profileでビルドしたアプリは、APNS(Production)を利用する必要があり、Development Provisioning Profileでビルドしたアプリは、APNS_SANDBOX(Development)を利用する必要があります。
+ これを守らなければ、プッシュメッセージを正常に受信できません。
+- Pushに登録したAPNS証明書とアプリをビルドする時に使用したProvisioning Profileが異なるため、メッセージ送信に失敗するケースがほとんどです。
+   APNS(Production) = Production Provisioning Profile  
+   APNS_SANDBOX(Development) = Development Provisioning Profile  
+- さらに詳細な説明は、次のリンクを参照してください。  
+   [APNs Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1)  
+   [App Distribution Quick Start](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppStoreDistributionTutorial/Introduction/Introduction.html#//apple_ref/doc/uid/TP40013839)
 
-- Applications built with Production Provisioning Profile must use APNS (Production) while those built with Development Provisioning Profile must use APNS_SANDBOX (Development). Otherwise, push messages may not be properly received. 
-- In most failure cases of message delivery, the APNS certificate registered at TOAST Cloud Push has a different provisioning profile for application buildup.
-   APNS(Production) = Production Provisioning Profile
-   APNS_SANDBOX(Development) = Development Provisioning Profile 
-- For more details, refer to the following:     
-  [APNS Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1)     
-  [App Distribution Quick Start](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppStoreDistributionTutorial/Introduction/Introduction.html#//apple_ref/doc/uid/TP40013839)
+##### APNSメッセージの送信失敗原因
+- 証明書が満了している時
+- 無効な証明書を登録した時
+- アプリでプッシュメッセージの受信を拒否した時
+- デバイスがインターネットに接続されていない時
 
-#### Causes of Delivery Failure of APNS Messages
+### Tencentの資格証明
 
-- When a certificate has been expired
-- When a wrong certificate has been registered
-- When a push message has been rejected by the application
-- When there’s no Internet access
+Tencentのプッシュ通知サービスXinGeを使用するには、Tencentで登録したアプリケーションのAccess IDとSecret Keyが必要です。
 
-### Tencent Credentials
+#### Tencent会員登録
 
-To use Tencent XinGe mobile push service, you need Tencent app's Access ID and Secret Key.
+1. [TencentプッシュサービスWebサイト](http://xg.qq.com/)にアクセスします。
+2. ページ右上で**登录**(ログイン)をクリックします。
+3. ポップアップ右下で**注册新帐号**(会員登録)をクリックします。
+4. **Email Account**項目でEmail Account、Nickname、Password、Verification Codeなどを入力し、**Sign up now**をクリックします。
+5. **Send verification code**の下にある**select your country/region**をクリックします。
+6. **Region**で**South Korea 0082**を選択し、**Mobile Number**に010AAAABBBB形式で番号を入力します。
+7. 認証コードを入力し、次の段階に移ります。
+8. 登録時に入力したEmailで**Activation Email**を確認し、有効にします。
 
-### Join Tencent
+#### Tencentアプリケーション登録
 
-1. Go to[[Tencent Push Service Website](http://xg.qq.com/)].
-2. Click Login(登录) at the top right of the page.
-3. Click Join (注册新帐号) at the bottom right of the pop-up page.
-4. Enter information required for **Email Account**, including Email Account, Nickname, Password, and Verification Code, and click **Sign up now**.
-5. Click **Select your country/region** under **Send Verification Code**.
-6. Select **South Korea 0082** for **region**, and your mobile number for **Mobile Number** in the 010AAAABBBB format.
-7. Enter verification code and move on to the next step.
-8. Verify your email address.
+1. ログイン後、 [Tencentプッシュサービスダッシュボード](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex)にアクセスします。
+2. ページ右上で**接入推送应用**(アプリケーション登録)をクリックします。
+3. **应用名称**(アプリケーション名)を入力します。
+4. **所属分类**(カテゴリー)を選択します。
+5. **应用平台**(アプリケーションプラットフォーム)でAndroidを選択し、パッケージネームを入力します。
+6. **接入应用**(アプリケーション作成)をクリックします。
 
-### Register Tencent Application
+#### Tencent ACCESS ID、SECRET KEYの登録
 
-1. Login and access [Tencent Push Service Dashboard](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex).
-2. Click Register Application (**接入推送应用**) at the top right of the page.
-3. Enter Application Name (**应用名称**).
-4. Select Category (**所属分类**).
-5. Choose Android for Application Platform (**应用平台**) and enter Package Name.
-6. Click Create Application (**接入应用**).
+1. ログイン後、 [Tencentプッシュサービスダッシュボード](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex)にアクセスします。
+2. **应用统计**(統計)をクリックして、アプリケーションダッシュボードにアクセスします。
+3. 左側メニューから、**配置管理(設定) > 应用配置(アプリケーション設定)**をクリックします。ACCESS ID、ACCESS KEY、SECRET KEYを確認します。
+4. TOASTに戻り、コンソールで**Notification > Push > 証明書**をクリックします。
+5. 確認した**Tencent Credential**にACCESS ID、SECRET KEYを入力します。
 
-### Register Tencent ACCESS ID and SECRET KEY
+### ADMの資格証明
 
-1. Login and access [Tencent Push Service Dashboard](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex).
-2. Click Statistics (**应用统计**) and enter into Application Dashboard.
-3. Click Setting(**配置管理**) > Application Setting (**应用配置**) on the left. Check ACCESS ID, ACCESS KEY, and SECRET KEY.
-4. Come back to TOAST and click **Notification > Push > Certificates** at Console.
-5. Enter ACCESS ID and SECRET KEY into **Tencent Credential**.
+Kindle Fireアプリにプッシュ通知メッセージを送信するには、アプリのClient IDとClient Secretが必要です。
 
-### ADM Credentials
+#### ADMアプリケーションおよびプロファイル登録(Client Id, Client Secret獲得)
+1. [ADM開発者コンソール](https://developer.amazon.com/home.html)にアクセスします。
+2. ページ左上にある**APP & SERVICES**をクリックし、下にある**Add a New App**ボタンをクリックします。
+3. アプリが作成されたら、中間タブにある**Device Messaging**をクリックし、**Create a New Security Profile**ボタンをクリックします。
+4. プロフィール作成完了後、中間タブにある**Security Profiles**をクリックし、**View Security Profile** ボタンをクリックします。
+5. **General**タブでClient IDとClient Secret値を確認できます。
 
-To send push notification to Kindle Fire app, you need its Client ID and Client Secret.
-
-### Register ADM Application and Profiles (Acquire Client Id and Client Secret)
-1. Go to [ADM Developer Console](https://developer.amazon.com/home.html).
-2. Click **APP & SERVICES** at the top left and choose **Add a New App** at the bottom.
-3. When the app is created, click **Device Messaging** in the middle. Then, click **Create a New Security Profile**.
-4. When the profile is created, click **Security Profiles** in the middle and choose **View Security Profile**.
-5. Go to the **General** tab to check Client ID and Client Secret.
-
-### Register Setting Information for ADM Kindle (Acquire API Key)
-1. Click **Security Profiles** and then **Android/Kindle Setting** in the middle.
-2. Enter information such as App Key Name, Package, MD5 Signature, and SHA256 Signature.
-3. You can query information of MD5 or SHA256, by using commands like below:
+#### ADM Kindle設定情報の登録(API keyの取得)
+1. **Security Profiles**タブをクリックし、中間にある**Android/Kindle Setting**タブをクリックします。
+2. App Key Name、Package、MD5 Signature、SHA256 Signature情報を入力します。
+3. 下記のコマンドでMD5、SHA256情報を照会できます。
 ```
 > keytool -list -v -keystore {keystoreFileName}
 
-Enter password for key repository:
-Type of key repository: JKS
-Key repository provider: SUN
+キー保存場所のパスワード入力：
+キー保存場所のタイプ：JKS
+キー保存場所の提供者：SUN
 
-One item is included to a key repository.
+キー保存場所に1個の項目が含まれています。
 
-Nickname: androiddebugkey
-Date of Creation: May 9, 2018
-Item Type: PrivateKeyEntry
-Chain Lengh of Certificate: 1
-Certificate [1]:
-Owner: C=US, O=Android, CN=Android Debug
-Issuer: C=US, O=Android, CN=Android Debug
-Serial Number: 1
-Appropriate Start Date: Wed. May 09 19:59:46 KST 2018
-End Date: Fri. May 01 19:59:46 KST 2048
-Certificate Fingerprint:
-         MD5:  xxxx
-         SHA1: xxxx
-         SHA256: xxxx
-Signature Algorithm Name: SHA1withRSA
-Subject Common Key Algorithm: 1024 bits RSA Key
-Version: 1
+エイリアス名：androiddebugkey
+作成日：2018. 5. 9
+項目タイプ：PrivateKeyEntry
+証明書チェーンの長さ：1
+証明書[1]:
+所有者：C=US, O=Android, CN=Android Debug
+発行者：C=US, O=Android, CN=Android Debug
+一連番号：1
+適した開始日：Wed May 09 19:59:46 KST 2018終了日：Fri May 01 19:59:46 KST 2048
+証明書の指紋：
+         MD5：xxxx
+         SHA1：xxxx
+         SHA256：xxxx
+署名アルゴリズム名：SHA1withRSA
+主体公開鍵アルゴリズム：1024bit RSA
+バージョン：1
 ```
-- After registration is completed, click Show and query API key information.
+- 登録完了後、**Show**ボタンをクリックするとAPI key情報を照会できます。
 
 
-## Message Delivery
+## メッセージ送信
 
-After certificates and tokens are properly set, go to Console and click **Notification > Push > Messages > Add **and send immediate push messages.
+証明書とトークンを正常に登録した後、コンソールで**Notification > Push > メッセージ**をクリックし、**追加**ボタンをクリックします。フォーマットを作成して、メッセージを即時に送信できます。
 
-The following is the format for immediate delivery:
+即時送信のフォーマット構成は次のとおりです。
 
-### Target
+### 対象
 
-| Name                   | Description                                                  |
-| ---------------------- | ------------------------------------------------------------ |
-| Type          | Choose one out of ALL, UID, and TAG.                         |
-| To            | You can enter UIDs. Conversion to UID is available by choosing UID in Target > Type: use comma (',') as delimiter to enter many. |
-| UIDs          | Use comma (',') as delimiter to enter multiple UIDs.                  |
-| Tags          | Click Select and choose tags.                                |
-| Selected Tags | Display selected tags: click again to deselect.              |
-| Countries     | Enter country code: use comma (',') as delimiter to enter mutiple country codes. |
-| Push Types    | You can choose multiple types among GCM, APNS, APNS Sandbox, and Tencent. |
+| 名前             | 内容                               |
+| ---------------------- | ---------------------------------------- |
+| 対象タイプ          | ALL、UID、TAGのうち1つを選択できます。        |
+| To                | UIDを入力できます。 Target > TypeでUIDを選択してUIDに転換できます。カンマ(',')をセパレータにして、複数入力できます。 |
+| UIDs              | カンマ(',')をセパレータにして、複数入力できます。          |
+| タグ        | **選択**ボタンをクリックして、タグを選択できます。           |
+| 選択されたタグ    | 選択されたタグが表示されます。再度クリックして選択を解除できます。   |
+| 国コード     | 国コードを入力できます。カンマ(',')をセパレータにして複数入力できます。 |
+| プッシュタイプ     | GCM、APNS、APNS Sandbox、Tencent複数選択できます。 |
 
-### Option
+### オプション
 
-| Name                   | Description                                                  |
-| ---------------------- | ------------------------------------------------------------ |
-| Time To Live  | Refers to effective time for message delivery. If a delivery is delayed during the time set, it is automatically processed as a failure. It is set by minute. Setting it as '0' will not make the delivery to automatically fail. |
+| 名前             | 内容                               |
+| ---------------------- | ---------------------------------------- |
+| TTL(Time To Live) | メッセージの送信有効時間です。設定した時間中に送信が遅延する場合、自動的に失敗処理されます。単位は分です。0の場合、送信遅延で失敗処理されません。 |
 
-### Message
+### メッセージ
 
-| Name                   | Description                                                  |
-| ---------------------- | ------------------------------------------------------------ |
-| Editor Type  | Two types: SIMPLE and JSON. In the case of JSON, you can type in your messages. |
-| Message Type | Two types: NOTIFICATION and AD. In the case of AD, the messages are delivered only to the users who agreed to receive advertising push messages. |
+| 名前             | 内容                               |
+| ---------------------- | ---------------------------------------- |
+| エディタのタイプ   | SIMPLE、JSONの2つのタイプがあります。JSONを選択すると、直接メッセージを作成できます。 |
+| メッセージタイプ   | NOTIFICATION、ADの2つのタイプがあります。ADの場合は、広告性プッシュメッセージ受信に同意したユーザーにのみメッセージが送信されます。 |
 
-### Rich Message
-You can send push notifications with buttons, images, and various other things included. You can also preview how the message would look like in Android and iOS smartphones. You need SDK version 1.7 or above to use this feature.
+### リッチメッセージ作成
+プッシュメッセージにボタン、イメージなどを入れて多様な形式でプッシュメッセージを送信できます。
+入力したメッセージがAndroidとiOSスマートフォンでどのように表示されるかを確認できます。
+v1.7以上のSDKが適用された場所でのみ使用できる機能です。
 
-![push_04_201812_en](https://static.toastoven.net/prod_push/12-10/push_04_201812_en.png)
+![push_04_201812](https://static.toastoven.net/prod_push/12-10/push_04_201812_en.png)
 
-#### 1. Button
+#### 1. ボタン
 
-|Name | Description |
+|名前|内容|
 |---|---|
-| Name | Name of the button. |
-| Type | Types of button are: Reply, Open App, Open URL, and Dismiss |
-| Submit Button Name | If the type of the button is "Reply" you can configure the name of the submit button in iOS. |
-| Link | URL link to refer to when pressed. Only applies when the type of the button is "Open URL". |
-| Hint | Description of the button. |
+| 名前 | ボタンの名前 |
+| タイプ | ボタンのタイプ、レスポンス(REPLY)、アプリを開く(OPEN_APP)、URLを開く(OPEN_URL)、閉じる(DISMISS) |
+| 送信ボタン名 | ボタンタイプがレスポンスボタンの場合、iOSで送信ボタン名を設定できます。 |
+| リンク | ボタンを押した時に移動したり実行するリンクです。ボタンタイプがURLを開く場合に該当します。 |
+| ヒント | ボタンについての説明です。 |
 
-#### 2. Media
+#### 2. メディア
 
-| Name | Description |
+|名前|内容|
 |---|---|
-| Source | Source of the media: Remote or Local |
-| Address | URL or URI of the media. |
-| Type | Three types of media: Image, GIF, Video, and Audio. (Only Image type is available for Android) |
-| Extension | File extension of the media file. ex)png, avi, mp4 |
-| Expand | Unfolds the image media, Only avaiable on Android. |
+| 位置 | メディアがある場所。'REMOTE'または'LOCAL' |
+| アドレス | メディアがあるアドレス。URL、URIなど。 |
+| タイプ | イメージ、 GIF、動画、音声を選択できます。 (Androidはイメージのみ可能) |
+| 拡張子 | メディアの拡張子 | .png, .aviなど、メディアの拡張子です。 |
+| 広げる | メディアの広げる機能、Androidでのみ可能です。 |
 
-#### 3. Large Icon
+#### 3. 大アイコン
 
-Only supported by Android
+Androidでのみ提供する機能です。
 
-| Name | Description |
+|名前|内容|
 |---|---|
-| Source  | Source of the icon image: Remote or Local |
-| Address | URL or URI of the icon image. |
+| 位置 | 存在する場所。'REMOTE'または'LOCAL' |
+| アドレス | イメージが存在するアドレス。URL、URIなど。 |
 
-#### 4. Group
+#### 4. グループ
 
-Only supported by Android
+Androidでのみ提供する機能です。
 
-| Name | Description |
+|名前|内容|
 |---|---|
-| Key | Group key |
-| Description | Group Description |
+| キー | グループのキー |
+| 説明 | グループについての説明 |
 
-## Scheduled Delivery 
+## 予約送信
 
-You can send push notificaition at the scheduled time. Go Console and click **Notification > Push > Reservation** to do so.
+Pushの予約送信機能を使用すると、希望する時間にメッセージを送信できます。メッセージを予約送信するには、コンソールで**Notification > Push > 予約**をクリックします。
 
-The following is the format for scheduled delivery:
+予約送信のフォーマットは次のとおりです。
 
-| Name                                                    | Description                                                  |
-| ------------------------------------------------------- | ------------------------------------------------------------ |
-| Schedule Type | EVERY_DAY: Send messages at a specific time, on a daily basis between StartDate and EndDate.<br />EVERY_WEEK: Send messages on a specific day as set in the Reservation Condition, on a weekly basis.<br />EVERY_MONTH: Send messages on a specific date as set in the Reservation Condition, on a monthly basis. |
-| Day of Week                                | You may choose a day of the week.                            |
-| Day of Month                                            | You can enter date (month), using comma (',') as delimiter.  |
-| Delivery Time                                   | You can enter the time for messages to be delivered in format of 'HH:mm'. |
-| Start Date                                              | You can enter a date to start delivering messages in format of 'YYYY-MM-DD'. You can enter the date with calendar. |
-| End Date                                                | You can enter the last date to deliver messages in format of 'YYYY-MM-DD'. You can enter the date with calendar. |
-| Local Time                                              | When it is set 'true', the messages are delivered based on the local time. |
+| 名前   | 内容                               |
+| ------------ | ---------------------------------------- |
+| 日程          | EVERY_DAY：StartDateからEndDateまで、毎日指定された時間にメッセージを送信します。<br/> EVERY_WEEK：Reservation Conditionに曜日を指定して、毎週指定した曜日にメッセージを送信します。<br/> EVERY_MONTH：Reservation Conditionに日付を指定して、毎月指定した日にメッセージを送信します。 |
+| 曜日 | 曜日を選択できます。    |
+| 日 | カンマ(',')をセパレータにして日付(月)を入力できます。 |
+| 予約時間        | メッセージを送信する時間を入力します。時間形式は'HH:mm'です。   |
+| 開始日         | メッセージの送信を開始する日付を入力します。カレンダーで日付を選択できます。形式は'YYYY-MM-DD'です。 |
+| 終了日         | メッセージを送信する最後の日付を入力します。カレンダーで日付を選択できます。形式は'YYYY-MM-DD'です。 |
+| 現地時間        | trueに設定すると、現地時間基準でメッセージを送信します。        |
 
 ## API
 
-You can use API calls in the console besides, curl or Postman app.
-Go to **Console > Notification > Push** > and click **API** tab.
+Curl、Postmanの他、コンソールでAPI呼び出しを使用できます。
+コンソールで**Notification > Push > API**をクリックします。
 
-### Check Token
+### トークン照会
 
-Choose push types and you can look up or delete a token. 
-Deleting a token is not supported in Public API for now, and is only available in **API** and **Token** tabs.
+プッシュタイプを選択し、トークンを入力して照会および削除ができます。
+トークン削除機能は、現在コンソールAPIタブとトークンタブでのみサポートされます。
 
-### Public APIs 
+### Public APIs
 
-These are API calls provided in public API.
-You can add tokens, send messages, and get feedbacks through API calls.
-You can choose which API version to use.
-For further detail, please refer to [API Guide](./api-guide/).
+Public APIで提供されるAPI呼び出しです。
+トークン作成、メッセージ送信、フィードバック照会APIの呼び出しが提供されます。
+APIのバージョンを選択して、バージョンごとにリクエストできます。
+APIの詳細は、[APIガイド](./api-guide/)で確認できます。
 
+## トークン
 
-## Tokens
+トークンを特定UIDに追加できます。
+UID、トークンごとに検索できます。
 
-You can map the tokens on specific UIDs.
-You can search by UIDs or tokens.
+コンソールで**Notification > Push > トークン**をクリックします。
 
-Go to **Console > Notification > Push** > and click **Token** tab.
+### トークンの追加
 
-### Add Token
+![push_11_201812](https://static.toastoven.net/prod_push/12-10/push_11_201812_en.png)
 
-![push_11_201812_en](https://static.toastoven.net/prod_push/12-10/push_11_201812_en.png)
+1. **追加**ボタンをクリックします。
+2. 追加モーダルウィンドウでUIDとトークンを入力します。
+3. プッシュタイプおよび残りのオプションを確認し、**確認**ボタンを押してトークンを追加します。
 
-1. Click **Add**.
-2. Enter 'UID' and 'Token' on the **Add Token** modal.
-3. Complete the rest of the form and click **Ok**.
+### トークンの検索
 
-### Search Tokens
+**検索タイプ**を**TOKEN**に選択すると現れるリストから、希望するプッシュタイプを選択してトークンを検索できます。
 
-Select **TOKEN** for **Search Type** and choose an appropriate push type to search tokens.
+![push_12_201812](https://static.toastoven.net/prod_push/12-10/push_12_201812_en.png)
 
-![push_12_201812_en](https://static.toastoven.net/prod_push/12-10/push_12_201812_en.png)
+- **Details**ボタンをクリックすると、詳細項目を確認できます。
 
-- Click on **Details** button to see detailed information of the token.
+### UID検索
 
-### Search UIDs
+**検索タイプ**を**UID**に選択して、UIDを検索できます。
 
-Select **UID** for **Search Type** to search UIDs.
+![push_13_201812](https://static.toastoven.net/prod_push/12-10/push_13_201812_en.png)
 
-![push_13_201812_en](https://static.toastoven.net/prod_push/12-10/push_13_201812_en.png)
+- 一部のみ一致しても検索結果に表示されます。
+- **Details**ボタンをクリックすると、詳細項目を確認できます。
 
-- Partial match will show up on the search result too.
-- Click on **Details** button to see detailed information of the token.
+## タグ
 
-## Tags
+複数のUIDをタグにまとめられます。タグはNotificationサービス全域で使用されます。
 
-You can map multiple UIDs to tags. Tags are used globally in Notification service.
+コンソールで**Notification > Push > タグ**をクリックします。
 
-Go to **Console > Notification > Push** > and click **Tag** tab.
+### タグの追加
 
-### Add Tag
+![push_15_201812](https://static.toastoven.net/prod_push/12-10/push_15_201812_en.png)
 
-![push_15_201812_en](https://static.toastoven.net/prod_push/12-10/push_15_201812_en.png)
+1. **追加**ボタンをクリックしてタグ名を入力します。
+2. **確認** ボタンをクリックしてタグを追加します。
 
-1. Click **Add** and enter the name of the tag on **Add Tags** modal.
-2. Click **Ok** to add the token.
+### タグがついたUIDの管理
+タグをクリックすると、タグがついたUIDのリストを確認できます。
 
-### Manage UIDs attached on Tags
- Click on the tag to check the list of UIDs attached to it.
+![push_16_201812](https://static.toastoven.net/prod_push/12-10/push_16_201812_en.png)
 
-![push_16_201812_en](https://static.toastoven.net/prod_push/12-10/push_16_201812_en.png)
+1.  **追加**ボタンをクリックします。
+2. UIDを入力して**確認**ボタンをクリックします。
+	- UIDは一度に1,000個まで追加できます。
 
-To add UIDs on to the tag:
-1. Click **Add**.
-2. Type in the UIDs with new line as a delimiter.  
-	- Up to 1,000 UIDs can be added.
+## 統計
 
-## Statistics
+ 過去30日以内に収集されたメッセージ受信/確認データを照会できます。
 
-You can visualize push notification data collected within 30 days.
-Go to **Consoel > Notification > Push** and click **Statistics** tab.
+コンソールで**Notification > Push > 統計**をクリックします。
 
-![push_21_201812_en](https://static.toastoven.net/prod_push/12-10/push_21_201812_en.png)
+![push_21_201812](https://static.toastoven.net/prod_push/12-10/push_21_201812_en.png)
 
-- You can set date range.
-    - You can manually set the date with a minimun range of one minute and maximum of 30 days.
-- You can change the type of graph
-    - Default will show you the graph with appropriate horizontal-axis.
+1. 期間を検索条件に設定できます。
+    - 簡単期間設定ボタンの他、手動設定時は1分を最短期間、30日を最長期間に設定できます。
+2. タイプにグラフが表示される方式を設定できます。
+    - 基本は設定された期間に応じて、自動的に最適化されたタイプでグラフを表示します。
 
-## Token Setting
+## 設定
 
-You can configure Push service.
+プッシュサービスを設定できます。
 
-Go to **Console > Notification > Push** > and click **Setting** to set Token Expiration Period and App Type. 
+コンソールで**Notification > Push > 設定**をクリックします。
 
-### Position Setting of Ad Phrase
+### 広告表示文言位置設定
 
-- You can configure the position of the Ad phrase displayed on the advertisement push notification. 
-- Title
-    - Default 
-    - '(Ad)' will be prepended in the title along with contact information.
-- Body
-    - '(Ad)' phrase, contact information, and unsubscription method will be displayed in the body.
+- 広告性メッセージ送信時に表示される広告表示文言の位置を設定できます。
+- タイトル(title)
+    - 基本設定です。
+    - タイトルに'(広告)'表示と連絡先が表示されます。
+- 内容(body)
+    - 内容に'(広告)'、連絡先、受信同意撤回方法が表示されます。
+- 機能を設定すると、実際の反映まで数分かかることがあります。
 
-### Token Setting
+### トークン設定
 
-- Token Expiration Period
-    - Exclude tokens that did not request registration during set period from the list of message delivery.
-    - Default is 12 months.
-    - Tokens of the users who do not use the app during the period are automatically excluded from the message delivery list, thus saving costs.  
+- トークン満了期間設定
+    - 設定した期間に登録リクエストがないトークンをメッセージ送信対象から除外します。
+    - デフォルト値は12ヶ月です。
+    - 設定した期間にアプリを使用しないユーザーのトークンがメッセージ送信対象から自動的に除外され、送信料金を節約できます。
 
-- App Type
-    - Manage tokens by the type of the app.
-    - Multiple Tokens
-        - Default
-        - User can use the app installed on many devices all at once, and a user can have multiple tokens.  
-        - For instance, if a user has a mobile phone and a tablet PC, he can have two tokens, and push messages are delivered to both of the devices.
-    - Single Token
-        - User can use app on one device only and a user can have only one token.
-        - For instance, if a user has a mobile phone and a tablet PC, he can have only one token, and push messages are delivered to one of the two.
+- アプリタイプ設定
+    - 連携したアプリのタイプに応じて、トークンを管理します。
+    - 多重トークン
+        - 基本設定です。
+        - アプリのユーザーが複数の端末にインストールされたアプリを同時に使用できるアプリで、一人のユーザーは複数のトークンを持つことができます。
+        - 例えば、ユーザーが携帯電話とタブレットを使用する場合、2つのトークンを持つことができ、携帯電話とタブレットにプッシュメッセージを送信します。
+    - 単一トークン
+        - ユーザーが一度に1つの端末でのみアプリを使用できます。一人のユーザーは1つのトークンのみ持つことができます。
+        - 例えば、ユーザーが携帯電話とタブレットを使用する場合、1つのトークンのみ持つことができ、どちらか一方にプッシュメッセージを送信します。
 
-### Collect Message Receipt/Check Data
+- 機能を設定すると、実際の反映まで数分かかることがあります。
 
-To use this function, the SDK must be v1.4 or above. 
-Check collected data in **Statistics** tab.     
+### メッセージ受信/確認
 
-### Log Message Delivery History
-- Send message delivery history to Log & Crash Search as specified.
-- **Appkey**: Enter Appkey from Log & Crash Search service.
-- **Log Source**: Enter a value to log along with history logging, as a separator from other logs.
-- **Log Level**: Record specific parts only from the delivery history:
-    - ALL: Log all history, including success/failure of delivery.
-    - INFO: Log delivery, and failed delivery of expired tokens only: do not log successful deliveries.
-    - ERROR: Log history of failed deliveries only.
-- You can view the logs in **Analytics > Log & Crash Search > Log Search**.
-- Delivered message will follow the pricing from [Log & Crash Search](https://toast.com/service/analytics/log_crash_search/#price)
+- メッセージの受信および確認、データ収集(Message Delivery Receipt)機能を有効にできます。
+- 有効になった機能を動作させるには、SDK v1.4以上が適用されている必要があります。
+- 収集されたデータは、**統計**タブで確認できます。
+- 機能を設定すると、実際の反映まで数分かかることがあります。
 
-#### Log Type for Delivery History
+### 送信履歴の保存
+- メッセージ送信履歴を指定したLog & Crash Searchに転送する機能です。
+- **Appkey**には、使用するLog & Crash SearchのAppkeyを入力します。
+- **Log Source**は、履歴保存時に一緒に残す値を入力します。他のログと区別する値です。
+- **Log Level**は、送信履歴のうち特定の履歴のみを残せるようにします。
+     - **ALL**：送信成功、失敗など、すべての履歴を残します。
+     - **INFO**：満了したトークン送信、送信失敗履歴のみを残します。送信成功は残しません。
+     - **ERROR**：送信失敗履歴のみを残します。
+- 連携後、メッセージ送信履歴はコンソールの**Analytics > Log & Crash Search > ログ検索**で確認できます。
+- 送信されるメッセージ送信履歴は[Log & Crash Searchの料金ポリシー](https://toast.com/service/analytics/log_crash_search/#price)に従います。
+
+#### 送信履歴のログ形式
 ##### Body
 ```
 {
@@ -408,61 +414,70 @@ Check collected data in **Statistics** tab.
 		"priority" : "high",
 		"data" : {
 			"messageDeliveryReceipt" : true,
-			"title" : "Title",
-			"body" : "Body",
+			"title" : "タイトル",
+			"body" : "内容",
 			"messageDeliveryReceiptData" : {
 				"messageId" : 963854842757578,
 				"sentDateTime" : "2017-11-06T10:41:55.619+09:00"
 			}
 		},
-		"registration_ids" : ["Token"]
+		"registration_ids" : ["トークン"]
 	}
 }
 ```
-- tokens: Delivered token information
-    - uid: User ID
-    - token: Token
-    - newToken: Newly-issued token (shows only when a new token exists)
-    - message: Result message (shows only for abnormal responses)
-- payload: Messages actually delivered to GCM, APNS, or TENCENT (with different content for each push type)
+- tokens：送信されたトークンの情報
+    - uid：ユーザーID
+    - token：トークン
+    - newToken：新たに発行されたトークン(新しいトークンがある時のみ表示)
+    - message：結果メッセージ(異常レスポンスの時のみ表示)
+- payload：実際にGCMや、APNS、TENCENTに送信されたメッセージ内容(プッシュタイプに応じて内容が異なる)
 
 ##### Fields
-- Appkey: Push Appkey delivering messages
-- messageId: Message ID
-- pushType: Push types (GCM, APNS, APNS_SANDBOX, or TENCENT)
-- sentResult: Result of delivery (SENT, INVALID_TOKEN, or ERROR)
-- messageErrorType: Type of delivery failure
-    - CLIENT_ERROR: Delivery failed due to wrong delivery request out of client error
-    - EXTERNAL_ERROR: Delivery failed out of external error, due to abnormal responses from Google, Apple, or Tencent server
-    - INTERNAL_ERROR: Delivery failed out of internal error
-- messageErrorCause: Cause of failed delivery
-    - SKIP: Invalid token or certificate
-    - NO_TOKEN: No target of delivery
-    - INVALID_TOKEN: Delivery request with invalid token
-    - INVALID_MESSAGE: Delivery request with invalid message
-    - INVALID_CERTIFICATE: Certificate expired
-    - UNAUTHORIZED: Certificate expired
-    - EXPIRED_TIME_OUT: Message requested for delivery expired
-    - APNS_ERROR: Abnormal response from APNS
-    - GCM_ERROR:Abnormal response from GCM
-    - TENCENT_ERROR: Abnormal response from TENCENT
-    - AGENT_ERROR: Abnormal communication with Google, Apple, or Tencent server
-    - UNKOWN: Unknown internal error
+- Appkey：メッセージを送信したプッシュアプリケーションキー
+- messageId：メッセージID
+- pushType：プッシュタイプ(GCM、APNS、APNS_SANDBOX、TENCENT)
+- sentResult：送信結果(SENT、INVALID_TOKEN、ERROR)
+- messageErrorType：送信失敗タイプ
+    - CLIENT_ERROR：クライアントエラー。無効な送信リクエストにより送信失敗
+    - EXTERNAL_ERROR：外部エラー。送信時にGoogleやApple、Tencentサーバーで異常レスポンスにより送信失敗
+    - INTERNAL_ERROR：内部エラーで送信失敗
+- messageErrorCause：送信失敗の原因
+    - SKIP：無効なトークンや証明書
+    - NO_TOKEN：送信対象なし
+    - INVALID_TOKEN：無効なトークンに送信をリクエスト
+    - INVALID_MESSAGE：無効なメッセージで送信をリクエスト
+    - INVALID_CERTIFICATE：証明書の満了
+    - UNAUTHORIZED：証明書の満了
+    - EXPIRED_TIME_OUT：送信リクエストしたメッセージが満了
+    - APNS_ERROR：APNSで異常レスポンス
+    - GCM_ERROR：GCMで異常レスポンス
+    - TENCENT_ERROR：TENCENTで異常レスポンス
+    - AGENT_ERROR：Google、Apple、Tencentサーバーへの通信が異常
+    - UNKOWN：内部で不明なエラーが発生
 
-## Guide for Notice of Personal Information Assignor
+### 重複メッセージ防止設定
+- 同じメッセージを同じユーザーに重複リクエストする場合に送信を制限する機能です。
+- 重複判断基準はメッセージタイプ、内容(コンテンツ)、発信連絡先、受信同意設定ガイド、広告表示文言位置、トークンです。
+基準については、値がすべて同じであれば重複と判断し、メッセージを送信しません。
+- 送信されなかったメッセージは失敗処理されます。送信失敗原因は'DUPLICATED_MESSAGE_TOKEN'に残ります。
+- 設定タブ"重複メッセージ防止設定"で設定できます。
+- 機能を設定すると、実際の反映まで数分かかることがあります。
 
-When the Customer uses TOAST Push Service, assignment of personal information between the Customer and the Company arises, and the assignee, the Customer, is obliged to disclose the status (assignor and content of business) of his assignment of personal information to the Company, through the personal information handling policy, in accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection. Accordingly, the Company may provide guidelines as below for the Customer, to abide by relevant regulations in the use of TOAST Push Service and not to be adversely affected for not disclosing his assignment status:
 
-**Notice of Personal Information Assignor** To use Push Service, make sure the following is displayed for 'Personal Information Handling Policy' > Assignment Status of the Customer.  
+## 個人情報受託会社の告知案内
+
+顧客'がTOAST Pushサービスを利用する時、'顧客'と'当社'の間で個人情報処理に関する業務の委託/受託関係が発生しますので、韓国情報通信網法および個人情報保護法に従って、委託者である'顧客'は個人情報処理方針を通して'当社'に個人情報を委託した状況(受託者および業務の内容)を公開する必要があります。よって'当社'では'顧客'がTOAST Pushサービスを利用するにおいて関連法令を遵守し、委託状況の未公開により過料などの不利益を被らないように下記のように案内できます。
+
+[個人情報受託会社の告知案内] Pushサービス利用時、顧客の会社で運営する'個人情報処理方針' > 委託状況に次の内容を表記してください。
 ```
-Assignor: NHN Entertainment
-Content of Business:Deliver Push Messages in lieu of Customers
+受託会社：NHN 
+業務の内容：プッシュメッセージ送信代行
 ```
 
-
-* Document Updates
-    * *(July 24, 2018) Added description of APNS Certificate*
-    * *(June 15, 2018) Added description of relocating GCM to Firebase*
-    * *(Nov. 23, 2017) Added saving history of message delivery*
-    * *(Sept. 21, 2017) Modified description of immediate delivery*
-    * *(July 20, 2017) Added Guide for Notice of Personal Information Assignor*
+* *文書修正履歴*
+    * *(2018.09.19)広告表示文言の説明を追加*
+    * *(2018.07.24) APNS証明書の説明を追加*
+    * *(2018.06.15) GCMからFirebaseに移行する説明を追加*
+    * *(2017.11.23)メッセージ送信履歴の保存説明を追加*
+    * *(2017.09.21)即時送信の説明を修正*
+    * *(2017.07.20)個人情報受託会社の告知案内を追加*
