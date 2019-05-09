@@ -1,4 +1,4 @@
-﻿## Notification > Push > API v1.3 Guide
+## Notification > Push > API v1.3ガイド
 
 ### APIテスト
 

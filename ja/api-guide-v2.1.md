@@ -1,4 +1,4 @@
-﻿## Notification > Push > API v2.1 Guide
+## Notification > Push > API v2.1ガイド
 
 ### v2.1 API紹介
 

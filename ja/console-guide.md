@@ -1,4 +1,4 @@
-﻿## Notification > Push > Console Guide
+## Notification > Push > Console Guide
 
 Pushサービスを活用するには、先に他社プッシュ通知サービスの証明書を登録する必要があります。
 
