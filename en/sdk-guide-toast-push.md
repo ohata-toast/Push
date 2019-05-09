@@ -17,4 +17,3 @@ With TOAST Push SDK, easy and powerful notification service can be provided for 
 
 #### Others
 * For other platform inquiries, contact [TOAST Customer Center](https://toast.com/support/inquiry?alias=tab3_06).
-

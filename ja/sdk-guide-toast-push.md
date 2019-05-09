@@ -1,4 +1,4 @@
-﻿## Notification > Push > SDKガイド
+## Notification > Push > SDKガイド
 TOAST Push SDKを適用すると、モバイルアプリケーションで簡単に、強力なNotificationサービスを提供できます。
 
 ## 主な機能
