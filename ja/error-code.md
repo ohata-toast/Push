@@ -1,4 +1,4 @@
-## Notification > Push > Error Codes
+## Notification > Push > エラーコード
 
 | isSuccessful | resultCode    | resultMessage                                                |
 | ------------ | ------------- | ------------------------------------------------------------ |
@@ -23,5 +23,5 @@
 | false        | 40402         | Client Error. Not found certificate.                         |
 | false        | 40405         | Client Error. Not found instance.                            |
 | false        | 50001 ~ 50501 | Internal Error. Please report this. 'https://toast.com/support/inquiry'. |
-| false        | 400           | Client Error. Occurred at a tagged API.     |
-| false        | 500           | Internal Error. Occurred within tagged API.         |
+| false        | 400           | Client Error. タグAPIで発生したクライアントエラーです。     |
+| false        | 500           | Internal Error. タグAPIで発生した内部エラーです。         |

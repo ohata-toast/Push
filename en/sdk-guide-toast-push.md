@@ -1,19 +1,19 @@
 ## Notification > Push > SDK Guide
-TOAST Push SDK를 적용하면 모바일 애플리케이션에서 쉽고 강력한 Notification을 서비스를 제공할 수 있습니다.
+With TOAST Push SDK, easy and powerful notification service can be provided for mobile applications. 
 
-## 주요 기능
-* OS에 알림 토큰 등록
-* 알림 메시지 수신 및 표시
-* 메시지 수신 및 수신된 메시지를 통한 애플리케이션 실행 지표 수집
+## Main Features 
+* Register notification tokens at OS 
+* Receive and display notification messages 
+* Receive messages and collect indicators on application execution on such messages 
 
-## 개발 가이드
+## Development Guide
 
 #### iOS
-* [TOAST Push iOS 가이드](http://docs.toast.com/ko/TOAST/ko/toast-sdk/push-ios/)를 참고하십시오.
+* See [TOAST Push iOS Guide](http://docs.toast.com/ko/TOAST/ko/toast-sdk/push-ios/).
 
 #### Android
-* [TOAST Push Android 가이드](http://docs.toast.com/ko/TOAST/ko/toast-sdk/push-android/)를 참고하십시오.
+* See [TOAST Push Android Guide](http://docs.toast.com/ko/TOAST/ko/toast-sdk/push-android/).
 
 
-#### 기타
-* 기타 플랫폼에 대한 문의는 [TOAST 고객센터](https://toast.com/support/inquiry?alias=tab3_06)로 문의해 주세요.
+#### Others
+* For other platform inquiries, contact [TOAST Customer Center](https://toast.com/support/inquiry?alias=tab3_06).

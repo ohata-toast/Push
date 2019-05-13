@@ -1,34 +1,34 @@
-## Notification > Push > API v2.1 Guide
+## Notification > Push > API v2.1ガイド
 
-### v2.1 API 소개
+### v2.1 API紹介
 
-#### 추가
-- '토큰으로 토큰 조회' API가 추가되었습니다.
-- 푸시 타입에 'ADM'이 추가되었습니다.
+#### 追加
+- 'トークンにトークン照会'APIが追加されました。
+- プッシュタイプに'ADM'が追加されました。
 
-### 기본 정보
+### 基本情報
 #### Endpoint
 ```
 API Endpoint: https://api-push.cloud.toast.com
-메시지 수신/확인 여부 수집 Endpoint: https://collector-push.cloud.toast.com
+メッセージ受信/確認したかどうかを収集Endpoint：https://collector-push.cloud.toast.com
 ```
 
 #### Secret Key
-- 콘솔에서 확인 가능합니다.
-- Secret Key가 필요한 API를 호출할 때, 해더에 아래와 같이 설정해서 호출해야 합니다.
+- コンソールで確認可能です。
+- Secret Keyが必要なAPIを呼び出す時、ヘッダに下記のように設定して呼び出す必要があります。
 ```
 Header
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
-[Console] > [Notification] > [Push] > [URL & AppKey] 에서 생성할 수 있습니다.
+[Console] > [Notification] > [Push] > [URL & AppKey]で作成できます。
 
 #### Response
 
 ##### Response HTTP Status Code
 200 OK.  
-모든 API 요청에 대해 200 OK로 응답합니다.  
-자세한 응답 결과는 Response Body의 Header를 통해 알 수 있습니다.
+すべてのAPIリクエストに対して200 OKレスポンスを返します。
+詳細なレスポンス結果は、Response BodyのHeaderで確認できます。
 
 ##### Response Header
 
@@ -58,14 +58,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | false | 40102 | Client Error. Unavailable key. |
 | false | 40401 | Client Error. Not found. |
 | false | 50001 ~ 50501 | Internal Error. Please report this. 'http://cloud.toast.com/support/faq'. |
-| false | 400 | Client Error. 태그 API에서 발생한 클라이언트 오류입니다.  |
-| false | 500 | Internal Error. 태그 API에서 발생한 내부 오류입니다. |
+| false | 400 | Client Error. タグAPIで発生したクライアントエラーです。  |
+| false | 500 | Internal Error. タグAPIで発生した内部エラーです。 |
 
-## 토큰
-### 생성
-- 클라이언트에서 조회 가능합니다.
+## トークン
+### 作成
+- クライアントで照会可能です。
 
-##### Method, URL
+##### Method、URL
 ```
 POST /push/v2.1/appkeys/{appkey}/tokens
 Content-Type: application/json;charset=UTF-8
@@ -73,7 +73,7 @@ Content-Type: application/json;charset=UTF-8
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
 
 ##### Request Body
 
@@ -95,17 +95,17 @@ Content-Type: application/json;charset=UTF-8
 
 |Field|	Usage | Description |
 |---|---|---|
-|token|	Required, String|	토큰, 최대 1,600 글자|
-|oldToken|	Optional, String|	기존 토큰, 최대 1,600 글자 |
+|token|	Required, String|	トークン、最大1,600文字|
+|oldToken|	Optional, String|	既存トークン、最大1,600文字 |
 |pushType|	Required, String| 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
 |isNotificationAgreement|	Required, Boolean|	true or false|
 |isAdAgreement|	Required, Boolean|	true or false|
 |isNightAdAgreement| Required, Boolean|	true or false|
 |timezoneId|	Required, String|	Area/Name. IANA time zone database.|
-|country|	Required, String|	ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 글자|
-|language|	Required, String|	ISO 639-1, ISO 639-2, iOS(language code + script code), 8 글자|
-|uid|	Required, String|	사용자 아이디, emoji 허용 안함, 최대 64 글자|
-|deviceId|	Optional, String|	디바이스 아이디, 36 글자|
+|country|	Required, String|	ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3文字|
+|language|	Required, String|	ISO 639-1, ISO 639-2, iOS(language code + script code), 8文字|
+|uid|	Required, String|	ユーザーID、emoji不可、最大64文字|
+|deviceId|	Optional, String|	デバイスID、36文字|
 
 
 ##### Response Body
@@ -127,21 +127,21 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.
 
 ##### Description
 
-- 토큰이 이미 등록되어 있는 경우에 다시 등록하면, 기존 정보를 업데이트 합니다.
-- 만약, 토큰이 변경된다면 oldToken에 기존 토큰을, token에 새로운 토큰을 설정하고 등록하면 새로운 토큰으로 업데이트합니다.
-- "isNotificationAgreement"는 푸시 메시지 수신 동의 여부, "isAdAgreement"는 광고성 푸시 메시지 수신 여부, "isNightAdAgreement"는 야간 광고성 푸시 메시지 수신 여부를 나타냅니다.
-- 예로, 모든 푸시 메시지 수신을 원할 경우, 필드 3개를 모두 true로 설정하면 됩니다. 푸시 메시지만 수신할 경우, "isNotificationAgreement"만 true로 설정해야 합니다.
-- 수신 동의 여부는 정보통신망법 규정(제50조부터 제50조의 8)을 따릅니다.  
-    - [KISA 가이드 바로 가기](https://spam.kisa.or.kr/spam/sub62.do)    
-    - [법령 바로 가기](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
-- 네트워크 상태가 좋지 않거나 여러 이유로 응답 지연이 발생할 수 있습니다. 모바일 애플리케이션 구동에 영향을 최소화하기 위해 Timeout을 짧게 설정하고, 구동될 때마다 토큰을 등록하는 것이 좋습니다.
-- 토큰은 보안적인 이슈, 앱 업데이트, 삭제 등 여러가지 이유로 재발급될 수 있습니다. 자주 변경되는 것은 아니지만, 수신율을 높이기 위해 구동될 때 마다 최신 토큰을 등록하는 것이 좋습니다.
-- 앱 삭제 등으로 토큰이 만료되어도 바로 GCM, APNS 서버에 적용되지 않아, 앱 삭제 후 푸시 메시지를 발송했을 때 발송이 성공할 수 있습니다.
+- トークンがすでに登録されている場合に再度登録すると、既存情報をアップデートします。
+- もしトークンが変更されたら、oldTokenに既存トークンを、 tokenに新しいトークンを設定して登録すると、新しいトークンにアップデートします。
+- "isNotificationAgreement"はプッシュメッセージの受信に同意するかどうか、"isAdAgreement"は広告性プッシュメッセージを受信するかどうか、isNightAdAgreement"は夜間広告性プッシュメッセージを受信するかどうかを表します。
+例えば、すべてのプッシュメッセージの受信を希望する場合、フィールド3個をすべてtrueに設定してください。プッシュメッセージのみ受信する場合、 "isNotificationAgreement"のみtrueに設定してください。
+- 受信に同意するかどうかは、韓国情報通信網法の規定(第50条から第50条の8)に従います。
+    - [KISAガイドリンク](https://spam.kisa.or.kr/spam/sub62.do)    
+    - [法令リンク](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
+- ネットワーク状態が良くないか、複数の理由によるレスポンス遅延が発生することがあります。モバイルアプリケーション起動への影響を最小化するためにTimeoutを短く設定し、起動するたびにトークンを登録することを推奨します。
+- トークンはセキュリティ的なイシュー、アプリアップデート、削除など、さまざまな理由で再発行されることがあります。頻繁に変更されることはないですが、受信率を高めるために、起動するたびに最新トークンを登録することを推奨します。
+- アプリ削除などでトークンが満了してもすぐにGCM、APNSサーバーに適用されず、アプリ削除後にプッシュメッセージを送信した時、送信に成功することがあります。
 
-### 조회
-#### 토큰과 푸시 타입으로 토큰 조회
-- 클라이언트에서 조회 가능합니다.
-##### Method, URL
+### 照会
+#### トークンとプッシュタイプでトークン照会
+- クライアントで照会可能です。
+##### Method、URL
 
 ```
 GET /push/v2.1/appkeys/{appkey}/tokens/{token}?pushType={pushType}
@@ -150,7 +150,7 @@ Content-Type: application/json;charset=UTF-8
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
 | pushType | Required, String | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
 
 ##### Response Body
@@ -181,18 +181,18 @@ Content-Type: application/json;charset=UTF-8
 
 | Field | Usage | Description |
 | - | - | - |
-| updateDateTime | -, DateTime String | 토큰 업데이트 일시 |
-| adAgreementDateTime | -, DateTime String | 홍보성 푸시 메시지 수신 동의 일시 |
-| nightAdAgreementDateTime | -, DateTime String | 야간 홍보성 푸시 메시지 수신 동의 일시 |
+| updateDateTime | -, DateTime String | トークンアップデート日時 |
+| adAgreementDateTime | -, DateTime String | 広告性プッシュメッセージ受信同意日時 |
+| nightAdAgreementDateTime | -, DateTime String | 夜間広告性プッシュメッセージ受信同意日時 |
 
 ##### Example
 ```
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tokens/token?pushType=GCM
 ```
 
-#### 토큰으로 토큰 조회
-- 클라이언트에서 조회 가능합니다.
-##### Method, URL
+#### トークンでトークン照会
+- クライアントで照会可能です。
+##### Method、URL
 
 ```
 GET /push/v2.1/appkeys/{appkey}/tokens/{token}
@@ -201,7 +201,7 @@ Content-Type: application/json;charset=UTF-8
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
 | pushType | Required, String | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
 
 ##### Response Body
@@ -234,20 +234,20 @@ Content-Type: application/json;charset=UTF-8
 
 | Field | Usage | Description |
 | - | - | - |
-| updateDateTime | -, DateTime String | 토큰 업데이트 일시 |
-| adAgreementDateTime | -, DateTime String | 홍보성 푸시 메시지 수신 동의 일시 |
-| nightAdAgreementDateTime | -, DateTime String | 야간 홍보성 푸시 메시지 수신 동의 일시 |
-| deviceId | -, String | 디바이스 아이디 |
-| activatedDateTime | -, Datetime String | 토큰의 최근 등록 요청 일시 |
+| updateDateTime | -, DateTime String | トークンアップデート日時 |
+| adAgreementDateTime | -, DateTime String | 広告性プッシュメッセージ受信同意日時 |
+| nightAdAgreementDateTime | -, DateTime String | 夜間広告性プッシュメッセージ受信同意日時 |
+| deviceId | -, String | デバイスID |
+| activatedDateTime | -, Datetime String | トークンの最終登録リクエスト日時 |
 
 ##### Example
 ```
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tokens/token
 ```
 
-#### 사용자 아이디로 토큰 조회
-- Secret Key가 필요한 API이며, 서버에서 호출되어야 합니다.
-##### Method, URL
+#### ユーザーIDでトークン照会
+- Secret Keyが必要なAPI。サーバーで呼び出す必要があります。
+##### Method、URL
 
 ```
 GET /push/v2.1/appkeys/{appkey}/tokens?uid={uid}
@@ -257,8 +257,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| uid | Required, String | 조회할 사용자 아이디 |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
+| uid | Required, String | 照会するユーザーID |
 
 ##### Response Body
 
@@ -291,7 +291,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tokens?uid=uid
 ```
 
-#### 유효하지 않는 토큰 조회
+#### 有効ではないトークン照会
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/invalid-tokens?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageId={messageId}
@@ -301,16 +301,16 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
-| messageId | Optional, Number | 유효하지 않는 토큰이 발생한 메시지 아이디 |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
+| pageIndex | Optional, Number | 基本値0 |
+| pageSize | Optional, Number | 基本値25、最大値100 |
+| from | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| to | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| messageId | Optional, Number | 有効ではないトークンが発生したメッセージID |
 
 ##### Request Body
 ```
-없음
+なし
 ```
 ##### Response Body
 ```json
@@ -337,7 +337,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 ```
 
 
-#### 토큰 속성 통계 조회 API
+#### トークンプロパティ統計照会API
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
@@ -347,14 +347,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
-| tokenProperties | Optional, String Array | 'agreement', 'country', 'language', 'timezoneId'<br/>','로 구분, e.g. tokenProperties=country,language |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
+| from | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| to | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| tokenProperties | Optional, String Array | 'agreement', 'country', 'language', 'timezoneId'<br/>','で区切る、 e.g. tokenProperties=country,language |
 
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -408,10 +408,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| dateTime | String | 데이터가 수집된 일시 |
-| agreements | String | 'ON'(모두 수신), 'NIGHT_AD_OFF'(야간 광고 수신 거부), 'AD_OFF'(광고 수신 거부), 'OFF'(모두 수신 거부) |
-| countries.XX | String | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 글자 |
-| languages.XX | String | ISO 639-1, ISO 639-2, iOS(language code + script code), 8 글자 |
+| dateTime | String | データが収集された日時 |
+| agreements | String | 'ON'(すべて受信)、'NIGHT_AD_OFF'(夜間広告受信拒否)、'AD_OFF'(広告受信拒否)、'OFF'(すべて受信拒否) |
+| countries.XX | String | ISO 3166-1 alpha-2、ISO 3166-1 alpha-3、3文字 |
+| languages.XX | String | ISO 639-1、ISO 639-2、iOS(language code + script code)、8文字 |
 | timezoneIds.XX | String | Area/Name. IANA time zone database |
 
 ##### Example
@@ -419,7 +419,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/statistics/token-properties
 ```
 
-#### 토큰 등록 통계 조회
+#### トークン登録統計照会
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/statistics/token-registrations?from={from}&to={to}
@@ -429,13 +429,13 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
+| from | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| to | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -461,17 +461,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| dateTime | String | 데이터가 수집된 일시 |
-| registered | Number | 등록된 토큰 수 |
-| deleted | Number | 삭제된 토큰 수 |
+| dateTime | String | データが収集された日時 |
+| registered | Number | 登録されたトークン数 |
+| deleted | Number | 削除されたトークン数 |
 
 ##### Example
 ```
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/statistics/token-registrations
 ```
 
-## 메시지
-### 발송
+## メッセージ
+### 送信
 ##### Method, URL, Headers
 ```
 POST /push/v2.1/appkeys/{appkey}/messages
@@ -493,7 +493,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     },
     "messageType" : "AD",
     "contact": "1588-1588",
-    "removeGuide": "매뉴 > 설정",
+    "removeGuide": "メニュー > 設定",
     "timeToLiveMinute": 1,
     "provisionedResourceId": "id",
     "adWordPosition": "TITLE"
@@ -517,42 +517,42 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| target.type | Required, String | 'ALL', 'UID', 'TAG' 수신 타겟 타입 |
-| target.to | Optional, String Array | target.type이 수신자 UID 목록(최대 10,000 개) 또는 TAG 조건 |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
+| target.type | Required、String | 'ALL'、'UID'、'TAG'受信ターゲットタイプ |
+| target.to | Optional, String Array | target.typeが受信者UIDリスト(最大10,000個)またはTAG条件 |
 | target.pushTypes | Optional, String Array | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
-| target.countries | Optional, String Array | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3 (최대 3 글자) |
-| content | Required, Map | 수신자에게 전달될 내용 (최대 8,192 글자) |
-| content.default | Required, Map | '자세한 내용은 아래 공통 메시지 형식' 참고 |
+| target.countries | Optional, String Array | ISO 3166-1 alpha-2、ISO 3166-1 alpha-3(最大3文字) |
+| content | Required, Map | 受信者に送信された内容(最大8,192文字) |
+| content.default | Required, Map | '詳細は、下記の共通メッセージ形式を'参照 |
 | content.default.title | Optional, String |  |
 | content.default.body | Optional, String |  |
 | messageType | Required, String | NOTIFICATION, AD |
-| contact | Optional, String | messageType이 AD이면 경우 필수, 숫자(0-9)와 하이픈(Hypen, -)만 가능합니다. |
-| removeGuide | Optional, String | messageType이 AD이면 경우 필수 |
-| timeToLiveMinute | Optional, Number | 단위는 분이다. 범위는 1에서 60까지다. 기본 값은 10 입니다. |
-| provisionedResourceId | Optional, String | 할당 받은 전용 리소스(provisioned Resource) 아이디입니다. 사용 문의 support@cloud.toast.com |
-| adWordPosition | Optional, String | 'TITLE', 'BODY' 광고 표시 문구 위치. 기본 값은 'TITLE' 입니다. |
+| contact | Optional, String | messageTypeがADの場合は必須、数字(0-9)とハイフン(Hypen, -)のみ可能です。 |
+| removeGuide | Optional, String | messageTypeがADの場合は必須 |
+| timeToLiveMinute | Optional, Number | 単位は分。範囲は1から60まで。基本値は10。 |
+| provisionedResourceId | Optional, String | 割り当てられた専用リソース(provisioned Resource) IDです。お問い合わせsupport@cloud.toast.com |
+| adWordPosition | Optional、String | 'TITLE'、'BODY'広告表示文言位置。基本値は'TITLE'です。 |
 
 ##### Description
-- "target.type"에 'UID'로 설정시 "target.to"에 최대 10,000 개까지 UID를 설정할 수 있습니다.
-- "target.type"에 'TAG'로 설정시 "target.to"에 태그 아이디와 3개의 조건과 1개의 괄호('()')를 넣은 조건을 설정할 수 있습니다.
-    - 예, 남자, 30대 태그가 붙었거나 여자 태그가 붙은 대상에게 메시지를 발송한다면,    
-    "target.to=(,남자_ID,AND,30대_ID,),OR,여자_ID"로 설정할 수 있습니다.
-- "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있습니다.
-만약, 정의하지 않으면 모든 푸시 타입, GCM, APNS, APNS_SANDBOX, TENCENT, ADM로 발송합니다.
-- "target.countries" 필드가 "['KR', 'JP']"면 토큰 국가 코드가 "KR" 또는 "JP"인 Token에 발송합니다.
-- "content.default" 필드는 필수이며, "content" 필드에 대한 자세한 내용은 아래 [공통 메시지 포맷]을 참고 바란다.
-- 메시지를 광고 타입, "messageType": "AD", 으로 보낼 경우, "contact", "removeGuide" 필드를 반드시 포함해야 합니다.
-"contact" 필드에 연락처를 입력해야 하며, "removeGuide" 필드에 수신 철회 방법에 대해 입력해야 합니다.
-- timeToLiveMinute 필드를 설정하면, 설정한 시간 이상 발송이 지연되는 경우 자동으로 실패 처리됩니다.
+- "target.type"に'UID'を設定した時、"target.to"に最大10,000個までUIDを設定できます。
+- "target.type"に'TAG'を設定した時、"target.to"にタグIDと3個の条件と1個の括弧('()')を入れた条件を設定できます。
+    - 例、男性、30代タグがついているか、女性タグがついている対象にメッセージを送信するなら、
+    "target.to=(,男性_ID,AND,30代_ID,),OR,女性_ID"に設定できます。
+- "target.pushTypes"フィールドに特定プッシュタイプでのみメッセージを送信できます。
+ 定義しなければすべてのプッシュタイプ、GCM、APNS、APNS_SANDBOX、TENCENT、ADMで送信します。
+- "target.countries"フィールドが"['KR', 'JP']"の場合、トークン国コードが"KR"または"JP"のTokenに送信します。
+- "content.default"フィールドは必須で、"content"フィールドの詳細は下記""共通メッセージ"形式を参照してください。
+- メッセージを広告タイプ、"messageType"："AD"で送信する場合、 "contact"、"removeGuide"フィールドを必ず含める必要があります。
+"contact"フィールドに連絡先を入力する必要があり、"removeGuide"フィールドに受信解除方法について入力する必要があります。
+- timeToLiveMinuteフィールドを設定すると、設定した時間以上に送信が遅延する場合は自動的に失敗処理されます。
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/messages -d '{"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body","customKey1":"It is default"},"ko":{"title":"제목","body":"내용","customKey2":"한국어 입니다."}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/messages -d '{"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body","customKey1":"It is default"},"ko":{"title":"タイトル","body":"内容","customKey2":"韓国語です。"}},"messageType":"AD","contact":"1588-1588","removeGuide":"メニュー > 設定","timeToLiveMinute":1}'
 ```
 
-### 공통 메시지
-"content"에 아래 표대로 메시지를 작성하면, 각 푸시 타입에 맞게 메시지가 생성되어 발송됩니다.
+### 共通メッセージ
+"content"に下記の表通りにメッセージを作成すると、各プッシュタイプに合わせてメッセージが作成され、送信されます。
 
 |Reserved Word|	Platform|	Usage|	GCM|	APNS|	TENCENT| ADM |
 |---|---|---|---|---|---|---|
@@ -574,19 +574,19 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key:
 |messageDeliveryReceipt| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
 |messageDeliveryReceiptData| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
 
-Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정됩니다. 사용자가 임의로 데이터 타입과 위치 등을 변경할 수 없다.
-그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어간다.
+Reserved Wordは、メッセージ作成時にPlatformごとに適切な位置に設定されます。ユーザーが任意でデータタイプや位置などを変更できません。
+その他のユーザーが定義したWordは、次のようにCustom Key/Valueフィールドに入る。
 
 |Word|	Platform|	Usage|	GCM|	APNS|	TENCENT| ADM|
 |---|---|---|---|---|---|---|
 |customKey|	Android, <br/> iOS, <br/> Tencent|	Optional, <br/> Object, <br/> Array, <br/> String, <br/> Number|	data.customKey|	customKey|	custom_content.customKey| data.customKey|
 
-### 메시지 발송 예제
+### メッセージ送信例
 
-- 메시지 발송 API의 요청 본문(Request Body)의 content.default은 필수다.
+- メッセージ送信APIのリクエスト本文(Request Body)のcontent.defaultは必須です。
 
-#### 1. 전체에게 발송
-등록된 모든 대상에게 메시지를 발송하는 예제입니다.
+#### 1. 全員に送信
+登録されたすべての対象にメッセージを送信する例です。
 
 ##### Request Body
 ```json
@@ -604,10 +604,10 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 }
 ```
 ##### Description
-- target.type을 'ALL'로 설정하면, 모든 토큰에 메시지를 발송합니다.
+- target.typeを'ALL'に設定すると、すべてのトークンにメッセージを送信します。
 
-#### 2. 특정 사용자에게 발송
-사용자 아이디를 입력해 특정 사용자에게 메시지를 발송하는 예제입니다.
+#### 2. 特定ユーザーに送信
+ユーザーIDを入力して特定ユーザーにメッセージを送信する例です。
 
 ##### Request Body
 ```json
@@ -626,10 +626,10 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 }
 ```
 ##### Description
-- target.type을 'UID'로 설정하고, target.to에 사용자 아이디를 설정해 특정 사용자에게 메시지를 발송합니다.
+- target.typeを'UID'に設定し、target.toにユーザーIDを設定して特定ユーザーにメッセージを送信します。
 
-#### 3. 일부 국가나 푸시 타입의 사용자들에게 발송
-특정 국가나 기기(Android, iOS, ...)를 사용하는 사용자들에게만 메시지를 발송하는 예제입니다.
+#### 3. 一部の国やプッシュタイプのユーザーに送信
+特定の国や端末(Android、iOS…)を使用するユーザーにのみメッセージを送信する例です。
 
 ##### Request Body
 ```json
@@ -649,10 +649,10 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 }
 ```
 ##### Description
-- target.countries에 국가 코드, target.pushTypes에 푸시 타입을 설정해 조건에 만족하는 사용자에게 메시지를 발송합니다.
+- target.countriesに国コードを、target.pushTypesにプッシュタイプを設定して、条件を満たすユーザーにメッセージを送信します。
 
-#### 4. 푸시 타입별 메시지 변환
-메시지를 보내게되면 푸시 타입별로 메시지가 변환되어 발송되는데, 변환되는 규칙을 설명한 예제입니다.
+#### 4. プッシュタイプ別メッセージ変換
+メッセージを送信する時、プッシュタイプごとにメッセージが変換されて送信されますが、変換されるルールを説明する例です。
 
 ##### Request Body
 ```json
@@ -672,7 +672,7 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 }
 ```
 
-##### GCM(Android)에 수신되는 메시지
+##### GCM(Android)に受信するメッセージ
 ```json
 {
 	"data": {
@@ -682,7 +682,7 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 	}
 }
 ```
-##### APNS(iOS)에 수신되는 메시지
+##### APNS(iOS)に受信するメッセージ
 ```json
 {
     "aps": {
@@ -696,7 +696,7 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 
 }
 ```
-##### TENCENT(Android)에 수신되는 메시지
+##### TENCENT(Android)に受信するメッセージ
 ```json
  {
     "title": "title",
@@ -707,7 +707,7 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 }
 ```
 
-##### ADM(Fire OS)에 수신되는 메시지
+##### ADM(Fire OS)に受信するメッセージ
 ```json
 {
 	"data": {
@@ -719,14 +719,14 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 ```
 
 ##### Description
-- content에 입력한 메시지 내용은 각 푸시 타입에 맞게 변환되어 발송됩니다.
-- title, body와 같은 예약어들은 푸시 타입에 맞는 메시지로 변환시 지정된 위치에 설정되어 발송됩니다.
-그외 사용자가 정의한 필드들은 각 푸시 타입의 Custom Key 위치에 설정됩니다.
-- badge, consolidationKey와 같이 특정 푸시 타입에만 정의된 예약어는 다른 푸시 타입에서는 제외됩니다.
-예로, badge는 APNS(iOS) 메시지에만 설정되며, GCM, TENCENT, ADM에는 제외됩니다.
+- contentに入力したメッセージ内容は、各プッシュタイプに合わせて変換され、送信されます。
+- title、bodyなどの予約語は、プッシュタイプに合ったメッセージに変換する時、指定された位置に設定され、送信されます。
+ その他、ユーザーが定義したフィールドは、各プッシュタイプのCustom Keyの位置に設定されます。
+- badge、consolidationKeyなどの特定プッシュタイプにのみ定義されている予約語は、他のプッシュタイプからは除外されます。
+ 例えばbadgeは、APNS(iOS)メッセージにのみ設定され、GCM、TENCENT、ADMでは除外されます。
 
-#### 5. 광고성 메시지
-광고성 메시지로 발송하면 메시지 내용에 추가되는 광고 문구에대한 예제입니다.
+#### 5. 広告性メッセージ
+広告性メッセージで送信時にメッセージに追加される広告文言例です。
 
 ##### Request Body
 ```json
@@ -736,63 +736,63 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
     },
     "content" : {
         "default" : {
-            "title": "금요일 특별 이벤트",
-            "body": "지금 주문하시면 50% 할안된 가격으로!"
+            "title": "金曜日特別イベント",
+            "body": "今すぐご注文で50%OFF！"
         }
     },
     "messageType" : "AD",
     "contact": "1588",
-    "removeGuide": "메뉴 > 알림 설정"
+    "removeGuide": "メニュー > 通知設定"
 }
 ```
 
-##### GCM(Android), ko(한국어)에 수신되는 메시지
+##### GCM(Android)、ko(韓国語)に受信するメッセージ
 ```json
  {
     "data": {
-        "title": "(광고) 금요일 특별 이벤트 1588",
-        "body": "지금 주문하시면 50% 할안된 가격으로!\n메뉴 > 알림 설정"
+        "title": "(広告)金曜日特別イベント1588",
+        "body": "今すぐご注文で50%OFF！\nメニュー > 通知設定"
     }
 }
 ```
-##### APNS(iOS), ko(한국어)에 수신되는 메시지
+##### APNS(iOS)、ko(韓国語)に受信するメッセージ
 ```json
 {
     "aps": {
         "alert": {
-            "title": "(광고) 금요일 특별 이벤트 1588",
-            "body": "지금 주문하시면 50% 할안된 가격으로!\n메뉴 > 알림 설정"
+            "title": "(広告)金曜日特別イベント1588",
+            "body": "今すぐご注文で50%OFF！\nメニュー > 通知設定"
         }
     }
 }
 ```
-##### GCM(Android), ja(일본어)에 수신되는 메시지
+##### GCM(Android)、ja(日本語)に受信するメッセージ
 ```json
  {
     "data": {
-        "title": "금요일 특별 이벤트",
-        "body": "지금 주문하시면 50% 할안된 가격으로!"
+        "title": "金曜日特別イベント",
+        "body": "今すぐご注文で50%OFF！"
     }
 }
 ```
-##### APNS(iOS), ja(일본어)에 수신되는 메시지
+##### APNS(iOS), ja(日本語)に受信するメッセージ
 ```json
 {
     "aps": {
         "alert": {
-            "title": "금요일 특별 이벤트",
-            "body": "지금 주문하시면 50% 할안된 가격으로!"
+            "title": "金曜日特別イベント",
+            "body": "今すぐご注文で50%OFF！"
         }
     }
 }
 ```
 ##### Description
-- 광고성 메시지를 발송하기 위해서는 messageType을 AD(광고)로 설정하고, contact와 removeGuide에 대표 번호와 수신 동의 철회 방법을 입력해야 됩니다.
-- 각 푸시 타입별로 메시지가 발송될때, title에 광고 표시 문구와 대표 번호가, body에 수신 동의 철회 방법이 추가되어 발송됩니다.
-- 광고성 메시지는 언어 코드가 한국어(ko, ko-)인 사용자들에게만 광고 문구가 추가됩니다. 위 예처럼 해외 사용자(일본어)들에게는 광고 문구가 추가되지 않습니다.
+- 広告性メッセージを送信するにはmessageTypeをAD(広告)に設定し、contactとremoveGuideに代表番号と受信同意撤回方法を入力する必要があります。
+- 各プッシュタイプでメッセージが送信される時、titleに広告表示文言と代表番号が、bodyに受信同意撤回方法が追加されて送信されます。
+- 広告性メッセージは、言語コードが韓国語(ko, ko-)のユーザーにのみ広告文言が追加されます。上の例のように海外ユーザー(日本語)には広告文言が追加されません。
 
-#### 6. 다국어 메시지
-다양한 언어로 메시지를 발송하는 예제입니다.
+#### 6. 多言語メッセージ
+多様な言語でメッセージを送信する例です。
 
 ##### Request Body
 ```json
@@ -807,9 +807,9 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
             "customKey": "value"
         },
         "ko" : {
-            "title": "제목",
-            "body": "내용",
-            "customKey": "'ko', 'ko-'로 시작하는 언어 코드에 설정됩니다."
+            "title": "タイトル",
+            "body": "内容",
+            "customKey": "'ko', 'ko-'で始まる言語コードに設定されます。"
         },
         "ja" : {
             "title": "タイトル",
@@ -820,27 +820,27 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 }
 ```
 
-##### GCM(Android), ko(한국어)에 수신되는 메시지
+##### GCM(Android)、ko(韓国語)に受信するメッセージ
 ```json
 {
     "data": {
-        "title": "제목",
-        "body": "내용",
-        "customKey": "'ko', 'ko-'로 시작하는 언어 코드에 설정됩니다."
+        "title": "タイトル",
+        "body": "内容",
+        "customKey": "'ko', 'ko-'で始まる言語コードに設定されます。"
     }
 }
 ```
-##### GCM(Android), ko-KR(한국어)에 수신되는 메시지
+##### GCM(Android), ko-KR(韓国語)に受信するメッセージ
 ```json
 {
     "data": {
-        "title": "제목",
-        "body": "내용",
-        "customKey": "'ko', 'ko-'로 시작하는 언어 코드에 설정됩니다."
+        "title": "タイトル",
+        "body": "内容",
+        "customKey": "'ko', 'ko-'で始まる言語コードに設定されます。"
     }
 }
 ```
-##### GCM(Android), ja(일본어)에 수신되는 메시지
+##### GCM(Android)、ja(日本語)に受信するメッセージ
 ```json
 {
     "data": {
@@ -850,7 +850,7 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
     }
 }
 ```
-##### GCM(Android), en(영어)에 수신되는 메시지
+##### GCM(Android), en(英語)に受信するメッセージ
 ```json
 {
     "data": {
@@ -861,16 +861,16 @@ Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정�
 }
 ```
 ##### Description
-- content 하위에 각 언어 코드에 대한 메시지를 입력하면, 토큰의 언어 코드와 일치하거나 유사한 언어의 메시지로 변환되어 발송됩니다.
-토큰의 언어 코드와 매칭되는 언어 코드가 없다면, default의 내용이 발송됩니다. 언어 코드가 en(영어)인 사용자에게는 conent.default의 내용이 발송됩니다.
-- 토큰의 언어 코드와 완벽히 일치하지 않아도, 언어 코드의 유사도를 비교해 최대한 가까운 언어로 변환합니다.
-요청 본문에 content.ko만 입력되어 있지만, 언어 코드가 ko-KR(한국어)인 사용자에게도 content.ko의 내용이 발송됩니다.
-- customKey는 content.ja에 정의되어 있지 않기 때문에, content.default의 값으로 발송됩니다. 공통적인 내용은 content.default에 입력할 수 있습니다.
+- contentの下位に各言語コードについてのメッセージを入力すると、トークンの言語コードと一致するか類似した言語のメッセージに変換されて送信されます。
+ トークンの言語コードとマッチする言語コードがない場合、defaultの内容が送信されます。言語コードがen(英語)のユーザーには、conent.defaultの内容が送信されます。
+- トークンの言語コードと完全に一致しなくても、言語コードの類似度を比較して最も近い言語に変換します。
+ リクエスト本文にcontent.koのみ入力されていますが、言語コードがko-KR(韓国語)のユーザーにもcontent.koの内容が送信されます。
+- customKeyはcontent.jaに定義されていないため、content.defaultの値で送信されます。共通する内容はcontent.defaultに入力できます。
 
-#### 7. 리치 메시지
-메시지 발송시 'content'에 'richMessage' 필드를 정의하면 리치 메시지로 메시지를 발송할 수 있습니다.
-공통 메시지, 광고성 메시지, 다국어 메시지와 함께 사용할 수 있습니다.
-v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
+#### 7. リッチメッセージ
+メッセージ送信時、'content'に'richMessage'フィールドを定義すると、リッチメッセージでメッセージを送信できます。
+共通メッセージ、広告性メッセージ、多言語メッセージと一緒に使用できます。
+v1.7以上のSDKが適用された場所でのみ使用できます。
 
 ##### Request Body
 ```json
@@ -884,11 +884,11 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
             "body" : "body",
             "richMessage" : {
                 "buttons" : [{
-                        "name" : "버튼 이름",
-                        "submitName": "전송 버튼 이름",
+                        "name" : "ボタン名",
+                        "submitName": "転送ボタン名",
                         "buttonType" : "REPLY | OPEN_APP | OPEN_URL | DISMISS",
                         "link" : "URL | ...",
-                        "hint" : "메시지를 입력해주세요."
+                        "hint" : "メッセージを入力してください。"
                     }
                 ],
                 "media" : {
@@ -904,7 +904,7 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
                 },
                 "group" : {
                     "key" : "KEY",
-                    "description" : "알림 모음"
+                    "description" : "通知集"
                 }
             }
         }
@@ -915,28 +915,28 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
 
 | Field | Usage | Description |
 | - | - | - |
-| richMessage | Optional, Object | 리치 메시지 사용시 필요 |
-| richMessage.buttons | Optional, Object Array | 리치 메시지에 추가되는 버튼, 최대 3개까지 가능 |
-| richMessage.button.name | Required, String | 버튼 이름 |
-| richMessage.button.submitName | Optional, String | 전송 버튼 이름, iOS에서 버튼 타입이 REPLY일때 표시 |
-| richMessage.button.buttonType | Required, String | 버튼 타입, REPLY, OPEN_APP, OPEN_URL, DISMISS |
-| richMessage.button.link | Required, String | 버튼을 눌렀을때, 연결되는 링크 |
-| richMessage.button.hint | Required, String | 버튼에대한 힌트 |
-| richMessage.media | Optional, Object | 리치 메시지에 추가되는 미디어 |
-| richMessage.media.sourceType | Required, String | 미디어의 위치, REMOTE, LOCAL |
-| richMessage.media.source | Required, String | 미디어의 위치한 곳의 주소 |
-| richMessage.media.mediaType | Required, String | 미디어의 타입, IMAGE, GIF, VEDIO, AUDIO. Android에서는 IMAGE만 지원 |
-| richMessage.media.extension | Required, String | 미디어 파일의 확장자 |
-| richMessage.media.expandable | Required, Boolean | Android에서 미디어를 클릭 시 펼침 기능 사용 여부 |
-| richMessage.largeIcon | Optional, Object | 리치 메시지에 추가되는 큰 아이콘, Android에서만 지원 |
-| richMessage.largeIcon.sourceType | Required, String | 큰 아이콘의 위치, REMOTE, LOCAL |
-| richMessage.largeIcon.source | Required, String | 미디어의 위치한 곳의 주소 |
-| richMessage.group | Optional, Object | 여러 개의 메시지를 그룹 단위로 묶는 기능, Android에서만 지원 |
-| richMessage.group.key | Required, String | 그룹의 키 |
-| richMessage.group | Required, String | 그룹에대한 설명 |
+| richMessage | Optional, Object | リッチメッセージ使用時に必要 |
+| richMessage.buttons | Optional, Object Array | リッチメッセージに追加されるボタン。最大3個まで可能 |
+| richMessage.button.name | Required, String | ボタン名 |
+| richMessage.button.submitName | Optional, String | 転送ボタン名。iOSでボタンタイプがREPLYの時に表示 |
+| richMessage.button.buttonType | Required、String | ボタンタイプ、 REPLY、OPEN_APP、OPEN_URL、DISMISS |
+| richMessage.button.link | Required, String | ボタンを押した時に接続するリンク |
+| richMessage.button.hint | Required, String | ボタンについてのヒント |
+| richMessage.media | Optional, Object | リッチメッセージに追加されるメディア |
+| richMessage.media.sourceType | Required, String | メディアの位置、 REMOTE、LOCAL |
+| richMessage.media.source | Required, String | メディアがある場所のアドレス |
+| richMessage.media.mediaType | Required、String | メディアのタイプ、 IMAGE、GIF、VEDIO、AUDIO。AndroidではIMAGEのみサポート |
+| richMessage.media.extension | Required, String | メディアファイルの拡張子 |
+| richMessage.media.expandable | Required, Boolean | Androidでメディアをクリックした時、広げる機能を使用するかどうか |
+| richMessage.largeIcon | Optional, Object | リッチメッセージに追加される大アイコン。Androidでのみサポート |
+| richMessage.largeIcon.sourceType | Required, String | 大アイコンの位置、 REMOTE、LOCAL |
+| richMessage.largeIcon.source | Required, String | メディアがある場所のアドレス |
+| richMessage.group | Optional, Object | 複数のメッセージをグループ単位にまとめる機能。Androidでのみサポート |
+| richMessage.group.key | Required, String | グループのキー |
+| richMessage.group | Required, String | グループの説明 |
 
-### 조회
-#### 목록 조회
+### 照会
+#### リスト照会
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
@@ -946,17 +946,17 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
-| deliveryType | Optional, String | 'INSTANT'(즉시 발송), 'RESERVATION'(예약 발송) |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
+| pageIndex | Optional, Number | 基本値0 |
+| pageSize | Optional, Number | 基本値25、最大値100 |
+| from | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| to | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| deliveryType | Optional, String | 'INSTANT'(即時送信), 'RESERVATION'(予約送信) |
 | messageStatus | Optional, String | 'READY', 'PROCESSING', 'COMPLETE', 'CANCEL_NO_TARGET', 'CANCEL_INVALID_CERTIFICATE', 'CANCEL_INVALID_MESSAGE', 'CANCEL_UNSUPPORTED_MESSAGE_TYPE', 'CANCEL_UNAUTHORIZED', 'CANCEL_UNKNOWN' |
 
 ##### Request Body
 ```
-없음
+なし
 ```
 ##### Response Body
 ```json
@@ -980,7 +980,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         },
         "messageType" : "AD",
         "contact": "1588-1588",
-        "removeGuide": "매뉴 > 설정",
+        "removeGuide": "メニュー > 設定",
         "timeToLiveMinute": 60,
         "createdDateTime": "2017-02-13T09:30:00.000+09:00",
         "completedDateTime": "2017-02-13T09:30:00.000+09:00",
@@ -1000,29 +1000,29 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 
 | Field | Usage | Description |
 | - | - | - |
-| createdDateTime | - | 메시지가 생성된 일시 (ISO 8601) |
-| completedDateTime | - | 메시지 발송이 완료된 일시 (ISO 8601) |
-| targetCount | - | 발송될 타겟 토큰 수 |
-| sentCount | - | 실제 발송된 토큰 수 |
-| provisionedResourceId | - | 메시지가 발송된 전용 리소스 아이디 |
-| totalCount | - | 필터링된 전체 메시지  수 |
+| createdDateTime | - | メッセージが作成された日時(ISO 8601) |
+| completedDateTime | - | メッセージ送信が完了した日時(ISO 8601) |
+| targetCount | - | 送信されるターゲットトークン数 |
+| sentCount | - | 実際に送信されたトークン数 |
+| provisionedResourceId | - | メッセージが送信された専用リソースID |
+| totalCount | - | フィルタリングされたメッセージ総数 |
 
-- "messageStatus" 필드는 메시지 상태를 나타낸다. 다음과 같은 상태가 있습니다.
-    - READY: 메시지 발송 요청이 등록된 상태입니다.
-    - PROCESSING: 메시지 생성이 끝나고, 대기 또는 발송 중입니다.
-    - COMPLETE: 메시지 발송이 완료된 상태입니다.
-    - CANCEL_NO_TARGET: 메시지 발송 대상이 없어서 취소된 상태입니다. 다음과 같은 이유로 발송이 취소될 수 있습니다.  
- 등록된 토큰이 없을 때  
- 광고 푸시 메시지의 경우, 수신 동의한 사용자가 없을 때  
- 야간 광고 푸시 메시지(21시 ~ 8시)의 경우, 야간 광고 수신 동의한 사용자가 없을 때  
- 기존 등록된 토큰들이 삭제되어 토큰이 없을 때    
-    - CANCEL_INVALID_CERTIFICATE: 인증서가 잘못되어 취소된 상태입니다. 인증서 상태를 확인해야 합니다.
-    - CANCEL_INVALID_MESSAGE: 메시지 형식이 맞지 않아 취소된 상태입니다.
-    - CANCEL_UNSUPPORTED_MESSAGE_TYPE: 메시지 형식이 맞지 않아 취소된 상태입니다.
-    - CANCEL_UNAUTHORIZED: 인증서 인증 과정에서 실패한 상태입니다. 인증서 상태를 확인해야 합니다.
-    - CANCEL_UNKNOWN: 내부 오류가 발생한 상태입니다.
+- "messageStatus"フィールドは、メッセージ状態を表します。次のような状態があります。
+    - READY：メッセージ送信リクエストが登録された状態です。
+    - PROCESSING：メッセージ作成が完了し、待機または送信中です。
+- COMPLETE：メッセージの送信が完了した状態です。
+- CANCEL_NO_TARGET：メッセージ送信対象が存在しないためキャンセルされた状態です。次のような理由で送信がキャンセルされることがあります。
+ 登録されたトークンがない時
+ 広告プッシュメッセージの場合、受信に同意したユーザーがいない時
+ 夜間広告プッシュメッセージ(21時～8時)の場合、夜間広告受信に同意したユーザーがいない時
+ 登録されたトークンが削除され、トークンがない時
+    - CANCEL_INVALID_CERTIFICATE：証明書が無効でキャンセルされた状態です。証明書の状態を確認する必要があります。
+    - CANCEL_INVALID_MESSAGE：メッセージ形式が合っておらずキャンセルされた状態。
+    - CANCEL_UNSUPPORTED_MESSAGE_TYPE：メッセージ形式が合っておらずキャンセルされた状態です。
+    - CANCEL_UNAUTHORIZED：証明書認証プロセスで失敗した状態です。証明書の状態を確認する必要があります。
+    - CANCEL_UNKNOWN：内部エラーが発生した状態です。
 
-#### 단건 조회
+#### 単件照会
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/messages/{message-id}
@@ -1032,12 +1032,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| messageId | Required, Number | 메시지 아이디 |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
+| messageId | Required, Number | メッセージID |
 
 ##### Request Body
 ```
-없음
+なし
 ```
 ##### Response Body
 ```json
@@ -1056,7 +1056,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
         },
         "messageType" : "AD",
         "contact": "1588-1588",
-        "removeGuide": "매뉴 > 설정",
+        "removeGuide": "メニュー > 設定",
         "timeToLiveMinute": 60,
         "createdDateTime": "2017-02-13T09:30:00.000+09:00",
         "completedDateTime": "2017-02-13T09:30:00.000+09:00",
@@ -1077,48 +1077,48 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/messages/{messageId}
 ```
 
-#### 실패한 메시지 목록 조회
-발송에 실패한 메시지를 조회할 수 있습니다.
-단, 토큰이 존재하지 않는 경우(INVALID_TOKEN)는 발송 실패로 판단하지 않습니다.
+#### 失敗したメッセージリスト照会
+送信に失敗したメッセージを照会できます。
+ただし、トークンが存在しない場合(INVALID_TOKEN)は送信失敗と判断しません。
 
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messagErrorCause={messageErrorCause}&from={from}&to={to}&limit={limit}
-HEADER
+Header
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| messageId | Optional, Number | 메시지 아이디 |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
+| messageId | Optional, Number | メッセージID |
 | messageErrorType | Optional, String | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR' |
 | messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'GCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR', 'ADM_ERROR'  |
-| from | Optional, DateTime String | 최근 30일 까지, 기본 값은 최근 7일 전 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지, 기본 값은 현재 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| limit | Optional, Number | 한 번에 조회할 목록 크기, 기본 값과 최대 값은 1,000 |
+| from | Optional, DateTime String | 過去30日まで、基本値は過去7日前(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 過去30日まで、基本値は現在(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| limit | Optional, Number | 一度に照会するリストサイズ、基本値と最大値は1,000 |
 
 ##### Description
-- messageErrorType와 messageErrorCause는 다음과 같은 뜻을 의미합니다.
-    - CLIENT_ERROR: 클라이언트의 잘못된 요청
-        - UNSUPPORTED_MESSAGE_TYPE: 지원하지 않는 메시지 타입
-        - INVALID_MESSAGE: 비정상적인 메시지
-        - INVALID_CERTIFICATE: 인증서 만료 또는 인증서 정보가 올바르지 않음
-        - UNAUTHORIZED: 인증서 만료 또는 인증서 정보가 올바르지 않음
-    - EXTERNAL_ERROR: APNS, GCM, Tencent, ADM 등 푸시와 연결된 외부 서비스 오류
-        - APNS_ERROR: APNS(iOS)로 발송 실패
-        - GCM_ERROR: GCM(Google)로 발송 실패
-        - TENCENT_ERROR: Tencent로 발송 실패
-        - ADM_ERROR: ADM로 발송 실패
-    - INTERNAL_ERROR: 푸시 내부에서 발생한 오류
-        - EXPIRED_TIME_OUT: 발송 지연으로 인한 메시지 유효 시간 만료
-        - AGENT_ERROR: Agent 내부 오류로 인한 발송 실패
-- Response Body에서 header.resultCode가 40010인 경우, 조회 기간(from, to)을 줄여서 조회해야 합니다.
+- messageErrorTypeとmessageErrorCauseは、次のような意味があります。
+    - CLIENT_ERROR：クライアントの無効なリクエスト
+        - UNSUPPORTED_MESSAGE_TYPE：サポートしないメッセージタイプ
+        - INVALID_MESSAGE：正常ではないメッセージ
+        - INVALID_CERTIFICATE：証明書満了または証明書情報が不正
+        - UNAUTHORIZED：証明書満了または証明書情報が不正
+    - EXTERNAL_ERROR：APNS、GCM、Tencent、ADMなどプッシュと接続した外部サービスのエラー
+        - APNS_ERROR：APNS(iOS)に送信失敗
+        - GCM_ERROR：GCM(Google)に送信失敗
+        - TENCENT_ERROR：Tencentに送信失敗
+        - ADM_ERROR：ADMに送信失敗
+    - INTERNAL_ERROR：プッシュ内部で発生したエラー
+        - EXPIRED_TIME_OUT：送信遅延によるメッセージの有効時間切れ
+        - AGENT_ERROR：Agent内部エラーによる送信失敗
+- Response Bodyでheader.resultCodeが40010の場合、照会期間(from, to)を狭めて照会する必要があります。
 
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -1165,41 +1165,41 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 | Field | Usage | Description |
 | - | - | - |
-| messageId | - | 실패한 메시지 아이디 |
-| messageIdString | - | 실패한 메시지 아이디 |
+| messageId | - | 失敗したメッセージID |
+| messageIdString | - | 失敗したメッセージID |
 | pushType | - | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
-| payload | - | 기기에 발송된 실제 메시지 내용 |
-| tokens | - | 발송한 실패한 수신자의 uid와 token |
+| payload | - | 端末に送信された実際のメッセージ内容 |
+| tokens | - | 送信に失敗した受信者のuidとtoken |
 
 ##### Example
 ```
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/message-errors
 ```
 
-#### 메시지 수신, 확인 통계 조회
-메시지 수신, 확인 수집(Message Delivery Receipt) 기능을 화성화하고, v1.4 이상 SDK를 적용하면 발송한 메시지에 대해 수신, 확인 정보를 확인할 수 있습니다.
-수집된 정보를 통계 API로 조회할 수 있습니다. 기능은 [Console] > [Settings] 탭에서 활성화할 수 있습니다.
+#### メッセージ受信、確認統計照会
+メッセージ受信、確認収集(message delivery receipt)機能を有効化して、v1.4以上のSDKを適用すると、送信したメッセージの受信、確認情報を照会できます。
+収集された情報を統計APIで照会できます。機能は[Console] > [Settings]タブで有効にできます。
 
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/statistics/message-delivery-receipts?from={from}&to={to}&event={event}&timeUnit={timeUnit}&messageId={messageId}
-HEADER
+Header
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
+| from | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | event | Optional, String | 'SENT', 'SENT_FAILED', 'RECEIVED', 'OPENED' |
-| timeUnit | Optional, String | 'MINUTES', 'HOURS', 'DAYS'<br>값이 없다면 조회기간에 따라 임의로 통계가 제공됩니다.<br>조회기간이 1일 이상은 일 단위, 1시간에서 24시간 사이는 시간 단위, 1시간 이하는 분 단위로 표시됩니다. |
-| messageId | Optional, Number | 메시지 아이디 |
+| timeUnit | Optional, String | 'MINUTES'、'HOURS'、'DAYS'<br>値がない場合は、照会期間に応じて任意で統計が提供されます。<br>照会期間が1日以上は日単位、 1時間から24時間の間は時間単位、 1時間以下は分単位で表示されます。 |
+| messageId | Optional, Number | メッセージID |
 
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -1225,20 +1225,20 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | dateTime | Optional, DateTime String | ISO 8601 |
-| sent | Optional, Number | 서버에서 발송한 수 |
-| sentFailed | Optional, Number | 서버에서 발송 실패한 수 |
-| received | Optional, Number | 기기에서 수신한 수 |
-| opened | Optional, Number | 기기에서 사용자가 클릭해 오픈한 수 |
+| sent | Optional, Number | サーバーから送信した数 |
+| sentFailed | Optional, Number | サーバーから送信に失敗した数 |
+| received | Optional, Number | 端末で受信した数 |
+| opened | Optional, Number | 端末でユーザーがクリックしてオープンした数 |
 
 ##### Example
 ```
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/statistics/message-delivery-receipts
 ```
 
-## 예약 메시지
+## 予約メッセージ
 
-### 생성
-#### 예약 메시지 발송 스케줄 생성
+### 作成
+#### 予約メッセージ送信スケジュールの作成
 ##### Method, URL, Headers
 ```
 POST /push/v2.1/appkeys/{appkey}/schedules
@@ -1248,7 +1248,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
 
 
 ##### Request Body
@@ -1275,12 +1275,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| type | Required, String | 'EVERY_DAY' (매일), 'EVERY_WEEK' (매주), 'EVERY_MONTH' (매월) |
-| fromDate | Required, Date String | 예약 메시지 시작 년월일 (YYYY-MM-DD) |
-| toDate | Required, Date String | 예약 메시지 종료 년월일 (YYYY-MM-DD) |
-| times | Required, Time String | 예약 메시지 발송 시분 (hh:mm) |
-| days | Optional, Number Array | type이 'EVERY_MONTH'일 때 설정합니다. (1, 2, ..., 31: 1일, 2일, ..., 31일) |
-| daysOfWeek | Optional, String Array | type이 'EVERY_WEEK'일 때 설정합니다. ('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY') |
+| type | Required、String | 'EVERY_DAY' (毎日)、'EVERY_WEEK' (毎週)、'EVERY_MONTH' (毎月) |
+| fromDate | Required, Date String | 予約メッセージ開始年月日(YYYY-MM-DD) |
+| toDate | Required, Date String | 予約メッセージ終了年月日(YYYY-MM-DD) |
+| times | Required, Time String | 予約メッセージ送信時間/分(hh:mm) |
+| days | Optional, Number Array | typeが'EVERY_MONTH'の時に設定します。 (1、2、...、31: 1日、2日、 …、31日) |
+| daysOfWeek | Optional, String Array | typeが'EVERY_WEEK'の時に設定します。 ('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY') |
 
 ##### Response Body
 ```json
@@ -1309,14 +1309,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| schedules | - | 일시 (ISO 8601, e.g. YYYY-MM-DDThh:mm) |
+| schedules | - | 日時(ISO 8601, e.g. YYYY-MM-DDThh:mm) |
 
 ##### Example
 ```
 curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/schedules -d '{"type":"EVERY_MONTH","fromDate":"2016-12-30","toDate":"2017-01-02","times":["12:00","17:00"],"days":[1,15],"daysOfWeek":["SUNDAY","MONDAY"]}'
 ```
 
-#### 예약 메시지 생성
+#### 予約メッセージ作成
 ##### Method, URL, Headers
 ```
 POST /push/v2.1/appkeys/{appkey}/reservations
@@ -1326,7 +1326,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
 
 ##### Request Body
 ```json
@@ -1348,7 +1348,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     },
     "messageType" : "AD",
     "contact": "1588-1588",
-    "removeGuide": "매뉴 > 설정",
+    "removeGuide": "メニュー > 設定",
     "timeToLiveMinute": 1,
 	"provisionedResourceId": "id"
 }
@@ -1356,8 +1356,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| schedules | Required, DateTime String Array | 예약 메시지 발송 스케줄 목록 |
-| isLocalTime | Required, Boolean | 현지 시간 발송 여부 |
+| schedules | Required, DateTime String Array | 予約メッセージ送信スケジュールリスト |
+| isLocalTime | Required, Boolean | 現地時間で送信するかどうか |
 
 ##### Response Body
 
@@ -1377,16 +1377,16 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| reservationId | Number | 예약 메시지 아이디 |
-| reservationIdString | String | 예약 메시지 아이디 문자열 |
+| reservationId | Number | 予約メッセージID |
+| reservationIdString | String | 予約メッセージID文字列 |
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations -d '{"schedules":["2016-12-30T12:40","2016-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations -d '{"schedules":["2016-12-30T12:40","2016-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"メニュー > 設定","timeToLiveMinute":1}'
 ```
 
-### 조회
-#### 목록 조회
+### 照会
+#### リスト照会
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/reservations?pageIndex={pageIndex}&pageSize={pageSize}&reservationStatus={reservationsStatus}
@@ -1396,16 +1396,16 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
-| from | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일 까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
+| pageIndex | Optional, Number | 基本値0 |
+| pageSize | Optional, Number | 基本値25、最大値100 |
+| from | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | reservationStatus | Optional, String | 'RESERVED', 'COMPLETE' |
 
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -1443,8 +1443,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 					"body" : "default body"
 				},
 				"ko" : {
-					"title" : "한국어 제목",
-					"body" : "한국어 내용"
+					"title" : "韓国語タイトル",
+					"body" : "韓国語内容"
 				}
 			},
 			"messageType" : "NOTIFICATION",
@@ -1462,25 +1462,25 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| reservationIdString | - | 예약 메시지 아이디 문자열 |
-| createdDateTime | - | 예약 메시지 등록 일시 (ISO 8601) |
-| updatedDateTime | - | 예약 메시지 수정 일시 (ISO 8601) |
-| completedDateTime | - | 예약 메시지 발송 완료 일시, 완료가 안되었다면 현재 시간 표시 (ISO 8601) |
+| reservationIdString | - | 予約メッセージID文字列 |
+| createdDateTime | - | 予約メッセージ登録日時(ISO 8601) |
+| updatedDateTime | - | 予約メッセージ修正日時(ISO 8601) |
+| completedDateTime | - | 予約メッセージ送信完了日時。完了していなければ現在時間を表示(ISO 8601) |
 | reservationStatus | - | 'RESERVED', 'COMPLETED' |
-| schedules.scheduleId | - | 예약 메시지 발송 스케줄 아이디 |
-| schedules.scheduleIdString | - | 예약 메시지 발송 스케줄 아이디 문자열 |
-| schedules.reservationIdString | - | 예약 메시지 발송 스케줄이 속한 예약 메시지 아이디 문자열 |
-| schedules.deliveryDateTime | - | 예약 메시지 발송 일시 |
-| schedules.timezoneOffset | - | 예약 메시지 발송 타임존, 현지 시간 발송시 설정 |
-| schedules.scheduleStatus | - | 'READY', 'SENDING', 'CANCELED', 'DONE' 예약 메시지 발송 스케줄 상태 |
-| totalCount | - | 등록된 전체 예약 메시지 수 |
+| schedules.scheduleId | - | 予約メッセージ送信スケジュールID |
+| schedules.scheduleIdString | - | 予約メッセージ送信スケジュールID文字列 |
+| schedules.reservationIdString | - | 予約メッセージ送信スケジュールが属する予約メッセージID文字列 |
+| schedules.deliveryDateTime | - | 予約メッセージ送信日時 |
+| schedules.timezoneOffset | - | 予約メッセージ送信タイムゾーン。現地時間で送信時に設定 |
+| schedules.scheduleStatus | - | 'READY'、'SENDING'、'CANCELED'、'DONE'予約メッセージ送信スケジュール状態 |
+| totalCount | - | 登録された予約メッセージ総数 |
 
 ##### Example
 ```
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations
 ```
 
-#### 단건 조회
+#### 単件照会
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/reservations/{reservation-id}
@@ -1490,7 +1490,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Request Body
 ```
-없음
+なし
 ```
 
 #### Response Body
@@ -1527,8 +1527,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 				"body" : "default body"
 			},
 			"ko" : {
-				"title" : "한국어 제목",
-				"body" : "한국어 내용"
+				"title" : "韓国語タイトル",
+				"body" : "韓国語内容"
 			}
 		},
 		"messageType" : "NOTIFICATION",
@@ -1543,14 +1543,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| updatedDateTime | DateTime String | 예약 수정 일시(ISO 8601) |
+| updatedDateTime | DateTime String | 予約修正日時(ISO 8601) |
 
 ##### Example
 ```
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations/{reservationId}
 ```
 
-#### 발송된 예약 메시지 조회
+#### 送信された予約メッセージ照会
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/reservations/{reservation-id}/messages?pageIndex={pageIndex}&pageSize={pageSize}
@@ -1560,14 +1560,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| reservationId | Required, Number | 예약 메시지 아이디 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
+| reservationId | Required, Number | 予約メッセージID |
+| pageIndex | Optional, Number | 基本値0 |
+| pageSize | Optional, Number | 基本値25、最大値100 |
 
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -1575,7 +1575,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 {
 	"header" : {
 		"resultCode" : 0,
-		"resultMessage" : "success",
+		"resultMessage" : "SUCCESS",
 		"isSuccessful" : true
 	},
 	"messages" : [{
@@ -1587,7 +1587,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 			},
 			"content" : {
 				"default" : {
-					"title" : "6시 55분 예약 메시지",
+					"title" : "6時55分予約メッセージ",
 					"body" : "API v2"
 				}
 			},
@@ -1605,15 +1605,15 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| totalCount | - | 발송된 전체 메시지  수 |
+| totalCount | - | 送信されたメッセージ総数 |
 
 ##### Example
 ```
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations/{reservationId}/messages
 ```
 
-### 수정
-#### 예약 메시지 수정
+### 修正
+#### 予約メッセージの修正
 ##### Method, URL, Headers
 ```
 PUT /push/v2.1/appkeys/{appkey}/reservations/{reservationId}
@@ -1640,8 +1640,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 			"body" : "default body"
 		},
 		"ko" : {
-			"title" : "한국어 제목",
-			"body" : "한국어 내용"
+			"title" : "韓国語タイトル",
+			"body" : "韓国語内容"
 		}
 	},
 	"isLocalTime" : false,
@@ -1662,11 +1662,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations/{reservationId} -d '{"schedules":["2018-12-30T12:40","2018-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
+curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations/{reservationId} -d '{"schedules":["2018-12-30T12:40","2018-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"メニュー > 設定","timeToLiveMinute":1}'
 ```
 
-### 삭제
-#### 예약 메시지 삭제
+### 削除
+#### 予約メッセージの削除
 ##### Method, URL, Headers
 ```
 DELETE /push/v2.1/appkeys/{appkey}/reservations?reservationIds={reservationId,}
@@ -1676,12 +1676,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| reservationIds | Required, Number Array | ','로 구분, e.g. reservationIds=1,2 |
+| appkey | Required, String | Path Variable, サービス利用時に発行されたアプリケーションキー |
+| reservationIds | Required, Number Array | ','で区切る、 e.g. reservationIds=1,2 |
 
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -1700,10 +1700,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/reservations?reservationIds={reservationId,}
 ```
 
-## 태그
+## タグ
 
-### 생성
-#### 태그 생성
+### 作成
+#### タグの作成
 ##### Method, URL, Headers
 ```
 POST /push/v2.1/appkeys/{appkey}/tags
@@ -1714,13 +1714,13 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ```json
 {
-    "tagName" :  "서른"
+    "tagName" :  "30"
 }
 ```
 
 | Field | Usage | Description |
 | - | - | - |
-| tagName | Required, String | 태그 이름, 최대 길이 255 |
+| tagName | Required, String | タグ名、最長255、空白(Space)文字不可 |
 
 ##### Response Body
 ```json
@@ -1738,16 +1738,16 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| tagId | Required, String | 생성된 태그 아이디, 길이 8 |
+| tagId | Required, String | 作成されたタグID。長さ8 |
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags -d '{"tagName":"서른"}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags -d '{"tagName":"30"}'
 ```
 
-#### 태그에 Uid 추가 생성
-- 태그에 Uid를 추가(Append)하는 것으로, 기존에 있던 Uid를 추가하면 Uid의 태그는 늘어납니다.
-- 한 Uid의 최대 태그 수는 16개입니다.
+#### タグにUID追加作成
+- タグにUIDを追加(append)すること。既存のUIDを追加するとUIDのタグは増えます。
+- 1つのUIDの最大タグ数は16個です。
 ##### Method, URL, Headers
 ```
 POST /push/v2.1/appkeys/{appkey}/tags/{tag-id}/uids
@@ -1765,7 +1765,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 | Field | Usage | Description |
 | - | - | - |
-| uids | Required, String Array | Uid 배열, 최대 길이 16, Uid 최대 길이 64 |
+| uids | Required, String Array | Uid配列。最長16、Uid最長64 |
 
 ##### Response Body
 ```json
@@ -1783,8 +1783,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags/{tagId}/uids -d '{"uids":["uid"]}'
 ```
 
-#### Uid에 태그 목록 설정
-- Uid의 태그를 교체(Replace)하는 것으로, 기존에 설정된 태그는 삭제되고 새로운 태그로 설정됩니다.
+#### UIDにタグリスト設定
+- UIDのタグを交換(replace)することです。既に設定されているタグは削除され、新しいタグに設定されます。
 ##### Method, URL, Headers
 ```
 POST /push/v2.1/appkeys/{appkey}/uids
@@ -1818,8 +1818,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/uids -d '{"uid":"uid","tagIds":["TAG_ID"]}'
 ```
 
-### 조회
-#### 태그 목록 조회
+### 照会
+#### タグリスト照会
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/tags?tagName={tagName}
@@ -1829,11 +1829,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| tagName | Optional, String | 태그 이름 |
+| tagName | Optional, String | タグ名 |
 
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -1857,15 +1857,15 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| createdDateTime | Required, Date Time String | 생성 일시 (ISO 8601) |
-| updatedDateTime | Required, Date Time String | 수정 일시 (ISO 8601) |
+| createdDateTime | Required, Date Time String | 作成日時(ISO 8601) |
+| updatedDateTime | Required, Date Time String | 修正日時(ISO 8601) |
 
 ##### Example
 ```
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags
 ```
 
-#### 태그 단건 조회
+#### タグ単件照会
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/tags/{tag-id}
@@ -1874,7 +1874,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -1887,7 +1887,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
     },
     "tag" : {
         "tagId" :  "12345678",
-        "tagName" :  "서른",
+        "tagName" :  "30",
         "createdDateTime" :  "2017-07-07T07:07:07.777+09:00",
         "updatedDateTime" :  "2017-07-07T07:07:07.777+09:00"
     }
@@ -1899,8 +1899,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags/{tagId}
 ```
 
-#### 태그의 Uid 목록 조회
-- 태그가 달린 Uid 목록을 조회합니다.
+#### タグのUIDリスト照会
+- タグがついているUIDリストを照会します。
 
 ##### Method, URL, Headers
 ```
@@ -1911,12 +1911,12 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| offsetUid | Optional, String | 설정된 Uid 다음 부터 조회 |
-| limit | Optional, Number | 조회할 Uid 수 |
+| offsetUid | Optional, String | 設定されたUidの次から照会 |
+| limit | Optional, Number | 照会するUid数 |
 
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -1952,19 +1952,19 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| contacts | -, Object Array | Uid의 연락처, 토큰 정보 목록 |
-| contactType | -, String | 토큰 타입, 'TOKEN_GCM', 'TOKEN_APNS', 'TOKEN_APNS_SANDBOX', 'TOKEN_TENCENT', 'TOKEN_ADM' |
-| contact | -, String | 토큰 |
-| createdDateTime | Required, Date Time String | 생성 일시 (ISO 8601) |
+| contacts | -, Object Array | Uidの連絡先。トークン情報リスト |
+| contactType | -, String | トークンタイプ、 'TOKEN_GCM', 'TOKEN_APNS', 'TOKEN_APNS_SANDBOX', 'TOKEN_TENCENT', 'TOKEN_ADM' |
+| contact | -, String | トークン |
+| createdDateTime | Required, Date Time String | 作成日時(ISO 8601) |
 
 ##### Example
 ```
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags/{tagId}/uids
 ```
 
-#### Uid 조회
-- Uid를 조회합니다.
-- 토큰 등록시 Contact(연락처)가 등록됩니다.
+#### UID照会
+- UIDを照会します。
+- トークン登録時、Contact(連絡先)が登録されます。
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/uids/{uid}
@@ -1973,7 +1973,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -2010,8 +2010,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/uids/uid
 ```
 
-### 수정
-#### 태그 수정
+### 修正
+#### タグの修正
 ##### Method, URL, Headers
 ```
 PUT /push/v2.1/appkeys/{appkey}/tags/{tag-id}
@@ -2021,7 +2021,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### Request Body
 ```json
 {
-    "tagName" :  "30대"
+    "tagName" :  "30代"
 }
 ```
 
@@ -2038,11 +2038,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags/{tagId} -d '{"tagName":"서른셋"}'
+curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags/{tagId} -d '{"tagName":"33"}'
 ```
 
-### 삭제
-#### 태그 삭제
+### 削除
+#### タグの削除
 ##### Method, URL, Headers
 ```
 DELETE /push/v2.1/appkeys/{appkey}/tags/{tag-id}
@@ -2051,7 +2051,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -2070,8 +2070,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags/{tagId}
 ```
 
-#### Uid 삭제
-- Uid 삭제시 Contact, Token도 같이 삭제됩니다.
+#### UID削除
+- Uidを削除するとContact、Tokenも一緒に削除されます。
 ##### Method, URL, Headers
 ```
 DELETE /push/v2.1/appkeys/{appkey}/uids?uids={uid,}
@@ -2081,11 +2081,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| uids | -, Object Array | 삭제할 Uid 목록, 쉼표(,)로 구분합니다. 한번에 16개까지 삭제할 수 있습니다. |
+| uids | -, Object Array | 削除するUidリスト。カンマ(,)で区切ります。一度に16個まで削除できます。 |
 
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -2104,9 +2104,9 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/uids?uids=uid
 ```
 
-#### 태그의 Uid 삭제
-- Tag와 Uid 관계만 삭제합니다.
-- Contact, Token이 삭제되지는 않습니다.
+#### タグのUID削除
+- TagとUIDの関係のみ削除します。
+- Contact、Tokenは削除されません。
 ##### Method, URL, Headers
 ```
 DELETE /push/v2.1/appkeys/{appkey}/tags/{tagId}/uids?uids={uid,}
@@ -2115,7 +2115,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 ##### Request Body
 ```
-없음
+なし
 ```
 
 ##### Response Body
@@ -2134,13 +2134,13 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tags/{tagId}/uids?uids=uid
 ```
 
-## Uid
+## UID
 
-### 생성
+### 作成
 
-#### 태그 추가
-- Uid에 태그 아이디로 태그를 추가합니다.
-- Secret Key가 필요없다. 앱에서 호출 가능합니다.
+#### タグの追加
+- UidにタグIDでタグを追加します。
+- Secret Keyが必要ない。アプリで呼び出し可能です。
 ##### Method, URL, Headers
 ```
 POST /push/v2.1/appkeys/{appkey}/uids/{uid}/tag-ids
@@ -2168,11 +2168,11 @@ Content-Type: application/json;charset=UTF-8
 curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/uids/uid/tag-ids -d '{"tagIds":["TAG_ID"]}'
 ```
 
-### 조회
+### 照会
 
-#### Uid의 태그 아이디 조회
-- Uid의 태그 아이디를 조회합니다.
-- Secret Key가 필요없다. 앱에서 호출 가능합니다.
+#### UidのタグID照会
+- UidのタグIDを照会します。
+- Secret Keyが必要ない。アプリで呼び出し可能です。
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/uids/{uid}/tag-ids
@@ -2180,7 +2180,7 @@ Content-Type: application/json;charset=UTF-8
 ```
 ##### Request Body
 ```
-없음
+なし
 ```
 ##### Response Body
 ```json
@@ -2199,10 +2199,10 @@ Content-Type: application/json;charset=UTF-8
 curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/uids/uid/tag-ids
 ```
 
-### 수정
-#### Uid의 태그 수정
-- Uid에 태그 아이디로 태그를 수정합니다.
-- Secret Key가 필요없다. 앱에서 호출 가능합니다.
+### 修正
+#### UIDのタグ修正
+- UidにタグIDでタグを修正します。
+- Secret Keyが必要ない。アプリで呼び出し可能です。
 ##### Method, URL, Headers
 ```
 PUT /push/v2.1/appkeys/{appkey}/uids/{uid}/tag-ids
@@ -2230,9 +2230,9 @@ Content-Type: application/json;charset=UTF-8
 curl -X PUT -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/uids/uid/tag-ids -d '{"tagIds":["TAG_ID"]}'
 ```
 
-### 태그 삭제
-- Uid의 태그 아이디를 조회합니다.
-- Secret Key가 필요없다. 앱에서 호출 가능합니다.
+### タグの削除
+- UidのタグIDを照会します。
+- Secret Keyが必要ない。アプリで呼び出し可能です。
 ##### Method, URL, Headers
 ```
 DELETE /push/v2.1/appkeys/{appkey}/uids/{uid}/tag-ids?tagIds={tagId,}
@@ -2240,7 +2240,7 @@ Content-Type: application/json;charset=UTF-8
 ```
 ##### Request Body
 ```
-없음
+なし
 ```
 ##### Response Body
 ```json
@@ -2255,7 +2255,7 @@ Content-Type: application/json;charset=UTF-8
 
 | Field | Usage | Description |
 | - | - | - |
-| tagIds | Required, String Array | Query String, 삭제할 태그 아이디, 쉼표(,)로 구분 |
+| tagIds | Required, String Array | Query String。削除するタグID。カンマ(,)で区切る |
 
 ##### Example
 ```
@@ -2263,8 +2263,8 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" https://api-pus
 ```
 
 
-* *문서 수정 내역*
-		* *(2018.12.26) 광고 표시 위치 설정 필드 추가, 오타 수정*
-    * *(2018.06.26) 메시지 발송 예제 추가*
-    * *(2018.06.26) pushType ADM 추가*
-    * *(2018.05.29) v2.1 토큰 조회 API 추가*
+* *文書修正履歴*
+		* *(2018.12.26)広告表示位置設定フィールドの追加、誤字修正*
+    * *(2018.06.26)メッセージ送信例の追加*
+    * *(2018.06.26) pushType ADMの追加*
+    * *(2018.05.29) v2.1トークン照会APIの追加*

@@ -1,105 +1,99 @@
-## Notification > Push > Overview
+## Notification > Push > 概要
 
-Push helps to deliver messages in various methods and query results. You can schedule a message delivery in accordance with recipient's local time and easily track the result.
+Pushを使用すると、多様な送信方法でメッセージを送信し、結果を検索できます。
+現地時間に合わせてメッセージを予約送信でき、メッセージ送信結果も簡単に確認できます。
 
-Here are the main features of Push.    
+Pushの主な機能は次のとおりです。
 
-### Main Features
+### 主な機能
 
-- Deliver messages to Android OS (GCM, TENCENT) and iOS (APNS, Apple Push Notification Service) altogether
-- Manage tokens
-- Support immediate delivery
-- Support for scheduled delivery for local and different time zones
-- Manage certificates (APNS) for API KEY (GCM), ACCESS ID (TENCENT), and Secret Key (TENCENT)
-- Provide success/failure index for delivery results
-- Manage tags, and deliver messages based on tokens
-- Collect data on receiving/confirming messages and provide statistics
+- Android OS(FCM、TENCENT、ADM)、iOS(APNS、Apple Push Notification Service)端末にメッセージを統合送信
+- トークン管理
+- 即時送信
+- 一般予約送信と現地時間予約送信
+- SERVER KEY(FCM)、ACCESS ID(TENCENT)、Secret Key(TENCENT)証明書(APNS)管理
+- 送信結果の成功/失敗指標を提供
+- タグ管理、トークン基盤メッセージ送信
+- メッセージ受信および確認データ収集、統計の提供
 
-### Glossary
+### サービス用語
 
-| Term  | Description                                                  |
-| ----- | ------------------------------------------------------------ |
-| Token | An original identifier of a device where the application is installed |
-| Tag   | A system that classifies UID: many tags can be attached to each UID. |
+| 用語 | 説明                              |
+| --------- | --------------------------------------- |
+| トークン(token) | アプリケーションがインストールされた端末の固有識別子。                 |
+| タグ(tag)   | UIDを分類するシステム。UIDに複数のタグを付けることができる。 |
 
-### Structure
+### 構造
 
-Below shows the structure of Push Service.
+次はPushサービス構造です。
 
 ![](http://static.toastoven.net/prod_push/19-03-26/overview_en.png)
 
 #### Console
 
-Provides many functions such as certificate management, API testing, and message delivery.
+証明書の管理、 APIテスト、メッセージ送信など、すべての機能を使用できます。
 
-#### REST APIs
+#### REST API
 
-Call Public APIs to register/query tokens, deliver messages, and check feedback
+トークン登録/照会、メッセージ送信、フィードバック確認など、Public APIを呼び出せます。
 
-#### Client SDK
+#### client SDK
+トークン登録/照会およびプッシュメッセージ受信を手軽に使用できます。
 
-Can easily register/query tokens and receive push messages
+### 機能
 
-### Functions
+#### 通知/広告性プッシュメッセージの受信同意情報の保存および自動フィルタリング
 
-#### Save Consent to Receive Notification/Promotional Push Messages and Filter Automatically
+韓国情報通信網法の規定(第50条から第50条の8)に従い、トークン登録時に通知/広告性/夜間広告性プッシュメッセージの受信に関する同意有無も一緒に入力を受けます。メッセージ送信時、受信同意の有無を基準に自動的にフィルタリングします。
 
-In accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection, etc. (from Article 50 to 50-8), you're also required to enter consent to receive notification/promotional/night-time promotional push messages. Messages are automatically filtered based on such consent, when delivered.
+[KISAガイドリンク](https://spam.kisa.or.kr/spam/sub62.do)
 
-[Go to KISA Guidelines](https://spam.kisa.or.kr/spam/sub62.do)
+[法令リンク](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)
 
-[Check the Act](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)
+#### 国フィルタリング
 
-#### Filter by Country
+トークン登録時に国コードの入力を受け、メッセージ送信時に送信する国を指定できます。
 
-Required to enter a language code when registering a token. You can also specify a country to send messages to.
+#### 共通メッセージ形式
 
-#### Common Message Format
+共通メッセージ形式に合わせてメッセージを作成すると、端末の種類に合わせてメッセージが作成されて送信されます。  
+共通メッセージ形式に合わせて入力を受けた言語コードを基準にメッセージを作成すると、該当言語と端末の種類に合わせて作成されて送信されます。
 
-When a message is written on a common format, it is adjusted to each device before delivered.
-Likewise, the ready-made common message format of a language code can be applied to any new messages for a corresponding language code and device.
+#### 広告性メッセージの送信
 
-#### Deliver Advertising Messages
+広告性プッシュメッセージ表示の義務化に従っています。
+広告性メッセージ形式でメッセージを送信する場合、 (広告)、連絡先、受信解除方法などの広告表示文言をメッセージに挿入して送信します。
+広告表示文言を挿入するかどうかは、端末の言語設定に従います。
+言語が韓国語(ko, ko-KRなどkoで始まる言語コード)に設定されている端末のみ、韓国情報通信網法に従って、広告表示文言が挿入されて送信されます。
 
-For advertising messages, it is obliged to specifically show in the push messages.  
+#### 予約メッセージ送信
 
-When delivering an advertising message (advertisement), include contact information and how to cancel subscription.
-Follow each device's language setting to decide whether to insert advertising messages.
-Only the devices configured in Korean (of which the language code starts with ko, or ko-KR) are required to insert advertising messages, in accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection, etc.
+1回、毎日、毎週、毎月など、多様な予約送信タイプを選択できます。
+現地時間に合わせて送信できます。
 
-#### Deliver Scheduled Messages  
+#### メッセージの有効期間を設定
 
-Many types of scheduled message delivery are available, such as once, daily, weekly and monthly delivery.  
+メッセージに有効期間(TTL)を設定できます。有効期間が過ぎると失敗処理されます。
+ただし0は有効期間がないものとして、送信遅延により失敗処理されません。
 
-You may also deliver on local time basis.
-
-#### Configure Time to Live (TTL)   
-
-Your messages can be setup with Time-to-live, or TTL. When a message remains undelivered beyond TTL, it is processed as a failure.
-However, ‘0’ has no TTL and hence, deemed not as a failure due to delivery delay.  
-
-#### Monitor in Real-time  
+#### リアルタイムモニタリング
 
 ![](http://static.toastoven.net/prod_push/img_03.png)
 
-You can check the status of message delivery in real time on **Messages**.  
+**メッセージ**タブで、メッセージ送信状態をリアルタイムで確認できます。
 
-#### Provide Feedbacks
+#### フィードバックの提供
 
-Deleted or invalid tokens are automatically deleted when a message is delivered. You can query deleted tokens, using feedback API.
+削除されたトークンまたは無効なトークンは、メッセージ送信時に自動的に削除され、フィードバックAPIで削除されたトークンを照会できます。
 
-#### Manage Certificates
+#### 証明書の管理
 
-Certificates or API keys are managed by push type.
+プッシュタイプごとに証明書またはAPI Keyを管理できます。
 
-#### Public APIs
+#### Public API
 
-Public APIs are available to register/query tokens, deliver messages and check feedbacks.
-You may test Public APIs on **APIs**.
+トークン登録、照会、メッセージ送信、フィードバック確認APIを使用できます。
+**API**タブでPublic APIをテストできます。
 
-#### Enable Service
-
-Click **Console > Notification > Push > Enable**.
-
-- *Document Updates*
-  - *Added Deliver Advertising Messages  (Jan.25,2018)*
+* *文書修正履歴*
+    * *(2018.01.25)広告性メッセージ送信説明の追加*
