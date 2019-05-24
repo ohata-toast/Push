@@ -228,8 +228,6 @@ v1.7 이상 SDK가 적용된 곳에서만 사용할 수 있는 기능입니다.
 | 확장자 | 미디어의 확장자 | .png, .avi 등 미디어의 확장자입니다. |
 | 펼치기 | 미디어 펼짐 기능, Android에서만 가능합니다. |
 
-##### Android
-
 ##### iOS에서 로컬 파일 사용하기
 - XCode에서 파일 혹은 디렉토리를 'NotificationServiceExtension' 프로젝트에 추가합니다.
 - 'Build Phases > TARGETS'에서 파일이 정상적으로 추가되었는지 확인합니다.
