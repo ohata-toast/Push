@@ -228,6 +228,20 @@ v1.7 이상 SDK가 적용된 곳에서만 사용할 수 있는 기능입니다.
 | 확장자 | 미디어의 확장자 | .png, .avi 등 미디어의 확장자입니다. |
 | 펼치기 | 미디어 펼짐 기능, Android에서만 가능합니다. |
 
+##### Android
+
+##### iOS에서 로컬 파일 사용하기
+- XCode에서 파일 혹은 디렉토리를 'NotificationServiceExtension' 프로젝트에 추가합니다.
+- 'Build Phases > TARGETS'에서 파일이 정상적으로 추가되었는지 확인합니다.
+- 메시지 작성시 'richMessage.media.source'에 추가한 파일 이름, 'extension'에 확장자를 입력합니다.
+
+##### Android에서 로컬 파일 사용하기
+- 추가할 파일을 'src > main > res > drawable'에 복사합니다.
+- Android에서는 파일 이름이 리소스의 식별자로 사용되기 때문에 확장자가 다르더라도 동일한 파일 이름을 사용할 수 없습니다.
+지원하는 이미지 포멧은 png, jpg, gif 입니다. (현재 비디오, 오디오 형식의 미디어는 지원하지 않습니다.)
+- 'drawable' 디렉토리에 파일이 정상적으로 추가되었는지 확인합니다.
+- 메시지 작성시 'richMessage.media.source'에 확장자를 제외한 파일 이름을 입력합니다.
+
 #### 3. 큰 아이콘
 
 Android에서만 제공하는 기능입니다.
