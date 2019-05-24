@@ -1,558 +1,173 @@
-## Notification > Push > Release Notes
+## Notification> Push > Release Notes
+
+### 2019.05.28
+#### [API]
+* Improved message reception / confirmation data collection performance
+    * We have improved message reception / confirmation data collection performance.
 
 ### 2019.03.26
 #### [API]
-##### 버그 수정
-* 유효하지 않은 토큰 조회 API에서 기간(from, to) 설정이 적용되지 않는 오류 수정
-    * 유효하지 않은 토큰 조회 API에서 기간 설정시 from, to 둘 다 설정하지 않으면 설정이 무시되는 오류가 있었습니다.
-    * from, to 둘 중 하나만 설정해도 기간 설정이 적용되도록 수정했습니다.
+##### Bug fixes
+* Fixed an error where the from (to, to) setting does not apply in the invalid token lookup API
+    * Invalid token lookup API, there was an error that ignores the settings unless both from and to are set.
+    * Fixed to apply period setting even if only one of from and to is set.
 
 #### [Console]
-##### 기능 추가
-* 중복 메시지 방지 기능 추가
-    * 내용이 완전히 같은 메시지가 여러 번 발송 요청되어도 설정한 시간 동안 발송하지 않습니다.
-    * 발송되지 않은 메시지는 실패 처리 됩니다. 발송 실패 원인은 'DUPLICATED_MESSAGE_TOKEN'으로 남습니다.
-    * 중복 판단 기준은 메시지 타입, 내용(콘텐츠), 발신 연락처, 수신 동의 설정 가이드, 광고 표시 문구 위치, 토큰 입니다.
-    * 설정 탭 "중복 메시지 방지 설정"에서 설정할 수 있습니다.
+##### Add Features
+* Added duplicate message prevention function
+    * Even if the exact same message is sent several times, it will not be sent for the set time.
+    * Unsent messages will fail. The reason for the dispatch failure is "DUPLICATED_MESSAGE_TOKEN".
+    * Duplicate criterion is message type, content (content), outgoing contact, reception agreement setting guide, advertisement display position, token.
+    * Settings tab "Duplicate message prevention settings" can be set.
 
 ### 2019.02.26
 #### [API]
-##### 기능 추가
-* v2.3 API 추가
-    * 토큰 삭제 API를 추가했습니다. Secret Key 없이 호출할 수 있습니다.
-    * 새로운 푸시 타입 'FCM'을 추가했습니다. API 호출시 'GCM'대신 'FCM'을 사용해야 합니다.
+##### Add Features
+* Added v2.3 API
+    * Added Token Delete API. Can be called without Secret Key.
+    * Added new push type 'FCM'. You must use 'FCM' instead of 'GCM' when making API calls.
 
 #### [Console]
-##### 버그 수정
-* 깨짐, 오타, 링크 오류 수정
-    * 인증서 탭 일부 툴팁이 깨지는 오류와 오타를 수정했습니다.
-    * 설정 탭 오타를 수정했습니다.
-    * 잘못된 SDK 가이드 링크를 수정했습니다.
+##### Bug fixes
+Fix broken, typo, link errors
+    * Certificates tab Corrected errors and typo in some tooltips.
+    * Fixed setting tab typo.
+    * Fixed incorrect SDK guide link.
 
-##### 기능 추가
-* 유저 콘솔이 추가되었습니다.
+##### Add Features
+* User console added.
 
 ### 2018.12.18
 #### [API]
-##### 버그 수정
-* 유효하지 않은 VoIP 토큰이 정상적으로 삭제되지 않는 오류 수정
-    * 메시지 발송시 유효하지 않은 APNS_VOIP, APNS_SANDBOXVOIP 토큰이 삭제 안되는 오류를 수정했습니다.
+##### Bug fixes
+* Fixed an error that invalid VoIP token was not deleted normally.
+    * Fixed an error that prevents APNS_VOIP, APNS_SANDBOXVOIP token from being deleted when sending a message.
 
 ### 2018.10.30
 #### [Console]
-##### 기능 추가
-* 메시지 발송 페이지에 리치 메시지 기능 추가
-    * 메시지 발송 페이지에서 리치 메시지를 발송할 수 있습니다.
-        * <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#_3" target="_blank">콘솔 가이드 바로가기</a>
-    * 미리 보기 기능을 제공해 Android, iOS에서 리치 메시지가 어떻게 표시될지 확인할 수 있습니다.
-* 광고 표시 문구 위치 설정 기능 추가
-    * 광고 메시지임을 표시하는 문구를 제목 또는 내용 부분에 표시할지 설정할 수 있는 기능을 추가했습니다.
-    * 설정 탭 "광고 표시 문구 위치 설정"에서 설정할 수 있습니다.
+##### Add Features
+* Rich message feature added to message sending page
+    * You can send a rich message from the Send Message page.
+        * <a href="https://docs.toast.com/en/Notification/Push/ko/console-guide/#_3" target="_blank"> Console Guide shortcuts </a>
+    * Provide preview functionality to see how rich messages are displayed on Android and iOS.
+* Added the ability to set the position of the advertisement marker
+    * Added the ability to set whether to display the text that indicates that it is an advertising message in the title or content part.
+    * You can set it in the setting tab "Ad display position setting".
 
-##### 버그 수정
-* 토큰 검색시 시간이 UTC로 표시되는 오류 수정
-    * 토큰 검색시 시간이 UTC로 표시되는 오류가 있었습니다. 브라우저의 현지 시간으로 표시되도록 수정했습니다.
+##### Bug fixes
+* Fixed an error where token lookups are displayed in UTC
+    * There was an error displaying the time in UTC when searching for tokens. Corrected to display in your browser's local time.
 
 #### [API]
-##### 기능 추가
-* 메시지 발송 API에 리치 메시지 기능 추가
-    * 푸시 메시지에 버튼, 미디어(이미지, 동영상, 소리)를 표시할 수 있는 기능을 추가했습니다.
-         * <a href="https://docs.toast.com/ko/Notification/Push/ko/api-guide/#7" target="_blank">API 가이드 바로가기</a>
-    * v2.0 메시지 발송 API부터와 최신 SDK가 적용된 앱에서 사용할 수 있습니다.
+##### Add Features
+* Rich message feature added to message dispatch API
+    * Added the ability to display buttons, media (images, movies, sounds) in push messages.
+         * <a href="https://docs.toast.com/en/Notification/Push/en/api-guide/#7" target="_blank"> API guide shortcuts </a>
+    * Available in v2.0 message delivery APIs and in apps with the latest SDKs.
 
 #### [SDK]
 ##### Android
-* 리치 메시지 기능 추가
-    * 버튼, 이미지, 큰 아이콘, 그룹 등의 리치 메시지를 전송할 수 있습니다.
-* 리치 메시지의 답장 기능을 위한 API 추가
-    * 답장 버튼의 처리를 위한 리스너 클래스 등록 API가 추가되었습니다.
-* 안드로이드 9 대응
-    * 타겟 버전이 28(Android 9) 이상일 경우, 안드로이드 9 기기에서 수신/오픈 지표가 수집되지 않는 버그 수정
+* Added rich message function
+    * Rich messages such as buttons, images, large icons, groups can be transmitted.
+* Added API for reply function of rich message
+    * Listener class registration API has been added to handle reply button.
+* Android 9 compatible
+    * Fixed bug where receive / open metrics are not collected on Android 9 devices when target version is 28 (Android 9) or higher.
 
 ##### iOS
-* 리치 메세지 기능 추가
-    * 버튼, 이미지, 동영상 등의 리치 메세지를 전송할 수 있습니다.
-* 카테고리 설정 기능 추가
-    * 초기화에서 카테고리를 설정하고 메세지 내에 본인의 카테고리 식별자로 설정하면 해당 카테고리 액션을 수신할 수 있습니다.
-* 지표 수집 방법론 추가
-    * 어플리케이션의 info.plist 파일에 지표 수집 정보(AppKey)를 입력하여 초기화 없이도 확인 지표 수집이 가능합니다.
-    * 사용자 Notification Sarvice Extension의 info.plist 파일네 지표 수집 정보(AppKey)를 입력하여 자동으로 수신 지표 전송이 가능합니다. (TCPushServiceExtension 확장 필수)
-* 토큰 등록 기능 개선
-    * 초기화를 진행하지 않고 토큰 등록 요청시 시스템 토큰만 등록되며, 발급된 토큰을 서비스 서버에서 API를 통해 자유롭게 등록이 가능합니다.
+* Added rich message function
+    * Rich messages such as buttons, images, and movies can be transmitted.
+* Added category setting function
+    * If you set the category in the initialization and set it as the category identifier of your own in the message, you can receive the corresponding category action.
+* Added indicator collection methodology
+    * It is possible to collect verification indices without initialization by inputting the indicator collection information (AppKey) in the application's info.plist file.
+    * It is possible to automatically transmit the reception indices by inputting the four index acquisition information (AppKey) of the info.plist file of the user Notification Sarvice Extension. (TCPushServiceExtension extension required)
+* Improved token registration
+    * Only the system token is registered when the token registration request is made without initialization, and the issued token can be freely registered through the API from the service server.
 
-##### 버그 수정
-* 목록 조회 API에서 분까지 조회하면 1초 ~ 59초까지 데이터가 누락되는 오류
-    * 예로, 10시 11분까지 데이터를 조회하면 11분 59초의 데이터는 누락이 되는 오류가 있었습니다.
-    이런 경우 59초까지 포함되도록 개선했습니다.
+##### Bug fixes
+* Error that data is missing from 1 second to 59 seconds when querying from list query API to minutes
+    * As an example, if you look up data by 10:11, there is an error that the data of 11 minutes 59 seconds is missing.
+    In this case, we improved to include 59 seconds.
 
 ### 2018.08.28
 #### [API]
-##### 기능 추가
-* Logging API 추가
-    * Console에서 활설화할 수 있는 Logging 기능으로 저장된 데이터를 조회하는 API를 추가했습니다.
-    * 일반 조회, 대량 조회, 두 가지 타입의 API를 제공합니다.
-         * <a href="https://docs.toast.com/ko/Notification/Push/ko/api-guide/#_18" target="_blank">로그 조회 바로가기</a>
-* v2.2 API 업데이트
-    * Logging API 추가로 최신 API 버전을 v2.2로 업데이트 했습니다.
-    * v2.2부터 API 인증을 위해 'API 보안 설정'을 이용합니다.
-         * <a href="https://toast.com/account/api_settings" target="_blank">API 보안 설정 바로가기</a>
-    * 지원하는 API 버전: v1.3, v2.0, v2.1, v2.2
+##### Add Features
+* Added Logging API
+    * Added API to inquire saved data with Logging function that can be activated in Console.
+    * Provides two types of APIs: general query, bulk query.
+         * <a href="https://docs.toast.com/en/Notification/Push/en/api-guide/#_18" target="_blank"> Log view shortcuts </a>
+* v2.2 API Update
+    * Updated Logging API to update the latest API version to v2.2.
+    * As of v2.2, API security setting is used for API authentication.
+         * <a href="https://toast.com/account/api_settings" target="_blank"> API security settings shortcut </a>
+    * Supported API versions: v1.3, v2.0, v2.1, v2.2
 
-##### 버그수정
-* 토큰 설정에서 앱 유형을 '단일 토큰'으로 했을때 APNS_VOIP 토큰이 삭제되는 오류
-    * APNS_VOIP 토큰은 VoIP을 위한 토큰이므로 푸시 메시지를 위한 GCM, APNS 등과 별개로 관리되어야하지만,
-    단일 토큰으로 설정하면 APNS_VOIP도 다른 토큰들과 동일하게 관리되어 APNS_VOIP 토큰이 삭제되는 오류가 있었습니다.
-    * APNS_VOIP 토큰과 GCM, APNS, TENCENT 토큰이 별개로 관리되도록 수정했습니다.
-* 일부 프로젝트에서 통계 API Timeout 발생하는 오류 개선
-    * 일부 프로젝트에서 통계 조회시 Timeout이 발생하는 오류가 있었습니다. 최적화를 통해 Timeout이 발생하지 않도록 수정했습니다.
+##### Bug fixes
+* Errors that the APNS_VOIP token is deleted when the app type is set to 'Single Token' in the token setting
+    * The APNS_VOIP token is a token for VoIP, so it must be managed separately from the GCM, APNS, etc. for push messages,
+    When set to a single token, there was an error that APNS_VOIP was managed the same as other tokens and the APNS_VOIP token was deleted.
+    * Modified so that the APNS_VOIP tokens and the GCM, APNS, and TENCENT tokens are managed separately.
+* Improved error in statistics API timeout in some projects
+    * There was a timeout error in some projects. Fixed timeout not to occur through optimization.
 
 ### 2018.07.24
 #### [API]
-##### 기능 개선
-* 응답 메시지 개선
-    * Response Body의 header.resultMessage에 실패 원인에대해 더 자세한 내용을 추가해 이해를 돕도록 개선했습니다.
+##### Enhancements
+* Improved response message
+    * Improved to better understand the cause of failure in header.resultMessage of Response Body by adding more details.
 
 #### [SDK]
 ##### Android
-* Amazon Device Messaging 지원
+* Amazon Device Messaging support
 
 ##### iOS
-* VoIP 타입 지원
-* VoIP 타입 추가에 따른 일부 API 변경
+* VoIP type support
+* Some API changes due to VoIP type addition
 
 <br>
 
 ### 2018.06.26
 #### [Console]
-##### 기능 추가
-* ADM(Amazon Device Messaging) 푸시 타입 추가
-    * 아마존 디바이스(Kindle Fire)로 푸시 메시지를 발송할 수 있게 ADM 푸시 타입을 추가했습니다.
-    * 아마존 개발자 사이트에서 앱을 등록하고 Client ID, Client Secret을 발급받아 등록 후 발송할 수 있습니다.
-     <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#adm-client-id-client-secret" target="_blank">ADM 가이드 바로가기</a>
+##### Add Features
+* Add Amazon Device Messaging (ADM) push type
+    * Added ADM push type to send push messages to Amazon device (Kindle Fire).
+    * You can register your app on the Amazon developer site, get a Client ID, Client Secret, and register it.
+     <a href="https://docs.toast.com/en/Notification/Push/en/console-guide/#adm-client-id-client-secret" target="_blank"> ADM Guide Shortcut </ a>
 
 #### [API]
-##### 기능 추가
-* ADM(Amazon Device Messaging) 푸시 타입 추가
+##### Add Features
+* Add Amazon Device Messaging (ADM) push type
 
-##### 버그 수정
-* 광고성 푸시 메시지 발송시 일부 대상이 누락되는 오류 수정
-    * 2018년 05월 30일 핫픽스로 수정되었습니다.
-    * 발송 로직 오류로 광고성 푸시 메시지 발송시 일부 대상이 누락되는 오류를 수정했습니다.
-* 예약 메시지 발송시 현지 시간 기능을 사용할 경우, 중복 수신이 되는 오류 수정
-    * 현지 시간 기능을 사용한 경우, 존재하지 않는 시간대로 예약 메시지를 발송하는 오류를 수정했습니다.
+##### Bug fixes
+* Fixed an error that caused some targets to be missing when sending a promotional push message
+    * Fixed on May 30, 2018 as a hotfix.
+    * Fixed an error where some destinations were missing when sending a push message with a shipping logic error.
+* Fixed an error that duplicate reception when using local time function when sending reservation message
+    * Fixed an error sending a reservation message in a non-existent time zone when using the local time feature.
 
 #### [SDK]
 ##### Android
-* 최신 Tencent SDK 적용 (3.2.3)
-* API 개선
+* Apply latest Tencent SDK (3.2.3)
+* API improvements
 
 ##### iOS
-* 지표 수집 및 전송 기능 개선
-* 메세지 확인 지표 수집 및 전송 자동화
+* Improvement of indicator collection and transmission function
+Automate message check indicator collection and transmission
 
 <br>
 
 ### 2018.05.29
 #### [Console]
-##### 기능 개선
-* 메시지 아이디 추가
-    * 메시지 선택시 팝업의 Details부분에 메시지 아이디를 추가했습니다.
+##### Enhancements
+* Add message ID
+    * Added message ID to the details part of popup when selecting message.
 
 #### [API]
-##### 기능 추가
-* v2.1 토큰 조회 API 추가
-    * 토큰 등록시 같이 수집하는 디바이스 아이디를 확인할 수 있습니다.
-    * 해당 토큰의 최근 등록 요청 일시를 확인할 수 있습니다.
-
-##### 기능 개선
-* 광고성 메시지, 광고 표시 문구 위치 변경
-    * MessageType이 AD인 광고성 메시지를 발송하는 경우, 정보통신망법 규정((제50조부터 제50조의 8)에 따라
-    메시지 제목과 내용에 광고 표시 문구가 추가되고 있습니다.
-    * 광고 표시 문구 위치가 아래와 같이 변경됩니다.
-
-```
-기존 표시 위치, '(광고)'와 연락처 모두 body에 표시됨
-- title: 제목
-- body: '(광고)' '연락처'\n내용\n'수신 동의 철회 방법'
-
-새로운 표시 위치, '(광고)'와 연락처가 title에 표시됨
-- title: '(광고)' 제목 '연락처'
-- body: 내용\n'수신 동의 철회 방법'
-```
-
-##### 버그 수정
-* 수신/확인 통계 API 조회 기간이 무시되는 오류 수정
-    * 메시지 아이디와 조회 기간을 같이 입력할 경우, 조회 기간이 무시되는 오류를 수정했습니다.
-
-#### [SDK]
-##### Android
-* SDK 사용성 개선
-
-<br>
-
-### 2018.05.02
-#### [SDK]
-##### Android
-* 토큰 등록 버그 수정
-* 최소 지원 버전 변경 (API 9 -> API 15)
-
-##### iOS
-* 토큰 등록 버그 수정
-* 최소 지원 버전 변경 (iOS 7.0 -> iOS 8.0)
-* SDK 라이브러리 형태 변경 (static library -> framework)
-
-<br>
-
-### 2018.04.24
-#### [Console]
-##### 기능 추가
-* 토큰 관리 설정 기능 추가
-    * 토큰 만료 기간 설정
-        * 설정한 기간동안 등록 요청이 없는 토큰들을 메시지 발송 대상에서 제외합니다.
-        * 설정한 기간동안 앱을 사용하지 않는 사용자들의 토큰이 메시지 발송 대상에서 제외할 수 있기때문에 요금을 절약할 수 있습니다.
-    * 앱 유형 설정
-        * 연동된 앱의 유형에따라 토큰을 관리합니다.
-        * 앱의 사용자가 여러 기기에 설치된 앱을 동시에 사용할 수 있는 경우, Multiple로 설정해야 합니다. (기본)
-      Multiple로 설정하면 사용자는 여러 개의 토큰을 가지게 됩니다.
-      예로, 사용자가 휴대폰과 태블릿을 사용한다면, 두 곳에서 푸시 메시지를 수신합니다.
-        * 사용자가 한번에 한 기기에서만 앱을 사용할 수 있다면, Single로 설정해야 합니다.
-      Single로 설정하면 사용자는 하나의 토큰만 가지게 됩니다.
-      예로, 사용자가 휴대폰과 태블릿을 사용한다면, 두 곳중 한 곳에서만 푸시 메시지를 수신합니다.
-
-##### 기능 개선
-* 오류 메시지 한글화
-    * 푸시 Console 내 오류 발생시 표시되는 메시지를 한글화했습니다.
-
-#### [API]
-##### 기능 추가
-* v2.0 토큰 등록 API, deviceId 필드 추가
-    * 사용자의 기기를 구별할 수 있도록 deviceId 필드를 추가했습니다.
-    * 토큰 등록시 같은 deviceId로 토큰이 있을 경우, 기존의 토큰을 삭제하고, 새로 등록합니다.
-    * iOS는 IDFV(identifierForVendor), Android는 Android ID를 설정하는 것을 권장합니다.
-    * Device ID를 수집하는 기능이 추가된 SDK는 5월 2일에 배포 예정입니다.
-
-#### [ETC]
-##### 버그 수정
-* [Mail] 인증서 만료 안내 메일 내 HTML 오류
-    * 인증서 만료 안내 메일 내 HTML이 잘 못되어 하단 영역의 배경색이 표시되지않는 오류를 수정했습니다.
-
-<br>
-
-### 2018.03.22
-#### [Console]
-##### 기능 개선
-* 상품 페이지 내에 있던 탭 메뉴, 콘솔로 이동
-    * 콘솔로 탭 메뉴를 옮겨, 좌측 서브 메뉴나 우측 상단에서 페이지를 이동할 수 있습니다.
-* Uid 조회시 토큰을 최근 등록순으로 정렬
-    * 콘솔에서 Token 탭에서 Uid 조회시 표시되는 토큰들의 순서를 최근 등록순으로 변경했습니다.
-
-#### [API]
-##### 기능 추가
-* Uid API 추가
-    * Uid에 Tag를 추가/조회/수정/삭제할 수 있는 API를 추가했습니다.
-    * 이 API는 Secret Key가 필요 없습니다. 앱에서 호출가능한 API 입니다.
-(호출시 Secret Key가 필요한 API를 앱에서 호출할 경우, Secret Key가 외부에 공개될 수 있기때문에 권장하지 않음)
-
-##### 버그 수정
-* 태그 이름에 공백 입력이 가능한 오류 수정
-    * 태그 생성 API에서 tagName 필드에 공백 입력이 가능한 오류를 수정했습니다.
-
-<br>
-
-### 2018.02.22
-#### [Console]
-##### 기능 추가
-* iOS VoIP 발송 기능 추가
-    * iOS로 VoIP 푸시 메시지를 발송하는 기능을 추가했습니다.
-    * SDK에서는 현재 지원하지 않으며, 추후 지원 예정입니다.
-    * VoIP 발송을 위해서는 다음과 같은 과정이 필요합니다.
-        1. VoIP 인증서 등록 (VoIP 전용 인증서 또는 Universal 인증서 등록 가능)
-        2. VoIP 토큰 등록 및 푸시 메시지 수신 처리 (토큰의 푸시 타입을 APNS_VOIP 또는 APNS_SANDBOXVOIP로 설정)
-        <a href="https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/OptimizeVoIP.html" target="_blank">Apple iOS Pushkit 가이드 바로가기</a>
-        3. 메시지 발송시 푸시 타입 'APNS_VOIP' 또는 'APNS_SANDBOXVOIP'를 선택
-
-##### 기능 개선
-* 메시지 발송 페이지 'RemoveGuide' 설명 개선
-    * 광고성 메시지 발송시 광고성 푸시 수신 동의 철회 방법 입력란에 예시를 추가했습니다.
-    '예, 메뉴 > 설정 > 알림 설정'
-
-#### [API]
-##### 기능 추가
-* iOS VoIP 발송 기능 추가
-* 메시지 조회 API 조회조건에 deliveryType 추가
-    * deliveryType에 설정할 수 있는 값은 다음과 같습니다.
-     'INSTANT', 'RESERVATION'
-
-##### 기능 개선
-* 발송 내역이 있는 예약 메시지 삭제 개선
-    * 기존 예약 메시지를 삭제하면, 이미 발송된 내역이 있어도 예약 메시지가 삭제되어 발송 내역 확인에 어려움이 있었습니다.
-    * 발송 내역이 있는 예약 메시지 삭제 시도시 삭제되신 상태를 'CANCEL'로 수정해 관리하도록 개선했습니다.
-
-##### 버그 수정
-* 예약 메시지 조회시 응답 시간이 길어져 목록을 가져오지 못하는 오류 수정
-    * 등록한 예약 메시지가 많을 경우, 응답 시간이 길어져 목록을 가져오지 못하는 오류를 수정했습니다.
-* 즉시 발송 및 예약 메시지 조회시 목록 수가 맞지 않는 오류 수정
-    * 메시지 조회시 목록 수에 필터링 조건이 포함안되어 목록 수가 맞지 않는 오류를 수정했습니다.
-* 메시지 수신/확인 데이터 수집시 UTC 기준 마이너스(-) 시간대의 데이터 수집 안되는 오류 수정
-    * UTC 시간 처리시 마이너스(-) 시간대 시간이 정상적으로 처리되지 않아 수집안되는 오류를 수정했습니다.
-* 메시지 수신/확인 통계 조회 API에서 event 필드가 적용 안되던 문제 수정
-    * event 필드에 값을 설정해도 필터링되지 않는 오류를 수정했습니다.
-    event에 설정할 수 있는 값은 다음과 같습니다.
-    'SENT', 'SENT_FAILED', 'RECEIVED', 'OPENED'
-
-#### [ETC]
-##### 기능 개선
-* 공통 메시지 발송 개선
-    * 기존 공통 메시지 발송시 컨텐츠의 언어 코드와 토큰의 언어 코드가 완전히 같아야 해당 언어 코드로 발송이 되었습니다.
-    이번에 언어 코드의 유사성을 측정해 가장 유사한 언어 코드로 발송이 되도록 기능이 개선되었습니다.
-    예, 컨텐츠의 언어 코드가 'zh'이고 토큰들의 언어코드가 'zh-Hans', 'zh-Hans-CN'이어도 'zh'로 발송됩니다.
-
-<br>
-
-### 2017.12.12
-#### [API]
-##### 버그 수정
-* 현지 시간 예약 발송시 발송 시간이 잘 못 계산되는 오류 수정
-    * 예약 발송에서 현지 시간 발송(isLocalTime = true)을 사용할 때,
-    시간대별 발송 시간 계산 로직 오류를 수정했습니다.
-
-#### [ETC]
-##### 기능 개선
-* 보안 취약 라이브러리 업데이트
-    * 보안 취약점이 발견된 라이브러리를 수정된 버전으로 업데이트했습니다.
-
-<br>
-
-### 2017.11.23
-#### [Console]
-##### 기능 추가
-* Logging 기능 추가
-    * 메시지 발송 내역을 Log & Crash Search에 저장할 수 있는 기능을 추가했습니다.
-    사용하고 있는 Log & Crash Search의 앱키(Appkey)를 Setting 탭 Logging에 등록해 기능을 활성화 시킬 수 있습니다.
-    * 저장된 메시지 발송 내역은 Log & Crash Search 페이지에서 확인할 수 있습니다.
-    * <a href="/ko/Notification/Push/ko/console-guide/#_9" target="_blank">메시지 발송 내역 저장 설명 바로 가기</a>
-
-##### 버그 수정
-* 저해상도에서 팝업이 상품 사용법에 가려지는 오류 수정
-    * 일부 저해상도 화면에서 팝이 노출시 상품 사용법에 가려지는 오류를 수정했습니다.
-* Reservation 탭에서 Edit, Delete 버튼 오류 수정
-    * Reservation 탭에서 Edit, Delete 버튼이 클릭할 수 없는 상태에서 클릭되는 오류를 수정했습니다.
-
-#### [API]
-##### 기능 개선
-* v2.0 실패한 메지시 조회 API Limit 추가
-    * 기존에는 실패한 메시지 조회시 결과 전체를 응답했습니다.
-    결과 크기가 큰경우, Response Timeout이 발생할 수 있어, 한 번에 최대 1,000개 까지 응답하도록 수정했습니다.
-    * 결과가 1,000개 이상일 경우, 비정상 응답합니다. 비정상 응답일 경우, from, to 기간을 더 짧게 조회해야 합니다.
-    * <a href="/ko/Notification/Push/ko/api-guide/#_15" target="_blank">API Reference 바로 가기</a>
-        * 메시지 > 조회 > 실패한 메시지 목록 조회
-
-#### [ETC]
-##### 버그 수정
-* [Mail] 인증서 만료 안내 메일 발송시 잘 못된 앱키가 표시되는 오류
-    * 푸시 상품 사용 종료 후 다시 사용한 경우, 인증서 만료 안내 메일 발송시 예전 앱키(Appkey)로 표시되는 오류를 수정했습니다.
-
-<br>
-
-### 2017.09.21
-#### [Console]
-##### 버그 수정
-* Tag 조회시 정렬 기준이 없는 오류 수정
-    * Tag 조회시 생성 일자 기준 내림 차순으로 정렬되도록 수정했습니다.
-* 예약 메시지 등록시 요일이 3개 이상 선택안되는 오류 수정
-    * 예약 타입을 'EVERY_WEEK'으로 설정했을 때, 요일이 3 개 이상 선택안되는 오류를 수정했습니다.
-
-#### [API]
-##### 기능 개선
-* Tag 등록시 이름에 빈칸 허용하지 않도록 수정
-
-<br>
-
-### 2017.08.24
-#### [Console]
-##### 기능 추가
-* Tag 메시지 발송 추가
-    * 메시지 발송, 예약 메시지 발송 탭에서 Tag를 선택해 메시지를 발송할 수 있습니다.
-    * Target에 Type을 'TAG'로 설정하면, 등록된 Tag들을 선택할 수 있습니다.
-    * 선택된 Tag들을 'OR' 또는 'AND' 조건으로 질의해 메시지를 보낼 수 있습니다.
-    * 예로, '서울', '30대', '남자' Tag를 선택 후, 'AND' 조건으로 메시지를 발송하면,   
-    서울에 사는 30대 남자에게 메시지가 발송 됩니다.
-* Token 탭 추가
-    * 웹콘솔에서 Uid, Token으로 등록된 Token을 검색할 수 있습니다.
-    * Uid 검색의 경우 전체 일치뿐만 아니라 부분 일치 검색도 가능합니다.
-    * 새로운 토큰을 추가하거나, 검색된 토큰을 삭제할 수 있습니다.
-* Tag 탭 추가
-    * Tag를 관리할 수 있습니다.
-    * Tag가 붙은 Uid들을 조회할 수 있습니다.
-    * Uid에 Tag를 붙이거나 제거할 수 있습니다.
-
-##### 기능 개선
-* Channel 메시지 발송 기능 제외
-    * Tag 메시지 발송 기능이 추가되면서 CONSOLE에서 Channel 메시지 발송 기능이 제외되었습니다.
-    * 기존 Channel 메시지 발송 기능은 v1.3 메시지 발송 API로 이용할 수 있습니다.
-
-#### [API]
-##### 기능 개선
-* 알림/홍보성/야간홍보성 푸시 메시지 수신 대상 기준 개선
-    * 정보통신망법 규정((제50조부터 제50조의 8)에 따라 대한민국 사용자들의 토큰들은 수신동의 여부에 따라 메시지 발송시 자동 필터링 됩니다.
-    * 최근 iOS에서 다양한 언어 코드가 생성되면서 대한민국 사용자 토큰으로 분류되지 않을 수 있는 문제가 있었습니다.
-    * 기존에 언어 코드가 'ko', 'ko-kr'만 대한민국 사용자 토큰으로 분류했지만,     
-    'ko', 'kor' 또는 'ko-'를 포함하는 언어 코드를 대한민국 사용자 토큰으로 분류하도록 개선했습니다.
-
-##### 버그 수정
-* 예약 메시지 상태 변경이 안되는 버그 수정
-    * 예약 메시지 발송이 완료되었지만, v2.0 예약 API에서 추가된 reservationStatus가 COMPLETED(완료)로 업데이트되지 않는 오류를 수정했습니다.
-* 토큰 등록시 oldToken, token 필드에 같은 값이 설정될 경우, 삭제되는 버그 수정
-    * 2017년 08월 03일 핫픽스로 수정되었습니다.
-    * oldToken은 토큰 변경이 발생하거나, 서버에 저장된 토큰을 새로운 토큰으로 변경하기 위해 사용하는 필드입니다.
-    * oldToken에 token과 같은 값을 설정해 토큰 등록 API를 호출할 경우, 삭제 후 등록이 생략되는 버그를 수정했습니다.
-    * 패치 후, oldToken과 token이 같으면 삭제 없이 토큰을 업데이트 합니다.
-
-#### [SDK]
-##### Android
-* 토큰 등록 기능 개선
-* 초기화 동작 개선
-
-##### iOS
-* 토큰 등록 기능 개선
-
-<br>
-
-### 2017.07.20
-#### [API]
-##### 기능 추가
-* 태그(Tag) API 추가     
-    * Uid에 태그를 붙여 관리할 수 있습니다.
-    * Uid에 연락처(Contact)을 추가해 관리할 수 있습니다.
-    * 메시지 발송시 태그와 조건을 설정해 메시지를 발송할 수 있습니다.    
-예, 메시지 발송시 target.type을 'TAG', target.to를 '남자, AND, 30대'로 설정하면, '남자'와 '30대' 태그가 붙은 Uid를 대상으로 메시지가 발송됩니다.
-    * API로 먼저 공개되며, 8월 정기 점검 후 CONSOLE에서 태그 기능을 사용하실 수 있습니다.
-    <a href="/ko/Notification/Push/ko/api-guide/#_13" target="_blank">API Reference 바로 가기</a>
-* 실패 처리된 메시지 조회 API 추가
-    * 메시지 발송시 실패된 메시지를 조회할 수 있는 API가 추가되었습니다.
-    이 API를 이용해 발송이 실패 원인에 대한 내용을 확인할 수 있습니다.     
-    <a href="/ko/Notification/Push/ko/api-guide/#_15" target="_blank">API Reference 바로 가기</a>
-
-##### 버그 수정
-* 토큰 수정시 새로운 토큰이 존재할 때, 기존 토큰은 삭제 안되는 오류 수정
-    * 토큰 등록 API에서 oldToken을 token으로 변경할 때, token이 존재할 경우 oldToken이 삭제 안되던 오류를 수정했습니다.
-* 메시지 조회시 Internal Error 응답 오류 수정
-    * 메시지 조회시 from, to에 잘 못된 형식의 DateTime(일시)를 입력할 경우 Internal Error로 응답하던 것을 Client Error로 응답하도록 수정했습니다.
-* 예약 메시지 수정시 createdDateTime이 잘못 설정되는 오류 수정
-    * 예약 메시지 수정시 updatedDateTime(수정 일시)뿐만 아니라 createdDateTime(생성 일시)까지 updatedDateTime 값으로 업데이트되는 오류를 수정했습니다.
-
-<br>
-
-### 2017.05.25
-#### [SDK]
-##### Android
-* SDK 버전 확인을 위한 API 추가
-* 지표 관련 API 변경
-
-##### iOS
-* SDK 버전 확인을 위한 API 추가
-
-<br>
-
-### 2017.04.25
-#### [Console]
-##### 기능 추가
-* Dashboard, Setting 탭 추가
-    * 메시지 수신, 확인 통계를 확인할 수 있는 [Dashboar]d 탭이 추가되었습니다.
-    * 메시지 수신, 확인 데이터 수집 기능을 설정할 수 있는 [Settings] 탭이 추가되었습니다.
-
-#### [API]
-#####기능 추가
-* 메시지 수신, 확인 데이터 수집(Message Delivery Receipt), 통계 조회 기능 추가
-    * 메시지 발송 후, 기기에 수신, 사용자의 메시지 확인 데이터를 수집해 통계로 조회할 수 있는 기능을 추가되었습니다.
-    * [CONSOLE] > [Settings] 탭에서 활성화 시킬 수 있으며, v2.0 API Reference에서 통계 조회 API 설명을 확인할 수 있습니다.
-    * 해당 기능은 v1.4이상 SDK가 적용된 곳에서만 사용할 수 있습니다.    
-    <a href="/ko/Notification/Push/ko/sdk-guide/#_4" target="_blank">SDK 수신 및 오픈 여부 적용 가이드 바로 가기</a>
-* v2.0 API 추가
-    * 토큰 통계 API가 추가되었습니다.
-    * 예약 메시지 API가 추가되었습니다.
-    * 메시지 수신, 확인 통계 조회 API가 추가되었습니다.
-    * v1.3 피드백 API는 v2.0 유효하지 않은 토큰 API로 변경되었습니다.
-    * 응답 메시지를 더 자세하게 출력합니다.
-    <a href="/ko/Notification/Push/ko/api-guide" target="_blank">v2.0 API Reference 바로 가기</a>
-
-<br>
-
-### 2017.02.23
-#### [API]
-##### 버그 수정
-* 발송 기간이 한 달 이상인 예약 메시지 발송 안되는 오류 수정
-    * 2017년 1월까지 등록된 예약 메시지 중, 발송 종료일이 2월 이상인 예약 메시지가 발송안되는 오류를 수정했습니다.
-
-#### [SDK]
-##### Android
-* 빌드시 Warning Log 삭제
-* play-service 의존성 변경
-
-##### iOS
-* 안전성 개선
-
-<br>
-
-### 2017.01.19
-#### [API]
-##### 기능 추가
-* 메시지 조회 API Response Body에 createdDateTime(메시지 생성 시간) 필드 추가
-
-#### [ETC]
-##### 기능 개선
-* [Mail] 인증서 만료 안내 메일 계정 변경 (support@cloud.toast.com -> noreply@cloud.toast.com)
-
-<br>
-
-### 2016.12.22
-#### [API]
-##### 버그 수정
-* [API] 예약 메시지 등록이 한 달이 지났을 경우 발송 안되는 오류 수정
-* [API] 매월 1일 발송될 예약 메시지가 발송 안되는 오류 수정
-* [API] 새 버전 FCM API Key가 등록 안되던 오류 수정
-* [API] 발송 결과가 'MismatchSenderId', 'NotRegistered'인 경우 토큰이 삭제되지 않던 오류 수정
-
-<br>
-
-### 2016.11.24
-#### [SDK]
-##### Android
-* 채널 기본값 변경
-* GCM 라이브러리 버전 업데이트 (9.6.0)
-* 오류 로그 세분화
-* 버그 수정
-
-##### iOS
-* 채널 기본값 변경
-
-<br>
-
-### 2016.10.06
-#### [API]
-##### 기능 개선
-* MPS 단위 1,000개/초에서 100개/초로 변경
-
-<br>
-
-### 2016.09.29
-#### [Console]
-##### 기능 개선
-* 인증서 삭제 없이 바로 교체할 수 있도록 수정
-* APNS Universal Certificate APNS_SANDBOX(Development)에 등록 안되는 오류 수정
-
-#### [API]
-##### 버그 수정
-* UID 기준 토큰 조회 API에서 APNS_SANDBOX 토큰이 제외되는 오류 수정
-* 토큰 등록 API에서 Empty String("")이 등록 되는 오류 수정
-
-#### [ETC]
-##### 정책 변경
-* 데이터 보관 기간 정책 변경, 최근 30 일까지 저장 (메시지, 예약 메시지, 피드백)
-
-<br>
-
-### 2016.08.18
-#### [Console]
-##### 버그 수정
-* 예약 메시지 수정시 요일이 저장한 내용과 다르게 표시되는 오류 수정
+##### Add Features
+* Added v2.1 token lookup API
+    * You can check the device ID you collect when you register the token.
+    * You can check the date of the most recent registration request for this token.
+
+##### Enhancements
+* Advertising
