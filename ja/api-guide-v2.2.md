@@ -149,7 +149,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.
 ##### Method、URL
 
 ```
-GET /push/v2.2/appkeys/{appkey}/tokens/{token}
+GET /push/v2.2/appkeys/{appkey}/tokens/{token}?pushType={pushType}
 Content-Type: application/json;charset=UTF-8
 ```
 
@@ -172,11 +172,11 @@ Content-Type: application/json;charset=UTF-8
 		"language": "ko",
 		"uid" : "User ID",
 		"token" : "Token",
-    "updateDateTime": "2017-08-12T01:04:18.000+09:00",
-    "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
-    "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
-    "deviceId": "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
-    "activatedDateTime": "2017-08-12T01:04:19.000+09:00"
+		"updateDateTime": "2017-08-12T01:04:18.000+09:00",
+		"adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+		"nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+		"deviceId": "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
+		"activatedDateTime": "2017-08-12T01:04:19.000+09:00"
 	},
 	"header" : {
 		"isSuccessful" : true,
@@ -196,7 +196,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tokens/token
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tokens/TOKEN?pushType=GCM
 ```
 
 #### ユーザーIDでトークン照会

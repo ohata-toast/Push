@@ -147,7 +147,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.
 ##### Method, URL
 
 ```
-GET /push/v2.2/appkeys/{appkey}/tokens/{token}
+GET /push/v2.2/appkeys/{appkey}/tokens/{token}?pushType={pushType}
 Content-Type: application/json;charset=UTF-8
 ```
 
@@ -194,7 +194,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tokens/token
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.2/appkeys/{appkey}/tokens/TOKEN?pushType=GCM
 ```
 
 #### Query Tokens by User ID 

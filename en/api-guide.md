@@ -173,7 +173,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tokens/token?pushType={pushType}
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tokens/TOKEN?pushType=FCM
 ```
 
 #### Query Tokens by User ID
