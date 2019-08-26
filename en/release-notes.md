@@ -58,6 +58,7 @@ Fix broken, typo, link errors
 * Fixed an error where token lookups are displayed in UTC
     * There was an error displaying the time in UTC when searching for tokens. Corrected to display in your browser's local time.
 
+
 #### [API]
 ##### Add Features
 * Rich message feature added to message dispatch API
@@ -134,6 +135,7 @@ Fix broken, typo, link errors
     * Added ADM push type to send push messages to Amazon device (Kindle Fire).
     * You can register your app on the Amazon developer site, get a Client ID, Client Secret, and register it.
      <a href="https://docs.toast.com/en/Notification/Push/en/console-guide/#adm-client-id-client-secret" target="_blank"> ADM Guide Shortcut </ a>
+
 
 #### [API]
 ##### Add Features
