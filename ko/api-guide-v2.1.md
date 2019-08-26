@@ -167,62 +167,11 @@ Content-Type: application/json;charset=UTF-8
 		"language": "ko",
 		"uid" : "User ID",
 		"token" : "Token",
-    "updateDateTime": "2017-08-12T01:04:18.000+09:00",
-    "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
-    "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00"        
-	},
-	"header" : {
-		"isSuccessful" : true,
-		"resultCode": 0,
-		"resultMessage" : "SUCCESS"
-	}
-}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| updateDateTime | -, DateTime String | 토큰 업데이트 일시 |
-| adAgreementDateTime | -, DateTime String | 홍보성 푸시 메시지 수신 동의 일시 |
-| nightAdAgreementDateTime | -, DateTime String | 야간 홍보성 푸시 메시지 수신 동의 일시 |
-
-##### Example
-```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tokens/token?pushType=GCM
-```
-
-#### 토큰으로 토큰 조회
-- 클라이언트에서 조회 가능합니다.
-##### Method, URL
-
-```
-GET /push/v2.1/appkeys/{appkey}/tokens/{token}
-Content-Type: application/json;charset=UTF-8
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pushType | Required, String | 'GCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
-
-##### Response Body
-
-```
-{
-	"token" : {
-		"pushType" : "GCM",
-		"isNotificationAgreement": true,
-		"isAdAgreement": true,
-		"isNightAdAgreement": true,
-		"timezoneId" : "Asia/Seoul",
-		"country": "KR",
-		"language": "ko",
-		"uid" : "User ID",
-		"token" : "Token",
-    "updateDateTime": "2017-08-12T01:04:18.000+09:00",
-    "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
-    "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
-    "deviceId": "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
-    "activatedDateTime": "2017-08-12T01:04:19.000+09:00"
+		"updateDateTime": "2017-08-12T01:04:18.000+09:00",
+		"adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+		"nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+		"deviceId": "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
+		"activatedDateTime": "2017-08-12T01:04:19.000+09:00"
 	},
 	"header" : {
 		"isSuccessful" : true,
@@ -242,7 +191,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tokens/token
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.1/appkeys/{appkey}/tokens/TOKEN?pushType=GCM
 ```
 
 #### 사용자 아이디로 토큰 조회
