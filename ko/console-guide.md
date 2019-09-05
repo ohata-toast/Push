@@ -218,6 +218,20 @@ v1.7 이상 SDK가 적용된 곳에서만 사용할 수 있는 기능입니다.
 | 링크 | 버튼을 눌렀을때 이동하거나 실행할 링크입니다. 버튼 유형이 URL 열기이면 해당됩니다. |
 | 힌트 | 버튼에대한 설명입니다. |
 
+##### 버튼의 유형
+- 응답
+    - 다이렉트 답장 기능을 실행합니다.
+    - 사용자가 전송 버튼을 터치했을 때 액션 리스너로 사용자 입력 텍스트가 전달 됩니다.
+- 앱 열기
+    - 앱이 실행됩니다.
+    - 액션 리스너를 통해 메시지 전문이 전달됩니다. 메시지 내에 정보를 입력해 특정 페이지로 이동 등의 기능을 구현할 수 있습니다.
+- URL 열기
+    - 링크 항목에 입력된 URL(https://...) 혹은 Scheme(scheme://...)을 실행합니다.
+    - URL을 입력하면 웹 브라우저가 실행되고 해당 URL을 로드합니다.
+    - 스킴(Scheme)을 입력하면 앱에 미리 정의해 둔 스킴을 실행합니다.
+- 닫기
+    - 해당 알림을 닫습니다.
+
 #### 2. 미디어
 
 |이름|내용|
@@ -228,21 +242,51 @@ v1.7 이상 SDK가 적용된 곳에서만 사용할 수 있는 기능입니다.
 | 확장자 | 미디어의 확장자 | .png, .avi 등 미디어의 확장자입니다. |
 | 펼치기 | 미디어 펼짐 기능, Android에서만 가능합니다. |
 
-##### iOS에서 로컬 파일 사용하기
-- XCode에서 파일 혹은 디렉토리를 'NotificationServiceExtension' 프로젝트에 추가합니다.
-- 'Build Phases > TARGETS'에서 파일이 정상적으로 추가되었는지 확인합니다.
-- 메시지 작성시 'richMessage.media.source'에 추가한 파일 이름, 'extension'에 확장자를 입력합니다.
+##### 미디어 파일 지정
+- 외부
+    - 입력한 URL에 해당하는 미디어 파일을 다운로드하여 사용합니다.
+    - Android
+        - Android Pie 이상에서 HTTP를 사용하려면 <a href="http://docs.toast.com/ko/TOAST/ko/toast-sdk/push-android/#android-p">network-security-config</a>를 설정해야 합니다.
+    - iOS
+        - iOS 9 이상에서 HTTP를 사용하려면 Info.plist 파일내에 ATS(App Trasport Secuirty)를 설정해야 합니다.
+        - 실제 미디어 파일의 확장자 정보를 extension 항목에 입력해야 합니다. (예: jpg, png, mp4, wav, ...)
+- 내부
+    - 앱 내에 포함되어 있는 리소스를 사용합니다.
+    - Android
+        - 파일은 'res > drawable'에 미리 추가해야 합니다.
+        - 리소스 식별자를 통해 접근하므로 메시지 작성시 'richMessage.media.source'에 확장자를 제외한 파일 이름을 입력합니다.
+        - Android에서는 파일 이름이 리소스의 식별자로 사용되기 때문에 확장자가 다르더라도 동일한 파일 이름을 사용할 수 없습니다.
+        지원하는 이미지 포멧은 png, jpg, gif 입니다. (현재 비디오, 오디오 형식의 미디어는 지원하지 않습니다.)
+    - iOS
+        - 리소스는 리치 메시지를 생성하는 <a href="http://docs.toast.com/ko/TOAST/ko/toast-sdk/push-ios/#notification-service-extension">Notificaiton Service Extension</a> 프로젝트에 미리 추가해야 합니다.
+        - XCode에서 파일 혹은 디렉토리를 'NotificationServiceExtension' 프로젝트에 추가합니다.
+        - 'Build Phases > TARGETS'에서 파일이 정상적으로 추가되었는지 확인합니다.
+        - 번들 리소스를 통해 접근하므로 확장자를 포함한 전체 파일명이 필요합니다.
+        - 메시지 작성시 'richMessage.media.source'에 추가한 파일 이름을 입력합니다.
 
-##### Android에서 로컬 파일 사용하기
-- 추가할 파일을 'src > main > res > drawable'에 복사합니다.
-- Android에서는 파일 이름이 리소스의 식별자로 사용되기 때문에 확장자가 다르더라도 동일한 파일 이름을 사용할 수 없습니다.
-지원하는 이미지 포멧은 png, jpg, gif 입니다. (현재 비디오, 오디오 형식의 미디어는 지원하지 않습니다.)
-- 'drawable' 디렉토리에 파일이 정상적으로 추가되었는지 확인합니다.
-- 메시지 작성시 'richMessage.media.source'에 확장자를 제외한 파일 이름을 입력합니다.
+##### 미디어 유형
+###### 이미지
+| | Android | iOS |
+| - | - | - |
+| 지원 형식 | JPEG, PNG, GIF | JPEG, PNG, GIF |
+| GIF 애니메이션 | 지원 안 함 | 지원함 |
+| 파일 크기 | 제한 없음 | 10MB |
+| 권장 사항 | 2:1 비율의 가로 이미지 권장<br>Small: 512x256<br>Medium: 1024x512<br>Large: 2048x1024 | 가로 이미지 권장<br>최대 크기: 1038x1038 |
+
+###### 동영상
+| | Android | iOS |
+| - | - | - |
+| 지원 형식 | 지원 안 함 | MPEG, MPEG3Video, MPEG4, AVIMovie |
+| 파일 크기 | 지원 안 함 | 50MB |
+
+###### 소리
+| | Android | iOS |
+| - | - | - |
+| 지원 형식 | 지원 안 함 | WaveAudio, MP3, MPEG4Audio |
+| 파일 크기 | 지원 안 함 | 5MB |
 
 #### 3. 큰 아이콘
-
-Android에서만 제공하는 기능입니다.
+Android에서만 제공하는 기능입니다. 알림에 큰 아이콘을 지정합니다. 파일 지정 방법은 미디어 파일 지정 방법과 동일합니다.
 
 |이름|내용|
 |---|---|
@@ -250,13 +294,29 @@ Android에서만 제공하는 기능입니다.
 | 주소 | 이미지가 위치한 주소, URL, URI 등이 될수 있습니다. |
 
 #### 4. 그룹
-
-Android에서만 제공하는 기능입니다.
+Android에서만 제공하는 기능입니다. 알림에 그룹을 설정하고 그룹 키가 동일한 알림은 모아서 표현합니다.
 
 |이름|내용|
 |---|---|
 | 키 | 그룹의 키 |
 | 설명 | 그룹에대한 설명 |
+
+#### 5. 알림음
+| | Android | iOS |
+| - | - | - |
+| 지원 형식 | MP3, PCM/WAVE, Vorbis | Linear PCM, MP4(IMA/ADPCM), μ-law, aLaw |
+| 확장자 | .mp3, .wav, .ogg | .aiff, .wav, .caf |
+| 플레이 시간 | 제한 없음 | 30 초 |
+
+- 앱 내에 포함되어 있는 리소스만 지정 가능합니다. (외부 URL 사용 불가)
+- Android
+    - 리소스는 'res > raw' 폴더에 미리 추가해야 합니다.
+    - 리소스 식별자를 통해 접근하므로 파일 확장자는 무시됩니다.
+    - Android Oreo 미만에서만 동작합니다.
+- iOS
+    - 리소스는 앱 프로젝트의 번들 리소스로 미리 추가해야 합니다.
+    - 번들 리소스를 통해 접근하므로 확장자를 포함한 전체 파일명이 필요합니다.
+
 
 ## 예약 전송
 
