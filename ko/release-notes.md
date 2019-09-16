@@ -1,5 +1,20 @@
 ## Notification > Push > 릴리스 노트
 
+### 2019.09.24
+#### [API]
+##### 버그 수정
+* iOS 리치 메시지 발송 오류 수정
+    * 메시지 수신/확인 기능을 사용하지 않는 상태에서 리치 메시지를 발송하면 iOS에서 이미지가 표시되지 않는 오류를 수정했습니다.
+
+#### [Console]
+##### 기능 추가
+* 토큰 탭에서 토큰 목록 조회 기능 추가
+    * 토큰 탭에서 검색 조건이 없어도 토큰을 조회할 수 있도록 개선했습니다.
+* FCM을 통한 iOS에 메시지 발송 기능 추가
+    * FCM SDK를 사용하는 iOS 앱에 메시지를 보낼 수 있습니다.
+        *  <a href="https://firebase.google.com/docs/cloud-messaging/http-server-ref" target="_blank">FCM 가이드 바로가기</a>
+    * 메시지 발송시 'notification', 'content_available', 'mutual_content' 속성을 사용하면 FCM을 통해 iOS 앱으로 메시지가 발송됩니다.
+
 ### 2019.05.28
 #### [API]
 * 메시지 수신/확인 데이터 수집 성능 개선
