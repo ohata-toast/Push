@@ -1,5 +1,21 @@
 ## Notification > Push > Release Notes
 
+### 2019.09.24
+#### [API]
+##### バグ修正
+* iOSリッチメッセージ送信エラーを修正
+    * メッセージ受信/確認機能を使用しない状態でリッチメッセージを送信すると、iOSでイメージが表示されないエラーを修正しました。
+
+#### [Console]
+##### 機能追加
+* トークンタブで、トークンリスト照会機能を追加
+    * トークンタブで、検索条件がなくてもトークンを照会できるように改善しました。
+* FCMを通してiOSにメッセージを送信する機能を追加
+    * FCM SDKを使用するiOSアプリにメッセージを送信できます。
+        *  <a href="https://firebase.google.com/docs/cloud-messaging/http-server-ref" target="_blank">FCMガイド</a>
+    * メッセージ送信時、'notification'、'content_available'、'mutual_content'プロパティを使用すると、FCMを通してiOSアプリにメッセージが送信されます。
+
+
 ### 2019.05.28
 #### [API]
 * メッセージ受信/確認データ収集性能の改善

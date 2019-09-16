@@ -211,10 +211,24 @@ You can send push notifications with buttons, images, and various other things i
 |Name | Description |
 |---|---|
 | Name | Name of the button. |
-| Type | Types of button are: Reply, Open App, Open URL, and Dismiss |
-| Submit Button Name | If the type of the button is "Reply" you can configure the name of the submit button in iOS. |
+| Type | Button types are Reply, Open App, Open URL, and Dismiss |
+| Submit Button Name | If the button type is "Reply" you can configure the name of the submit button in iOS. |
 | Link | URL link to refer to when pressed. Only applies when the type of the button is "Open URL". |
 | Hint | Description of the button. |
+
+##### Button Types
+- Reply
+    - Direct replies are executed. 
+    - When Send is touched by user, user-input text is delivered to action listener.  
+- Open App
+    - App is executed. 
+    - Whole message is delivered via action listener. By entering information for a message, movement to a particular page becomes available.  
+- Open URL
+    - Execute URL (https://...) or Scheme (Scheme://...) included in the link. 
+    - Enter URL to execute a web browser and the URL is loaded. 
+    - Enter Scheme to execute a scheme which is pre-defined on an app. 
+- Dismiss
+    - Notification is dismissed. 
 
 #### 2. Media
 
@@ -225,6 +239,52 @@ You can send push notifications with buttons, images, and various other things i
 | Type | Three types of media: Image, GIF, Video, and Audio. (Only Image type is available for Android) |
 | Extension | File extension of the media file. ex)png, avi, mp4 |
 | Expand | Unfolds the image media, Only avaiable on Android. |
+
+##### Specify Media Files 
+- External 
+    - Download media files for URL. 
+    - Android
+        - To apply HTTP at Android Pie or higher version, <a href="http://docs.toast.com/en/TOAST/en/toast-sdk/push-android/#android-p">network-security-config</a> must be set. 
+    - iOS
+        - To use HTTP for iOS 9 or higher version, ATS (App Transport Security) must be set within Info.plist. 
+        - Fill in Extension with actual extension information of a media file (e.g. jpg, png, mp3, or wav) 
+- Internal
+    - Use resources included in an app. 
+    - Android
+        - Must add files to 'res > drawable' first. 
+        - Since access is made via resource identifier, enter file name to 'richMessage.media.source' for a message, excluding extension. 
+        - File name is used as resource identifier for Android, so same file name is not available even with different extension. 
+        Supported image formats are png, jpg, and gif. (Currently, video or audio type media are not supported.)
+    - iOS
+        - Must add resources first, to the <a href="http://docs.toast.com/en/TOAST/en/toast-sdk/push-ios/#notification-service-extension">Notificaiton Service Extension</a> project which creates rich messages. 
+        - Add file or directory from XCode to 'NotificationServiceExtension' project. 
+        - See if files have been well added at 'Build Phases > TARGETS'. 
+        - The entire file name is required including extension, since access is made via bundle resources. 
+        - Enter file name added to 'richMessage.media.source' for a message. 
+
+##### Media Types 
+- Image
+
+| | Android | iOS |
+| - | - | - |
+| Supported Format | JPEG, PNG, GIF | JPEG, PNG, GIF |
+| GIF Animation | Not supported | Supported |
+| File Size | No limits | 10MB |
+| Recommendations | 2:1 horizontal image is recommended <br>Small: 512x256<br>Medium: 1024x512<br>Large: 2048x1024 | Horizontal image is recommended <br>Max size: 1038x1038 |
+
+- Video 
+
+| | Android | iOS |
+| - | - | - |
+| Supported Format | Not supported | MPEG, MPEG3Video, MPEG4, AVIMovie |
+| File Size | Not supported | 50MB |
+
+- Voice 
+
+| | Android | iOS |
+| - | - | - |
+| Supported Format | Not supported | WaveAudio, MP3, MPEG4Audio |
+| File Size | Not supported | 5MB |
 
 #### 3. Large Icon
 
@@ -243,6 +303,23 @@ Only supported by Android
 |---|---|
 | Key | Group key |
 | Description | Group Description |
+
+#### 5. Alert Sounds 
+| | Android | iOS |
+| - | - | - |
+| Supported Format | MP3, PCM/WAVE, Vorbis | Linear PCM, MP4(IMA/ADPCM), μ-law, aLaw |
+| Extension | .mp3, .wav, .ogg | .aiff, .wav, .caf |
+| Play Time | No limits | 30 seconds |
+
+- Only the resources that are included in an app can be specified. (no external URL is allowed)
+- Android
+    - Must add resources first to the 'res > raw' folder. 
+    - File extension is ignored, since access is made via resource identifier.
+    - Operates only on Android Oreo or lower versions.
+- iOS
+    - Must add resources first, as bundle resources of an app project. 
+    - The entire file name is required, including extension, since access is made via bundle resources. 
+
 
 ## Scheduled Delivery 
 
@@ -379,8 +456,11 @@ Go to **Console > Notification > Push** > and click **Setting** to set Token Exp
 
 ### Collect Message Receipt/Check Data
 
-To use this function, the SDK must be v1.4 or above. 
-Check collected data in **Statistics** tab.     
+- Message Delivery Receipt can be enabled. 
+- SDK v1.4 or higher versions must be applied to operate activated features. 
+- Collected data are available on the **Statistics** tab. 
+- Data collection time is calculated on device. 
+- It may take approximately many minutes until a feature is actually applied.  
 
 ### Log Message Delivery History
 - Send message delivery history to Log & Crash Search as specified.

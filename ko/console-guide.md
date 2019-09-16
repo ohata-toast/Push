@@ -265,7 +265,8 @@ v1.7 이상 SDK가 적용된 곳에서만 사용할 수 있는 기능입니다.
         - 메시지 작성시 'richMessage.media.source'에 추가한 파일 이름을 입력합니다.
 
 ##### 미디어 유형
-###### 이미지
+- 이미지
+
 | | Android | iOS |
 | - | - | - |
 | 지원 형식 | JPEG, PNG, GIF | JPEG, PNG, GIF |
@@ -273,13 +274,15 @@ v1.7 이상 SDK가 적용된 곳에서만 사용할 수 있는 기능입니다.
 | 파일 크기 | 제한 없음 | 10MB |
 | 권장 사항 | 2:1 비율의 가로 이미지 권장<br>Small: 512x256<br>Medium: 1024x512<br>Large: 2048x1024 | 가로 이미지 권장<br>최대 크기: 1038x1038 |
 
-###### 동영상
+- 동영상
+
 | | Android | iOS |
 | - | - | - |
 | 지원 형식 | 지원 안 함 | MPEG, MPEG3Video, MPEG4, AVIMovie |
 | 파일 크기 | 지원 안 함 | 50MB |
 
-###### 소리
+- 소리
+
 | | Android | iOS |
 | - | - | - |
 | 지원 형식 | 지원 안 함 | WaveAudio, MP3, MPEG4Audio |

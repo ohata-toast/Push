@@ -540,6 +540,8 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 |messageDeliveryReceipt| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
 |messageDeliveryReceiptData| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
 |notification| Android | Optional, Object | notification | - | - | - |
+|content_available| FCM(iOS) | Optional, Boolean | content_available | - | - | - |
+|mutable_content| FCM(iOS) | Optional, Boolean | content_available | - | - | - |
 
 Reserved Wordは、メッセージ作成時にPlatformごとに適切な位置に設定されます。ユーザーが任意でデータタイプや位置などを変更できません。
 その他のユーザーが定義したWordは、次のようにCustom Key/Valueフィールドに入ります。
@@ -949,6 +951,7 @@ v1.7以上のSDKが適用された場所でのみ使用できます。
 | notification.icon | Android | Optiontal, String | notification.icon | 通知アイコンです。 |
 | notification.color | Android | Optiontal, String | notification.color | 通知アイコンの色です。 |
 | notification.tag | Android | Optiontal, String | notification.tag | 同じタグのメッセージを受信すると、既存メッセージを代替します。 |
+| notification.badge | Android, iOS | Optiontal, Number | notification.badge | 確認していない、新しい通知の数です。 |
 
 ##### FCM(Android)に受信するメッセージ
 ```json
