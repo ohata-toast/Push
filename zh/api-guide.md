@@ -600,7 +600,6 @@ The example shows how to send messages to particular users by entering user IDs.
 - Set 'UID' for target.type and user ID for target.to, and send messages to such particular users. 
 
 #### 3. Send to Users of Particular Nation or Push Type
-
 The example shows how to send messages to users of particular nation or device (e.g. Android or iOS) only.
 
 ##### Request Body
@@ -765,7 +764,6 @@ The example regards to the ad phrase which is added to a message, for the delive
 - Ad messages display Ad Phrase for those users whose language code is Korean (ko, ko-) only. Other language users (e.g. Japanese) shall not find ad phrases. 
 
 #### 6.  Multiple-Language Messages
-
 The example describes how to send messages in multiple languages.
 
 ##### Request Body
@@ -841,7 +839,6 @@ The example describes how to send messages in multiple languages.
 - Since customKey is not defined at content.ja, it shall be replaced by content.default. Common messages are available at content.default. 
 
 #### 7. Rich Messages 
-
 When the 'richMessage' field is defined at 'content', rich messages can be delivered. 
 Such messages can be sent along with Common, Ad, or Multi-Language Messages.  
 v1.7 or higher SDKs are required.

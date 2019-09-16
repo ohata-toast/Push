@@ -6,6 +6,7 @@
 * Fixed delivery error of iOS rich messages 
     * Fixed error in which image is not properly displayed on iOS if a rich message is delivered while Receive/Confirm Messages is not enabled.  
 
+
 #### [Console]
 ##### More Features 
 * Querying Token List from Token Tab 
@@ -63,7 +64,7 @@ Fix broken, typo, link errors
 ##### More Features
 * Rich message feature added to message sending page
     * You can send a rich message from the Send Message page.
-        * <a href="https://docs.toast.com/en/Notification/Push/ko/console-guide/#_3" target="_blank"> Go to Console Guide  </a>
+        * <a href="https://docs.toast.com/en/Notification/Push/en/console-guide/#_3" target="_blank"> Go to Console Guide  </a>
     * Provide preview functionality to see how rich messages are displayed on Android and iOS.
 * Added the ability to set the position of the advertisement marker
     * Added the ability to set whether to display the text that indicates that it is an advertising message in the title or content part.

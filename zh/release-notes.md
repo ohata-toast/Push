@@ -177,6 +177,7 @@ Automate message check indicator collection and transmission
 ### May 29, 2018 
 #### [Console]
 ##### Updates
+
 * Add message ID
     * Added message ID to the details part of popup when selecting message.
 
