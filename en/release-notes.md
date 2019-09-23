@@ -1,60 +1,76 @@
 ## Notification> Push > Release Notes
 
-### 2019.05.28
+### Sept.24, 2019 
 #### [API]
-* Improved message reception / confirmation data collection performance
-    * We have improved message reception / confirmation data collection performance.
+##### Bug Fixes 
+* Fixed delivery error of iOS rich messages 
+    * Fixed error in which image is not properly displayed on iOS if a rich message is delivered while Receive/Confirm Messages is not enabled.  
 
-### 2019.03.26
+
+#### [Console]
+##### More Features 
+* Querying Token List from Token Tab 
+    * Updated to allow query of tokens from token tab without search conditions. 
+* Sending Messages to iOS via FCM 
+    * Messages can be sent to an iOS app which applies FCM SDK. 
+        *  <a href="https://firebase.google.com/docs/cloud-messaging/http-server-ref" target="_blank">Go to FCM Guide</a>
+    * By using attributes such as 'notification', 'content_available', or 'mutual_content', messages can be sent to iOS apps via FCM. 
+
+### May 28, 2019 
 #### [API]
-##### Bug fixes
+* Updated Receive/Confirm Message data collection performance
+    * We have improved message receiving/confirmation data collection performance.
+
+### March 26, 2019 
+#### [API]
+##### Bug Fixes
 * Fixed an error where the from (to, to) setting does not apply in the invalid token lookup API
     * Invalid token lookup API, there was an error that ignores the settings unless both from and to are set.
     * Fixed to apply period setting even if only one of from and to is set.
 
 #### [Console]
-##### Add Features
+##### More Features
 * Added duplicate message prevention function
     * Even if the exact same message is sent several times, it will not be sent for the set time.
     * Unsent messages will fail. The reason for the dispatch failure is "DUPLICATED_MESSAGE_TOKEN".
     * Duplicate criterion is message type, content (content), outgoing contact, reception agreement setting guide, advertisement display position, token.
     * Settings tab "Duplicate message prevention settings" can be set.
 
-### 2019.02.26
+### Feb. 26, 2019 
 #### [API]
-##### Add Features
+##### More Features
 * Added v2.3 API
     * Added Token Delete API. Can be called without Secret Key.
     * Added new push type 'FCM'. You must use 'FCM' instead of 'GCM' when making API calls.
 
 #### [Console]
-##### Bug fixes
+##### Bug Fixes
 Fix broken, typo, link errors
     * Certificates tab Corrected errors and typo in some tooltips.
     * Fixed setting tab typo.
     * Fixed incorrect SDK guide link.
 
-##### Add Features
+##### More Features
 * User console added.
 
-### 2018.12.18
+### Dec. 18, 2018
 #### [API]
-##### Bug fixes
+##### Bug Fixes
 * Fixed an error that invalid VoIP token was not deleted normally.
     * Fixed an error that prevents APNS_VOIP, APNS_SANDBOXVOIP token from being deleted when sending a message.
 
-### 2018.10.30
+### Oct. 30, 2018 
 #### [Console]
-##### Add Features
+##### More Features
 * Rich message feature added to message sending page
     * You can send a rich message from the Send Message page.
-        * <a href="https://docs.toast.com/en/Notification/Push/ko/console-guide/#_3" target="_blank"> Console Guide shortcuts </a>
+        * <a href="https://docs.toast.com/en/Notification/Push/en/console-guide/#_3" target="_blank"> Go to Console Guide  </a>
     * Provide preview functionality to see how rich messages are displayed on Android and iOS.
 * Added the ability to set the position of the advertisement marker
     * Added the ability to set whether to display the text that indicates that it is an advertising message in the title or content part.
     * You can set it in the setting tab "Ad display position setting".
 
-##### Bug fixes
+##### Bug Fixes
 * Fixed an error where token lookups are displayed in UTC
     * There was an error displaying the time in UTC when searching for tokens. Corrected to display in your browser's local time.
 
@@ -63,7 +79,7 @@ Fix broken, typo, link errors
 ##### Add Features
 * Rich message feature added to message dispatch API
     * Added the ability to display buttons, media (images, movies, sounds) in push messages.
-         * <a href="https://docs.toast.com/en/Notification/Push/en/api-guide/#7" target="_blank"> API guide shortcuts </a>
+         * <a href="https://docs.toast.com/en/Notification/Push/en/api-guide/#7" target="_blank">Go to API Guide </a>
     * Available in v2.0 message delivery APIs and in apps with the latest SDKs.
 
 #### [SDK]
@@ -86,25 +102,25 @@ Fix broken, typo, link errors
 * Improved token registration
     * Only the system token is registered when the token registration request is made without initialization, and the issued token can be freely registered through the API from the service server.
 
-##### Bug fixes
+##### Bug Fixes
 * Error that data is missing from 1 second to 59 seconds when querying from list query API to minutes
     * As an example, if you look up data by 10:11, there is an error that the data of 11 minutes 59 seconds is missing.
     In this case, we improved to include 59 seconds.
 
-### 2018.08.28
+### Aug. 28, 2018 
 #### [API]
-##### Add Features
+##### More Features
 * Added Logging API
     * Added API to inquire saved data with Logging function that can be activated in Console.
     * Provides two types of APIs: general query, bulk query.
-         * <a href="https://docs.toast.com/en/Notification/Push/en/api-guide/#_18" target="_blank"> Log view shortcuts </a>
+         * <a href="https://docs.toast.com/en/Notification/Push/en/api-guide/#_18" target="_blank"> Go to Log view </a>
 * v2.2 API Update
     * Updated Logging API to update the latest API version to v2.2.
     * As of v2.2, API security setting is used for API authentication.
-         * <a href="https://toast.com/account/api_settings" target="_blank"> API security settings shortcut </a>
+         * <a href="https://toast.com/account/api_settings" target="_blank"> Go to API Security Settings </a>
     * Supported API versions: v1.3, v2.0, v2.1, v2.2
 
-##### Bug fixes
+##### Bug Fixes
 * Errors that the APNS_VOIP token is deleted when the app type is set to 'Single Token' in the token setting
     * The APNS_VOIP token is a token for VoIP, so it must be managed separately from the GCM, APNS, etc. for push messages,
     When set to a single token, there was an error that APNS_VOIP was managed the same as other tokens and the APNS_VOIP token was deleted.
@@ -112,9 +128,9 @@ Fix broken, typo, link errors
 * Improved error in statistics API timeout in some projects
     * There was a timeout error in some projects. Fixed timeout not to occur through optimization.
 
-### 2018.07.24
+### July 24, 2018 
 #### [API]
-##### Enhancements
+##### Updates
 * Improved response message
     * Improved to better understand the cause of failure in header.resultMessage of Response Body by adding more details.
 
@@ -128,9 +144,9 @@ Fix broken, typo, link errors
 
 <br>
 
-### 2018.06.26
+### June 26, 2018 
 #### [Console]
-##### Add Features
+##### More Features
 * Add Amazon Device Messaging (ADM) push type
     * Added ADM push type to send push messages to Amazon device (Kindle Fire).
     * You can register your app on the Amazon developer site, get a Client ID, Client Secret, and register it.
@@ -138,7 +154,7 @@ Fix broken, typo, link errors
 
 
 #### [API]
-##### Add Features
+##### More Features
 * Add Amazon Device Messaging (ADM) push type
 
 ##### Bug fixes
@@ -159,17 +175,17 @@ Automate message check indicator collection and transmission
 
 <br>
 
-### 2018.05.29
+### May 29, 2018 
 #### [Console]
-##### Enhancements
+##### Updates
 * Add message ID
     * Added message ID to the details part of popup when selecting message.
 
 #### [API]
-##### Add Features
+##### More Features
 * Added v2.1 token lookup API
     * You can check the device ID you collect when you register the token.
     * You can check the date of the most recent registration request for this token.
 
-##### Enhancements
+##### Updates
 * Advertising

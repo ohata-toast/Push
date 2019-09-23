@@ -514,7 +514,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/messages -d '{"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body","customKey1":"It is default"},"ko":{"title":"제목","body":"내용","customKey2":"한국어 입니다."}},"messageType":"AD","contact":"1588-1588","removeGuide":"매뉴 > 설정","timeToLiveMinute":1}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/messages -d '{"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body","customKey1":"It is default"},"ko":{"title":"title","body":"body","customKey2":"It is Korean."}},"messageType":"AD","contact":"1588-1588","removeGuide":"Menu > Setting","timeToLiveMinute":1}'
 ```
 
 ### Common Messages 
@@ -540,6 +540,8 @@ When messages are written for "content" as described in the below table, message
 |messageDeliveryReceipt| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
 |messageDeliveryReceiptData| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
 |notification| Android | Optional, Object | notification | - | - | - |
+|content_available| FCM(iOS) | Optional, Boolean | content_available | - | - | - |
+|mutable_content| FCM(iOS) | Optional, Boolean | content_available | - | - | - |
 
 Reserved words are set at the right location for each platform when a message is created. User cannot change data type or location on his own. 
 Other user-defined words are included to Custom Key/Value as follows: 
@@ -708,7 +710,7 @@ The example regards to the ad phrase which is added to a message, for the delive
     "content" : {
         "default" : {
             "title": "Special Friday Event",
-            "body": "Order Now at 50% Discounts!"
+            "body": "Order Now at 50% Discount Prices!"
         }
     },
     "messageType" : "AD",
@@ -721,8 +723,8 @@ The example regards to the ad phrase which is added to a message, for the delive
 ```json
  {
     "data": {
-        "title": "(광고) 금요일 특별 이벤트 1588",
-        "body": "지금 주문하시면 50% 할안된 가격으로!\n메뉴 > 알림 설정"
+        "title": "(AD) 1588 for Friday Special Event",
+        "body": "Order Now at 50% Discount Prices!\n Menu > Notification Setting"
     }
 }
 ```
@@ -731,8 +733,8 @@ The example regards to the ad phrase which is added to a message, for the delive
 {
     "aps": {
         "alert": {
-            "title": "(광고) 금요일 특별 이벤트 1588",
-            "body": "지금 주문하시면 50% 할안된 가격으로!\n메뉴 > 알림 설정"
+            "title": "(AD) 1588 for Friday Special Event",
+            "body": "Order Now at 50% Discount Prices!\n Menu > Notification Setting"
         }
     }
 }
@@ -741,8 +743,8 @@ The example regards to the ad phrase which is added to a message, for the delive
 ```json
  {
     "data": {
-        "title": "금요일 특별 이벤트",
-        "body": "지금 주문하시면 50% 할안된 가격으로!"
+        "title": "Friday Special Event",
+        "body": "Order Now at 50% Discount Prices!"
     }
 }
 ```
@@ -751,8 +753,8 @@ The example regards to the ad phrase which is added to a message, for the delive
 {
     "aps": {
         "alert": {
-            "title": "금요일 특별 이벤트",
-            "body": "지금 주문하시면 50% 할안된 가격으로!"
+            "title": "Friday Special Event",
+            "body": "Order Now at 50% Discount Prices!"
         }
     }
 }
@@ -796,9 +798,9 @@ The example describes how to send messages in multiple languages.
 ```json
 {
     "data": {
-        "title": "제목",
-        "body": "내용",
-        "customKey": "'ko', 'ko-'로 시작하는 언어 코드에 설정됩니다."
+        "title": "title",
+        "body": "body",
+        "customKey": "Set for language codes starting with 'ko'or'ko-'."
     }
 }
 ```
@@ -806,9 +808,9 @@ The example describes how to send messages in multiple languages.
 ```json
 {
     "data": {
-        "title": "제목",
-        "body": "내용",
-        "customKey": "'ko', 'ko-'로 시작하는 언어 코드에 설정됩니다."
+        "title": "title",
+        "body": "body",
+        "customKey": "Set for language codes starting with'ko'or 'ko-'."
     }
 }
 ```
@@ -942,18 +944,19 @@ With the 'notification' field defined in 'content', messages can be delivered to
 
 | Reserved Word | Platform | Usage | FCM | Description |
 | - | - | - | - | - |
-| notification | Android | Optional, Object | notification | |
-| notification.title | Android | Optiontal, String | notification.title | Set notification.title, and data.title is ignored. |
-| notification.body | Android | Optiontal, String | notification.body | Set notification.body, and data.body is ignored. |
-| notification.sound | Android | Optiontal, String | notification.sound | Notification sound when message is received: not supported on Android Oreo (8.0) or higher. |
-| notification.clickAction | Android | Optiontal, String | notification.click_action | Activity is to move, at the click of a message. |
-| notification.titleLocKey | Android | Optiontal, String | notification.title_loc_key | String resource which can be applied to localize messages. |
-| notification.titleLocArgs | Android | Optiontal, String | notification.title_loc_args | String for replacement, which can be applied to localize messages. |
-| notification.bodyLocKey | Android | Optiontal, String | notification.body_loc_key | String resource which can be applied to localize messages. |
-| notification.bodyLocArgs | Android | Optiontal, String Array | notification_body_loc_args | String for replacement, which can be applied to localize messages. |
-| notification.icon | Android | Optiontal, String | notification.icon | Notification icon. |
-| notification.color | Android | Optiontal, String | notification.color | Color of notification icon. |
-| notification.tag | Android | Optiontal, String | notification.tag | Same tagged messages are received and replace existing messages. |
+| notification | Android, iOS | Optional, Object | notification | |
+| notification.title | Android, iOS | Optiontal, String | notification.title | Set notification.title, and data.title is ignored. |
+| notification.body | Android, iOS | Optiontal, String | notification.body | Set notification.body, and data.body is ignored. |
+| notification.sound | Android, iOS | Optiontal, String | notification.sound | Notification sound when message is received: not supported on Android Oreo (8.0) or higher. |
+| notification.clickAction | Android, iOS | Optiontal, String | notification.click_action | Activity is to move, at the click of a message. |
+| notification.titleLocKey | Android, iOS | Optiontal, String | notification.title_loc_key | String resource which can be applied to localize messages. |
+| notification.titleLocArgs | Android, iOS | Optiontal, String | notification.title_loc_args | String for replacement, which can be applied to localize messages. |
+| notification.bodyLocKey | Android, iOS | Optiontal, String | notification.body_loc_key | String resource which can be applied to localize messages. |
+| notification.bodyLocArgs | Android, iOS | Optiontal, String Array | notification_body_loc_args | String for replacement, which can be applied to localize messages. |
+| notification.icon | Android, iOS | Optiontal, String | notification.icon | Notification icon. |
+| notification.color | Android, iOS | Optiontal, String | notification.color | Color of notification icon. |
+| notification.tag | Android, iOS | Optiontal, String | notification.tag | Same tagged messages are received and replace existing messages. |
+| notification.badge | Android, iOS | Optiontal, Number | notification.badge | Number of new unconfirmed notifications. |
 
 ##### On FCM (Android)
 ```json
@@ -1950,7 +1953,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tags -d '{"tagName":"서른"}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tags -d '{"tagName":"thirty"}'
 ```
 
 #### Append UIDs to Tag
@@ -2097,7 +2100,7 @@ N/A
     },
     "tag" : {
         "tagId" :  "12345678",
-        "tagName" :  "서른",
+        "tagName" :  "thirty",
         "createdDateTime" :  "2017-07-07T07:07:07.777+09:00",
         "updatedDateTime" :  "2017-07-07T07:07:07.777+09:00"
     }

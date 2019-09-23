@@ -539,6 +539,8 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 |messageDeliveryReceipt| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
 |messageDeliveryReceiptData| Android, <br/>iOS, <br/> Tencent | Unnecessary | - | - | - | - |
 |notification| Android | Optional, Object | notification | - | - | - |
+|content_available| FCM(iOS) | Optional, Boolean | content_available | - | - | - |
+|mutable_content| FCM(iOS) | Optional, Boolean | content_available | - | - | - |
 
 Reserved Word는 메시지 생성 시 Platform별로 알맞는 위치에 설정됩니다. 사용자가 임의로 데이터 타입과 위치 등을 변경할 수 없습니다.
 그 외 사용자가 정의한 Word는 다음과 같이 Custom Key/Value 필드에 들어갑니다.
@@ -936,18 +938,19 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
 
 | Reserved Word | Platform | Usage | FCM | Description | 
 | - | - | - | - | - | 
-| notification | Android | Optional, Object | notification | |
-| notification.title | Android | Optiontal, String | notification.title | notification.title을 설정하면 data.title은 무시됩니다. |
-| notification.body | Android | Optiontal, String | notification.body | notification.body 설정하면 data.body 무시됩니다. |
-| notification.sound | Android | Optiontal, String | notification.sound | 메시지 수신시 재생되는 알림음입니다. Android Oreo (8.0) 이상에서 동작하지 않습니다. |
-| notification.clickAction | Android | Optiontal, String | notification.click_action | 메시지 클릭시 이동할 Activity 입니다. |
-| notification.titleLocKey | Android | Optiontal, String | notification.title_loc_key | 문자열 리소스 입니다. 메시지를 현지화하는데 사용할 수 있습니다. |
-| notification.titleLocArgs | Android | Optiontal, String | notification.title_loc_args | 문자열에 치환자에 들어갈 문자열 입니다. 메시지를 현지화하는데 사용할 수 있습니다. |
-| notification.bodyLocKey | Android | Optiontal, String | notification.body_loc_key | 문자열 리소스 입니다. 메시지를 현지화하는데 사용할 수 있습니다. |
-| notification.bodyLocArgs | Android | Optiontal, String Array | notification_body_loc_args | 문자열에 치환자에 들어갈 문자열 입니다. 메시지를 현지화하는데 사용할 수 있습니다. |
-| notification.icon | Android | Optiontal, String | notification.icon | 알림 아이콘입니다. |
-| notification.color | Android | Optiontal, String | notification.color | 알림 아이콘 색상입니다. |
-| notification.tag | Android | Optiontal, String | notification.tag | 동일한 태그인 메시지가 수신되면 기존 메시지를 대체합니다. |
+| notification | Android, iOS | Optional, Object | notification | |
+| notification.title | Android, iOS | Optiontal, String | notification.title | notification.title을 설정하면 data.title은 무시됩니다. |
+| notification.body | Android, iOS | Optiontal, String | notification.body | notification.body 설정하면 data.body 무시됩니다. |
+| notification.sound | Android, iOS | Optiontal, String | notification.sound | 메시지 수신시 재생되는 알림음입니다. Android Oreo (8.0) 이상에서 동작하지 않습니다. |
+| notification.clickAction | Android, iOS | Optiontal, String | notification.click_action | 메시지 클릭시 이동할 Activity 입니다. |
+| notification.titleLocKey | Android, iOS | Optiontal, String | notification.title_loc_key | 문자열 리소스 입니다. 메시지를 현지화하는데 사용할 수 있습니다. |
+| notification.titleLocArgs | Android, iOS | Optiontal, String | notification.title_loc_args | 문자열에 치환자에 들어갈 문자열 입니다. 메시지를 현지화하는데 사용할 수 있습니다. |
+| notification.bodyLocKey | Android, iOS | Optiontal, String | notification.body_loc_key | 문자열 리소스 입니다. 메시지를 현지화하는데 사용할 수 있습니다. |
+| notification.bodyLocArgs | Android, iOS | Optiontal, String Array | notification_body_loc_args | 문자열에 치환자에 들어갈 문자열 입니다. 메시지를 현지화하는데 사용할 수 있습니다. |
+| notification.icon | Android, iOS | Optiontal, String | notification.icon | 알림 아이콘입니다. |
+| notification.color | Android, iOS | Optiontal, String | notification.color | 알림 아이콘 색상입니다. |
+| notification.tag | Android, iOS | Optiontal, String | notification.tag | 동일한 태그인 메시지가 수신되면 기존 메시지를 대체합니다. |
+| notification.badge | Android, iOS | Optiontal, Number | notification.badge | 확인하지 않은 새로운 알림 개수입니다. |
 
 ##### FCM(Android)에 수신되는 메시지
 ```json
