@@ -1,5 +1,28 @@
 ## Notification > Push > Release Notes
 
+### 2019.10.29
+
+#### [API]
+
+##### 機能追加
+
+* Androidバッジ(badge)プロパティを追加
+    * 今まではiOSにのみバッジプロパティを伝達していましたが、Androidにもバッジプロパティを伝達します。
+    TOAST SDKを適用した場合、アプリアイコンに伝達されたバッジが自動的に表示されます。
+* iOSでHTMLを除去したメッセージを表示する機能を追加
+    * 現在iOSは、Androidと異なり、プッシュメッセージ内のHTMLを描写しません。
+    'content.default.style.useHtmlStyle'を「true」に設定すると、iOSにHTMLを除去したメッセージを送信します。
+* リッチメッセージで、Android、iOSにメディアを別々に指定できるように機能を改善
+    * 'richMessage.media'の他に、'richMessage.androidMedia'、'richMessage.iosMedia'を追加しました。
+    AndroidとiOSにメディアを別々に設定できるように、リッチメッセージ機能を改善しました。
+* リッチメッセージのmediaの'sourceType'と'extension'を必須から任意に変更
+    * 'richMessage.media.sourceType'、'richMessage.media.extension'を必須(Required)から任意(Optional)に変更しました。
+   メディアが外部、内部に関わらず、メディアの拡張子を設定しなくても、リッチメッセージの送信が可能です。
+* プッシュメッセージをクリックした時のアクションを定義する機能を追加
+    * 'content.default.clickAction'に、プッシュメッセージをクリック した時に実行されるアクション(URL、Scheme)を定義できます。
+    TOAST SDKを適用した場合、自動的にアクションが実行されます。
+
+
 ### 2019.09.24
 #### [API]
 ##### バグ修正

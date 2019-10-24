@@ -173,7 +173,6 @@ Content-Type: application/json;charset=UTF-8
 		"language": "ko",
 		"uid" : "User ID",
 		"token" : "Token",
-		"updateDateTime": "2017-08-12T01:04:18.000+09:00",
 		"adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
 		"nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
 		"deviceId": "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
@@ -189,7 +188,6 @@ Content-Type: application/json;charset=UTF-8
 
 | Field | Usage | Description |
 | - | - | - |
-| updateDateTime | -, DateTime String | トークンアップデート日時 |
 | adAgreementDateTime | -, DateTime String | 広告性プッシュメッセージ受信同意日時 |
 | nightAdAgreementDateTime | -, DateTime String | 夜間広告性プッシュメッセージ受信同意日時 |
 | deviceId | -, String | デバイスID |
@@ -230,9 +228,10 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 		"language": "ko",
 		"uid" : "User ID",
 		"token" : "Token",
-        "updateDateTime": "2017-08-12T01:04:18.000+09:00",
-        "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
-        "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00"
+		"adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+		"nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
+		"deviceId": "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
+		"activatedDateTime": "2017-08-12T01:04:19.000+09:00"
 	}],
 	"header" : {
 		"isSuccessful" : true,
