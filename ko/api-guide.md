@@ -148,7 +148,7 @@ Content-Type: application/json;charset=UTF-8
         "language" : "ko",
         "uid" : "User ID",
         "token" : "Token",
-        "updateDateTime" : "2017-08-12T01:04:18.000+09:00",
+        "updatedDateTime" : "2017-08-12T01:04:18.000+09:00",
         "adAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
         "nightAdAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
         "deviceId" : "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
@@ -164,7 +164,7 @@ Content-Type: application/json;charset=UTF-8
 
 | Field | Usage | Description |
 | - | - | - |
-| updateDateTime | -, DateTime String | 토큰 업데이트 일시 |
+| updatedDateTime | -, DateTime String | 토큰 업데이트 일시 |
 | adAgreementDateTime | -, DateTime String | 홍보성 푸시 메시지 수신 동의 일시 |
 | nightAdAgreementDateTime | -, DateTime String | 야간 홍보성 푸시 메시지 수신 동의 일시 |
 | deviceId | -, String | 디바이스 아이디 |
@@ -204,7 +204,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"language": "ko",
 		"uid" : "User ID",
 		"token" : "Token",
-        "updateDateTime": "2017-08-12T01:04:18.000+09:00",
+        "updatedDateTime": "2017-08-12T01:04:18.000+09:00",
         "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
         "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
         "deviceId" : "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
@@ -491,6 +491,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | content.default.title | Optional, String |  |
 | content.default.body | Optional, String |  |
 | content.default.notification | Optional, Object | FCM에서 사용하는 notification 필드 |
+| content.default.style.useHtmlStyle | Optional, Boolean | 'true'로 설정하면 iOS에서 HTML이 제거된 메시지가 표시됩니다. |
 | messageType | Required, String | NOTIFICATION, AD |
 | contact | Optional, String | messageType이 AD이면 경우 필수, 숫자(0-9)와 하이픈(Hypen, -)만 가능합니다. |
 | removeGuide | Optional, String | messageType이 AD이면 경우 필수 |
@@ -529,7 +530,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 |loc-key|	iOS|	Optional, String| - |aps.alert.loc-key	| - | - |
 |loc-args|	iOS|	Optional, Array of String	| - | aps.alert.loc-args	| - | - |
 |launch-image|	iOS|	Optional, String	| - | aps.alert.launch-image	| - | - |
-|badge|	iOS|	Optional, Number| - | aps.badge	| - | - |
+|badge|	iOS|	Optional, Number| data.badge | aps.badge | custom_content.badge | data.badge |
 |sound|	Android, <br/> iOS, <br/> Tencent, <br/> ADM|	Optional, String|	data.sound|	aps.sound|	custom_content.sound| data.sound |
 |content-available|	iOS|	Optional, String	| - | aps.content-available	| - | - |
 |category|	iOS|	Optional, String	| - | aps.category	| - | - |
@@ -889,13 +890,15 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
 | richMessage.button.link | Required, String | 버튼을 눌렀을때, 연결되는 링크 |
 | richMessage.button.hint | Required, String | 버튼에대한 힌트 |
 | richMessage.media | Optional, Object | 리치 메시지에 추가되는 미디어 |
-| richMessage.media.sourceType | Required, String | 미디어의 위치, REMOTE, LOCAL |
+| richMessage.media.sourceType | Optional, String | 미디어의 위치, REMOTE, LOCAL |
 | richMessage.media.source | Required, String | 미디어의 위치한 곳의 주소 |
-| richMessage.media.mediaType | Required, String | 미디어의 타입, IMAGE, GIF, VEDIO, AUDIO. Android에서는 IMAGE만 지원 |
+| richMessage.media.mediaType | Optional, String | 미디어의 타입, IMAGE, GIF, VEDIO, AUDIO. Android에서는 IMAGE만 지원 |
 | richMessage.media.extension | Required, String | 미디어 파일의 확장자 |
 | richMessage.media.expandable | Required, Boolean | Android에서 미디어를 클릭 시 펼침 기능 사용 여부 |
+| richMessage.androidMedia | Optional, Object | Android 기기에 사용되는 미디어. 형식은 media와 동일 |
+| richMessage.iosMedia | Optional, Object | iOS 기기에 사용되는 미디어. 형식은 media와 동일 |
 | richMessage.largeIcon | Optional, Object | 리치 메시지에 추가되는 큰 아이콘, Android에서만 지원 |
-| richMessage.largeIcon.sourceType | Required, String | 큰 아이콘의 위치, REMOTE, LOCAL |
+| richMessage.largeIcon.sourceType | Optional, String | 큰 아이콘의 위치, REMOTE, LOCAL |
 | richMessage.largeIcon.source | Required, String | 미디어의 위치한 곳의 주소 |
 | richMessage.group | Optional, Object | 여러 개의 메시지를 그룹 단위로 묶는 기능, Android에서만 지원 |
 | richMessage.group.key | Required, String | 그룹의 키 |

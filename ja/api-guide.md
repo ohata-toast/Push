@@ -149,7 +149,7 @@ Content-Type: application/json;charset=UTF-8
         "language" : "ko",
         "uid" : "User ID",
         "token" : "Token",
-        "updateDateTime" : "2017-08-12T01:04:18.000+09:00",
+        "updatedDateTime" : "2017-08-12T01:04:18.000+09:00",
         "adAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
         "nightAdAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
         "deviceId" : "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
@@ -165,7 +165,7 @@ Content-Type: application/json;charset=UTF-8
 
 | Field | Usage | Description |
 | - | - | - |
-| updateDateTime | -, DateTime String | トークンアップデート日時 |
+| updatedDateTime | -, DateTime String | トークンアップデート日時 |
 | adAgreementDateTime | -, DateTime String | 広告性プッシュメッセージ受信同意日時 |
 | nightAdAgreementDateTime | -, DateTime String | 夜間広告性プッシュメッセージ受信同意日時 |
 | deviceId | -, String | デバイスID |
@@ -205,7 +205,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 		"language": "ko",
 		"uid" : "User ID",
 		"token" : "Token",
-        "updateDateTime": "2017-08-12T01:04:18.000+09:00",
+        "updatedDateTime": "2017-08-12T01:04:18.000+09:00",
         "adAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
         "nightAdAgreementDateTime": "2017-08-12T01:04:19.000+09:00",
         "deviceId" : "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
@@ -492,6 +492,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | content.default.title | Optional, String |  |
 | content.default.body | Optional, String |  |
 | content.default.notification | Optional, Object | FCMで使用するnotificationフィールド |
+| content.default.style.useHtmlStyle | Optional, Boolean | 「true」に設定すると、iOSでHTMLが除去されたメッセージが表示されます。 |
 | messageType | Required, String | NOTIFICATION, AD |
 | contact | Optional, String | messageTypeがADの場合は必須、数字(0-9)とハイフン(Hypen, -)のみ可能です。 |
 | removeGuide | Optional, String | messageTypeがADの場合は必須 |
