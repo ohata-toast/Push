@@ -492,6 +492,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | content.default.title | Optional, String |  |
 | content.default.body | Optional, String |  |
 | content.default.notification | Optional, Object | Notification field for FCM |
+| content.default.style.useHtmlStyle | Optional, Boolean | With 'true', iOS shows messages excluding HTML. |
 | messageType | Required, String | NOTIFICATION, AD |
 | contact | Optional, String | Required, if the messageType is AD; only numbers (0-9) and hyphens (-) are available. |
 | removeGuide | Optional, String | Required, if the messageType is AD |
