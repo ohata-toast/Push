@@ -1,5 +1,24 @@
 ## Notification> Push > Release Notes
 
+### Oct. 29, 2019
+#### [API]
+##### More Features 
+* Added Badge Attribute for Android  
+    * The badge attribute can be delivered to Android, as well as iOS. 
+    With TOAST SDK, the badge delivered onto app icon is automatically displayed. 
+* Display Messages excluding HTML for iOS
+    * Currently, iOS does not show HTML within push messages, unlike Android. 
+    By setting 'True' for 'content.default.style.useHtmlStyle', HTML can be removed from messages before delivered for iOS. 
+* Updated Rich Messages to Separate Media for Android and iOS
+    * Added 'richMessage.androidMedia' and 'richMessage.iosMedia', other than 'richMessage.media. 
+    Rich message has been updated to enable separate media setting for Android and iOS.  
+* Changed the 'sourceType' and 'extension' to be Optional for Rich Message Media 
+    * 'richMessage.media.sourceType' and 'richMessage.media.extension' have been changed to be optional, not required. 
+    No setting is required for media extension, be it external or internal, to deliver rich messages.  
+* Action Definition Enabled at Click of Push Messages 
+    * Actions (e.g. URL or Scheme) to be executed by the click of a push message can be defined at 'content.default.clickAction'. 
+    With TOAST SDK, action is executed automatically.  
+
 ### Sept.24, 2019 
 #### [API]
 ##### Bug Fixes 
