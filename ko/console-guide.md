@@ -464,10 +464,10 @@ UID, 토큰별로 검색할 수 있습니다.
 - 데이터의 수집 시간은 기기의 시간을 기준으로 합니다.
 - 기능 설정 시 실제 반영까지 대략 수분이 걸릴 수 있습니다.
 
-<span id="low-received-event-rates">
+<span id="low-received-event-rates"></span>
 #### 메시지 수신 데이터 지표가 낮은 이유
 1. 앱의 메시지 알림을 허용하지 않을 때
-사용자가 앱 최초 실행 시 OS(iOS, Android) 레벨 설정으로 메시지 알림을 허용하지 않으면, 메시지 수신 이벤트를 수집할 수 없습니다. (평균 알림 허용 비율 iOS 43.9%, Android 91.1% <a href="https://www.accengage.com/press-release-accengage-releases-the-push-notification-benchmark-2018/" target="_blank">출처 accengage</a>)
+사용자가 앱 최초 실행 시 OS(iOS, Android) 레벨 설정으로 메시지 알림을 허용하지 않으면, 메시지 수신 이벤트를 수집할 수 없습니다. (2018년 기준 평균 알림 허용 비율 iOS 43.9%, Android 91.1% <a href="https://www.accengage.com/press-release-accengage-releases-the-push-notification-benchmark-2018/" target="_blank">출처 accengage</a>)
 2. 삭제된 앱의 토큰 만료가 지연되는 경우
 앱이 삭제되고 토큰 만료가 바로 진행되지 않는 경우가 있습니다. 그래서 토큰 만료가 지연되는 경우 메시지는 발송되었지만 앱이 삭제되어 수신 이벤트 수집이 불가능합니다.
 3. 인터넷 연결이 오랜 시간 동안 없을 때
