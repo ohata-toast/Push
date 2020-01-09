@@ -464,7 +464,7 @@ UID, 토큰별로 검색할 수 있습니다.
 - 데이터의 수집 시간은 기기의 시간을 기준으로 합니다.
 - 기능 설정 시 실제 반영까지 대략 수분이 걸릴 수 있습니다.
 
-<span id="low-receipt">
+<span id="low-received-event-rates">
 #### 메시지 수신 데이터 지표가 낮은 이유
 1. 앱의 메시지 알림을 허용하지 않을 때
 사용자가 앱 최초 실행 시 OS(iOS, Android) 레벨 설정으로 메시지 알림을 허용하지 않으면, 메시지 수신 이벤트를 수집할 수 없습니다. (평균 알림 허용 비율 iOS 43.9%, Android 91.1% <a hreaf="https://www.accengage.com/press-release-accengage-releases-the-push-notification-benchmark-2018/" target="_blank">출처 accengage</a>)
