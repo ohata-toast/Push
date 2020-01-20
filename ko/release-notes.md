@@ -1,5 +1,11 @@
 ## Notification > Push > 릴리스 노트
 
+### 2020. 01. 21.
+#### [Doc]
+##### 가이드 추가
+* **메시지 수신 데이터 지표가 낮은 이유**에 대한 가이드 추가
+    * <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#low-received-event-rates" target="_blank">바로 가기</a>
+
 ### 2019. 12. 24.
 #### [Console]
 ##### 기능 추가
