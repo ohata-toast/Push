@@ -460,7 +460,23 @@ Go to **Console > Notification > Push** > and click **Setting** to set Token Exp
 - SDK v1.4 or higher versions must be applied to operate activated features. 
 - Collected data are available on the **Statistics** tab. 
 - Data collection time is calculated on device. 
-- It may take approximately many minutes until a feature is actually applied.  
+- It may take approximately many minutes until a feature is actually applied. 
+
+<span id="low-received-event-rates"></span>
+#### Causes for Low Indicators of Message Receiving Data    
+1. When message notification is not enabled on the app 
+Unless the user enables message notifications with OS (iOS or Android) level setup on initial app execution, message receiving events cannot be collected. 
+(The average rate of notification enabled, as of 2018, is 43.9% for iOS and 91.1% for Android.) 
+<a href="https://www.accengage.com/press-release-accengage-releases-the-push-notification-benchmark-2018/" target="_blank">source accengage</a>)
+2. When token expiration of a deleted app is delayed 
+Some apps are deleted but not directly lead into token expiration. 
+If token is delayed for expiration, messages may be delivered but receiving events cannot be collected, since app has been deleted.  
+3. When it is disconnected to the internet for a long time 
+If it is not connected to the internet, due to various reasons, including phone being turned off, in the energy-saving mode, or in network grey area, 
+both message receiving and event collecting are unavailable.  
+4. When it fails to collect receiving events 
+Even if a message has been receivied, it may not be properly collected depending on the OS or network environment 
+when the receiving event is sent to server.  
 
 ### Log Message Delivery History
 - Send message delivery history to Log & Crash Search as specified.
