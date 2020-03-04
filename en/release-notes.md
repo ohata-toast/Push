@@ -1,5 +1,18 @@
 ## Notification> Push > Release Notes
 
+### 2020. 01. 21.
+#### More Guides
+* Added Guide for **Causes for Low Indicators of Message Receiving Data**
+     * <a href="https://docs.toast.com/en/Notification/Push/en/console-guide/#low-received-event-rates" target="_blank">Direct Link</a>
+
+
+### Dec. 24, 2019
+#### [Console]
+##### More Features
+* Added HTML Style, Message Click-to-Action, and Batch Input on the message delivery page. 
+    * With **HTML Style**, you can apply HTML for title and body on Android. It is not supported on iOS devices and does not show HTML. When **HTML Style** is not enabled, HTML codes show on Android and iOS.  
+    * By using **Message Click-to-Action**, you can move to a schme or URL that are defined on an app. 
+
 ### Oct. 29, 2019
 #### [API]
 ##### More Features 

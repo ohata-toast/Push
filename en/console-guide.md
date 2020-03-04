@@ -557,6 +557,7 @@ Content of Business:Deliver Push Messages in lieu of Customers
 
 
 * Document Updates
+    * *(2020.01.21) Added Casues for Low Indicators of Message Receiving Data*
     * *(July 24, 2018) Added description of APNS Certificate*
     * *(June 15, 2018) Added description of relocating GCM to Firebase*
     * *(Nov. 23, 2017) Added saving history of message delivery*

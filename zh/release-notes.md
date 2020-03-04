@@ -1,5 +1,10 @@
 ## Notification> Push > Release Notes
 
+### 2020. 01. 21.
+#### ガイド追加
+* **メッセージ受信データ指標が低い理由**に対するガイドを追加
+    * <a href="https://docs.toast.com/ja/Notification/Push/ja/console-guide/#low-received-event-rates" target="_blank">リンク</a>
+
 ### Oct. 29, 2019
 #### [API]
 ##### More Features 
