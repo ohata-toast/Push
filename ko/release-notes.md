@@ -1,5 +1,19 @@
 ## Notification > Push > 릴리스 노트
 
+### 2020. 03. 24
+### [Console]
+#### 기능 추가
+* 통계가 개편되었습니다.
+    * **통계 이벤트 키 관리** 탭이 추가되었습니다. 콘솔에서 새로운 통계 이벤트 키를 추가하고, 메시지 발송 시 설정할 수 있습니다. 메시지가 발송되면 설정한 통계 이벤트 키 기준으로 통계 데이터가 쌓이고, 새로운 통계 탭에서 검색할 수 있습니다.
+        * <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#stats-event-key" target="_blank">바로 가기</a>
+
+### [API]
+* v2.4 API 추가
+    * 통계 이벤트 키로 조회할 수 있는 통계 API가 추가되었습니다. v2.3의 통계 관련 API는 더 이상 제공하지 않습니다.
+        * <a href="https://docs.toast.com/ko/Notification/Push/ko/api-guide/#stats-api" target="_blank">바로 가기</a>
+* 토큰 멀티 테넌트 기능 추가
+   * 토큰을 여러 UID가 소유할 수 있게 해주는 멀티 테넌트 기능이 추가되었습니다. 토큰 등록 시 토큰 끝에 '#tenant=테넌트_정보'를 붙일 수 있습니다. 여러 UID가 같은 토큰을 사용하더라도 테넌트 정보가 다르면 토큰이 유지됩니다.
+
 ### 2020. 01. 21.
 #### [Doc]
 ##### 가이드 추가
