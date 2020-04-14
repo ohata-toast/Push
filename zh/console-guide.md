@@ -410,17 +410,21 @@ To add UIDs on to the tag:
 2. Type in the UIDs with new line as a delimiter.  
 	- Up to 1,000 UIDs can be added.
 
+<span id="stats-event-key"></span>
+
+## Statistics Event Key Management 
+Statistics event keys can be managed from the **Statistics Event Key Management** tab. You may set the name, description, and event collection period. Without configuring event collection period, the collection period is set as indefinite. Once created, a statistics event key can be setup for message delivery. Delivery results of messages to which a statistics event key is configured can be searched with the statistics event key from the **Statistics** tab. 
+
+<span id="stats"></span>
+
 ## Statistics
+You may search data on received/checked messages that are collected for the last 30 days. Select **Statistics** from the console, and you can search statistics on registration or deletion of a message or a token.   
 
-You can visualize push notification data collected within 30 days.
-Go to **Consoel > Notification > Push** and click **Statistics** tab.
-
-![push_21_201812_en](https://static.toastoven.net/prod_push/12-10/push_21_201812_en.png)
-
-- You can set date range.
-    - You can manually set the date with a minimun range of one minute and maximum of 30 days.
-- You can change the type of graph
-    - Default will show you the graph with appropriate horizontal-axis.
+1. Set period as part of a search condition. 
+    - Manual setting is available other than simple period setting, between 1 minute and 30 days. 
+2. Set a display method of graphs in each type. 
+    - By default, graph is displayed in automatically optimized type for each period setting. 
+3. From message statistics, you can search by statistics event key or push type. 
 
 ## Token Setting
 
@@ -460,7 +464,7 @@ Go to **Console > Notification > Push** > and click **Setting** to set Token Exp
 - SDK v1.4 or higher versions must be applied to operate activated features. 
 - Collected data are available on the **Statistics** tab. 
 - Data collection time is calculated on device. 
-- It may take approximately many minutes until a feature is actually applied.  
+- It may take approximately many minutes until a feature is actually applied. 
 
 <span id="low-received-event-rates"></span>
 #### Causes for Low Indicators of Message Receiving Data    

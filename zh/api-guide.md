@@ -1,13 +1,9 @@
-## Notification > Push > API v2.3 Guide
+## Notification > Push > API v2.4 Guide
 
-### Overview of v2.3 API
+### Overview of v2.4 API
 
 #### Add
-- Added 'Delete Token' API. 
-
-#### Modify 
-- Use 'FCM', instead of 'GCM' as push type. 
-- Changed value for API certification into Secret Key. 
+- Added 'Statistics' API. 
 
 ### Basic Information 
 #### Endpoint
@@ -49,7 +45,7 @@ See Header at the response body for response details.
 
 ##### Method, URL
 ```
-POST /push/v2.3/appkeys/{appkey}/tokens
+POST /push/v2.4/appkeys/{appkey}/tokens
 Content-Type: application/json;charset=UTF-8
 ```
 
@@ -104,7 +100,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tokens -d '{"oldToken":"oldToken","token":"token","isNotificationAgreement":true,"isAdAgreement":true,"isNightAdAgreement":true,"pushType":"FCM","timezoneId":"Asia/Seoul","uid":"uid","country":"KR","language":"ko","deviceId": "deviceId"}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/tokens -d '{"oldToken":"oldToken","token":"token","isNotificationAgreement":true,"isAdAgreement":true,"isNightAdAgreement":true,"pushType":"FCM","timezoneId":"Asia/Seoul","uid":"uid","country":"KR","language":"ko","deviceId": "deviceId"}'
 ```
 
 ##### Description
@@ -126,7 +122,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.
 ##### Method, URL
 
 ```
-GET /push/v2.3/appkeys/{appkey}/tokens/{token}?pushType={pushType}
+GET /push/v2.4/appkeys/{appkey}/tokens/{token}?pushType={pushType}
 Content-Type: application/json;charset=UTF-8
 ```
 
@@ -165,7 +161,7 @@ Content-Type: application/json;charset=UTF-8
 
 | Field | Usage | Description |
 | - | - | - |
-| updateDateTime | -, DateTime String | Date and time of token update |
+| updatedDateTime | -, DateTime String | Date and time of token update |
 | adAgreementDateTime | -, DateTime String | Date and time of consent to receive ad push messages |
 | nightAdAgreementDateTime | -, DateTime String | Date and time of consent to receive night-time ad push messages |
 | deviceId | -, String | Device ID |
@@ -173,7 +169,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tokens/TOKEN?pushType=FCM
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/tokens/TOKEN?pushType=FCM
 ```
 
 #### Query Tokens by User ID
@@ -181,7 +177,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.c
 ##### Method, URL
 
 ```
-GET /push/v2.3/appkeys/{appkey}/tokens?uid={uid}
+GET /push/v2.4/appkeys/{appkey}/tokens?uid={uid}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -221,13 +217,13 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tokens?uid=uid
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/tokens?uid=uid
 ```
 
 #### Query Invalid Tokens
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appkey}/invalid-tokens?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageId={messageId}
+GET /push/v2.4/appkeys/{appkey}/invalid-tokens?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&messageId={messageId}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -266,147 +262,13 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/invalid-tokens
-```
-
-
-#### Query Statistics for Token Attributes API
-##### Method, URL, Headers
-```
-GET /push/v2.3/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
-Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| appkey | Required, String | Path Variable, appkey issued on product use |
-| from | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
-| to | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
-| tokenProperties | Optional, String Array | 'agreement', 'country', 'language', 'timezoneId'<br/>delimited by ',', e.g. tokenProperties=country,language |
-
-##### Request Body
-```
-N/A 
-```
-
-##### Response Body
-```json
-{
-	"tokenPropertiesStatistics" : [{
-			"dateTime" : "2016-07-11 17:50:00.00+9:00",
-			"countries" : {
-				"KR" : 100,
-				"JP" : 60,
-				"CN" : 100
-			},
-			"languages" : {
-				"ko" : 90,
-				"ja" : 60,
-				"zh" : 100
-			},
-			"timezoneIds": {
-				"Asia/Seoul": 260
-			},
-			"agreements": {
-				"ON": 260
-			}
-		}, {
-			"dateTime" : "2016-07-11 17:51:00.00+9:00",
-			"countries" : {
-				"KR" : 100,
-				"JP" : 60,
-				"CN" : 100
-			},
-			"languages" : {
-				"ko" : 90,
-				"ja" : 60,
-				"zh" : 100
-			},
-			"timezoneIds": {
-				"Asia/Seoul": 260
-			},
-			"agreements": {
-				"ON": 260
-			}
-		}
-	],
-	"header" : {
-		"isSuccessful" : true,
-		"resultCode" : 0,
-		"resultMessage" : "success"
-	}
-}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| dateTime | String | Date and time of data collection |
-| agreements | String | 'ON' (receive all), 'NIGHT_AD_OFF' (reject night-time ads), 'AD_OFF' (reject ads), 'OFF' (reject all) |
-| countries.XX | String | ISO 3166-1 alpha-2, ISO 3166-1 alpha-3, 3 characters |
-| languages.XX | String | ISO 639-1, ISO 639-2, iOS(language code + script code), 8 characters |
-| timezoneIds.XX | String | Area/Name. IANA time zone database |
-
-##### Example
-```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/statistics/token-properties
-```
-
-#### Query Statistics for Token Registration 
-##### Method, URL, Headers
-```
-GET /push/v2.3/appkeys/{appkey}/statistics/token-registrations?from={from}&to={to}
-Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| appkey | Required, String | Path Variable, appkey issued on product use |
-| from | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
-| to | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
-
-##### Request Body
-```
-N/A 
-```
-
-##### Response Body
-```json
-{
-	"tokenRegistrationStatistics" : [{
-			"dateTime" : "2016-07-11 17:50:00.00+9:00",
-			"registered" : 90,
-			"deleted" : 20
-		}, {
-			"dateTime" : "2016-07-11 17:51:00.00+9:00",
-			"registered" : 45,
-			"deleted" : 10
-		}
-	],
-	"header" : {
-		"isSuccessful" : true,
-		"resultCode" : 0,
-		"resultMessage" : "success"
-	}
-}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| dateTime | String | Date and time of data collection |
-| registered | Number | Number of registered tokens |
-| deleted | Number | Number of delete tokens |
-
-##### Example
-```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/statistics/token-registrations
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/invalid-tokens
 ```
 
 ### Delete 
 ##### Method, URL, Headers
 ```
-DELETE /push/v2.3/appkeys/{appkey}/tokens/{token}?pushType={pushType}
+DELETE /push/v2.4/appkeys/{appkey}/tokens/{token}?pushType={pushType}
 Content-Type: application/json;charset=UTF-8
 ```
 | Field | Usage | Description |
@@ -432,14 +294,14 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com//push/v2.3/appkeys/{appkey}/tokens/{token}?pushType={pushType}
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com//push/v2.4/appkeys/{appkey}/tokens/{token}?pushType={pushType}
 ```
 
 ## Messages
 ### Send
 ##### Method, URL, Headers
 ```
-POST /push/v2.3/appkeys/{appkey}/messages
+POST /push/v2.4/appkeys/{appkey}/messages
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -515,7 +377,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/messages -d '{"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body","customKey1":"It is default"},"ko":{"title":"title","body":"body","customKey2":"It is Korean."}},"messageType":"AD","contact":"1588-1588","removeGuide":"Menu > Setting","timeToLiveMinute":1}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/messages -d '{"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body","customKey1":"It is default"},"ko":{"title":"title","body":"body","customKey2":"It is Korean."}},"messageType":"AD","contact":"1588-1588","removeGuide":"Menu > Setting","timeToLiveMinute":1}'
 ```
 
 ### Common Messages 
@@ -601,6 +463,7 @@ The example shows how to send messages to particular users by entering user IDs.
 - Set 'UID' for target.type and user ID for target.to, and send messages to such particular users. 
 
 #### 3. Send to Users of Particular Nation or Push Type
+
 The example shows how to send messages to users of particular nation or device (e.g. Android or iOS) only.
 
 ##### Request Body
@@ -765,6 +628,7 @@ The example regards to the ad phrase which is added to a message, for the delive
 - Ad messages display Ad Phrase for those users whose language code is Korean (ko, ko-) only. Other language users (e.g. Japanese) shall not find ad phrases. 
 
 #### 6.  Multiple-Language Messages
+
 The example describes how to send messages in multiple languages.
 
 ##### Request Body
@@ -840,6 +704,7 @@ The example describes how to send messages in multiple languages.
 - Since customKey is not defined at content.ja, it shall be replaced by content.default. Common messages are available at content.default. 
 
 #### 7. Rich Messages 
+
 When the 'richMessage' field is defined at 'content', rich messages can be delivered. 
 Such messages can be sent along with Common, Ad, or Multi-Language Messages.  
 v1.7 or higher SDKs are required.
@@ -987,7 +852,7 @@ With the 'notification' field defined in 'content', messages can be delivered to
 #### List
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
+GET /push/v2.4/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1043,7 +908,7 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/messages
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/messages
 ```
 
 | Field | Usage | Description |
@@ -1073,7 +938,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 #### Get
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appkey}/messages/{message-id}
+GET /push/v2.4/appkeys/{appkey}/messages/{message-id}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1122,7 +987,7 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/messages/{messageId}
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/messages/{messageId}
 ```
 
 #### List Failed Messages
@@ -1131,7 +996,7 @@ However, if there is no token available (INVALID_TOKEN), it is not deemed as del
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messagErrorCause={messageErrorCause}&from={from}&to={to}&limit={limit}
+GET /push/v2.4/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messagErrorCause={messageErrorCause}&from={from}&to={to}&limit={limit}
 HEADER
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
@@ -1222,66 +1087,9 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/message-errors
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/message-errors
 ```
 
-#### Query Statistics for Message Delivery Receipt
-Enable Message Delivery Receipt and apply v1.4 or higher SDK, to confirm receipt of delivered messages. Such collected data can be queried by statistics API. To enable the feature, go to  [Console] > [Settings]. 
-
-##### Method, URL, Headers
-```
-GET /push/v2.3/appkeys/{appkey}/statistics/message-delivery-receipts?from={from}&to={to}&event={event}&timeUnit={timeUnit}&messageId={messageId}
-HEADER
-Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| appkey | Required, String | Path Variable, appkey issued on product use |
-| from | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| event | Optional, String | 'SENT', 'SENT_FAILED', 'RECEIVED', 'OPENED' |
-| timeUnit | Optional, String | 'MINUTES', 'HOURS', 'DAYS'<br/>If there is no available value, statistics are randomly provided depending on query period.<br>Displays by the day for 1 day or more; by the hour between 1 and 24 hours; and by the minute for less than 1 hour. |
-| messageId | Optional, Number | Message ID |
-
-##### Request Body
-```
-N/A
-```
-
-##### Response Body
-
-```
-{
-	"messageDeliveryReceiptStatistics" : [{
-			"dateTime" : "2016-07-11 17:50:00.00+9:00",
-			"sent" : 13,
-			"sentFailed": 0,
-			"received" : 12,
-			"opened" : 10
-		}
-	],
-	"header" : {
-		"isSuccessful" : true,
-		"resultCode" : 0,
-		"resultMessage" : "success"
-	}
-}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| dateTime | Optional, DateTime String | ISO 8601 |
-| sent | Optional, Number | Number of deliveries from server |
-| sentFailed | Optional, Number | Number of failed deliveries from server |
-| received | Optional, Number | Number of receipts on device |
-| opened | Optional, Number | Number of user-click opens on device |
-
-##### Example
-```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/statistics/message-delivery-receipts
-```
 
 ### Query Logs 
 - Query Logs API can be called only when Logging is enabled. 
@@ -1292,7 +1100,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appkey}/logs/message?messageId={messageId}&uid={uid}&token={token}&pushType={pusyType}&from={from}&to={to}&limit={limit}
+GET /push/v2.4/appkeys/{appkey}/logs/message?messageId={messageId}&uid={uid}&token={token}&pushType={pusyType}&from={from}&to={to}&limit={limit}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1351,17 +1159,17 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/logs/message?messageId=1&limit=10
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/logs/message?messageId=1&limit=10
 ```
 
 #### Query Mass Log Counts 
 - Find the number of logs that are searched by search conditions. 
-- 'User Access Key ID' is required, unlike other v2.3 APIs. 
+- 'User Access Key ID' is required, unlike other v2.4 APIs. 
 Go to [Member Profile] > [API Security Setting] to create one. 
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appKey}/bulk-logs/message/count?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
+GET /push/v2.4/appkeys/{appKey}/bulk-logs/message/count?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
 Content-Type: application/json;charset=UTF-8
 X-User-Access-Key-ID: [a-zA-Z0-9]{20}
 X-Secret-Access-Key: [a-zA-Z0-9]{16}
@@ -1388,7 +1196,7 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/bulk-logs/message/count
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/bulk-logs/message/count
 ```
 
 #### Query Mass Logs 
@@ -1396,7 +1204,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 - Respond with application/stream+json.
 
 ```
-GET /push/v2.3/appkeys/{appKey}/bulk-logs/message?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
+GET /push/v2.4/appkeys/{appKey}/bulk-logs/message?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
 Content-Type: application/json;charset=UTF-8
 Accept: application/stream+json
 X-User-Access-Key-ID: [a-zA-Z0-9]{20}
@@ -1441,7 +1249,7 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/bulk-logs/message?messageId=1
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/bulk-logs/message?messageId=1
 ```
 
 ## Scheduled Messages
@@ -1450,7 +1258,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 #### Create Delivery Schedule for Scheduled Messages
 ##### Method, URL, Headers
 ```
-POST /push/v2.3/appkeys/{appkey}/schedules
+POST /push/v2.4/appkeys/{appkey}/schedules
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1522,13 +1330,13 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/schedules -d '{"type":"EVERY_MONTH","fromDate":"2016-12-30","toDate":"2017-01-02","times":["12:00","17:00"],"days":[1,15],"daysOfWeek":["SUNDAY","MONDAY"]}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/schedules -d '{"type":"EVERY_MONTH","fromDate":"2016-12-30","toDate":"2017-01-02","times":["12:00","17:00"],"days":[1,15],"daysOfWeek":["SUNDAY","MONDAY"]}'
 ```
 
 #### Create Scheduled Messages 
 ##### Method, URL, Headers
 ```
-POST /push/v2.3/appkeys/{appkey}/reservations
+POST /push/v2.4/appkeys/{appkey}/reservations
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1591,14 +1399,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/reservations -d '{"schedules":["2016-12-30T12:40","2016-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"Menu > Settings","timeToLiveMinute":1}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/reservations -d '{"schedules":["2016-12-30T12:40","2016-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"Menu > Settings","timeToLiveMinute":1}'
 ```
 
 ### Query
 #### List
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appkey}/reservations?pageIndex={pageIndex}&pageSize={pageSize}&reservationStatus={reservationsStatus}
+GET /push/v2.4/appkeys/{appkey}/reservations?pageIndex={pageIndex}&pageSize={pageSize}&reservationStatus={reservationsStatus}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1686,13 +1494,13 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/reservations
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/reservations
 ```
 
 #### Get
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appkey}/reservations/{reservation-id}
+GET /push/v2.4/appkeys/{appkey}/reservations/{reservation-id}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1756,13 +1564,13 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/reservations/{reservationId}
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/reservations/{reservationId}
 ```
 
 #### Query Scheduled Messages 
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appkey}/reservations/{reservation-id}/messages?pageIndex={pageIndex}&pageSize={pageSize}
+GET /push/v2.4/appkeys/{appkey}/reservations/{reservation-id}/messages?pageIndex={pageIndex}&pageSize={pageSize}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1818,14 +1626,14 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/reservations/{reservationId}/messages
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/reservations/{reservationId}/messages
 ```
 
 ### Modify
 #### Modify Scheduled Messages 
 ##### Method, URL, Headers
 ```
-PUT /push/v2.3/appkeys/{appkey}/reservations/{reservationId}
+PUT /push/v2.4/appkeys/{appkey}/reservations/{reservationId}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1871,14 +1679,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/reservations/{reservationId} -d '{"schedules":["2018-12-30T12:40","2018-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"Menu > Settings","timeToLiveMinute":1}'
+curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/reservations/{reservationId} -d '{"schedules":["2018-12-30T12:40","2018-12-31T12:40"],"isLocalTime":false,"target":{"type":"UID","to":["uid"]},"content":{"default":{"title":"title","body":"body"}},"messageType":"AD","contact":"1588-1588","removeGuide":"Menu > Settings","timeToLiveMinute":1}'
 ```
 
 ### Delete
 #### Delete Scheduled Messages 
 ##### Method, URL, Headers
 ```
-DELETE /push/v2.3/appkeys/{appkey}/reservations?reservationIds={reservationId,}
+DELETE /push/v2.4/appkeys/{appkey}/reservations?reservationIds={reservationId,}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1906,7 +1714,7 @@ N/A
 
 ##### Example
 ```
-curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/reservations?reservationIds={reservationId,}
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/reservations?reservationIds={reservationId,}
 ```
 
 ## Tags
@@ -1915,7 +1723,7 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Acce
 #### Create Tags
 ##### Method, URL, Headers
 ```
-POST /push/v2.3/appkeys/{appkey}/tags
+POST /push/v2.4/appkeys/{appkey}/tags
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1951,7 +1759,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tags -d '{"tagName":"thirty"}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/tags -d '{"tagName":"thirty"}'
 ```
 
 #### Append UIDs to Tag
@@ -1959,7 +1767,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 - The maximum number of tags for a UID is 16. 
 ##### Method, URL, Headers
 ```
-POST /push/v2.3/appkeys/{appkey}/tags/{tag-id}/uids
+POST /push/v2.4/appkeys/{appkey}/tags/{tag-id}/uids
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1989,7 +1797,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tags/{tagId}/uids -d '{"uids":["uid"]}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/tags/{tagId}/uids -d '{"uids":["uid"]}'
 ```
 
 #### Set Tag List on Uid
@@ -1998,7 +1806,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access
 
 ##### Method, URL, Headers
 ```
-POST /push/v2.3/appkeys/{appkey}/uids
+POST /push/v2.4/appkeys/{appkey}/uids
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -2026,14 +1834,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/uids -d '{"uid":"uid","tagIds":["TAG_ID"]}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/uids -d '{"uid":"uid","tagIds":["TAG_ID"]}'
 ```
 
 ### Query
 #### List Tags
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appkey}/tags?tagName={tagName}
+GET /push/v2.4/appkeys/{appkey}/tags?tagName={tagName}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -2073,13 +1881,13 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tags
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/tags
 ```
 
 #### Get Tags
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appkey}/tags/{tag-id}
+GET /push/v2.4/appkeys/{appkey}/tags/{tag-id}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -2107,7 +1915,7 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tags/{tagId}
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/tags/{tagId}
 ```
 
 #### List UIDs of Tag
@@ -2115,7 +1923,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appkey}/tags/{tag-id}/uids?offsetUid={uid}&limit={limit}
+GET /push/v2.4/appkeys/{appkey}/tags/{tag-id}/uids?offsetUid={uid}&limit={limit}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -2170,7 +1978,7 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tags/{tagId}/uids
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/tags/{tagId}/uids
 ```
 
 #### Query UIDs
@@ -2178,7 +1986,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 - Token is registered, along with contact.
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appkey}/uids/{uid}
+GET /push/v2.4/appkeys/{appkey}/uids/{uid}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -2218,14 +2026,14 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/uids/uid
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/uids/uid
 ```
 
 ### Modify
 #### Modify Tags
 ##### Method, URL, Headers
 ```
-PUT /push/v2.3/appkeys/{appkey}/tags/{tag-id}
+PUT /push/v2.4/appkeys/{appkey}/tags/{tag-id}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -2249,14 +2057,14 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 ##### Example
 ```
-curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tags/{tagId} -d '{"tagName":"Thirty three"}'
+curl -X PUT -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/tags/{tagId} -d '{"tagName":"Thirty three"}'
 ```
 
 ### Delete
 #### Delete Tags
 ##### Method, URL, Headers
 ```
-DELETE /push/v2.3/appkeys/{appkey}/tags/{tag-id}
+DELETE /push/v2.4/appkeys/{appkey}/tags/{tag-id}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -2278,14 +2086,14 @@ N/A
 
 ##### Example
 ```
-curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tags/{tagId}
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/tags/{tagId}
 ```
 
 #### Delete UIDs
 - UIDs are deleted, along with contact and token. 
 ##### Method, URL, Headers
 ```
-DELETE /push/v2.3/appkeys/{appkey}/uids?uids={uid,}
+DELETE /push/v2.4/appkeys/{appkey}/uids?uids={uid,}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -2312,7 +2120,7 @@ N/A
 
 ##### Example
 ```
-curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/uids?uids=uid
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/uids?uids=uid
 ```
 
 #### Delete UIDs of Tag
@@ -2320,7 +2128,7 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Acce
 - Contact or token is not deleted. 
 ##### Method, URL, Headers
 ```
-DELETE /push/v2.3/appkeys/{appkey}/tags/{tagId}/uids?uids={uid,}
+DELETE /push/v2.4/appkeys/{appkey}/tags/{tagId}/uids?uids={uid,}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -2342,7 +2150,7 @@ N/A
 
 ##### Example
 ```
-curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/tags/{tagId}/uids?uids=uid
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-Key-ID: USER_ACCESS_KEY_ID" -H "X-Secret-Access-Key: SECRET_ACCESS_KEY" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/tags/{tagId}/uids?uids=uid
 ```
 
 ## UIDs
@@ -2354,7 +2162,7 @@ curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Acce
 - No secret key is required: call is available from app. 
 ##### Method, URL, Headers
 ```
-POST /push/v2.3/appkeys/{appkey}/uids/{uid}/tag-ids
+POST /push/v2.4/appkeys/{appkey}/uids/{uid}/tag-ids
 Content-Type: application/json;charset=UTF-8
 ```
 ##### Request Body
@@ -2376,7 +2184,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/uids/uid/tag-ids -d '{"tagIds":["TAG_ID"]}'
+curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/uids/uid/tag-ids -d '{"tagIds":["TAG_ID"]}'
 ```
 
 ### Query
@@ -2386,7 +2194,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.
 - No secret key is required: call is available from app.
 ##### Method, URL, Headers
 ```
-GET /push/v2.3/appkeys/{appkey}/uids/{uid}/tag-ids
+GET /push/v2.4/appkeys/{appkey}/uids/{uid}/tag-ids
 Content-Type: application/json;charset=UTF-8
 ```
 ##### Request Body
@@ -2407,7 +2215,7 @@ N/A
 
 ##### Example
 ```
-curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/uids/uid/tag-ids
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/uids/uid/tag-ids
 ```
 
 ### Modify 
@@ -2416,7 +2224,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.c
 - No secret key is required: call is available from app.
 ##### Method, URL, Headers
 ```
-PUT /push/v2.3/appkeys/{appkey}/uids/{uid}/tag-ids
+PUT /push/v2.4/appkeys/{appkey}/uids/{uid}/tag-ids
 Content-Type: application/json;charset=UTF-8
 ```
 ##### Request Body
@@ -2438,7 +2246,7 @@ Content-Type: application/json;charset=UTF-8
 
 ##### Example
 ```
-curl -X PUT -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/uids/uid/tag-ids -d '{"tagIds":["TAG_ID"]}'
+curl -X PUT -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/uids/uid/tag-ids -d '{"tagIds":["TAG_ID"]}'
 ```
 
 ### Delete Tags 
@@ -2446,7 +2254,7 @@ curl -X PUT -H "Content-Type: application/json;charset=UTF-8" https://api-push.c
 - No secret key is required: call is available from app.
 ##### Method, URL, Headers
 ```
-DELETE /push/v2.3/appkeys/{appkey}/uids/{uid}/tag-ids?tagIds={tagId,}
+DELETE /push/v2.4/appkeys/{appkey}/uids/{uid}/tag-ids?tagIds={tagId,}
 Content-Type: application/json;charset=UTF-8
 ```
 ##### Request Body
@@ -2470,8 +2278,27 @@ N/A
 
 ##### Example
 ```
-curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.3/appkeys/{appkey}/uids/uid/tag-ids?tagIds=TAG_ID_01,TAG_ID_02
+curl -X DELETE -H "Content-Type: application/json;charset=UTF-8" https://api-push.cloud.toast.com/push/v2.4/appkeys/{appkey}/uids/uid/tag-ids?tagIds=TAG_ID_01,TAG_ID_02
 ```
 
+<span id="stats-api"></span>
+## Statistics
+### Query Statistics
+- You can query statistics by statistics event key. 
+
+##### Method, URL, Headers
+```
+GET /push/v2.4/appkeys/{appkey}/stats?eventCategory={eventCategory}&statisticsType={statisticsType}&timeUnit={timeUnit}&from={from}&to={to}&extra1s={extra1,}&messageId={messageId}
+Content-Type: application/json;charset=UTF-8
+```
+| Field | Usage | Description |
+| - | - | - |
+| eventCategory | Required, String | Event category. MESSAGE, TOKEN_REGISTRATION, TOKEN_LANGUAGE, TOKEN_COUNTRY, TOKEN_AGREEMENT |
+| statisticsType | Optional, String | Representation type of searched statistical data. NORMAL(default), MINUTELY, HOURLY, DAILY, BY_DAY |
+| timeUnit | Optional, String | Time unit of statistical data. Default value depends on query period, MINUTES, HOURS, DAYS |
+| from | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| to | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| extra1s | Optional, String Array | When the eventCategory is MESSAGE, filter by push type is available. FCM, APNS, APNS_SANDBOX, APNS_VOIP, APNS_SANDBOXVOIP, ADM, TENCENT |
+
 * *Document Updates*
-    * *(Feb.26, 2019) Updated v2.3 API, Added Delete Token API, and  Added description on FCM notification*
+    * *(March 24, 2020) Added Statistics API *
