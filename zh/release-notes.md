@@ -1,5 +1,20 @@
 ## Notification> Push > Release Notes
 
+### March 24, 2020
+### [Console]
+#### More Features
+* Updated Statistics
+    * Added the **Statistics Event Key Management** tab. You can add a new statistics event key on console and set it up for message delivery. With messages sent, statistical data are collected as of configured statistics event key, and then you can search from the new statistics tab. 
+        * <a href="https://docs.toast.com/zh/Notification/Push/zh/console-guide/#stats-event-key" target="_blank">Direct Link</a>
+
+### [API]
+* Added v2.4 API
+    * Added a statistics API to query with statistics event key. Statistics APIs of v2.3 are no longer provided. 
+        * <a href="https://docs.toast.com/zh/Notification/Push/zh/api-guide/#stats-api" target="_blank">Direct Link</a>
+* Added Multi-tenant Tokens 
+   * Added the multi-tenant feature allowing a token to be shared by many UIDs. You may attach '#tenant=Tenant_Information' at the end of a token for a token registration. Even if many UIDs share a same token, the token can be maintained if it has different tenant information.  
+
+
 ### Oct. 29, 2019
 #### [API]
 ##### More Features 
