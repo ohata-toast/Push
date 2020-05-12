@@ -52,7 +52,7 @@ GCM에서 FCM으로 옮기는 자세한 방법은 [Firebase Migration Guide](htt
 
 <span id="get-apns-jwt"></span>
 
-### APNS JWT
+### APNS JWT 인증 정보 얻기
 iOS 기기에 푸시 알림 메시지를 전송하기 위해서는 Apple Developer 사이트에서 발급 받은 암호 키와 키 아이디(Key ID), 팀 아이디(Team ID, App ID Prefix), 토픽(Topic)이 필요합니다.
 
 #### APNS 암호 키 얻기
