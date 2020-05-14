@@ -53,31 +53,31 @@ GCM에서 FCM으로 옮기는 자세한 방법은 [Firebase Migration Guide](htt
 <span id="get-apns-jwt"></span>
 
 ### APNS JWT 인증 정보 얻기
-iOS 기기에 푸시 알림 메시지를 전송하기 위해서는 Apple Developer 사이트에서 발급 받은 암호 키와 키 아이디(Key ID), 팀 아이디(Team ID, App ID Prefix), 토픽(Topic)이 필요합니다.
+iOS 기기에 푸시 알림 메시지를 전송하기 위해서는 Apple Developer 사이트에서 발급 받은 암호 키와 키 ID(Key ID), 팀 ID(Team ID, App ID Prefix), 토픽(Topic)이 필요합니다.
 
 #### APNS 암호 키 얻기
-1. **Apple Developer 콘솔**에서 **Certificates, IDs & Profiles**로 이동
-2. **Keys** 선택
-3. **Create a key** 선택
-4. **Register a New Key**에서 키 이름 입력, **ENABLE** 항목에서 **Apple Push Notifictions service (APNs)** 선택 후 **Continue**로 계속 진행
-5. 내용 확인 후 **Register** 선택
-6. **Download** 선택
+1. **Apple Developer 콘솔**에서 **Certificates, IDs & Profiles**로 이동합니다.
+2. **Keys** 선택합니다.
+3. **Create a key** 선택합니다.
+4. **Register a New Key**에서 키 이름 입력, **ENABLE** 항목에서 **Apple Push Notifictions service (APNs)** 선택 후 **Continue**로 계속 진행합니다.
+5. 내용 확인 후 **Register** 선택합니다.
+6. **Download** 선택해 암호 키 파일을 받습니다.
 
-#### 키 아이디 얻기
-1. **Apple Developer 콘솔**에서 **Certificates, IDs & Profiles**로 이동
-2. 발급 받은 키(Key)를 선택
-3. **View Key Details** 항목에서 확인 가능
+#### 키 ID 얻기
+1. **Apple Developer 콘솔**에서 **Certificates, IDs & Profiles**로 이동합니다.
+2. 발급 받은 키(Key)를 선택합니다.
+3. **View Key Details** 항목에서 확인할 수 있습니다.
 
-#### 팀 아이디 얻기
-1. **Apple Developer 콘솔**에서 **Certificates, IDs & Profiles**로 이동
-2. **Identifiers** 선택
-3. **Edit your App ID Configuration** 항목에서 확인 가능
+#### 팀 ID 얻기
+1. **Apple Developer 콘솔**에서 **Certificates, IDs & Profiles**로 이동합니다.
+2. **Identifiers** 선택합니다.
+3. **Edit your App ID Configuration** 항목에서 확인할 수 있습니다.
 
 #### 토픽
 JWT를 이용한 인증을 위해서는 토픽(Topic)이 필요한데, 토픽은 앱의 번들 아이디(Bundle ID)입니다.
 
 ### APNS 인증서
-iOS 기기에 푸시 알림 메시지를 전송하기 위해서는 Apple Developer 사이트에서 발급 받은 APNS 인증서가 필요합니다.
+iOS 기기에 푸시 알림 메시지를 전송하기 위해서는 Apple Developer 사이트에서 발급받은 APNS 인증서가 필요합니다.
 
 #### APNS 인증서 생성, 가져오기
 
