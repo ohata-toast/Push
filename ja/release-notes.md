@@ -12,7 +12,7 @@
 #### ガイド追加
 * **APNS JWT認証情報取得**についてのガイドを追加
     * <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#get-apns-jwt" target="_blank">リンク</a>
-    
+
 ### 2020. 03. 24
 ### [Console]
 #### 機能追加
