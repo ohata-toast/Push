@@ -1,5 +1,18 @@
 ## Notification > Push > Release Notes
 
+### 2020. 05. 26
+### [Console]
+#### 機能追加
+* APNS JWT認証追加
+    * APNSプッシュメッセージ送信時の認証方法にJWTを追加しました。コンソール**証明書**タブでJWT認証に必要なキーID、チームID、トピック、暗号化キーを登録できます。
+    * APNS JWT認証情報を登録すると、登録された証明書は削除されます。
+    * <a href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_token-based_connection_to_apns" target="_blank">Apple開発者ガイド</a>
+
+### [Doc]
+#### ガイド追加
+* **APNS JWT認証情報取得**についてのガイドを追加
+    * <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#get-apns-jwt" target="_blank">リンク</a>
+
 ### 2020. 03. 24
 ### [Console]
 #### 機能追加
