@@ -283,8 +283,8 @@ v1.7以上のSDKが適用された場所でのみ使用できる機能です。
     - Android
         - ファイルは'res > drawable'にあらかじめ追加する必要があります。
         - リソース識別子を通してアクセスするため、メッセージ作成時、'richMessage.media.source'に拡張子を除いたファイル名を入力します。
-        - Androidでは、ファイル名がリソースの識別子として使用されるため、拡張子が異なっても同じファイル名を使用できません。
-    サポートするイメージフォーマットは、png、jpg、gifです。(現在ビデオ、オーディオ形式のメディアはサポートしません。)
+        - Androidでは、ファイル名がリソースの識別子として使用されるため、拡張子が異なっても同じファイル名を使用できません。サポートするイメージフォーマットは、png、jpg、gifです。(現在ビデオ、オーディオ形式のメディアはサポートしません。)
+    
     - iOS
         - リソースは、リッチメッセージを作成する <a href="http://docs.toast.com/ja/TOAST/ja/toast-sdk/push-ios/#notification-service-extension">Notificaiton Service Extension</a>プロジェクトにあらかじめ追加する必要があります。
         - Xcodeでファイルまたはディレクトリを'NotificationServiceExtension'プロジェクトに追加します。
