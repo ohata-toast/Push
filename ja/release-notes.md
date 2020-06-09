@@ -1,6 +1,6 @@
 ## Notification > Push > Release Notes
 
-### 2020. 05. 26
+### 2020. 06. 09
 ### [Console]
 #### 機能追加
 * APNS JWT認証追加
