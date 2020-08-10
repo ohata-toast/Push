@@ -458,10 +458,12 @@ Go to **Console > Notification > Push** > and click **Setting** to set Token Exp
         - User can use app on one device only and a user can have only one token.
         - For instance, if a user has a mobile phone and a tablet PC, he can have only one token, and push messages are delivered to one of the two.
 
+<span id="message-delivery-receipient"></span>
 ### Collect Message Receipt/Check Data
 
 - Message Delivery Receipt can be enabled. 
-- SDK v1.4 or higher versions must be applied to operate activated features. 
+- 활성화된 기능 동작을 위해 클라이언트 SDK v1.4 이상이 적용되어야 합니다. 안드로이드는 SDK 적용만으로 기능이 동작합니다. iOS는 추가적인 처리가 필요합니다.
+    - <a href="https://docs.toast.com/ko/TOAST/ko/toast-sdk/push-ios/#_19"  target="_blank">iOS 클라이언트 SDK 가이드 바로가기</a>
 - Collected data are available on the **Statistics** tab. 
 - Data collection time is calculated on device. 
 - It may take approximately many minutes until a feature is actually applied. 
