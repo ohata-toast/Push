@@ -89,7 +89,7 @@ Content-Type: application/json;charset=UTF-8
 curl -X POST \
 'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tokens' \
 -H 'Content-Type: application/json;charset=UTF-8' \
---data-raw '{
+-d '{
     "oldToken": "oldToken",
     "token": "token",
     "isNotificationAgreement": true,
@@ -143,6 +143,11 @@ Content-Type: application/json;charset=UTF-8
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용 시 발급받은 앱키 |
 | pushType | Required, String | 'FCM', 'APNS', 'APNS_SANDBOX', 'TENCENT', 'APNS_VOIP', 'APNS_SANDBOXVOIP', 'ADM' |
+
+##### Request Body
+```
+없음
+```
 
 ##### cURL
 ```
@@ -201,6 +206,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | uid | Required, String | 조회할 사용자 아이디 |
+
+##### Request Body
+```
+없음
+```
 
 ##### cURL
 ```
@@ -360,7 +370,7 @@ curl -X POST \
 'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/messages' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
---data-raw '{
+-d '{
     "target": {
         "type": "ALL"
     },
@@ -1379,7 +1389,7 @@ curl -X POST \
 'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/schedules' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
---data-raw '{
+-d '{
 	"type": "EVERY_MONTH",
 	"fromDate": "2016-12-30",
 	"toDate": "2017-01-02",
@@ -1468,7 +1478,7 @@ curl -X POST \
 'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
---data-raw '{
+-d '{
     "schedules": ["2020-12-30T12:40", "2020-12-31T12:40"],
     "isLocalTime": false,
     "target": {
@@ -1786,7 +1796,7 @@ curl -X PUT \
 'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations/'"${RESERVATION_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
---data-raw '{
+-d '{
     "schedules": ["2020-12-30T10:05", "2020-12-31T12:40"],
     "target": {
         "type": "UID",
@@ -1884,7 +1894,7 @@ curl -X POST \
 'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
---data-raw '{
+-d '{
     "tagName" :  "서른"
 }'
 ```
@@ -1935,7 +1945,7 @@ curl -X POST \
 'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}"'/uids' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
---data-raw '{
+-d '{
     "uids" : [
          "uid-01",
          "uid-02"
@@ -1980,7 +1990,7 @@ curl -X POST \
 'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
---data-raw '{
+-d '{
     "uid" :  "uid-01",
     "tagIds" : [
          "12345678",
@@ -2225,7 +2235,7 @@ curl -X PUT \
 'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
---data-raw '{
+-d '{
     "tagName": "삼십대"
 }'
 ```
@@ -2368,7 +2378,7 @@ curl -X POST \
 'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids/'"${USER_ID}"'/tag-ids' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
---data-raw '{
+-d '{
     "tagIds": ["12345678"]
 }'
 ```
@@ -2443,7 +2453,7 @@ curl -X PUT \
 'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids/'"${USER_ID}"'/tag-ids' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
---data-raw '{
+-d '{
 	"tagIds": ["12345678"]
 }'
 ```
@@ -2529,8 +2539,25 @@ curl -X GET \
 
 ##### Response Body
 ```
-없음
+{
+	"header": {
+		"resultCode": 0,
+		"resultMessage": "success",
+		"isSuccessful": true
+	},
+	"stats": [{
+			"eventDateTime": "2020-08-12T00:00:00.000+09:00",
+			"events": {
+				"RECEIVED": 0,
+				"SENT_FAILED": 0,
+				"SENT": 0,
+				"OPENED": 0
+			}
+		}
+	]
+}
 ```
+
 
 * *문서 수정 내역*
     * *(2020.03.24) 통계 API 추가*
