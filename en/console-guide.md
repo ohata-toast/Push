@@ -48,6 +48,32 @@ To send push notification to Android devices, you need valid GCM project's API K
 8. Check your Server Key (API Key) and Sender ID.
 9. Copy the Server Key at Firebase to **GCM API Key** in the **Certificates** tab.
 
+<span id="get-apns-jwt"></span>
+
+### Get Authentication Information for APNS JWT
+To send push notification messages to an iOS device, you need encryption key, Key ID, Team ID (App ID Prefix) and Topic available from the Apple Developer's website. 
+
+#### Getting APNS Encryption Key
+1. Visit **Apple Developer's Console** and go to **Certificates, IDs & Profiles**.
+2. Select **Keys**.
+3. Select **Create a key**.
+4. Go to **Register a New Key** and enter key name, and then go to **ENABLE** to select  **Apple Push Notifictions service (APNs)**, and click **Continue** to proceed.
+5. Confirm and then select **Register**.
+6. Select **Download** to download encryption key files. 
+
+#### Getting Key ID
+1. Visit **Apple Developer's Console** and go to **Certificates, IDs & Profiles**.
+2. Select the issued key. 
+3. Confirm it from **View Key Details**.
+
+#### Getting Team ID
+1. Visit **Apple Developer's Console** and go to **Certificates, IDs & Profiles**.
+2. Select **Identifiers**.
+3. Confirm it from **Edit your App ID Configuration**.
+
+#### Topic
+To authentication using JWT, you need a topic which refers to app's bundle ID. 
+
 ### APNS Certificate
 
 To send push notification to iOS devices, you need APNS certificate generated from Apple Developer website.
