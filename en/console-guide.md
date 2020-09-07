@@ -415,7 +415,7 @@ Select **UID** for **Search Type** to search UIDs.
 
 ## Tags
 
-You can map multiple UIDs to tags. Tags are used globally in Notification service.
+UID에 태그를 추가해 UID를 관리할 수 있습니다. 메시지 발송 시 태그를 선택해 발송 대상을 지정할 수 있습니다. 태그는 Notification 서비스 전역으로 사용됩니다. 태그는 최대 2,048개까지 생성할 수 있습니다. 하나의 UID에 태그를 16개까지 추가할 수 있습니다.
 
 Go to **Console > Notification > Push** > and click **Tag** tab.
 

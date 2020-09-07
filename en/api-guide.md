@@ -1923,10 +1923,13 @@ curl -X POST \
 | - | - | - |
 | tagId | Required, String | Created tag ID, as long as 8 |
 
+##### Description
+- 태그는 최대 2,048개까지 생성할 수 있습니다.
 
 #### Append UIDs to Tag
-- Append UID to a tag: adding existing UIDs ends up with more tags of UID 
-- The maximum number of tags for a UID is 16. 
+- 태그에 UID를 추가(append)하는 것으로, 기존에 있던 UID를 추가하면 UID의 태그는 늘어납니다.
+- 한 UID에 태그를 16개까지 추가할 수 있습니다.
+
 ##### Method, URL, Headers
 ```
 POST /push/v2.4/appkeys/{appkey}/tags/{tag-id}/uids
@@ -1972,7 +1975,7 @@ curl -X POST \
 ```
 
 
-#### Set Tag List on Uid
+#### Set Tag List on UID
 
 - By replacing tags of UID, existing tags are deleted and replaced by new tags. 
 
