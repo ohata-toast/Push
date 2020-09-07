@@ -110,7 +110,7 @@ iOS 기기에 푸시 알림 메시지를 전송하기 위해서는 Apple Develop
    APNS(Production) = Production Provisioning Profile  
    APNS_SANDBOX(Development) = Development Provisioning Profile  
 - 더 자세한 설명은 다음 링크를 참고하시기 바랍니다.  
-   [APNs Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1)  
+   [APNs Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1)
    [App Distribution Quick Start](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppStoreDistributionTutorial/Introduction/Introduction.html#//apple_ref/doc/uid/TP40013839)
 
 ##### APNS 메시지 발송 실패 원인
@@ -413,7 +413,7 @@ UID, 토큰별로 검색할 수 있습니다.
 
 ## 태그
 
-여러 UID를 태그에 묶을 수 있습니다. 태그는 전체 Notification 서비스 전역으로 사용됩니다.
+UID에 태그를 추가해 UID를 관리할 수 있습니다. 메시지 발송 시 태그를 선택해 발송 대상을 지정할 수 있습니다. 태그는 Notification 서비스 전역으로 사용됩니다. 태그는 최대 2,048개까지 생성할 수 있습니다. 하나의 UID에 태그를 16개까지 추가할 수 있습니다.
 
 콘솔에서 **Notification > Push > 태그**를 클릭합니다.
 
@@ -521,7 +521,7 @@ UID, 토큰별로 검색할 수 있습니다.
 ```
 {
 	"tokens" : [{
-			"uid" : "User Id",
+			"UID" : "User Id",
 			"token" : "Device Token",
             "newToken": "New Deivce Token",
             "message": "Result Message"
@@ -543,7 +543,7 @@ UID, 토큰별로 검색할 수 있습니다.
 }
 ```
 - tokens: 발송된 토큰 정보
-    - uid: 사용자 아이디
+    - UID: 사용자 아이디
     - token: 토큰
     - newToken: 새로 발급된 토큰(새로운 토큰이 있을 때만 표시)
     - message: 결과 메시지(비정상 응답일 때만 표시)

@@ -1917,9 +1917,12 @@ curl -X POST \
 | - | - | - |
 | tagId | Required, String | 생성된 태그 아이디, 길이 8 |
 
-#### 태그에 Uid 추가 생성
-- 태그에 Uid를 추가(Append)하는 것으로, 기존에 있던 Uid를 추가하면 Uid의 태그는 늘어납니다.
-- 한 Uid의 최대 태그 수는 16개다.
+##### Description
+- 태그는 최대 2,048개까지 생성할 수 있습니다.
+
+#### 태그에 UID 추가 생성
+- 태그에 UID를 추가(append)하는 것으로, 기존에 있던 UID를 추가하면 UID의 태그는 늘어납니다.
+- 한 UID에 태그를 16개까지 추가할 수 있습니다.
 ##### Method, URL, Headers
 ```
 POST /push/v2.4/appkeys/{appkey}/tags/{tag-id}/uids
@@ -1937,7 +1940,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 | Field | Usage | Description |
 | - | - | - |
-| uids | Required, String Array | Uid 배열, 최대 길이 16, Uid 최대 길이 64 |
+| uids | Required, String Array | UID 배열, 최대 길이 16, UID 최대 길이 64 |
 
 ##### cURL
 ```
@@ -1965,8 +1968,8 @@ curl -X POST \
 ```
 
 
-#### Uid에 태그 목록 설정
-- Uid의 태그를 교체(Replace)하는 것으로, 기존에 설정된 태그는 삭제되고 새로운 태그로 설정됩니다.
+#### UID에 태그 목록 설정
+- UID의 태그를 교체(Replace)하는 것으로, 기존에 설정된 태그는 삭제되고 새로운 태그로 설정됩니다.
 ##### Method, URL, Headers
 ```
 POST /push/v2.4/appkeys/{appkey}/uids
@@ -2097,8 +2100,8 @@ curl -X GET \
 }
 ```
 
-#### 태그의 Uid 목록 조회
-- 태그가 달린 Uid 목록을 조회합니다.
+#### 태그의 UID 목록 조회
+- 태그가 달린 UID 목록을 조회합니다.
 
 ##### Method, URL, Headers
 ```
@@ -2109,8 +2112,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| offsetUid | Optional, String | 설정된 Uid 다음 부터 조회 |
-| limit | Optional, Number | 조회할 Uid 수 |
+| offsetUid | Optional, String | 설정된 UID 다음 부터 조회 |
+| limit | Optional, Number | 조회할 UID 수 |
 
 ##### Request Body
 ```
@@ -2158,13 +2161,13 @@ curl -X GET \
 
 | Field | Usage | Description |
 | - | - | - |
-| contacts | -, Object Array | Uid의 연락처, 토큰 정보 목록 |
+| contacts | -, Object Array | UID의 연락처, 토큰 정보 목록 |
 | contactType | -, String | 토큰 타입, 'TOKEN_FCM', 'TOKEN_APNS', 'TOKEN_APNS_SANDBOX', 'TOKEN_TENCENT', 'TOKEN_ADM' |
 | contact | -, String | 토큰 |
 | createdDateTime | Required, Date Time String | 생성 일시 (ISO 8601) |
 
-#### Uid 조회
-- Uid를 조회합니다.
+#### UID 조회
+- UID를 조회합니다.
 - 토큰 등록시 Contact(연락처)가 등록됩니다.
 ##### Method, URL, Headers
 ```
@@ -2283,8 +2286,8 @@ curl -X DELETE \
 }
 ```
 
-#### Uid 삭제
-- Uid 삭제시 Contact, Token도 같이 삭제됩니다.
+#### UID 삭제
+- UID 삭제시 Contact, Token도 같이 삭제됩니다.
 ##### Method, URL, Headers
 ```
 DELETE /push/v2.4/appkeys/{appkey}/uids?uids={uid,}
@@ -2294,7 +2297,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| uids | -, Object Array | 삭제할 Uid 목록, 쉼표(,)로 구분합니다. 한번에 16개까지 삭제할 수 있습니다. |
+| uids | -, Object Array | 삭제할 UID 목록, 쉼표(,)로 구분합니다. 한번에 16개까지 삭제할 수 있습니다. |
 
 ##### Request Body
 ```
@@ -2320,8 +2323,8 @@ curl -X DELETE \
 }
 ```
 
-#### 태그의 Uid 삭제
-- Tag와 Uid 관계만 삭제합니다.
+#### 태그의 UID 삭제
+- Tag와 UID 관계만 삭제합니다.
 - Contact, Token이 삭제되지는 않습니다.
 ##### Method, URL, Headers
 ```
@@ -2353,12 +2356,12 @@ curl -X DELETE \
 }
 ```
 
-## Uid
+## UID
 
 ### 생성
 
 #### 태그 추가
-- Uid에 태그 아이디로 태그를 추가합니다.
+- UID에 태그 아이디로 태그를 추가합니다.
 - Secret Key가 필요없다. 앱에서 호출 가능합니다.
 ##### Method, URL, Headers
 ```
@@ -2397,8 +2400,8 @@ curl -X POST \
 
 ### 조회
 
-#### Uid의 태그 아이디 조회
-- Uid의 태그 아이디를 조회합니다.
+#### UID의 태그 아이디 조회
+- UID의 태그 아이디를 조회합니다.
 - Secret Key가 필요없다. 앱에서 호출 가능합니다.
 ##### Method, URL, Headers
 ```
@@ -2432,8 +2435,8 @@ curl -X GET \
 
 
 ### 수정
-#### Uid의 태그 수정
-- Uid에 태그 아이디로 태그를 수정합니다.
+#### UID의 태그 수정
+- UID에 태그 아이디로 태그를 수정합니다.
 - Secret Key가 필요없다. 앱에서 호출 가능합니다.
 ##### Method, URL, Headers
 ```
@@ -2470,7 +2473,7 @@ curl -X PUT \
 ```
 
 ### 태그 삭제
-- Uid의 태그 아이디를 조회합니다.
+- UID의 태그 아이디를 조회합니다.
 - Secret Key가 필요없다. 앱에서 호출 가능합니다.
 ##### Method, URL, Headers
 ```
