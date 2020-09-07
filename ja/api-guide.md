@@ -1904,7 +1904,7 @@ curl -X POST \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
 -d '{
-    "tagName" :  "서른"
+    "tagName" :  "30"
 }'
 ```
 
@@ -1927,10 +1927,13 @@ curl -X POST \
 | - | - | - |
 | tagId | Required, String | 作成されたタグID。長さ8 |
 
+##### Description
+- 태그는 최대 2,048개까지 생성할 수 있습니다.
+
 
 #### タグにUID追加作成
 - タグにUIDを追加(append)すること。既存のUIDを追加するとUIDのタグは増えます。
-- 1つのUidの最大タグ数は16個。
+- 1つのUIDの最大タグ数は16個。
 ##### Method, URL, Headers
 ```
 POST /push/v2.4/appkeys/{appkey}/tags/{tag-id}/uids
@@ -1948,7 +1951,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 | Field | Usage | Description |
 | - | - | - |
-| uids | Required, String Array | Uid配列。最長16、Uid最長64 |
+| uids | Required, String Array | UID配列。最長16、UID最長64 |
 
 ##### cURL
 ```
@@ -2121,8 +2124,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| offsetUid | Optional, String | 設定されたUidの次から照会 |
-| limit | Optional, Number | 照会するUid数 |
+| offsetUid | Optional, String | 設定されたUIDの次から照会 |
+| limit | Optional, Number | 照会するUID数 |
 
 ##### Request Body
 ```
@@ -2170,7 +2173,7 @@ curl -X GET \
 
 | Field | Usage | Description |
 | - | - | - |
-| contacts | -, Object Array | Uidの連絡先。トークン情報リスト |
+| contacts | -, Object Array | UIDの連絡先。トークン情報リスト |
 | contactType | -, String | トークンタイプ、 'TOKEN_FCM', 'TOKEN_APNS', 'TOKEN_APNS_SANDBOX', 'TOKEN_TENCENT', 'TOKEN_ADM' |
 | contact | -, String | トークン |
 | createdDateTime | Required, Date Time String | 作成日時(ISO 8601) |
@@ -2300,7 +2303,7 @@ curl -X DELETE \
 
 
 #### UID削除
-- Uidを削除するとContact、Tokenも一緒に削除されます。
+- UIDを削除するとContact、Tokenも一緒に削除されます。
 ##### Method, URL, Headers
 ```
 DELETE /push/v2.4/appkeys/{appkey}/uids?uids={uid,}
@@ -2310,7 +2313,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| uids | -, Object Array | 削除するUidリスト。カンマ(,)で区切ります。一度に16個まで削除できます。 |
+| uids | -, Object Array | 削除するUIDリスト。カンマ(,)で区切ります。一度に16個まで削除できます。 |
 
 ##### Request Body
 ```
@@ -2375,7 +2378,7 @@ curl -X DELETE \
 ### 作成
 
 #### タグの追加
-- UidにタグIDでタグを追加します。
+- UIDにタグIDでタグを追加します。
 - Secret Keyが必要ない。アプリで呼び出し可能です。
 ##### Method, URL, Headers
 ```
@@ -2414,8 +2417,8 @@ curl -X POST \
 
 ### 照会
 
-#### UidのタグID照会
-- UidのタグIDを照会します。
+#### UIDのタグID照会
+- UIDのタグIDを照会します。
 - Secret Keyが必要ない。アプリで呼び出し可能です。
 ##### Method, URL, Headers
 ```
@@ -2450,7 +2453,7 @@ curl -X GET \
 
 ### 修正
 #### UIDのタグ修正
-- UidにタグIDでタグを修正します。
+- UIDにタグIDでタグを修正します。
 - Secret Keyが必要ない。アプリで呼び出し可能です。
 ##### Method, URL, Headers
 ```
@@ -2488,7 +2491,7 @@ curl -X PUT \
 
 
 ### タグの削除
-- UidのタグIDを照会します。
+- UIDのタグIDを照会します。
 - Secret Keyが必要ない。アプリで呼び出し可能です。
 ##### Method, URL, Headers
 ```
