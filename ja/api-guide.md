@@ -1930,9 +1930,10 @@ https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags' \
 ##### Description
 - タグは最大2,048個まで作成できます。
 
-#### タグにUIDを追加作成
-- タグにUIDを追加(append)できます。既にあったUIDを追加すると、UIDのタグは増えます。
-- 1つのUIDにタグを16個まで追加できます。
+
+#### タグにUID追加作成
+- タグにUIDを追加(append)すること。既存のUIDを追加するとUIDのタグは増えます。
+- 1つのUIDの最大タグ数は16個。
 ##### Method, URL, Headers
 ```
 POST /push/v2.4/appkeys/{appkey}/tags/{tag-id}/uids
