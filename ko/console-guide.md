@@ -5,7 +5,6 @@ Push 서비스를 활용하려면 먼저 타사 푸시 알림 서비스 인증�
 지원하는 푸시 알림 서비스 인증서는 현재 다음과 같습니다:
 - GCM - Google Cloud Messaging (Firebase Cloud Messaging)
 - APNS - Apple Push Notification Service
-- XinGe - Tencent Mobile Push
 - ADM - Amazon Device Messaging
 
 ## 인증서 관리
@@ -119,38 +118,6 @@ iOS 기기에 푸시 알림 메시지를 전송하기 위해서는 Apple Develop
 - 앱에서 푸시 메시지 수신을 거부했을 때  
 - 디바이스가 인터넷에 연결되어 있지 않을 때
 
-### Tencent 자격 증명
-
-Tencent의 푸시 알림 서비스 XinGe 를 사용하기 위해서는 Tencent에서 등록한 애플리케이션의 Access ID와 Secret Key가 필요합니다.
-
-#### Tencent 회원 가입
-
-1. [Tencent 푸시 서비스 홈페이지](http://xg.qq.com/)에 접속합니다.
-2. 페이지 오른쪽 상단에서 **登录**(로그인)을 클릭합니다.
-3. 팝업 오른쪽 하단에서 **注册新帐号**(회원 가입)을 클릭합니다.
-4. **Email Account** 항목에서 Email Account, Nickname, Password, Verification Code 등을 빠짐없이 입력하고 **Sign up now**를 클릭합니다.
-5. **Send verification code** 아래에 **select your country/region**을 클릭합니다.
-6. **Region**에서 **South Korea 0082**를 선택하고, **Mobile Number**에 010AAAABBBB 형식으로 번호를 입력합니다.
-7. 인증 코드를 입력하고 다음 단계로 넘어갑니다.
-8. 가입 시 입력한 Email에서 **Activation Email**을 확인하고, 활성화합니다.
-
-#### Tencent 애플리케이션 등록
-
-1. 로그인 후, [Tencent 푸시 서비스 대시보드](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex)에 접속합니다.
-2. 페이지 오른쪽 상단에서 **接入推送应用**(애플리케이션 등록)을 클릭합니다.
-3. **应用名称**(애플리케이션 이름)을 입력합니다.
-4. **所属分类**(카테고리)를 선택합니다.
-5. **应用平台**(애플리케이션 플랫폼)에서 안드로이드를 선택하고, 패키지 네임을 입력합니다.
-6. **接入应用**(애플리케이션 생성)을 클릭합니다.
-
-#### Tencent ACCESS ID, SECRET KEY 등록
-
-1. 로그인한 후, [Tencent 푸시 서비스 대시보드](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex)에 접속합니다.
-2. **应用统计**(통계)를 클릭해서, 애플리케이션 대시보드에 접속합니다.
-3. 왼쪽 메뉴 중 **配置管理(설정) > 应用配置(애플리케이션 설정)**을 클릭합니다. ACCESS ID, ACCESS KEY, SECRET KEY를 확인합니다.
-4. TOAST로 돌아와 콘솔에서 **Notification > Push > 인증서**를 클릭합니다.
-5. 확인한 **Tencent Credential**에 ACCESS ID, SECRET KEY를 입력합니다.
-
 ### ADM 자격 증명
 
 Kindle Fire 앱에 푸시 알림 메시지를 전송하기 위해서는 앱의 Client ID와 Client Secret이 필요합니다.
@@ -211,7 +178,7 @@ Kindle Fire 앱에 푸시 알림 메시지를 전송하기 위해서는 앱의 C
 | 태그                | **선택** 버튼을 클릭해 태그를 선택할 수 있습니다.           |
 | 선택된 태그            | 선택된 태그가 표시됩니다. 다시 클릭해 선택에서 제외할 수 있습니다.   |
 | 국가 코드             | 국가 코드를 입력할 수 있습니다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있습니다. |
-| 푸시 유형             | GCM, APNS, APNS Sandbox, Tencent 복수로 선택할 수 있습니다. |
+| 푸시 유형             | GCM, APNS, APNS Sandbox, ADM 복수로 선택할 수 있습니다. |
 
 ### 옵션
 
@@ -547,16 +514,16 @@ UID에 태그를 추가해 UID를 관리할 수 있습니다. 메시지 발송 �
     - token: 토큰
     - newToken: 새로 발급된 토큰(새로운 토큰이 있을 때만 표시)
     - message: 결과 메시지(비정상 응답일 때만 표시)
-- payload: 실제 GCM이나, APNS, TENCENT로 발송된 메시지 내용(푸시 타입에 따라 내용이 다름)
+- payload: 실제 GCM이나, APNS, ADM로 발송된 메시지 내용(푸시 타입에 따라 내용이 다름)
 
 ##### Fields
 - Appkey: 메시지를 발송한 푸시 앱키
 - messageId: 메시지 아이디
-- pushType: 푸시 타입(GCM, APNS, APNS_SANDBOX, TENCENT)
+- pushType: 푸시 타입(GCM, APNS, APNS_SANDBOX, ADM)
 - sentResult: 발송 결과(SENT, INVALID_TOKEN, ERROR)
 - messageErrorType: 발송 실패 유형
     - CLIENT_ERROR: 클라이언트 오류로 잘못된 발송 요청으로 발송 실패
-    - EXTERNAL_ERROR: 외부 오류로, 발송 시 Google이나 Apple, Tencent 서버에서 비정상 응답으로 발송 실패
+    - EXTERNAL_ERROR: 외부 오류로, 발송 시 Google이나 Apple, Amazon 서버에서 비정상 응답으로 발송 실패
     - INTERNAL_ERROR: 내부 오류로 발송 실패
 - messageErrorCause: 발송 실패 원인
     - SKIP: 잘못된 토큰이나 인증서
@@ -568,8 +535,7 @@ UID에 태그를 추가해 UID를 관리할 수 있습니다. 메시지 발송 �
     - EXPIRED_TIME_OUT: 발송 요청한 메시지가 만료
     - APNS_ERROR: APNS에서 비정상 응답
     - GCM_ERROR: GCM에서 비정상 응답
-    - TENCENT_ERROR: TENCENT에서 비정상 응답
-    - AGENT_ERROR: Google, Apple, Tencent 서버로 통신이 비정상
+    - AGENT_ERROR: Google, Apple, Amazon 서버로 통신이 비정상
     - UNKOWN: 내부에서 알 수 없는 오류 발생
 
 ### 중복 메시지 방지 설정

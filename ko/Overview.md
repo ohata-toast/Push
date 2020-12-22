@@ -7,11 +7,11 @@ Push의 주요 기능은 다음과 같습니다.
 
 ### 주요 기능
 
-- Android OS(FCM, TENCENT, ADM), iOS(APNS, Apple Push Notification Service) 기기에 메시지를 통합 발송
+- Android OS(FCM, ADM), iOS(APNS, Apple Push Notification Service) 기기에 메시지를 통합 발송
 - 토큰 관리
 - 즉시 전송
 - 일반 예약 전송과 현지 시간 예약 발송
-- SERVER KEY(FCM), ACCESS ID(TENCENT), Secret Key(TENCENT) 인증서(APNS) 관리
+- SERVER KEY(FCM), 인증서(APNS), 클라이언트 아이디/시크릿(ADM) 관리
 - 전송 결과 성공/실패 지표 제공
 - 태그 관리, 토큰 기반 메시지 발송
 - 메시지 수신 및 확인 데이터 수집, 통계 제공
