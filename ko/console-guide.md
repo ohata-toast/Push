@@ -514,12 +514,12 @@ UID에 태그를 추가해 UID를 관리할 수 있습니다. 메시지 발송 �
     - token: 토큰
     - newToken: 새로 발급된 토큰(새로운 토큰이 있을 때만 표시)
     - message: 결과 메시지(비정상 응답일 때만 표시)
-- payload: 실제 GCM이나, APNS, ADM로 발송된 메시지 내용(푸시 타입에 따라 내용이 다름)
+- payload: 실제 FCM이나, APNS, ADM로 발송된 메시지 내용(푸시 타입에 따라 내용이 다름)
 
 ##### Fields
 - Appkey: 메시지를 발송한 푸시 앱키
 - messageId: 메시지 아이디
-- pushType: 푸시 타입(GCM, APNS, APNS_SANDBOX, ADM)
+- pushType: 푸시 타입(FCM, APNS, APNS_SANDBOX, ADM)
 - sentResult: 발송 결과(SENT, INVALID_TOKEN, ERROR)
 - messageErrorType: 발송 실패 유형
     - CLIENT_ERROR: 클라이언트 오류로 잘못된 발송 요청으로 발송 실패
@@ -534,7 +534,7 @@ UID에 태그를 추가해 UID를 관리할 수 있습니다. 메시지 발송 �
     - UNAUTHORIZED: 인증서 만료
     - EXPIRED_TIME_OUT: 발송 요청한 메시지가 만료
     - APNS_ERROR: APNS에서 비정상 응답
-    - GCM_ERROR: GCM에서 비정상 응답
+    - GCM_ERROR: FCM에서 비정상 응답
     - AGENT_ERROR: Google, Apple, Amazon 서버로 통신이 비정상
     - UNKOWN: 내부에서 알 수 없는 오류 발생
 

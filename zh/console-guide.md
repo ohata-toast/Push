@@ -491,12 +491,12 @@ when the receiving event is sent to server.
     - token: Token
     - newToken: Newly-issued token (shows only when a new token exists)
     - message: Result message (shows only for abnormal responses)
-- payload: Messages actually delivered to GCM, APNS, or ADM (with different content for each push type)
+- payload: Messages actually delivered to FCM, APNS, or ADM (with different content for each push type)
 
 ##### Fields
 - Appkey: Push Appkey delivering messages
 - messageId: Message ID
-- pushType: Push types (GCM, APNS, APNS_SANDBOX, or ADM)
+- pushType: Push types (FCM, APNS, APNS_SANDBOX, or ADM)
 - sentResult: Result of delivery (SENT, INVALID_TOKEN, or ERROR)
 - messageErrorType: Type of delivery failure
     - CLIENT_ERROR: Delivery failed due to wrong delivery request out of client error
@@ -511,7 +511,7 @@ when the receiving event is sent to server.
     - UNAUTHORIZED: Certificate expired
     - EXPIRED_TIME_OUT: Message requested for delivery expired
     - APNS_ERROR: Abnormal response from APNS
-    - GCM_ERROR:Abnormal response from GCM
+    - GCM_ERROR:Abnormal response from FCM
     - AGENT_ERROR: Abnormal communication with Google, Apple, or Amazon server
     - UNKOWN: Unknown internal error
 

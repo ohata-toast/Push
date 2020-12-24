@@ -518,12 +518,12 @@ UIDにタグを追加してUIDを管理できます。メッセージ送信時�
     - token：トークン
     - newToken：新たに発行されたトークン(新しいトークンがある時のみ表示)
     - message：結果メッセージ(異常レスポンスの時のみ表示)
-- payload：実際にGCMや、APNS、ADMに送信されたメッセージ内容(プッシュタイプに応じて内容が異なる)
+- payload：実際にFCMや、APNS、ADMに送信されたメッセージ内容(プッシュタイプに応じて内容が異なる)
 
 ##### Fields
 - Appkey：メッセージを送信したプッシュアプリケーションキー
 - messageId：メッセージID
-- pushType：プッシュタイプ(GCM、APNS、APNS_SANDBOX、ADM)
+- pushType：プッシュタイプ(FCM、APNS、APNS_SANDBOX、ADM)
 - sentResult：送信結果(SENT、INVALID_TOKEN、ERROR)
 - messageErrorType：送信失敗タイプ
     - CLIENT_ERROR：クライアントエラー。無効な送信リクエストにより送信失敗
@@ -538,7 +538,7 @@ UIDにタグを追加してUIDを管理できます。メッセージ送信時�
     - UNAUTHORIZED：証明書の満了
     - EXPIRED_TIME_OUT：送信リクエストしたメッセージが満了
     - APNS_ERROR：APNSで異常レスポンス
-    - GCM_ERROR：GCMで異常レスポンス
+    - GCM_ERROR：FCMで異常レスポンス
     - AGENT_ERROR：Google、Apple、ADMサーバーへの通信が異常
     - UNKNOWN：内部で不明なエラーが発生
 
