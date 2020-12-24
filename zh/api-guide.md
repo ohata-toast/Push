@@ -2520,7 +2520,7 @@ curl -X DELETE \
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.4/appkeys/{appkey}/stats?eventCategory={eventCategory}&statisticsType={statisticsType}&timeUnit={timeUnit}&from={from}&to={to}&extra1s={extra1,}&messageId={messageId}
+GET /push/v2.4/appkeys/{appkey}/stats?eventCategory={eventCategory}&statisticsType={statisticsType}&timeUnit={timeUnit}&from={from}&to={to}&extra1s={extra1,}&messageId={messageId}&statsIds={statsId,}
 Content-Type: application/json;charset=UTF-8
 ```
 | Field | Usage | Description |
@@ -2531,6 +2531,8 @@ Content-Type: application/json;charset=UTF-8
 | from | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | to | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | extra1s | Optional, String Array | When the eventCategory is MESSAGE, filter by push type is available. FCM, APNS, APNS_SANDBOX, APNS_VOIP, APNS_SANDBOXVOIP, ADM, TENCENT |
+| messageId | Optional, String | Message ID |
+| statsIds | Optional, String Array | Statistics Event Key ID |
 
 ##### cURL
 ```
