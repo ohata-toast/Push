@@ -330,11 +330,6 @@ The following is the format for scheduled delivery:
 | End Date                                                | You can enter the last date to deliver messages in format of 'YYYY-MM-DD'. You can enter the date with calendar. |
 | Local Time                                              | When it is set 'true', the messages are delivered based on the local time. |
 
-## API
-
-You can use API calls in the console besides, curl or Postman app.
-Go to **Console > Notification > Push** > and click **API** tab.
-
 ### Check Token
 
 Choose push types and you can look up or delete a token. 
