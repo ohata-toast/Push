@@ -2515,7 +2515,7 @@ curl -X DELETE \
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.4/appkeys/{appkey}/stats?eventCategory={eventCategory}&statisticsType={statisticsType}&timeUnit={timeUnit}&from={from}&to={to}&extra1s={extra1,}&messageId={messageId}
+GET /push/v2.4/appkeys/{appkey}/stats?eventCategory={eventCategory}&statisticsType={statisticsType}&timeUnit={timeUnit}&from={from}&to={to}&extra1s={extra1,}&messageId={messageId}&statsIds={statsId,}
 Content-Type: application/json;charset=UTF-8
 ```
 | Field | Usage | Description |
@@ -2526,6 +2526,8 @@ Content-Type: application/json;charset=UTF-8
 | from | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | to | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | extra1s | Optional, String Array | eventCategory가 MESSAGE인 경우 푸시 타입으로 필터링 가능. FCM, APNS, APNS_SANDBOX, APNS_VOIP, APNS_SANDBOXVOIP, ADM, TENCENT |
+| messageId | Optional, String | 메시지 아이디 |
+| statsIds | Optional, String Array | 통계 이벤트 키 아이디 |
 
 ##### Request Body
 ```
