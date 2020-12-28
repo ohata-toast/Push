@@ -1,5 +1,18 @@
 ## Notification > Push > 릴리스 노트
 
+### 2020. 06. 09
+### [Console]
+#### 기능 추가
+* APNS JWT 인증 추가
+    * APNS 푸시 메시지 발송 시 인증 수단으로 JWT가 추가되었습니다. 콘솔 **인증서** 탭에서 JWT 인증에 필요한 키 ID, 팀 ID, 토픽, 암호화 키를 등록할 수 있습니다.
+    * APNS JWT 인증 정보를 등록하면 등록된 인증서는 삭제됩니다.
+    * <a href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_token-based_connection_to_apns" target="_blank">Apple 개발자 가이드 바로 가기</a>
+
+### [Doc]
+#### 가이드 추가
+* **APNS JWT 인증 정보 얻기**에 대한 가이드 추가
+    * <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#get-apns-jwt" target="_blank">바로 가기</a>
+
 ### 2020. 05. 26
 ### [Console]
 #### 기능 추가
