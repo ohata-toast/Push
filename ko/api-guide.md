@@ -1923,6 +1923,7 @@ curl -X POST \
 #### 태그에 UID 추가 생성
 - 태그에 UID를 추가(append)하는 것으로, 기존에 있던 UID를 추가하면 UID의 태그는 늘어납니다.
 - 한 UID에 태그를 16개까지 추가할 수 있습니다.
+
 ##### Method, URL, Headers
 ```
 POST /push/v2.4/appkeys/{appkey}/tags/{tag-id}/uids
@@ -1941,6 +1942,20 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | uids | Required, String Array | UID 배열, 최대 길이 16, UID 최대 길이 64 |
+
+##### cURL
+```
+curl -X POST \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}"'/uids' \
+-H 'Content-Type: application/json;charset=UTF-8' \
+-H 'X-Secret-Key: '"${SECRET_KEY}"'' \
+-d '{
+    "uids" : [
+         "uid-01",
+         "uid-02"
+    ]
+}'
+```
 
 ##### cURL
 ```
@@ -2169,6 +2184,7 @@ curl -X GET \
 #### UID 조회
 - UID를 조회합니다.
 - 토큰 등록시 Contact(연락처)가 등록됩니다.
+
 ##### Method, URL, Headers
 ```
 GET /push/v2.4/appkeys/{appkey}/uids/{uid}
@@ -2285,6 +2301,7 @@ curl -X DELETE \
     }
 }
 ```
+
 
 #### UID 삭제
 - UID 삭제시 Contact, Token도 같이 삭제됩니다.
@@ -2528,6 +2545,40 @@ Content-Type: application/json;charset=UTF-8
 | extra1s | Optional, String Array | eventCategory가 MESSAGE인 경우 푸시 타입으로 필터링 가능. FCM, APNS, APNS_SANDBOX, APNS_VOIP, APNS_SANDBOXVOIP, ADM, TENCENT |
 | messageId | Optional, String | 메시지 아이디 |
 | statsIds | Optional, String Array | 통계 이벤트 키 아이디 |
+
+##### Request Body
+```
+없음
+```
+
+##### cURL
+```
+curl -X GET \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/stats?eventCategory='"${EVENT_CATEGORY}" \
+-H 'Content-Type: application/json;charset=UTF-8' \
+-H 'X-Secret-Key: '"${SECRET_KEY}"''
+```
+
+##### Response Body
+```
+{
+	"header": {
+		"resultCode": 0,
+		"resultMessage": "success",
+		"isSuccessful": true
+	},
+	"stats": [{
+			"eventDateTime": "2020-08-12T00:00:00.000+09:00",
+			"events": {
+				"RECEIVED": 0,
+				"SENT_FAILED": 0,
+				"SENT": 0,
+				"OPENED": 0
+			}
+		}
+	]
+}
+```
 
 ##### Request Body
 ```

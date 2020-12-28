@@ -2564,5 +2564,34 @@ curl -X GET \
 }
 ```
 
+##### cURL
+```
+curl -X GET \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/stats?eventCategory='"${EVENT_CATEGORY}" \
+-H 'Content-Type: application/json;charset=UTF-8' \
+-H 'X-Secret-Key: '"${SECRET_KEY}"''
+```
+
+##### Response Body
+```
+{
+	"header": {
+		"resultCode": 0,
+		"resultMessage": "success",
+		"isSuccessful": true
+	},
+	"stats": [{
+			"eventDateTime": "2020-08-12T00:00:00.000+09:00",
+			"events": {
+				"RECEIVED": 0,
+				"SENT_FAILED": 0,
+				"SENT": 0,
+				"OPENED": 0
+			}
+		}
+	]
+}
+```
+
 * *Document Updates*
     * *(March 24, 2020) Added Statistics API *

@@ -89,7 +89,7 @@ Content-Type: application/json;charset=UTF-8
 ##### cURL
 ```
 curl -X POST \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tokens' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tokens' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -d '{
     "oldToken": "oldToken",
@@ -154,7 +154,7 @@ Content-Type: application/json;charset=UTF-8
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tokens/'"${TOKEN}"'?pushType='"${PUSH_TYPE}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tokens/'"${TOKEN}"'?pushType='"${PUSH_TYPE}" \
 -H 'Content-Type: application/json;charset=UTF-8'
 ```
 
@@ -217,7 +217,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tokens?uid='"${USER_ID}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tokens?uid='"${USER_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -277,7 +277,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/invalid-tokens' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/invalid-tokens' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -321,7 +321,7 @@ Content-Type: application/json;charset=UTF-8
 ##### cURL
 ```
 curl -X DELETE \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tokens/'"${TOKEN}"'?pushType='"${PUSH_TYPE}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tokens/'"${TOKEN}"'?pushType='"${PUSH_TYPE}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -371,7 +371,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X POST \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/messages' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/messages' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
 -d '{
@@ -385,14 +385,14 @@ https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/messages' \
             "customKey1": "It is default"
         },
         "ko": {
-            "title": "タイトル",
-            "body": "内容",
-            "customKey2": "韓国語です。"
+            "title": "제목",
+            "body": "내용",
+            "customKey2": "한국어 입니다."
         }
     },
     "messageType": "AD",
     "contact": "1588-1588",
-    "removeGuide": "メニュー > 設定"
+    "removeGuide": "매뉴 > 설정"
 }'
 ```
 
@@ -937,7 +937,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/messages' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/messages' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -1023,7 +1023,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/messages/'"${MESSAGE_ID}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/messages/'"${MESSAGE_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -1110,7 +1110,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/message-errors' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/message-errors' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -1200,7 +1200,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/logs/message?limit=10' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/logs/message?limit=10' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -1262,7 +1262,7 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/bulk-logs/message/count?from='"${FROM}"'&to='"${TO}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/bulk-logs/message/count?from='"${FROM}"'&to='"${TO}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-User-Access-Key-ID: '"${USER_ACCESS_KEY_ID}"'' \
 -H 'X-Secret-Access-Key: '"${SECRET_ACCESS_KEY}"''
@@ -1310,7 +1310,7 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/bulk-logs/message?from='"${FROM}"'&to='"${TO}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/bulk-logs/message?from='"${FROM}"'&to='"${TO}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'Accept: application/stream+json' \
 -H 'X-User-Access-Key-ID: '"${USER_ACCESS_KEY_ID}" \
@@ -1390,7 +1390,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X POST \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/schedules' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/schedules' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
 -d '{
@@ -1479,7 +1479,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X POST \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
 -d '{
@@ -1547,7 +1547,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -1636,7 +1636,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations/'"${RESERVATION_ID}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations/'"${RESERVATION_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -1717,7 +1717,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations/'"${RESERVATION_ID}"'/messages' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations/'"${RESERVATION_ID}"'/messages' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -1800,7 +1800,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X PUT \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations/'"${RESERVATION_ID}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations/'"${RESERVATION_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
 -d '{
@@ -1815,8 +1815,8 @@ https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations/'
             "body": "default body"
         },
         "ko": {
-            "title": "韓国語タイトル",
-            "body": "韓国語内容"
+            "title": "한국어 제목",
+            "body": "한국어 내용"
         }
     },
     "isLocalTime": false,
@@ -1858,7 +1858,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X DELETE \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations?reservationIds='"${RESERVATION_ID}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/reservations?reservationIds='"${RESERVATION_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -1900,11 +1900,11 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X POST \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
 -d '{
-    "tagName" :  "30"
+    "tagName" :  "서른"
 }'
 ```
 
@@ -1967,6 +1967,20 @@ https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_I
 }'
 ```
 
+##### cURL
+```
+curl -X POST \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}"'/uids' \
+-H 'Content-Type: application/json;charset=UTF-8' \
+-H 'X-Secret-Key: '"${SECRET_KEY}"'' \
+-d '{
+    "uids" : [
+         "uid-01",
+         "uid-02"
+    ]
+}'
+```
+
 ##### Response Body
 ```json
 {
@@ -2001,7 +2015,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X POST \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
 -d '{
@@ -2045,7 +2059,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -2090,7 +2104,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -2135,7 +2149,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -2196,7 +2210,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids/'"${USER_ID}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids/'"${USER_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -2249,7 +2263,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X PUT \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
 -d '{
@@ -2285,7 +2299,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X DELETE \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -2323,7 +2337,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X DELETE \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids?uids='"${USER_ID}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids?uids='"${USER_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -2357,7 +2371,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ##### cURL
 ```
 curl -X DELETE \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}"'/uids?uids='"${USER_ID}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}"'/uids?uids='"${USER_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -2395,7 +2409,7 @@ Content-Type: application/json;charset=UTF-8
 ##### cURL
 ```
 curl -X POST \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids/'"${USER_ID}"'/tag-ids' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids/'"${USER_ID}"'/tag-ids' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
 -d '{
@@ -2433,7 +2447,7 @@ Content-Type: application/json;charset=UTF-8
 ##### cURL
 ```
 curl -X GET \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids/'"${USER_ID}"'/tag-ids' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids/'"${USER_ID}"'/tag-ids' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -2470,7 +2484,7 @@ Content-Type: application/json;charset=UTF-8
 ##### cURL
 ```
 curl -X PUT \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids/'"${USER_ID}"'/tag-ids' \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids/'"${USER_ID}"'/tag-ids' \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
 -d '{
@@ -2506,7 +2520,7 @@ Content-Type: application/json;charset=UTF-8
 ##### cURL
 ```
 curl -X DELETE \
-https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids/'"${USER_ID}"'/tag-ids?tagIds='"${TAG_ID}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/uids/'"${USER_ID}"'/tag-ids?tagIds='"${TAG_ID}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -2552,6 +2566,35 @@ Content-Type: application/json;charset=UTF-8
 ```
 curl -X GET \
 https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/stats?eventCategory='"${EVENT_CATEGORY}" \
+-H 'Content-Type: application/json;charset=UTF-8' \
+-H 'X-Secret-Key: '"${SECRET_KEY}"''
+```
+
+##### Response Body
+```
+{
+	"header": {
+		"resultCode": 0,
+		"resultMessage": "success",
+		"isSuccessful": true
+	},
+	"stats": [{
+			"eventDateTime": "2020-08-12T00:00:00.000+09:00",
+			"events": {
+				"RECEIVED": 0,
+				"SENT_FAILED": 0,
+				"SENT": 0,
+				"OPENED": 0
+			}
+		}
+	]
+}
+```
+
+##### cURL
+```
+curl -X GET \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/stats?eventCategory='"${EVENT_CATEGORY}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
