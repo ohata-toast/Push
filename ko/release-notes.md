@@ -1,5 +1,11 @@
 ## Notification > Push > 릴리스 노트
 
+### 2020. 12. 29
+### [API]
+* v2.4 통계 합계 API 추가
+    * 조회한 통계 데이터를 합산할 수 있는 합계 API가 추가되었습니다.
+        <a href="https://docs.toast.com/ko/Notification/Push/ko/api-guide/#stats-total-api" target="_blank">바로 가기</a>
+
 ### 2020. 06. 09
 ### [Console]
 #### 기능 추가
