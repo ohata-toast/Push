@@ -2545,6 +2545,7 @@ Content-Type: application/json;charset=UTF-8
 | extra1s | Optional, String Array | eventCategory가 MESSAGE인 경우 푸시 타입으로 필터링 가능. FCM, APNS, APNS_SANDBOX, APNS_VOIP, APNS_SANDBOXVOIP, ADM, TENCENT |
 | messageId | Optional, String | 메시지 아이디 |
 | statsIds | Optional, String Array | 통계 이벤트 키 아이디 |
+| statsCriteria	| Optional, String Array | 합계 시 통계 기준, 설정하지 않으면 기본 값으로 합계를 계산. EVENT(기본 값), EXTRA_1, EXTRA_2, EXTRA_3, TEMPLATE_ID |
 
 ##### Request Body
 ```
@@ -2580,6 +2581,26 @@ curl -X GET \
 }
 ```
 
+### 통계 합계 조회
+- 조회한 통계 데이터를 합산하는 합계 API가 추가되었습니다.
+
+##### Method, URL, Headers
+```
+GET /push/v2.4/appkeys/{appkey}/stats?eventCategory={eventCategory}&statisticsType={statisticsType}&timeUnit={timeUnit}&from={from}&to={to}&extra1s={extra1,}&messageId={messageId}&statsIds={statsId,}&statsCriteria={statsCriterion,}
+Content-Type: application/json;charset=UTF-8
+```
+| Field | Usage | Description |
+| - | - | - |
+| eventCategory | Required, String | 이벤트의 카테고리. MESSAGE, TOKEN_REGISTRATION, TOKEN_LANGUAGE, TOKEN_COUNTRY, TOKEN_AGREEMENT |
+| statisticsType | Optional, String | 검색된 통계 데이터의 표현 형식. NORMAL(기본값), MINUTELY, HOURLY, DAILY, BY_DAY |
+| timeUnit | Optional, String | 통계 데이터의 시간 단위. 기본값은 조회 기간에 따라 결정, MINUTES, HOURS, DAYS |
+| from | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| to | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| extra1s | Optional, String Array | eventCategory가 MESSAGE인 경우 푸시 타입으로 필터링 가능. FCM, APNS, APNS_SANDBOX, APNS_VOIP, APNS_SANDBOXVOIP, ADM, TENCENT |
+| messageId | Optional, String | 메시지 아이디 |
+| statsIds | Optional, String Array | 통계 이벤트 키 아이디 |
+| statsCriteria	| Optional, String Array | 합계 시 통계 기준, 설정하지 않으면 기본 값으로 합계를 계산. EVENT(기본 값), EXTRA_1, EXTRA_2, EXTRA_3, TEMPLATE_ID |
+
 ##### Request Body
 ```
 없음
@@ -2588,7 +2609,7 @@ curl -X GET \
 ##### cURL
 ```
 curl -X GET \
-'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/stats?eventCategory='"${EVENT_CATEGORY}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/stats/total?eventCategory='"${EVENT_CATEGORY}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -2601,19 +2622,16 @@ curl -X GET \
 		"resultMessage": "success",
 		"isSuccessful": true
 	},
-	"stats": [{
-			"eventDateTime": "2020-08-12T00:00:00.000+09:00",
-			"events": {
-				"RECEIVED": 0,
-				"SENT_FAILED": 0,
-				"SENT": 0,
-				"OPENED": 0
-			}
-		}
-	]
+	"total" : {
+        "SENT" : 120,
+        "SENT_FAILED" : 50,
+        "SENT": 0,
+        "OPENED": 0
+    }
 }
 ```
 
 
 * *문서 수정 내역*
     * *(2020.03.24) 통계 API 추가*
+    * *(2020.12.29) 통계 합계 API 추가*
