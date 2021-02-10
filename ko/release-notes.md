@@ -52,7 +52,7 @@
 ##### 기능 추가
 * Android 배지(badge) 속성 추가
     * 기존 iOS에만 배지 속성을 전달했는데, Android에도 배지 속성을 전달합니다.
-    TOAST SDK를 적용하신 경우 앱 아이콘에 전달된 배지가 자동으로 표시됩니다.
+    NHN Cloud SDK를 적용하신 경우 앱 아이콘에 전달된 배지가 자동으로 표시됩니다.
 * iOS에서 HTML을 제거한 메시지 표시 기능 추가
     * 현재 iOS는 Android와 다르게 푸시 메시지 내 HTML을 그려주지 않습니다.
     'content.default.style.useHtmlStyle'을 'true'로 설정하면 iOS으로 HTML을 제거해 메시지를 발송합니다.
@@ -64,7 +64,7 @@
     미디어가 외부, 내부인지, 미디어의 확장자를 설정하지 않아도 리치 메시지 발송이 가능합니다.
 * 푸시 메시지 클릭시 액션 정의 기능 추가
     * 'content.default.clickAction'에 푸시 메시지 클릭 시 실행될 액션(URL, Scheme)을 정의할 수 있습니다.
-    TOAST SDK를 적용하신 경우 자동으로 액션이 실행됩니다.
+    NHN Cloud SDK를 적용하신 경우 자동으로 액션이 실행됩니다.
 
 ### 2019.09.24
 #### [API]

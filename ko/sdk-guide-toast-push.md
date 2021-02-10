@@ -1,5 +1,5 @@
 ## Notification > Push > SDK 가이드
-TOAST Push SDK를 적용하면 모바일 애플리케이션에서 쉽고 강력한 Notification을 서비스를 제공할 수 있습니다.
+NHN Cloud Push SDK를 적용하면 모바일 애플리케이션에서 쉽고 강력한 Notification을 서비스를 제공할 수 있습니다.
 
 ## 주요 기능
 * OS에 알림 토큰 등록
@@ -9,11 +9,11 @@ TOAST Push SDK를 적용하면 모바일 애플리케이션에서 쉽고 강력�
 ## 개발 가이드
 
 #### iOS
-* [TOAST Push iOS 가이드](http://docs.toast.com/ko/TOAST/ko/toast-sdk/push-ios/)를 참고하십시오.
+* [NHN Cloud Push iOS 가이드](http://docs.toast.com/ko/TOAST/ko/toast-sdk/push-ios/)를 참고하십시오.
 
 #### Android
-* [TOAST Push Android 가이드](http://docs.toast.com/ko/TOAST/ko/toast-sdk/push-android/)를 참고하십시오.
+* [NHN Cloud Push Android 가이드](http://docs.toast.com/ko/TOAST/ko/toast-sdk/push-android/)를 참고하십시오.
 
 
 #### 기타
-* 기타 플랫폼에 대한 문의는 [TOAST 고객센터](https://toast.com/support/inquiry?alias=tab3_06)로 문의해 주세요.
+* 기타 플랫폼에 대한 문의는 [NHN Cloud 고객센터](https://toast.com/support/inquiry?alias=tab3_06)로 문의해 주세요.
