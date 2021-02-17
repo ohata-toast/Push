@@ -104,7 +104,7 @@ To send push notification to iOS devices, you need APNS certificate generated fr
 #### Differences between APNS (Production) and APNS_SANDBOX (Development)
 
 - Applications built with Production Provisioning Profile must use APNS (Production) while those built with Development Provisioning Profile must use APNS_SANDBOX (Development). Otherwise, push messages may not be properly received. 
-- In most failure cases of message delivery, the APNS certificate registered at TOAST Cloud Push has a different provisioning profile for application buildup.
+- In most failure cases of message delivery, the APNS certificate registered at NHN Cloud Push has a different provisioning profile for application buildup.
    APNS(Production) = Production Provisioning Profile
    APNS_SANDBOX(Development) = Development Provisioning Profile 
 - For more details, refer to the following:     
@@ -538,7 +538,7 @@ when the receiving event is sent to server.
 
 ## Guide for Notice of Personal Information Assignor
 
-When the Customer uses TOAST Push Service, assignment of personal information between the Customer and the Company arises, and the assignee, the Customer, is obliged to disclose the status (assignor and content of business) of his assignment of personal information to the Company, through the personal information handling policy, in accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection. Accordingly, the Company may provide guidelines as below for the Customer, to abide by relevant regulations in the use of TOAST Push Service and not to be adversely affected for not disclosing his assignment status:
+When the Customer uses NHN Cloud Push Service, assignment of personal information between the Customer and the Company arises, and the assignee, the Customer, is obliged to disclose the status (assignor and content of business) of his assignment of personal information to the Company, through the personal information handling policy, in accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection. Accordingly, the Company may provide guidelines as below for the Customer, to abide by relevant regulations in the use of NHN Cloud Push Service and not to be adversely affected for not disclosing his assignment status:
 
 **Notice of Personal Information Assignor** To use Push Service, make sure the following is displayed for 'Personal Information Handling Policy' > Assignment Status of the Customer.  
 ```
