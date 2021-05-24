@@ -27,7 +27,7 @@ Push의 주요 기능은 다음과 같습니다.
 
 다음은 Push 서비스 구조입니다.
 
-![](http://static.toastoven.net/prod_push/19-03-26/overview_ko.png)
+![](http://static.toastoven.net/prod_push/21-05-03/overview_ko.png)
 
 #### Console
 
