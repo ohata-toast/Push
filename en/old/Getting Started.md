@@ -3,7 +3,7 @@
 TOAST Cloud Push 서비스를 사용하려면 먼저 서비스를 활성화해야 합니다.
 이 문서에서는 서비스를 활성화하고 Push 서비스를 사용하는 방법에 대해 설명합니다.
 
-![](http://static.toastoven.net/prod_push/19-03-26/overview_en.png)
+![](http://static.toastoven.net/prod_push/21-05-03/overview_en.png)
 
 ### Console
 

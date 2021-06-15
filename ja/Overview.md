@@ -27,7 +27,7 @@ Pushの主な機能は次のとおりです。
 
 以下はPushサービス構造です
 
-![](http://static.toastoven.net/prod_push/19-03-26/overview_en.png)
+![](http://static.toastoven.net/prod_push/21-05-03/overview_en.png)
 
 #### Console
 
