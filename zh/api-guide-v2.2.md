@@ -16,8 +16,8 @@ API Endpoint: https://api-push.cloud.toast.com
 Endpoint for Collecting Message Delivery Receipt: https://collector-push.cloud.toast.com
 ```
 #### API Security Setting 
-- API Security Setting is provided to issue User Access Key ID (user-configured key which is required for user authentication to use TOAST service).
-- Only one User Access Key ID is provided for each TOAST ID. For security, keep your key at a safe location.    
+- API Security Setting is provided to issue User Access Key ID (user-configured key which is required for user authentication to use NHN Cloud service).
+- Only one User Access Key ID is provided for each NHN Cloud ID. For security, keep your key at a safe location.    
 - It is recommended to change User Access Key ID once every 90 days. 
 - Since v2.2 API, it requires User Access Key ID, instead of Secret Key, to call. 
 ```

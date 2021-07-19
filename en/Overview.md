@@ -6,11 +6,11 @@ Here are the main features of Push.
 
 ### Main Features
 
-- Deliver messages to Android OS (GCM, TENCENT) and iOS (APNS, Apple Push Notification Service) altogether
+- Deliver messages to Android OS (GCM, ADM) and iOS (APNS, Apple Push Notification Service) altogether
 - Manage tokens
 - Support immediate delivery
 - Support for scheduled delivery for local and different time zones
-- Manage certificates (APNS) for API KEY (GCM), ACCESS ID (TENCENT), and Secret Key (TENCENT)
+- Manage certificates(APNS), API KEY(GCM), Client ID(ADM), Client Secret(ADM)
 - Provide success/failure index for delivery results
 - Manage tags, and deliver messages based on tokens
 - Collect data on receiving/confirming messages and provide statistics
@@ -26,7 +26,7 @@ Here are the main features of Push.
 
 Below shows the structure of Push Service.
 
-![](http://static.toastoven.net/prod_push/19-03-26/overview_en.png)
+![](http://static.toastoven.net/prod_push/21-05-03/overview_en.png)
 
 #### Console
 

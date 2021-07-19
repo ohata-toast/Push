@@ -10,7 +10,13 @@
     * 광고성 메시지 수신 동의 일시 치환자(###AD_AGREEMENT_DATE_TIME###)를 본문에 넣으면 메시지 발송 시 해당 토큰의 동의 일시로 치환됩니다.
     * **설정** 탭에서 **광고 수신 동의 사실 안내 메시지 예약**에서 설정할 수 있습니다.
 
-### 2020. 05. 26
+### 2020. 12. 29
+### [API]
+* v2.4 통계 합계 API 추가
+    * 조회한 통계 데이터를 합산할 수 있는 합계 API가 추가되었습니다.
+        <a href="https://docs.toast.com/ko/Notification/Push/ko/api-guide/#stats-total-api" target="_blank">바로 가기</a>
+
+### 2020. 06. 09
 ### [Console]
 #### 기능 추가
 * APNS JWT 인증 추가

@@ -5,7 +5,6 @@ Pushサービスを活用するには、先に他社プッシュ通知サービ�
 現在サポートしているプッシュ通知サービス証明書は次の通りです。
 - GCM - Google Cloud Messaging (Firebase Cloud Messaging)
 - APNS - Apple Push Notification Service
-- XinGe - Tencent Mobile Push
 - ADM - Amazon Device Messaging
 
 ## 証明書管理
@@ -28,7 +27,7 @@ Android端末にプッシュ通知メッセージを送信するためには、�
 
 #### FCM API Keyの登録
 
-1. TOASTコンソールで**Notification > Push > 証明書**をクリックします。
+1. NHN Cloudコンソールで**Notification > Push > 証明書**をクリックします。
 2. 上で作成したFCM Server Keyをコピーして**FCM Server Key**に貼り付け、**登録**ボタンをクリックします。
 
 #### Google Project使用時の注意事項
@@ -120,38 +119,6 @@ iOS端末にプッシュ通知メッセージを送信するには、Apple Devel
 - アプリでプッシュメッセージの受信を拒否した時
 - デバイスがインターネットに接続されていない時
 
-### Tencentの資格証明
-
-Tencentのプッシュ通知サービスXinGeを使用するには、Tencentで登録したアプリケーションのAccess IDとSecret Keyが必要です。
-
-#### Tencent会員登録
-
-1. [TencentプッシュサービスWebサイト](http://xg.qq.com/)にアクセスします。
-2. ページ右上で**登录**(ログイン)をクリックします。
-3. ポップアップ右下で**注册新帐号**(会員登録)をクリックします。
-4. **Email Account**項目でEmail Account、Nickname、Password、Verification Codeなどを入力し、**Sign up now**をクリックします。
-5. **Send verification code**の下にある**select your country/region**をクリックします。
-6. **Region**で**South Korea 0082**を選択し、**Mobile Number**に010AAAABBBB形式で番号を入力します。
-7. 認証コードを入力し、次の段階に移ります。
-8. 登録時に入力したEmailで**Activation Email**を確認し、有効にします。
-
-#### Tencentアプリケーション登録
-
-1. ログイン後、 [Tencentプッシュサービスダッシュボード](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex)にアクセスします。
-2. ページ右上で**接入推送应用**(アプリケーション登録)をクリックします。
-3. **应用名称**(アプリケーション名)を入力します。
-4. **所属分类**(カテゴリー)を選択します。
-5. **应用平台**(アプリケーションプラットフォーム)でAndroidを選択し、パッケージネームを入力します。
-6. **接入应用**(アプリケーション作成)をクリックします。
-
-#### Tencent ACCESS ID、SECRET KEYの登録
-
-1. ログイン後、 [Tencentプッシュサービスダッシュボード](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex)にアクセスします。
-2. **应用统计**(統計)をクリックして、アプリケーションダッシュボードにアクセスします。
-3. 左側メニューから、**配置管理(設定) > 应用配置(アプリケーション設定)**をクリックします。ACCESS ID、ACCESS KEY、SECRET KEYを確認します。
-4. TOASTに戻り、コンソールで**Notification > Push > 証明書**をクリックします。
-5. 確認した**Tencent Credential**にACCESS ID、SECRET KEYを入力します。
-
 ### ADMの資格証明
 
 Kindle Fireアプリにプッシュ通知メッセージを送信するには、アプリのClient IDとClient Secretが必要です。
@@ -212,7 +179,7 @@ Kindle Fireアプリにプッシュ通知メッセージを送信するには、
 | タグ      | **選択**ボタンをクリックして、タグを選択できます。           |
 | 選択されたタグ  | 選択されたタグが表示されます。再度クリックして選択を解除できます。   |
 | 国コード   | 国コードを入力できます。カンマ(',')をセパレータにして複数入力できます。 |
-| プッシュタイプ   | GCM、APNS、APNS Sandbox、Tencent複数選択できます。 |
+| プッシュタイプ   | GCM、APNS、APNS Sandbox、ADM複数選択できます。 |
 
 ### オプション
 
@@ -366,11 +333,6 @@ Pushの予約送信機能を使用すると、希望する時間にメッセー�
 | 終了日       | メッセージを送信する最後の日付を入力します。カレンダーで日付を選択できます。形式は'YYYY-MM-DD'です。 |
 | 現地時間      | trueに設定すると、現地時間基準でメッセージを送信します。        |
 
-## API
-
-Curl、Postmanの他、コンソールでAPI呼び出しを使用できます。
-コンソールで**Notification > Push > API**をクリックします。
-
 ### トークン照会
 
 プッシュタイプを選択し、トークンを入力して照会および削除ができます。
@@ -417,7 +379,7 @@ UID、トークンごとに検索できます。
 
 ## タグ
 
-複数のUIDをタグにまとめられます。タグはNotificationサービス全域で使用されます。
+UIDにタグを追加してUIDを管理できます。メッセージ送信時、タグを選択して送信対象を指定できます。タグはNotificationサービス全域で使用されます。タグは最大2,048個まで作成できます。1つのUIDにタグを16個まで追加できます。
 
 コンソールで**Notification > Push > タグ**をクリックします。
 
@@ -488,10 +450,12 @@ UID、トークンごとに検索できます。
 
 - 機能を設定すると、実際の反映まで数分かかることがあります。
 
+<span id="message-delivery-receipient"></span>
 ### メッセージ受信/確認
 
 - メッセージの受信および確認、データ収集(Message Delivery Receipt)機能を有効にできます。
-- 有効になった機能を動作させるには、SDK v1.4以上が適用されている必要があります。
+- 有効になった機能を動作させるにはクライアントSDK v1.4以上が適用されている必要があります。AndroidはSDKを適用するだけで機能が動作します。iOSは追加の処理が必要です。
+    - <a href="https://docs.toast.com/ja/TOAST/ko/toast-sdk/push-ios/#_19"  target="_blank">iOSクライアントSDKガイド</a>
 - 収集されたデータは、**統計**タブで確認できます。
 - データの収集時間は、端末の時間を基準にします。
 - 機能を設定すると、実際の反映まで数分かかることがあります。
@@ -549,16 +513,16 @@ UID、トークンごとに検索できます。
     - token：トークン
     - newToken：新たに発行されたトークン(新しいトークンがある時のみ表示)
     - message：結果メッセージ(異常レスポンスの時のみ表示)
-- payload：実際にGCMや、APNS、TENCENTに送信されたメッセージ内容(プッシュタイプに応じて内容が異なる)
+- payload：実際にFCMや、APNS、ADMに送信されたメッセージ内容(プッシュタイプに応じて内容が異なる)
 
 ##### Fields
 - Appkey：メッセージを送信したプッシュアプリケーションキー
 - messageId：メッセージID
-- pushType：プッシュタイプ(GCM、APNS、APNS_SANDBOX、TENCENT)
+- pushType：プッシュタイプ(FCM、APNS、APNS_SANDBOX、ADM)
 - sentResult：送信結果(SENT、INVALID_TOKEN、ERROR)
 - messageErrorType：送信失敗タイプ
     - CLIENT_ERROR：クライアントエラー。無効な送信リクエストにより送信失敗
-    - EXTERNAL_ERROR：外部エラー。送信時にGoogleやApple、Tencentサーバーで異常レスポンスにより送信失敗
+    - EXTERNAL_ERROR：外部エラー。送信時にGoogleやAppleサーバーで異常レスポンスにより送信失敗
     - INTERNAL_ERROR：内部エラーで送信失敗
 - messageErrorCause：送信失敗の原因
     - SKIP：無効なトークンや証明書
@@ -569,9 +533,8 @@ UID、トークンごとに検索できます。
     - UNAUTHORIZED：証明書の満了
     - EXPIRED_TIME_OUT：送信リクエストしたメッセージが満了
     - APNS_ERROR：APNSで異常レスポンス
-    - GCM_ERROR：GCMで異常レスポンス
-    - TENCENT_ERROR：TENCENTで異常レスポンス
-    - AGENT_ERROR：Google、Apple、Tencentサーバーへの通信が異常
+    - GCM_ERROR：FCMで異常レスポンス
+    - AGENT_ERROR：Google、Apple、ADMサーバーへの通信が異常
     - UNKNOWN：内部で不明なエラーが発生
 
 ### 重複メッセージ防止設定
@@ -585,7 +548,7 @@ UID、トークンごとに検索できます。
 
 ## 個人情報受託会社の告知案内
 
-顧客'がTOAST Pushサービスを利用する時、'顧客'と'当社'の間で個人情報処理に関する業務の委託/受託関係が発生しますので、韓国情報通信網法および個人情報保護法に従って、委託者である'顧客'は個人情報処理方針を通して'当社'に個人情報を委託した状況(受託者および業務の内容)を公開する必要があります。よって'当社'では'顧客'がTOAST Pushサービスを利用するにおいて関連法令を遵守し、委託状況の未公開により過料などの不利益を被らないように下記のように案内できます。
+顧客'がNHN Cloud Pushサービスを利用する時、'顧客'と'当社'の間で個人情報処理に関する業務の委託/受託関係が発生しますので、韓国情報通信網法および個人情報保護法に従って、委託者である'顧客'は個人情報処理方針を通して'当社'に個人情報を委託した状況(受託者および業務の内容)を公開する必要があります。よって'当社'では'顧客'がNHN Cloud Pushサービスを利用するにおいて関連法令を遵守し、委託状況の未公開により過料などの不利益を被らないように下記のように案内できます。
 
 [個人情報受託会社の告知案内] Pushサービス利用時、顧客の会社で運営する'個人情報処理方針' > 委託状況に次の内容を表記してください。
 ```

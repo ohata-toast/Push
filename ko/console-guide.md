@@ -5,7 +5,6 @@ Push 서비스를 활용하려면 먼저 타사 푸시 알림 서비스 인증�
 지원하는 푸시 알림 서비스 인증서는 현재 다음과 같습니다:
 - GCM - Google Cloud Messaging (Firebase Cloud Messaging)
 - APNS - Apple Push Notification Service
-- XinGe - Tencent Mobile Push
 - ADM - Amazon Device Messaging
 
 ## 인증서 관리
@@ -28,7 +27,7 @@ Push 서비스를 활용하려면 먼저 타사 푸시 알림 서비스 인증�
 
 #### FCM API Key 등록
 
-1. TOAST 콘솔에서 **Notification > Push > 인증서**를 클릭합니다.
+1. NHN Cloud 콘솔에서 **Notification > Push > 인증서**를 클릭합니다.
 2. 위에서 생성한 FCM Server Key를 복사해서 **FCM Server Key**에 붙여넣고 **등록** 버튼을 클릭합니다.
 
 #### Google Project 사용 시 주의 사항
@@ -110,7 +109,7 @@ iOS 기기에 푸시 알림 메시지를 전송하기 위해서는 Apple Develop
    APNS(Production) = Production Provisioning Profile  
    APNS_SANDBOX(Development) = Development Provisioning Profile  
 - 더 자세한 설명은 다음 링크를 참고하시기 바랍니다.  
-   [APNs Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1)  
+   [APNs Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1)
    [App Distribution Quick Start](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppStoreDistributionTutorial/Introduction/Introduction.html#//apple_ref/doc/uid/TP40013839)
 
 ##### APNS 메시지 발송 실패 원인
@@ -118,38 +117,6 @@ iOS 기기에 푸시 알림 메시지를 전송하기 위해서는 Apple Develop
 - 잘못된 인증서를 등록했을 때  
 - 앱에서 푸시 메시지 수신을 거부했을 때  
 - 디바이스가 인터넷에 연결되어 있지 않을 때
-
-### Tencent 자격 증명
-
-Tencent의 푸시 알림 서비스 XinGe 를 사용하기 위해서는 Tencent에서 등록한 애플리케이션의 Access ID와 Secret Key가 필요합니다.
-
-#### Tencent 회원 가입
-
-1. [Tencent 푸시 서비스 홈페이지](http://xg.qq.com/)에 접속합니다.
-2. 페이지 오른쪽 상단에서 **登录**(로그인)을 클릭합니다.
-3. 팝업 오른쪽 하단에서 **注册新帐号**(회원 가입)을 클릭합니다.
-4. **Email Account** 항목에서 Email Account, Nickname, Password, Verification Code 등을 빠짐없이 입력하고 **Sign up now**를 클릭합니다.
-5. **Send verification code** 아래에 **select your country/region**을 클릭합니다.
-6. **Region**에서 **South Korea 0082**를 선택하고, **Mobile Number**에 010AAAABBBB 형식으로 번호를 입력합니다.
-7. 인증 코드를 입력하고 다음 단계로 넘어갑니다.
-8. 가입 시 입력한 Email에서 **Activation Email**을 확인하고, 활성화합니다.
-
-#### Tencent 애플리케이션 등록
-
-1. 로그인 후, [Tencent 푸시 서비스 대시보드](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex)에 접속합니다.
-2. 페이지 오른쪽 상단에서 **接入推送应用**(애플리케이션 등록)을 클릭합니다.
-3. **应用名称**(애플리케이션 이름)을 입력합니다.
-4. **所属分类**(카테고리)를 선택합니다.
-5. **应用平台**(애플리케이션 플랫폼)에서 안드로이드를 선택하고, 패키지 네임을 입력합니다.
-6. **接入应用**(애플리케이션 생성)을 클릭합니다.
-
-#### Tencent ACCESS ID, SECRET KEY 등록
-
-1. 로그인한 후, [Tencent 푸시 서비스 대시보드](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex)에 접속합니다.
-2. **应用统计**(통계)를 클릭해서, 애플리케이션 대시보드에 접속합니다.
-3. 왼쪽 메뉴 중 **配置管理(설정) > 应用配置(애플리케이션 설정)**을 클릭합니다. ACCESS ID, ACCESS KEY, SECRET KEY를 확인합니다.
-4. TOAST로 돌아와 콘솔에서 **Notification > Push > 인증서**를 클릭합니다.
-5. 확인한 **Tencent Credential**에 ACCESS ID, SECRET KEY를 입력합니다.
 
 ### ADM 자격 증명
 
@@ -211,7 +178,7 @@ Kindle Fire 앱에 푸시 알림 메시지를 전송하기 위해서는 앱의 C
 | 태그                | **선택** 버튼을 클릭해 태그를 선택할 수 있습니다.           |
 | 선택된 태그            | 선택된 태그가 표시됩니다. 다시 클릭해 선택에서 제외할 수 있습니다.   |
 | 국가 코드             | 국가 코드를 입력할 수 있습니다. 쉼표(',')를 구분자로 여러 개를 입력할 수 있습니다. |
-| 푸시 유형             | GCM, APNS, APNS Sandbox, Tencent 복수로 선택할 수 있습니다. |
+| 푸시 유형             | GCM, APNS, APNS Sandbox, ADM 복수로 선택할 수 있습니다. |
 
 ### 옵션
 
@@ -362,11 +329,6 @@ Push의 예약 전송 기능을 사용하면 원하는 시간에 메시지를 �
 | 종료일          | 메시지를 전송하는 마지막 날짜를 입력합니다. 달력에서 날짜를 선택할 수 있습니다. 형식은 'YYYY-MM-DD'입니다. |
 | 현지 시간        | true로 설정하면 현지 시간 기준으로 메시지를 전송합니다.        |
 
-## API
-
-Curl, Postman 외 콘솔에서 API호출을 사용할 수 있습니다.
-콘솔에서 **Notification > Push > API**를 클릭합니다.
-
 ### 토큰 조회
 
 푸시 유형을 선택 후 토큰을 입력해 조회 및 삭제가 가능합니다.
@@ -413,7 +375,7 @@ UID, 토큰별로 검색할 수 있습니다.
 
 ## 태그
 
-여러 UID를 태그에 묶을 수 있습니다. 태그는 전체 Notification 서비스 전역으로 사용됩니다.
+UID에 태그를 추가해 UID를 관리할 수 있습니다. 메시지 발송 시 태그를 선택해 발송 대상을 지정할 수 있습니다. 태그는 Notification 서비스 전역으로 사용됩니다. 태그는 최대 2,048개까지 생성할 수 있습니다. 하나의 UID에 태그를 16개까지 추가할 수 있습니다.
 
 콘솔에서 **Notification > Push > 태그**를 클릭합니다.
 
@@ -521,7 +483,7 @@ UID, 토큰별로 검색할 수 있습니다.
 ```
 {
 	"tokens" : [{
-			"uid" : "User Id",
+			"UID" : "User Id",
 			"token" : "Device Token",
             "newToken": "New Deivce Token",
             "message": "Result Message"
@@ -543,20 +505,20 @@ UID, 토큰별로 검색할 수 있습니다.
 }
 ```
 - tokens: 발송된 토큰 정보
-    - uid: 사용자 아이디
+    - UID: 사용자 아이디
     - token: 토큰
     - newToken: 새로 발급된 토큰(새로운 토큰이 있을 때만 표시)
     - message: 결과 메시지(비정상 응답일 때만 표시)
-- payload: 실제 GCM이나, APNS, TENCENT로 발송된 메시지 내용(푸시 타입에 따라 내용이 다름)
+- payload: 실제 FCM이나, APNS, ADM로 발송된 메시지 내용(푸시 타입에 따라 내용이 다름)
 
 ##### Fields
 - Appkey: 메시지를 발송한 푸시 앱키
 - messageId: 메시지 아이디
-- pushType: 푸시 타입(GCM, APNS, APNS_SANDBOX, TENCENT)
+- pushType: 푸시 타입(FCM, APNS, APNS_SANDBOX, ADM)
 - sentResult: 발송 결과(SENT, INVALID_TOKEN, ERROR)
 - messageErrorType: 발송 실패 유형
     - CLIENT_ERROR: 클라이언트 오류로 잘못된 발송 요청으로 발송 실패
-    - EXTERNAL_ERROR: 외부 오류로, 발송 시 Google이나 Apple, Tencent 서버에서 비정상 응답으로 발송 실패
+    - EXTERNAL_ERROR: 외부 오류로, 발송 시 Google이나 Apple, Amazon 서버에서 비정상 응답으로 발송 실패
     - INTERNAL_ERROR: 내부 오류로 발송 실패
 - messageErrorCause: 발송 실패 원인
     - SKIP: 잘못된 토큰이나 인증서
@@ -567,9 +529,8 @@ UID, 토큰별로 검색할 수 있습니다.
     - UNAUTHORIZED: 인증서 만료
     - EXPIRED_TIME_OUT: 발송 요청한 메시지가 만료
     - APNS_ERROR: APNS에서 비정상 응답
-    - GCM_ERROR: GCM에서 비정상 응답
-    - TENCENT_ERROR: TENCENT에서 비정상 응답
-    - AGENT_ERROR: Google, Apple, Tencent 서버로 통신이 비정상
+    - GCM_ERROR: FCM에서 비정상 응답
+    - AGENT_ERROR: Google, Apple, Amazon 서버로 통신이 비정상
     - UNKOWN: 내부에서 알 수 없는 오류 발생
 
 ### 중복 메시지 방지 설정
@@ -588,7 +549,7 @@ UID, 토큰별로 검색할 수 있습니다.
 
 ## 개인정보 수탁사 고지 안내
 
-'고객'이 TOAST Push 상품을 이용할 때, '고객' - '당사' 간 개인정보 처리에 관한 업무 위수탁 관계가 발생하는 바 정보통신망법 및 개인정보보호법에 따라 위탁자인 '고객'은 개인정보처리방침을 통해 '당사'에 개인정보를 위탁한 현황(수탁자 및 업무의내용)을 공개하여야 합니다. 이에, '당사'에서는 '고객'이 TOAST Push 서비스를 이용함에 있어 관련 법령을 준수하고, 위탁 현황 미공개로 인하여 과태료 등의 불이익을 받지 않도록 아래와 같이 가이드할 수 있습니다.
+'고객'이 NHN Cloud Push 상품을 이용할 때, '고객' - '당사' 간 개인정보 처리에 관한 업무 위수탁 관계가 발생하는 바 정보통신망법 및 개인정보보호법에 따라 위탁자인 '고객'은 개인정보처리방침을 통해 '당사'에 개인정보를 위탁한 현황(수탁자 및 업무의내용)을 공개하여야 합니다. 이에, '당사'에서는 '고객'이 NHN Cloud Push 서비스를 이용함에 있어 관련 법령을 준수하고, 위탁 현황 미공개로 인하여 과태료 등의 불이익을 받지 않도록 아래와 같이 가이드할 수 있습니다.
 
 [개인정보 수탁사 고지 안내] Push 서비스 이용 시 고객사에서 운영하시는 '개인정보처리방침' > 위탁 현황에 다음의 내용을 표기해주세요.
 ```

@@ -17,8 +17,8 @@ API Endpoint: https://api-push.cloud.toast.com
 メッセージ受信/確認したかどうかを収集Endpoint：https://collector-push.cloud.toast.com
 ```
 #### APIセキュリティ設定
-- APIセキュリティ設定は、User Access Key ID (TOASTサービス利用時にユーザー認証のために必要なユーザー設定キー) を発行する機能です。
-- User Access Key IDは、TOAST IDに1つのみ発行可能です。安全のため、発行されたキーは安全な場所に保管してください。
+- APIセキュリティ設定は、User Access Key ID (NHN Cloudサービス利用時にユーザー認証のために必要なユーザー設定キー) を発行する機能です。
+- User Access Key IDは、NHN Cloud IDに1つのみ発行可能です。安全のため、発行されたキーは安全な場所に保管してください。
 - User Access Key IDは90日ごとに変更することを推奨します。
 - v2.2 APIから、Secret Keyの代わりにUser Access Key IDを利用して呼び出す必要があります。
 ```

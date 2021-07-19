@@ -4,7 +4,6 @@ In order to use Push service, you need other push service certificates.
 Currently, we support following push services:
 - GCM - Google Cloud Messaging (Firebase Cloud Messaging)
 - APNS - Apple Push Notification Service
-- XinGe - Tencent Mobile Push
 - ADM - Amazon Device Messaging
 
 ## Certificate Management
@@ -79,7 +78,7 @@ To send push notification to iOS devices, you need APNS certificate generated fr
 #### Differences between APNS (Production) and APNS_SANDBOX (Development)
 
 - Applications built with Production Provisioning Profile must use APNS (Production) while those built with Development Provisioning Profile must use APNS_SANDBOX (Development). Otherwise, push messages may not be properly received. 
-- In most failure cases of message delivery, the APNS certificate registered at TOAST Cloud Push has a different provisioning profile for application buildup.
+- In most failure cases of message delivery, the APNS certificate registered at NHN Cloud Push has a different provisioning profile for application buildup.
    APNS(Production) = Production Provisioning Profile
    APNS_SANDBOX(Development) = Development Provisioning Profile 
 - For more details, refer to the following:     
@@ -92,38 +91,6 @@ To send push notification to iOS devices, you need APNS certificate generated fr
 - When a wrong certificate has been registered
 - When a push message has been rejected by the application
 - When there’s no Internet access
-
-### Tencent Credentials
-
-To use Tencent XinGe mobile push service, you need Tencent app's Access ID and Secret Key.
-
-### Join Tencent
-
-1. Go to[[Tencent Push Service Website](http://xg.qq.com/)].
-2. Click Login(登录) at the top right of the page.
-3. Click Join (注册新帐号) at the bottom right of the pop-up page.
-4. Enter information required for **Email Account**, including Email Account, Nickname, Password, and Verification Code, and click **Sign up now**.
-5. Click **Select your country/region** under **Send Verification Code**.
-6. Select **South Korea 0082** for **region**, and your mobile number for **Mobile Number** in the 010AAAABBBB format.
-7. Enter verification code and move on to the next step.
-8. Verify your email address.
-
-### Register Tencent Application
-
-1. Login and access [Tencent Push Service Dashboard](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex).
-2. Click Register Application (**接入推送应用**) at the top right of the page.
-3. Enter Application Name (**应用名称**).
-4. Select Category (**所属分类**).
-5. Choose Android for Application Platform (**应用平台**) and enter Package Name.
-6. Click Create Application (**接入应用**).
-
-### Register Tencent ACCESS ID and SECRET KEY
-
-1. Login and access [Tencent Push Service Dashboard](http://xg.qq.com/xg/ctr_index/login?go_to_url=http%3A%2F%2Fxg.qq.com%2Fxg%2Fapps%2Fctr_app%2Findex).
-2. Click Statistics (**应用统计**) and enter into Application Dashboard.
-3. Click Setting(**配置管理**) > Application Setting (**应用配置**) on the left. Check ACCESS ID, ACCESS KEY, and SECRET KEY.
-4. Come back to TOAST and click **Notification > Push > Certificates** at Console.
-5. Enter ACCESS ID and SECRET KEY into **Tencent Credential**.
 
 ### ADM Credentials
 
@@ -186,7 +153,7 @@ The following is the format for immediate delivery:
 | Tags          | Click Select and choose tags.                                |
 | Selected Tags | Display selected tags: click again to deselect.              |
 | Countries     | Enter country code: use comma (',') as delimiter to enter mutiple country codes. |
-| Push Types    | You can choose multiple types among GCM, APNS, APNS Sandbox, and Tencent. |
+| Push Types    | You can choose multiple types among GCM, APNS, APNS Sandbox, and ADM. |
 
 ### Option
 
@@ -336,11 +303,6 @@ The following is the format for scheduled delivery:
 | Start Date                                              | You can enter a date to start delivering messages in format of 'YYYY-MM-DD'. You can enter the date with calendar. |
 | End Date                                                | You can enter the last date to deliver messages in format of 'YYYY-MM-DD'. You can enter the date with calendar. |
 | Local Time                                              | When it is set 'true', the messages are delivered based on the local time. |
-
-## API
-
-You can use API calls in the console besides, curl or Postman app.
-Go to **Console > Notification > Push** > and click **API** tab.
 
 ### Check Token
 
@@ -524,16 +486,16 @@ when the receiving event is sent to server.
     - token: Token
     - newToken: Newly-issued token (shows only when a new token exists)
     - message: Result message (shows only for abnormal responses)
-- payload: Messages actually delivered to GCM, APNS, or TENCENT (with different content for each push type)
+- payload: Messages actually delivered to FCM, APNS, or ADM (with different content for each push type)
 
 ##### Fields
 - Appkey: Push Appkey delivering messages
 - messageId: Message ID
-- pushType: Push types (GCM, APNS, APNS_SANDBOX, or TENCENT)
+- pushType: Push types (FCM, APNS, APNS_SANDBOX, or ADM)
 - sentResult: Result of delivery (SENT, INVALID_TOKEN, or ERROR)
 - messageErrorType: Type of delivery failure
     - CLIENT_ERROR: Delivery failed due to wrong delivery request out of client error
-    - EXTERNAL_ERROR: Delivery failed out of external error, due to abnormal responses from Google, Apple, or Tencent server
+    - EXTERNAL_ERROR: Delivery failed out of external error, due to abnormal responses from Google, Apple, or Amazon server
     - INTERNAL_ERROR: Delivery failed out of internal error
 - messageErrorCause: Cause of failed delivery
     - SKIP: Invalid token or certificate
@@ -544,14 +506,13 @@ when the receiving event is sent to server.
     - UNAUTHORIZED: Certificate expired
     - EXPIRED_TIME_OUT: Message requested for delivery expired
     - APNS_ERROR: Abnormal response from APNS
-    - GCM_ERROR:Abnormal response from GCM
-    - TENCENT_ERROR: Abnormal response from TENCENT
-    - AGENT_ERROR: Abnormal communication with Google, Apple, or Tencent server
+    - GCM_ERROR:Abnormal response from FCM
+    - AGENT_ERROR: Abnormal communication with Google, Apple, or Amazon server
     - UNKOWN: Unknown internal error
 
 ## Guide for Notice of Personal Information Assignor
 
-When the Customer uses TOAST Push Service, assignment of personal information between the Customer and the Company arises, and the assignee, the Customer, is obliged to disclose the status (assignor and content of business) of his assignment of personal information to the Company, through the personal information handling policy, in accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection. Accordingly, the Company may provide guidelines as below for the Customer, to abide by relevant regulations in the use of TOAST Push Service and not to be adversely affected for not disclosing his assignment status:
+When the Customer uses NHN Cloud Push Service, assignment of personal information between the Customer and the Company arises, and the assignee, the Customer, is obliged to disclose the status (assignor and content of business) of his assignment of personal information to the Company, through the personal information handling policy, in accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection. Accordingly, the Company may provide guidelines as below for the Customer, to abide by relevant regulations in the use of NHN Cloud Push Service and not to be adversely affected for not disclosing his assignment status:
 
 **Notice of Personal Information Assignor** To use Push Service, make sure the following is displayed for 'Personal Information Handling Policy' > Assignment Status of the Customer.  
 ```

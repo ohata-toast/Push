@@ -1,5 +1,19 @@
 ## Notification> Push > Release Notes
 
+### May 26, 2020
+### [Console]
+#### More Features 
+* Added APNS JWT Authentication
+    * Added JWT as method of authentication for sending APNS push messages. You can register Key ID, Team ID, Topic, or Encryption Key required to authenticate JWT on the **Certificate** tab of console.
+    * With the registration of APNS JWT certificate information, registered certificate is deleted. 
+    * <a href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_token-based_connection_to_apns" target="_blank">Go to Apple Developer Guide</a>
+
+### [Doc]
+#### More Guides
+* Added guide for **Getting Authentication Information for APNS JWT**
+    * <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#get-apns-jwt" target="_blank">Direct link</a>
+
+    
 ### March 24, 2020
 ### [Console]
 #### More Features
