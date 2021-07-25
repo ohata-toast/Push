@@ -536,6 +536,20 @@ when the receiving event is sent to server.
     - AGENT_ERROR: Abnormal communication with Google, Apple, or Amazon server
     - UNKOWN: Unknown internal error
 
+### 중복 메시지 방지 설정
+- 동일한 메시지를 동일한 사용자에게 중복 요청하는 경우 발송을 제한하는 기능입니다.
+- 중복 판단 기준은 메시지 타입, 내용(콘텐츠), 발신 연락처, 수신 동의 설정 가이드, 광고 표시 문구 위치, 토큰입니다.
+기준에 대항하는 값이 모두 같으면 중복으로 판단하고 메시지를 발송하지 않습니다.
+- 발송되지 않은 메시지는 실패 처리 됩니다. 발송 실패 원인은 'DUPLICATED_MESSAGE_TOKEN'으로 남습니다.
+- 설정 탭 "중복 메시지 방지 설정"에서 설정할 수 있습니다.
+- 기능 설정 시 실제 반영까지 대략 수분이 걸릴 수 있습니다.
+
+### 광고 수신 동의 사실 안내 메시지 예약
+- 광고 메시지 수신을 동의한지 만 2년이 된 토큰들에 안내 메시지를 발송하는 기능이 추가되었습니다. 
+- 매달 설정한 일시에 안내 메시지가 대상 토큰들에 발송됩니다.
+- 안내 메시지는 수신 동의 사실과 일시, 수신 동의 설정에 대한 방법을 반드시 포함하고 있어야 합니다.
+- 광고성 메시지 수신 동의 일시 치환자(###AD_AGREEMENT_DATE_TIME###)를 본문에 넣으면 메시지 발송 시 해당 토큰의 동의 일시로 치환됩니다.
+
 ## Guide for Notice of Personal Information Assignor
 
 When the Customer uses NHN Cloud Push Service, assignment of personal information between the Customer and the Company arises, and the assignee, the Customer, is obliged to disclose the status (assignor and content of business) of his assignment of personal information to the Company, through the personal information handling policy, in accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection. Accordingly, the Company may provide guidelines as below for the Customer, to abide by relevant regulations in the use of NHN Cloud Push Service and not to be adversely affected for not disclosing his assignment status:
