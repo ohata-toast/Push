@@ -1,5 +1,15 @@
 ## Notification> Push > Release Notes
 
+### July 27, 2021
+### [Console]
+#### More Features
+* Added the feature of reserving a guide message for the ad opt-in acceptance
+    * Added a feature of sending a guide message to tokens that have reached two years since their last acceptance of ad opt-in. 
+    * Every month at a specific time set by the user, a guide message will be sent to the target tokens.
+    * The guide message must contain the information about the user's opt-in acceptance and the time of opt-in and how to set ad opt-in.
+    * If you place the temporary replacer for opting in to receive advertisement messages (###AD_AGREEMENT_DATE_TIME###) in the body, when sending a message, its time will be replaced with the opt-in acceptance time of the token.
+    * This can be set in **Reserve Message for Acceptance of Ad Opt-in** under the **Settings** tab.
+ 
 ### May 26, 2020
 ### [Console]
 #### More Features 
