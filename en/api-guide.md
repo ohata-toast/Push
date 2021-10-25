@@ -125,7 +125,7 @@ curl -X POST \
 - If a token is to be changed, set existing token for oldToken and new token for token, and register; then, it is updated to a new token. 
 - "isNotificationAgreement" refers to consent to receive push messages; "isAdAgreement" for ad push messages, and "isNightAdAgreement" for night-time ad push messages. 
 - For instance, to receive all push messages, set true for all three fields. To receive push messages only, set true for "isNotificationAgreement" only.  
-- Consent to receive push messages is in accordance with Act on Promotion of Information and Communications Network Utiliztion and Information Protection, etc. (from Article 50 to 50-8).  
+- Consent to receive push messages is in accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection, etc. (from Article 50 to 50-8).  
     - [Go to KISA Guidelines](https://spam.kisa.or.kr/spam/sub62.do)    
     - [Check the Act](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
 - Response may be delayed due to many reasons, including bad network connection. To minimize effects on mobile application operations, it is recommended to set shorter timeout, and register tokens every time they are operated. 
@@ -821,7 +821,7 @@ v1.7 or higher SDKs are required.
 | richMessage.media | Optional, Object | Media added for rich messages |
 | richMessage.media.sourceType | Required, String | Media location: REMOTE or LOCAL |
 | richMessage.media.source | Required, String | Address where media is located |
-| richMessage.media.mediaType | Required, String | Media Type: IMAGE, GIF, VEDIO, or AUDIO. Android supports IMAGE only |
+| richMessage.media.mediaType | Required, String | Media Type: IMAGE, GIF, VIDEO, or AUDIO. Android supports IMAGE only |
 | richMessage.media.extension | Required, String | Extension of media file |
 | richMessage.media.expandable | Required, Boolean | Click to expand media on Android |
 | richMessage.largeIcon | Optional, Object | Large icons added for rich messages: only on Android |
@@ -869,18 +869,18 @@ With the 'notification' field defined in 'content', messages can be delivered to
 | Reserved Word | Platform | Usage | FCM | Description |
 | - | - | - | - | - |
 | notification | Android, iOS | Optional, Object | notification | |
-| notification.title | Android, iOS | Optiontal, String | notification.title | Set notification.title, and data.title is ignored. |
-| notification.body | Android, iOS | Optiontal, String | notification.body | Set notification.body, and data.body is ignored. |
-| notification.sound | Android, iOS | Optiontal, String | notification.sound | Notification sound when message is received: not supported on Android Oreo (8.0) or higher. |
-| notification.clickAction | Android, iOS | Optiontal, String | notification.click_action | Activity is to move, at the click of a message. |
-| notification.titleLocKey | Android, iOS | Optiontal, String | notification.title_loc_key | String resource which can be applied to localize messages. |
-| notification.titleLocArgs | Android, iOS | Optiontal, String | notification.title_loc_args | String for replacement, which can be applied to localize messages. |
-| notification.bodyLocKey | Android, iOS | Optiontal, String | notification.body_loc_key | String resource which can be applied to localize messages. |
-| notification.bodyLocArgs | Android, iOS | Optiontal, String Array | notification_body_loc_args | String for replacement, which can be applied to localize messages. |
-| notification.icon | Android, iOS | Optiontal, String | notification.icon | Notification icon. |
-| notification.color | Android, iOS | Optiontal, String | notification.color | Color of notification icon. |
-| notification.tag | Android, iOS | Optiontal, String | notification.tag | Same tagged messages are received and replace existing messages. |
-| notification.badge | Android, iOS | Optiontal, Number | notification.badge | Number of new unconfirmed notifications. |
+| notification.title | Android, iOS | Optional, String | notification.title | Set notification.title, and data.title is ignored. |
+| notification.body | Android, iOS | Optional, String | notification.body | Set notification.body, and data.body is ignored. |
+| notification.sound | Android, iOS | Optional, String | notification.sound | Notification sound when message is received: not supported on Android Oreo (8.0) or higher. |
+| notification.clickAction | Android, iOS | Optional, String | notification.click_action | Activity is to move, at the click of a message. |
+| notification.titleLocKey | Android, iOS | Optional, String | notification.title_loc_key | String resource which can be applied to localize messages. |
+| notification.titleLocArgs | Android, iOS | Optional, String | notification.title_loc_args | String for replacement, which can be applied to localize messages. |
+| notification.bodyLocKey | Android, iOS | Optional, String | notification.body_loc_key | String resource which can be applied to localize messages. |
+| notification.bodyLocArgs | Android, iOS | Optional, String Array | notification_body_loc_args | String for replacement, which can be applied to localize messages. |
+| notification.icon | Android, iOS | Optional, String | notification.icon | Notification icon. |
+| notification.color | Android, iOS | Optional, String | notification.color | Color of notification icon. |
+| notification.tag | Android, iOS | Optional, String | notification.tag | Same tagged messages are received and replace existing messages. |
+| notification.badge | Android, iOS | Optional, Number | notification.badge | Number of new unconfirmed notifications. |
 
 ##### On FCM (Android)
 ```json
@@ -964,7 +964,7 @@ curl -X GET \
         },
         "messageType" : "AD",
         "contact": "1588-1588",
-        "removeGuide": "Menu > Settigs",
+        "removeGuide": "Menu > Settings",
         "timeToLiveMinute": 60,
         "createdDateTime": "2017-02-13T09:30:00.000+09:00",
         "completedDateTime": "2017-02-13T09:30:00.000+09:00",
@@ -973,7 +973,7 @@ curl -X GET \
         "messageStatus": "COMPLETE",
         "provisionedResourceId": "[a-zA-Z0-9]{16}"
     }],
-    "toatalCount": 1
+    "totalCount": 1
 }
 ```
 
@@ -1067,7 +1067,7 @@ However, if there is no token available (INVALID_TOKEN), it is not deemed as del
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.4/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messagErrorCause={messageErrorCause}&from={from}&to={to}&limit={limit}
+GET /push/v2.4/appkeys/{appkey}/message-errors?messageId={messageId}&messageErrorType={messageErrorType}&messageErrorCause={messageErrorCause}&from={from}&to={to}&limit={limit}
 HEADER
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
@@ -1174,7 +1174,7 @@ curl -X GET \
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.4/appkeys/{appkey}/logs/message?messageId={messageId}&uid={uid}&token={token}&pushType={pusyType}&from={from}&to={to}&limit={limit}
+GET /push/v2.4/appkeys/{appkey}/logs/message?messageId={messageId}&uid={uid}&token={token}&pushType={pushType}&from={from}&to={to}&limit={limit}
 Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
@@ -1246,7 +1246,7 @@ Go to [Member Profile] > [API Security Setting] to create one.
 
 ##### Method, URL, Headers
 ```
-GET /push/v2.4/appkeys/{appKey}/bulk-logs/message/count?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
+GET /push/v2.4/appkeys/{appKey}/bulk-logs/message/count?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendResult}
 Content-Type: application/json;charset=UTF-8
 X-User-Access-Key-ID: [a-zA-Z0-9]{20}
 X-Secret-Access-Key: [a-zA-Z0-9]{16}
@@ -1287,7 +1287,7 @@ curl -X GET \
 - Respond with application/stream+json.
 
 ```
-GET /push/v2.4/appkeys/{appKey}/bulk-logs/message?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
+GET /push/v2.4/appkeys/{appKey}/bulk-logs/message?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendResult}
 Content-Type: application/json;charset=UTF-8
 Accept: application/stream+json
 X-User-Access-Key-ID: [a-zA-Z0-9]{20}
@@ -1537,8 +1537,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | pageSize | Optional, Number | Default is 25: max is 100 |
 | from | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| deliveryFrom | Optional, DateTime String | 발송 스케줄 날짜 시작 값 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD). 조회된 예약 내부의 발송 스케줄 목록은 필터 없이 노출. |
-| deliveryTo | Optional, DateTime String | 발송 스케줄 날짜 종료 값 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD). 조회된 예약 내부의 발송 스케줄 목록은 필터 없이 노출. |
+| deliveryFrom | Optional, DateTime String | Delivery schedule date start value (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD). The list of delivery schedules inside the queried reservation is displayed without filtering. |
+| deliveryTo | Optional, DateTime String | Delivery schedule date end value (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD). The list of delivery schedules inside the queried reservation is displayed without filtering. |
 | reservationStatus | Optional, String | 'RESERVED', 'COMPLETE' |
 
 ##### Request Body

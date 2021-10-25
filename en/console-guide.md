@@ -56,7 +56,7 @@ To send push notification messages to an iOS device, you need encryption key, Ke
 1. Visit **Apple Developer's Console** and go to **Certificates, IDs & Profiles**.
 2. Select **Keys**.
 3. Select **Create a key**.
-4. Go to **Register a New Key** and enter key name, and then go to **ENABLE** to select  **Apple Push Notifictions service (APNs)**, and click **Continue** to proceed.
+4. Go to **Register a New Key** and enter key name, and then go to **ENABLE** to select  **Apple Push Notifications service (APNs)**, and click **Continue** to proceed.
 5. Confirm and then select **Register**.
 6. Select **Download** to download encryption key files. 
 
@@ -145,7 +145,7 @@ One item is included to a key repository.
 Nickname: androiddebugkey
 Date of Creation: May 9, 2018
 Item Type: PrivateKeyEntry
-Chain Lengh of Certificate: 1
+Chain Length of Certificate: 1
 Certificate [1]:
 Owner: C=US, O=Android, CN=Android Debug
 Issuer: C=US, O=Android, CN=Android Debug
@@ -178,7 +178,7 @@ The following is the format for immediate delivery:
 | UIDs          | Use comma (',') as delimiter to enter multiple UIDs.                  |
 | Tags          | Click Select and choose tags.                                |
 | Selected Tags | Display selected tags: click again to deselect.              |
-| Countries     | Enter country code: use comma (',') as delimiter to enter mutiple country codes. |
+| Countries     | Enter country code: use comma (',') as delimiter to enter multiple country codes. |
 | Push Types    | You can choose multiple types among GCM, APNS, APNS Sandbox, and ADM. |
 
 ### Option
@@ -231,7 +231,7 @@ You can send push notifications with buttons, images, and various other things i
 | Address | URL or URI of the media. |
 | Type | Three types of media: Image, GIF, Video, and Audio. (Only Image type is available for Android) |
 | Extension | File extension of the media file. ex)png, avi, mp4 |
-| Expand | Unfolds the image media, Only avaiable on Android. |
+| Expand | Unfolds the image media, Only available on Android. |
 
 ##### Specify Media Files 
 - External 
@@ -249,7 +249,7 @@ You can send push notifications with buttons, images, and various other things i
         - File name is used as resource identifier for Android, so same file name is not available even with different extension. 
         Supported image formats are png, jpg, and gif. (Currently, video or audio type media are not supported.)
     - iOS
-        - Must add resources first, to the <a href="http://docs.toast.com/en/TOAST/en/toast-sdk/push-ios/#notification-service-extension">Notificaiton Service Extension</a> project which creates rich messages. 
+        - Must add resources first, to the <a href="http://docs.toast.com/en/TOAST/en/toast-sdk/push-ios/#notification-service-extension">Notification Service Extension</a> project which creates rich messages. 
         - Add file or directory from XCode to 'NotificationServiceExtension' project. 
         - See if files have been well added at 'Build Phases > TARGETS'. 
         - The entire file name is required including extension, since access is made via bundle resources. 
@@ -316,7 +316,7 @@ Only supported by Android
 
 ## Scheduled Delivery 
 
-You can send push notificaition at the scheduled time. Go Console and click **Notification > Push > Reservation** to do so.
+You can send push notification at the scheduled time. Go Console and click **Notification > Push > Reservation** to do so.
 
 The following is the format for scheduled delivery:
 
@@ -467,7 +467,7 @@ If token is delayed for expiration, messages may be delivered but receiving even
 If it is not connected to the internet, due to various reasons, including phone being turned off, in the energy-saving mode, or in network grey area, 
 both message receiving and event collecting are unavailable.  
 4. When it fails to collect receiving events 
-Even if a message has been receivied, it may not be properly collected depending on the OS or network environment 
+Even if a message has been received, it may not be properly collected depending on the OS or network environment 
 when the receiving event is sent to server.  
 
 ### Log Message Delivery History
@@ -488,7 +488,7 @@ when the receiving event is sent to server.
 	"tokens" : [{
 			"uid" : "User Id",
 			"token" : "Device Token",
-            "newToken": "New Deivce Token",
+            "newToken": "New Device Token",
             "message": "Result Message"
 		}
 	],
@@ -534,7 +534,7 @@ when the receiving event is sent to server.
     - APNS_ERROR: Abnormal response from APNS
     - GCM_ERROR:Abnormal response from FCM
     - AGENT_ERROR: Abnormal communication with Google, Apple, or Amazon server
-    - UNKOWN: Unknown internal error
+    - UNKNOWN: Unknown internal error
 
 ### Settings for preventing duplicate messages
 - This is a feature that restricts sending the same message to the same user multiple times.
