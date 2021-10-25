@@ -1532,6 +1532,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
 | from | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| deliveryFrom | Optional, DateTime String | 발송 스케쥴 날짜 시작 값 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| deliveryTo | Optional, DateTime String | 발송 스케쥴 날짜 종료 값 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | reservationStatus | Optional, String | 'RESERVED', 'COMPLETE' |
 
 ##### Request Body
