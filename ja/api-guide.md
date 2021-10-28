@@ -1537,6 +1537,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | pageSize | Optional, Number | 基本値25、最大値100 |
 | from | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| deliveryFrom | Optional, DateTime String | 送信スケジュール日開始値(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD)。照会された予約内部の送信スケジュールリストはフィルタなしで表示。 |
+| deliveryTo | Optional, DateTime String | 送信スケジュール日終了値(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD)。照会された予約内部の送信スケジュールリストはフィルタなしで表示。 |
 | reservationStatus | Optional, String | 'RESERVED', 'COMPLETE' |
 
 ##### Request Body
