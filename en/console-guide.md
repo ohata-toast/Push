@@ -550,6 +550,20 @@ when the receiving event is sent to server.
 - The guide message must contain the information about the user's opt-in acceptance and the time of opt-in and how to set ad opt-in.
 - If you place the temporary replacer for opting in to receive advertisement messages (###AD_AGREEMENT_DATE_TIME###) in the body, when sending a message, its time will be replaced with the opt-in acceptance time of the token.
 
+### Settings for preventing duplicate messages
+- This is a feature that restricts sending the same message to the same user multiple times.
+- The decision of whether a message is duplicate or not is based on the message type, text (content), sender information, opt-in setup guide, ad display text location, and token.
+  If all values against these criteria are the same, it is determined as a duplicate message and thus not sent.
+- Any messages not sent will be processed as failure. The cause of its failure is logged as 'DUPLICATED_MESSAGE_TOKEN'.
+- It can be set in "Settings for preventing duplicate messages" under the Settings tab.
+- It could take several minutes for the settings to be completely applied.
+
+### Reserve Message for Acceptance of Ad Opt-in
+- Added a feature of sending a guide message to tokens that have reached two years since their last acceptance of ad opt-in. 
+- Every month at a specific time set by the user, a guide message will be sent to the target tokens.
+- The guide message must contain the information about the user's opt-in acceptance and the time of opt-in and how to set ad opt-in.
+- If you place the temporary replacer for opting in to receive advertisement messages (###AD_AGREEMENT_DATE_TIME###) in the body, when sending a message, its time will be replaced with the opt-in acceptance time of the token.
+
 ## Guide for Notice of Personal Information Assignor
 
 When the Customer uses NHN Cloud Push Service, assignment of personal information between the Customer and the Company arises, and the assignee, the Customer, is obliged to disclose the status (assignor and content of business) of his assignment of personal information to the Company, through the personal information handling policy, in accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection. Accordingly, the Company may provide guidelines as below for the Customer, to abide by relevant regulations in the use of NHN Cloud Push Service and not to be adversely affected for not disclosing his assignment status:
