@@ -1,8 +1,25 @@
 ## Notification> Push > Release Notes
 
+### October 26, 2021
+#### [Console]
+##### Added Features
+* Added a pop-up for modifying token date and time
+    * Added a pop-up that allows you to modify the date and time of the registered token.
+    * It can be used to change the consent date and time of the token in order to test features such as reserving the advertisement opt-in notification message.
+
+#### [API]
+##### Added Features
+* Added a cause of failure to the 'extra2' field of the statistics query API delivery failure event.
+* Added a query condition to v2.4 scheduled message query API
+    * Added 'deliveryFrom' and 'deliveryTo' conditions that let you query messages based on the scheduled delivery date and time.
+    * Scheduled messages with schedules that fall between 'deliveryFrom' and 'deliveryTo' are retrieved.
+##### Bug Fixes
+* Fixed a query condition processing error in v2.4 scheduled message query API
+    * Fixed an error where the 'from' and 'to' query conditions were not processed in the v2.4 scheduled message query API.
+
 ### July 27, 2021
 ### [Console]
-#### More Features
+#### Added Features
 * Added the feature of reserving a guide message for the ad opt-in acceptance
     * Added a feature of sending a guide message to tokens that have reached two years since their last acceptance of ad opt-in. 
     * Every month at a specific time set by the user, a guide message will be sent to the target tokens.
@@ -12,21 +29,21 @@
  
 ### May 26, 2020
 ### [Console]
-#### More Features 
+#### Added Features 
 * Added APNS JWT Authentication
     * Added JWT as method of authentication for sending APNS push messages. You can register Key ID, Team ID, Topic, or Encryption Key required to authenticate JWT on the **Certificate** tab of console.
     * With the registration of APNS JWT certificate information, registered certificate is deleted. 
     * <a href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/establishing_a_token-based_connection_to_apns" target="_blank">Go to Apple Developer Guide</a>
 
 ### [Doc]
-#### More Guides
-* Added guide for **Getting Authentication Information for APNS JWT**
+#### Added Guide
+* Added a guide for **Getting Authentication Information for APNS JWT**
     * <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#get-apns-jwt" target="_blank">Direct link</a>
 
     
 ### March 24, 2020
 ### [Console]
-#### More Features
+#### Added Features
 * Updated Statistics
     * Added the **Statistics Event Key Management** tab. You can add a new statistics event key on console and set it up for message delivery. With messages sent, statistical data are collected as of configured statistics event key, and then you can search from the new statistics tab. 
         * <a href="https://docs.toast.com/en/Notification/Push/en/console-guide/#stats-event-key" target="_blank">Direct Link</a>
@@ -41,7 +58,7 @@
 
 ### October 29, 2019
 #### [API]
-##### More Features 
+##### Added Features 
 * Added Badge Attribute for Android  
     * The badge attribute can be delivered to Android, as well as iOS. 
     With TOAST SDK, the badge delivered onto app icon is automatically displayed. 
@@ -66,7 +83,7 @@
 
 
 #### [Console]
-##### More Features 
+##### Added Features 
 * Querying Token List from Token Tab 
     * Updated to allow query of tokens from token tab without search conditions. 
 * Sending Messages to iOS via FCM 
@@ -87,7 +104,7 @@
     * Fixed to apply period setting even if only one of from and to is set.
 
 #### [Console]
-##### More Features
+##### Added Features
 * Added duplicate message prevention function
     * Even if the exact same message is sent several times, it will not be sent for the set time.
     * Unsent messages will fail. The reason for the dispatch failure is "DUPLICATED_MESSAGE_TOKEN".
@@ -96,7 +113,7 @@
 
 ### February 26, 2019 
 #### [API]
-##### More Features
+##### Added Features
 * Added v2.3 API
     * Added Token Delete API. Can be called without Secret Key.
     * Added new push type 'FCM'. You must use 'FCM' instead of 'GCM' when making API calls.
@@ -108,7 +125,7 @@ Fix broken, typo, link errors
     * Fixed setting tab typo.
     * Fixed incorrect SDK guide link.
 
-##### More Features
+##### Added Features
 * User console added.
 
 ### December 18, 2018
@@ -119,7 +136,7 @@ Fix broken, typo, link errors
 
 ### October 30, 2018 
 #### [Console]
-##### More Features
+##### Added Features
 * Rich message feature added to message sending page
     * You can send a rich message from the Send Message page.
         * <a href="https://docs.toast.com/en/Notification/Push/en/console-guide/#_3" target="_blank"> Go to Console Guide  </a>
@@ -134,7 +151,7 @@ Fix broken, typo, link errors
 
 
 #### [API]
-##### More Features
+##### Added Features
 * Rich message feature added to message dispatch API
     * Added the ability to display buttons, media (images, movies, sounds) in push messages.
          * <a href="https://docs.toast.com/en/Notification/Push/en/api-guide/#7" target="_blank">Go to API Guide </a>
@@ -156,7 +173,7 @@ Fix broken, typo, link errors
     * If you set the category in the initialization and set it as the category identifier of your own in the message, you can receive the corresponding category action.
 * Added indicator collection methodology
     * It is possible to collect verification indices without initialization by inputting the indicator collection information (AppKey) in the application's info.plist file.
-    * It is possible to automatically transmit the reception indices by inputting the four index acquisition information (AppKey) of the info.plist file of the user Notification Sarvice Extension. (TCPushServiceExtension extension required)
+    * It is possible to automatically transmit the reception indices by inputting the four index acquisition information (AppKey) of the info.plist file of the user Notification Service Extension. (TCPushServiceExtension extension required)
 * Improved token registration
     * Only the system token is registered when the token registration request is made without initialization, and the issued token can be freely registered through the API from the service server.
 
@@ -167,7 +184,7 @@ Fix broken, typo, link errors
 
 ### August 28, 2018 
 #### [API]
-##### More Features
+##### Added Features
 * Added Logging API
     * Added API to inquire saved data with Logging function that can be activated in Console.
     * Provides two types of APIs: general query, bulk query.
@@ -204,7 +221,7 @@ Fix broken, typo, link errors
 
 ### June 26, 2018 
 #### [Console]
-##### More Features
+##### Added Features
 * Add Amazon Device Messaging (ADM) push type
     * Added ADM push type to send push messages to Amazon device (Kindle Fire).
     * You can register your app on the Amazon developer site, get a Client ID, Client Secret, and register it.
@@ -212,7 +229,7 @@ Fix broken, typo, link errors
 
 
 #### [API]
-##### More Features
+##### Added Features
 * Add Amazon Device Messaging (ADM) push type
 
 ##### Bug fixes
@@ -240,7 +257,7 @@ Automate message check indicator collection and transmission
     * Added message ID to the details part of popup when selecting message.
 
 #### [API]
-##### More Features
+##### Added Features
 * Added v2.1 token lookup API
     * You can check the device ID you collect when you register the token.
     * You can check the date of the most recent registration request for this token.
