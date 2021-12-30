@@ -294,6 +294,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 
 
 #### トークンプロパティ統計照会API
+**fade-out 된 API입니다. v2.4 이상 API를 이용해주세요.**
+
 ##### Method, URL, Headers
 ```
 GET /push/v2.2/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
@@ -377,6 +379,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 
 #### トークン登録統計照会
+**fade-out 된 API입니다. v2.4 이상 API를 이용해주세요.**
+
 ##### Method, URL, Headers
 ```
 GET /push/v2.2/appkeys/{appkey}/statistics/token-registrations?from={from}&to={to}
@@ -1138,6 +1142,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 
 #### メッセージ受信、確認統計照会
+**fade-out 된 API입니다. v2.4 이상 API를 이용해주세요.**
+
 メッセージ受信、確認収集(message delivery receipt)機能を有効化して、v1.4以上のSDKを適用すると、送信したメッセージの受信、確認情報を照会できます。
 収集された情報を統計APIで照会できます。機能は[Console] > [Settings]タブで有効にできます。
 
