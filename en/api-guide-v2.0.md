@@ -314,6 +314,9 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 
 
 #### Get Token Property Statistics API
+
+**This API has been deprecated. Please use API v2.4 or higher.**
+
 ##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
@@ -396,6 +399,9 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 ```
 
 #### Get Register Token Statistics
+
+**This API has been deprecated. Please use API v2.4 or higher.**
+
 ##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/statistics/token-registrations?from={from}&to={to}
@@ -1150,6 +1156,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 ```
 
 #### Get Message Delivery/Receipt Statistics
+
+**This API has been deprecated. Please use API v2.4 or higher.**
 
 Enable Message Delivery Receipt and apply v1.4 or higher SDK, so as to check the status of message delivery/receipt. Can get collected data with statistics API. Go to the [Console] > [Settings] tab to enable the function.
 
