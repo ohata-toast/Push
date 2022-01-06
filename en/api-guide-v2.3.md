@@ -272,7 +272,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 
 #### Query Statistics for Token Attributes API
 
-**Fade-out 된 API입니다. v2.4 이상의 API를 이용해 주세요.**
+**This API has been deprecated. Please use API v2.4 or higher.**
 
 ##### Method, URL, Headers
 ```
@@ -357,7 +357,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 
 #### Query Statistics for Token Registration 
 
-**Fade-out 된 API입니다. v2.4 이상의 API를 이용해 주세요.**
+**This API has been deprecated. Please use API v2.4 or higher.**
 
 ##### Method, URL, Headers
 ```
@@ -1236,7 +1236,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 
 #### Query Statistics for Message Delivery Receipt
 
-**Fade-out 된 API입니다. v2.4 이상의 API를 이용해 주세요.**
+**This API has been deprecated. Please use API v2.4 or higher.**
 
 Enable Message Delivery Receipt and apply v1.4 or higher SDK, to confirm receipt of delivered messages. Such collected data can be queried by statistics API. To enable the feature, go to  [Console] > [Settings]. 
 
