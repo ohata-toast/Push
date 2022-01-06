@@ -311,7 +311,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 
 
 #### 토큰 속성 통계 조회 API
-**fade-out 된 API입니다. v2.4 이상 API를 이용해주세요.**
+
+**Fade-out 된 API입니다. v2.4 이상의 API를 이용해 주세요.**
 
 ##### Method, URL, Headers
 ```
@@ -395,7 +396,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 ```
 
 #### 토큰 등록 통계 조회
-**fade-out 된 API입니다. v2.4 이상 API를 이용해주세요.**
+
+**Fade-out 된 API입니다. v2.4 이상의 API를 이용해 주세요.**
 
 ##### Method, URL, Headers
 ```
@@ -1152,7 +1154,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 ```
 
 #### 메시지 수신, 확인 통계 조회
-**fade-out 된 API입니다. v2.4 이상 API를 이용해주세요.**
+
+**Fade-out 된 API입니다. v2.4 이상의 API를 이용해 주세요.**
 
 메시지 수신, 확인 수집(message delivery receipt) 기능을 활성화하고, v1.4 이상 SDK를 적용하면 발송한 메시지에 대해 수신, 확인 정보를 조회할 수 있습니다.
 수집된 정보를 통계 API로 조회할 수 있습니다. 기능은 콘솔의 **설정** 탭에서 활성화할 수 있습니다.
