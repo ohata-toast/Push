@@ -1,13 +1,13 @@
 ## Notification> Push > Release Notes
 
-### 2022. 01. 11.
+### January 11, 2022
 #### [API]
-##### 기능 추가
-* ADM(Amazon Device Messaging) 푸시 타입에 수신/확인 기능 추가
-    * ADM 발송 시에도 수신/확인을 할 수 있도록 기능이 추가되었습니다.
-##### 오류 수정
-* FCM으로 iOS 메세지 발송 실패 시 성공 처리 오류 수정
-    * Firebase에 올바르지 않은 APNS 인증서 설정 후 메세지 발송 시 성공으로 처리되는 오류가 수정되었습니다.
+##### Added Features
+* Added a receipt/confirmation feature to the Amazon Device Messaging (ADM) push type
+    * Added a feature that enables receipt/confirmation when sending ADM.
+##### Bug Fixes
+* Fixed an error where a failure to send an iOS message with FCM was handled as a success
+    * Fixed an error where, when sending a message after setting an incorrect APNS certificate to Firebase, it was handled as a success.
 
 ### October 26, 2021
 #### [Console]
@@ -102,7 +102,7 @@
 
 ### May 28, 2019 
 #### [API]
-* Updated Receive/Confirm Message data collection performance
+* Improved Receive/Confirm Message data collection performance
     * We have improved message receiving/confirmation data collection performance.
 
 ### March 26, 2019 
