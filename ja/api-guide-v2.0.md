@@ -311,6 +311,9 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 
 
 #### トークンプロパティ統計照会API
+
+**Fade-outしたAPIです。 v2.4以上のAPIをご利用ください。**
+
 ##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
@@ -393,6 +396,9 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 ```
 
 #### トークン登録統計照会
+
+**Fade-outしたAPIです。 v2.4以上のAPIをご利用ください。**
+
 ##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/statistics/token-registrations?from={from}&to={to}
@@ -1148,6 +1154,9 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 ```
 
 #### メッセージ受信、確認統計照会
+
+**Fade-outしたAPIです。 v2.4以上のAPIをご利用ください。**
+
 メッセージ受信、確認収集(message delivery receipt)機能を有効化して、v1.4以上のSDKを適用すると、送信したメッセージの受信、確認情報を照会できます。
 収集された情報を統計APIで照会できます。機能はコンソールの**設定**タブで有効にできます。
 
