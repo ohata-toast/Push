@@ -837,6 +837,74 @@ Below shows an example of sending messages in various languages.
   Users of ko-KR (Korean) shall be delivered with content.ko, even if the request body show content.ko only.
 - customKey is delivered with content.default as it is not defined in content.ja: enter common messages to content.defalt.
 
+#### 7. Rich Messages 
+When the 'richMessage' field is defined at 'content', rich messages can be delivered. 
+Such messages can be sent along with Common, Ad, or Multi-Language Messages.  
+v1.7 or higher SDKs are required.  
+
+##### Request Body
+```json
+{
+    "target" : {
+        "type" : "ALL"
+    },
+    "content" : {
+        "default" : {
+            "title" : "title",
+            "body" : "body",
+            "richMessage" : {
+                "buttons" : [{
+                        "name" : "Button Name",
+                        "submitName": "Send Button Name",
+                        "buttonType" : "REPLY | OPEN_APP | OPEN_URL | DISMISS",
+                        "link" : "URL | ...",
+                        "hint" : "Enter your message."
+                    }
+                ],
+                "media" : {
+                    "sourceType" : "REMOTE | LOCAL",
+                    "source" : "URL | LOCAL_RESOURCE",
+                    "mediaType" : "IMAGE | GIF | VEDIO | AUDIO",
+                    "extension" : "jpg | png",
+                    "expandable" : true
+                },
+                "largeIcon" : {
+                    "sourceType" : "REMOTE | LOCAL",
+                    "source" : "URL | LOCAL_RESOURCE"
+                },
+                "group" : {
+                    "key" : "KEY",
+                    "description" : "Group of Notifications"
+                }
+            }
+        }
+    },
+    "messageType" : "NOTIFICATION"
+}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| richMessage | Optional, Object | Required for rich messages |
+| richMessage.buttons | Optional, Object Array | Buttons added for rich messages: up to 3. |
+| richMessage.button.name | Required, String | Button name |
+| richMessage.button.submitName | Optional, String | Send button name: shows when the button type on iOS is REPLY. |
+| richMessage.button.buttonType | Required, String | Button type: REPLY, OPEN_APP, OPEN_URL, or DISMISS |
+| richMessage.button.link | Required, String | Link connected at the press of the button |
+| richMessage.button.hint | Required, String | Hint for a button |
+| richMessage.media | Optional, Object | Media added for rich messages |
+| richMessage.media.sourceType | Required, String | Media location: REMOTE or LOCAL |
+| richMessage.media.source | Required, String | Address where media is located |
+| richMessage.media.mediaType | Required, String | Media type: IMAGE, GIF, VEDIO, or AUDIO. Android supports IMAGE only. |
+| richMessage.media.extension | Required, String | Extension of media file |
+| richMessage.media.expandable | Required, Boolean | Click to expand media on Android |
+| richMessage.largeIcon | Optional, Object | Large icons added for rich messages: only on Android. |
+| richMessage.largeIcon.sourceType | Required, String | Location of large icons: REMOTE or LOCAL |
+| richMessage.largeIcon.source | Required, String | Address where media is located |
+| richMessage.group | Optional, Object | Bind many messages into a group: only on Android |
+| richMessage.group.key | Required, String | Key of a group |
+| richMessage.group | Required, String | Description of a group |
+
 ### Get
 #### List
 ##### Method, URL, Headers

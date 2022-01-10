@@ -311,6 +311,9 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 
 
 #### トークンプロパティ統計照会API
+
+**Fade-outしたAPIです。 v2.4以上のAPIをご利用ください。**
+
 ##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
@@ -393,6 +396,9 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 ```
 
 #### トークン登録統計照会
+
+**Fade-outしたAPIです。 v2.4以上のAPIをご利用ください。**
+
 ##### Method, URL, Headers
 ```
 GET /push/v2.0/appkeys/{appkey}/statistics/token-registrations?from={from}&to={to}
@@ -838,6 +844,74 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key:
  リクエスト本文にcontent.koのみ入力されていますが、言語コードがko-KR(韓国語)のユーザーにもcontent.koの内容が送信されます。
 - customKeyはcontent.jaに定義されていないため、content.defaultの値で送信されます。共通する内容はcontent.defaultに入力できます。
 
+#### 7. リッチメッセージ
+メッセージ送信時、'content'に'richMessage'フィールドを定義すると、リッチメッセージでメッセージを送信できます。
+共通メッセージ、広告性メッセージ、多言語メッセージと一緒に使用できます。
+v1.7以上のSDKが適用された場所でのみ使用できます。
+
+##### Request Body
+```json
+{
+    "target" : {
+        "type" : "ALL"
+    },
+    "content" : {
+        "default" : {
+            "title" : "title",
+            "body" : "body",
+            "richMessage" : {
+                "buttons" : [{
+                        "name" : "ボタン名",
+                        "submitName": "転送ボタン名",
+                        "buttonType" : "REPLY | OPEN_APP | OPEN_URL | DISMISS",
+                        "link" : "URL | ...",
+                        "hint" : "メッセージを入力してください。"
+                    }
+                ],
+                "media" : {
+                    "sourceType" : "REMOTE | LOCAL",
+                    "source" : "URL | LOCAL_RESOURCE",
+                    "mediaType" : "IMAGE | GIF | VEDIO | AUDIO",
+                    "extension" : "jpg | png",
+                    "expandable" : true
+                },
+                "largeIcon" : {
+                    "sourceType" : "REMOTE | LOCAL",
+                    "source" : "URL | LOCAL_RESOURCE"
+                },
+                "group" : {
+                    "key" : "KEY",
+                    "description" : "通知集"
+                }
+            }
+        }
+    },
+    "messageType" : "NOTIFICATION"
+}
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| richMessage | Optional, Object | リッチメッセージ使用時に必要 |
+| richMessage.buttons | Optional, Object Array | リッチメッセージに追加されるボタン。最大3個まで可能 |
+| richMessage.button.name | Required, String | ボタン名 |
+| richMessage.button.submitName | Optional, String | 転送ボタン名。iOSでボタンタイプがREPLYの時に表示 |
+| richMessage.button.buttonType | Required、String | ボタンタイプ、 REPLY、OPEN_APP、OPEN_URL、DISMISS |
+| richMessage.button.link | Required, String | ボタンを押した時に接続するリンク |
+| richMessage.button.hint | Required, String | ボタンについてのヒント |
+| richMessage.media | Optional, Object | リッチメッセージに追加されるメディア |
+| richMessage.media.sourceType | Required, String | メディアの位置、 REMOTE、LOCAL |
+| richMessage.media.source | Required, String | メディアがある場所のアドレス |
+| richMessage.media.mediaType | Required、String | メディアのタイプ、 IMAGE、GIF、VEDIO、AUDIO。AndroidではIMAGEのみサポート |
+| richMessage.media.extension | Required, String | メディアファイルの拡張子 |
+| richMessage.media.expandable | Required, Boolean | Androidでメディアをクリックした時、広げる機能を使用するかどうか |
+| richMessage.largeIcon | Optional, Object | リッチメッセージに追加される大アイコン。Androidでのみサポート |
+| richMessage.largeIcon.sourceType | Required, String | 大アイコンの位置、 REMOTE、LOCAL |
+| richMessage.largeIcon.source | Required, String | メディアがある場所のアドレス |
+| richMessage.group | Optional, Object | 複数のメッセージをグループ単位にまとめる機能。Androidでのみサポート |
+| richMessage.group.key | Required, String | グループのキー |
+| richMessage.group | Required, String | グループの説明 |
+
 ### 照会
 #### リスト照会
 ##### Method, URL, Headers
@@ -1080,6 +1154,9 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 ```
 
 #### メッセージ受信、確認統計照会
+
+**Fade-outしたAPIです。 v2.4以上のAPIをご利用ください。**
+
 メッセージ受信、確認収集(message delivery receipt)機能を有効化して、v1.4以上のSDKを適用すると、送信したメッセージの受信、確認情報を照会できます。
 収集された情報を統計APIで照会できます。機能はコンソールの**設定**タブで有効にできます。
 
