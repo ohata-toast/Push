@@ -291,6 +291,9 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 
 
 #### Query Statistics for Token Attributes API 
+
+**This API has been deprecated. Please use API v2.4 or higher.**
+
 ##### Method, URL, Headers
 ```
 GET /push/v2.2/appkeys/{appkey}/statistics/token-properties?from={from}&to={to}&tokenProperties={tokenProperties}
@@ -375,6 +378,9 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 
 #### Query Statistics for Token Registration
+
+**This API has been deprecated. Please use API v2.4 or higher.**
+
 ##### Method, URL, Headers
 ```
 GET /push/v2.2/appkeys/{appkey}/statistics/token-registrations?from={from}&to={to}
@@ -1149,6 +1155,8 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 ```
 
 #### Query Statistics for Message Delivery Receipt
+
+**This API has been deprecated. Please use API v2.4 or higher.**
 
 Enable Message Delivery Receipt and apply v1.4 or higher SDK, to confirm receipt of delivered messages. Such collected data can be queried by statistics API. To enable the feature, go to  [Console] > [Settings]. 
 
