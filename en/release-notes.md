@@ -1,5 +1,16 @@
 ## Notification> Push > Release Notes
 
+### February 15, 2022
+#### [Console]
+##### Added Features
+* Added a token file download feature
+    * Added a feature to download stored tokens as a file using the **Token File Download** feature in the **Token** tab.
+##### Bug Fixes
+* Fixed an error where a UID was saved as 'UNKNOWN' while saving the delivery history
+    * Fixed an error where a UID was saved as 'UNKNOWN' in the expired token history when using the **Logging** feature in the **Setting** tab.
+* Fixed an error where duplicate authentication failure notification emails were sent
+    * Fixed an error where, when authentication failed when sending a push message, duplicate notification emails were sent
+
 ### January 11, 2022
 #### [API]
 ##### Added Features
