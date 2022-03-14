@@ -339,6 +339,7 @@ curl -X DELETE \
 
 ## メッセージ
 ### 送信
+※ API로 발송한 푸시 메시지는 콘솔과 단건, 목록 조회 API에서 조회할 수 없습니다. API로 발송한 푸시 메시지는 Logging 기능을 활성화한 후 로그 조회 API를 이용해 주세요.
 ##### Method, URL, Headers
 ```
 POST /push/v2.4/appkeys/{appkey}/messages
@@ -912,6 +913,7 @@ v1.7以上のSDKが適用された場所でのみ使用できます。
 
 ### 照会
 #### リスト照会
+※ 콘솔로 발송한 푸시 메시지만 목록 조회 API로 조회할 수 있습니다. API로 발송한 푸시 메시지는 Logging 기능을 활성화한 후 로그 조회 API를 이용해 주세요.
 ##### Method, URL, Headers
 ```
 GET /push/v2.4/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
@@ -1003,6 +1005,7 @@ curl -X GET \
     - CANCEL_UNKNOWN：内部エラーが発生した状態です。
 
 #### 単件照会
+※ 콘솔로 발송한 푸시 메시지만 단건 조회 API로 조회할 수 있습니다. API로 발송한 푸시 메시지는 Logging 기능을 활성화한 후 로그 조회 API를 이용해 주세요.
 ##### Method, URL, Headers
 ```
 GET /push/v2.4/appkeys/{appkey}/messages/{message-id}
