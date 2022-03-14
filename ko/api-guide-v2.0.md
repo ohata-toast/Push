@@ -914,6 +914,147 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
 | richMessage.group | Required, String | 그룹에대한 설명 |
 
 ### 조회
+#### 목록 조회
+##### Method, URL, Headers
+```
+GET /push/v2.0/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+
+| Field         | Usage                     | Description                              |
+| ------------- | ------------------------- | ---------------------------------------- |
+| appkey        | Required, String          | Path Variable, 서비스 이용 시 발급받은 앱키         |
+| pageIndex     | Optional, Number          | 기본값 0                                    |
+| pageSize      | Optional, Number          | 기본값 25, 최댓값 100                          |
+| from          | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| to            | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| deliveryType  | Optional, String          | 'INSTANT'(즉시 발송), 'RESERVATION'(예약 발송)   |
+| messageStatus | Optional, String          | 'READY', 'PROCESSING', 'COMPLETE', 'CANCEL_NO_TARGET', 'CANCEL_INVALID_CERTIFICATE', 'CANCEL_INVALID_MESSAGE', 'CANCEL_UNSUPPORTED_MESSAGE_TYPE', 'CANCEL_UNAUTHORIZED', 'CANCEL_UNKNOWN' |
+
+##### Request Body
+```
+없음
+```
+##### Response Body
+```json
+{
+    "header" : {
+        "isSuccessful" : true,
+        "resultCode": 0,
+        "resultMessage" : "SUCCESS"
+    },
+    "messages" : [{
+        "messageId" : 0,
+        "messageIdString": "0",
+        "target" : {
+        "type" : "ALL"
+        },
+        "content" : {
+            "default" : {
+                "title": "title",
+                "body": "body"
+            }
+        },
+        "messageType" : "AD",
+        "contact": "1588-1588",
+        "removeGuide": "매뉴 > 설정",
+        "timeToLiveMinute": 60,
+        "createdDateTime": "2017-02-13T09:30:00.000+09:00",
+        "completedDateTime": "2017-02-13T09:30:00.000+09:00",
+        "targetCount": 1000,
+		"sentCount": 1000,
+        "messageStatus": "COMPLETE",
+        "provisionedResourceId": "[a-zA-Z0-9]{16}"
+    }],
+    "toatalCount": 1
+}
+```
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/messages
+```
+
+| Field                 | Usage | Description               |
+| --------------------- | ----- | ------------------------- |
+| createdDateTime       | -     | 메시지가 생성된 일시 (ISO 8601)    |
+| completedDateTime     | -     | 메시지 발송이 완료된 일시 (ISO 8601) |
+| targetCount           | -     | 발송될 목표(target) 토큰 수               |
+| sentCount             | -     | 실제 발송된 토큰 수               |
+| provisionedResourceId | -     | 메시지가 발송된 전용 리소스 ID       |
+| totalCount            | -     | 필터링된 전체 메시지 수            |
+
+- "messageStatus" 필드는 메시지 상태를 나타냅니다. 다음과 같은 상태가 있습니다.
+    - READY: 메시지 발송 요청이 등록된 상태입니다.
+    - PROCESSING: 메시지 생성이 끝나고, 대기 또는 발송 중입니다.
+    - COMPLETE: 메시지 발송이 완료된 상태입니다.
+    - CANCEL_NO_TARGET: 메시지 발송 대상이 없어서 취소된 상태입니다. 다음과 같은 이유로 발송이 취소될 수 있습니다.  
+       등록된 토큰이 없을 때  
+        광고 푸시 메시지의 경우, 수신 동의한 사용자가 없을 때  
+        야간 광고 푸시 메시지(21시 ~ 8시)의 경우, 야간 광고 수신 동의한 사용자가 없을 때  
+        기존 등록된 토큰들이 삭제되어 토큰이 없을 때    
+    - CANCEL_INVALID_CERTIFICATE: 인증서가 잘못되어 취소된 상태입니다. 인증서 상태를 확인해야 합니다.
+    - CANCEL_INVALID_MESSAGE: 메시지 형식이 맞지 않아 취소된 상태입니다.
+    - CANCEL_UNSUPPORTED_MESSAGE_TYPE: 메시지 형식이 맞지 않아 취소된 상태입니다.
+    - CANCEL_UNAUTHORIZED: 인증서 인증 과정에서 실패한 상태입니다. 인증서 상태를 확인해야 합니다.
+    - CANCEL_UNKNOWN: 내부 오류가 발생한 상태입니다.
+
+#### 단건 조회
+##### Method, URL, Headers
+```
+GET /push/v2.0/appkeys/{appkey}/messages/{message-id}
+Content-Type: application/json;charset=UTF-8
+X-Secret-Key: [a-zA-Z0-9]{8}
+```
+
+| Field     | Usage            | Description                      |
+| --------- | ---------------- | -------------------------------- |
+| appkey    | Required, String | Path Variable, 서비스 이용 시 발급 받은 앱키 |
+| messageId | Required, Number | 메시지 ID                          |
+
+##### Request Body
+```
+없음
+```
+##### Response Body
+```json
+{
+    "message" : {
+        "messageId" : 0,
+        "messageIdString": "0",
+        "target" : {
+        "type" : "ALL"
+        },
+        "content" : {
+            "default" : {
+                "title": "title",
+                "body": "body"
+            }
+        },
+        "messageType" : "AD",
+        "contact": "1588-1588",
+        "removeGuide": "매뉴 > 설정",
+        "timeToLiveMinute": 60,
+        "createdDateTime": "2017-02-13T09:30:00.000+09:00",
+        "completedDateTime": "2017-02-13T09:30:00.000+09:00",
+        "targetCount": 1000,
+        "messageStatus": "COMPLETE",
+        "provisionedResourceId": "[a-zA-Z0-9]{16}"
+    },
+    "header" : {
+        "isSuccessful" : true,
+        "resultCode": 0,
+        "resultMessage" : "SUCCESS"
+    }
+}
+```
+
+##### Example
+```
+curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: SECRET_KEY" https://api-push.cloud.toast.com/push/v2.0/appkeys/{appkey}/messages/{messageId}
+```
+
 #### 실패한 메시지 목록 조회
 발송에 실패한 메시지를 조회할 수 있습니다.
 단, 토큰이 없으면 (INVALID_TOKEN)는 발송 실패로 판단하지 않습니다.
