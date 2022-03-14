@@ -435,6 +435,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 
 ## Messages
 ### Send 
+※ API로 발송한 푸시 메시지는 콘솔과 단건, 목록 조회 API에서 조회할 수 없습니다. API로 발송한 푸시 메시지는 Logging 기능을 활성화한 후 로그 조회 API를 이용해 주세요.
 ##### Method, URL, Headers
 ```
 POST /push/v2.2/appkeys/{appkey}/messages
@@ -898,7 +899,8 @@ v1.7 or higher SDKs are required.
 | richMessage.media.extension      | Required, String       | Extension of media file                                      |
 | richMessage.media.expandable     | Required, Boolean      | Click to expand media on Android                             |
 | richMessage.largeIcon            | Optional, Object       | Large icons added for rich messages: only on Android.        |
-| richMessage.largeIcon.sourceType | Required, String       | Location of large icons: REMOTE or LOCAL                     |
+| richMessage.largeIcon.sourceType | Required, String       | Location of large icons: REMOTE or fPOST /push/v2.2/appkeys/{appkey}/messages
+LOCAL                     |
 | richMessage.largeIcon.source     | Required, String       | Address where media is located                               |
 | richMessage.group                | Optional, Object       | Bind many messages into a group: only on Android             |
 | richMessage.group.key            | Required, String       | Key of a group                                               |
@@ -907,7 +909,7 @@ v1.7 or higher SDKs are required.
 ### Query
 
 #### List
-
+※ 콘솔로 발송한 푸시 메시지만 목록 조회 API로 조회할 수 있습니다. API로 발송한 푸시 메시지는 Logging 기능을 활성화한 후 로그 조회 API를 이용해 주세요.
 ##### Method, URL, Headers
 ```
 GET /push/v2.2/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
@@ -996,6 +998,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
        - CANCEL_UNKNOWN: Error has occurred internally. 
 
 #### Get
+※ 콘솔로 발송한 푸시 메시지만 단건 조회 API로 조회할 수 있습니다. API로 발송한 푸시 메시지는 Logging 기능을 활성화한 후 로그 조회 API를 이용해 주세요.
 ##### Method, URL, Headers
 ```
 GET /push/v2.2/appkeys/{appkey}/messages/{message-id}

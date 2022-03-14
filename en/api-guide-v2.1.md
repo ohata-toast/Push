@@ -427,6 +427,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
 
 ## Messages 
 ### Send  
+※ API로 발송한 푸시 메시지는 콘솔과 단건, 목록 조회 API에서 조회할 수 없습니다.
 ##### Method, URL, Headers
 ```
 POST /push/v2.1/appkeys/{appkey}/messages
@@ -891,6 +892,7 @@ v1.7 or higher SDKs are required.
 
 ### Query
 #### List
+※ 콘솔로 발송한 푸시 메시지만 목록 조회 API로 조회할 수 있습니다.
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
@@ -977,6 +979,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-Secret-Key: 
     - CANCEL_UNKNOWN: Error has occurred internally. 
 
 #### Get 
+※ 콘솔로 발송한 푸시 메시지만 단건 조회 API로 조회할 수 있습니다.
 ##### Method, URL, Headers
 ```
 GET /push/v2.1/appkeys/{appkey}/messages/{message-id}
