@@ -442,7 +442,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" https://api-push.c
 
 ## 메시지
 ### 발송
-※ API로 발송한 푸시 메시지는 콘솔에서 조회할 수 없습니다. Logging 기능을 활성화한 후 로그 조회 API를 이용해 주세요.
+※ API로 발송한 푸시 메시지는 콘솔과 단건, 목록 조회 API에서 조회할 수 없습니다. API로 발송한 푸시 메시지는 Logging 기능을 활성화한 후 로그 조회 API를 이용해 주세요.
 ##### Method, URL, Headers
 ```
 POST /push/v2.3/appkeys/{appkey}/messages
@@ -993,6 +993,7 @@ v1.7이상 SDK가 적용된 곳에서만 사용할 수 있습니다.
 
 ### 조회
 #### 목록 조회
+※ 콘솔로 발송한 푸시 메시지만 목록 조회 API로 조회할 수 있습니다. API로 발송한 푸시 메시지는 Logging 기능을 활성화한 후 로그 조회 API를 이용해 주세요.
 ##### Method, URL, Headers
 ```
 GET /push/v2.3/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
@@ -1079,6 +1080,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
     - CANCEL_UNKNOWN: 내부 오류가 발생한 상태입니다.
 
 #### 단건 조회
+※ 콘솔로 발송한 푸시 메시지만 단건 조회 API로 조회할 수 있습니다. API로 발송한 푸시 메시지는 Logging 기능을 활성화한 후 로그 조회 API를 이용해 주세요.
 ##### Method, URL, Headers
 ```
 GET /push/v2.3/appkeys/{appkey}/messages/{message-id}
