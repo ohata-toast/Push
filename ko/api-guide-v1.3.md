@@ -208,6 +208,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ### 메시지
 
 #### 메시지 발송
+※ API로 발송한 푸시 메시지는 콘솔에서 조회할 수 없습니다. Logging 기능을 활성화한 후 로그 조회 API를 이용해 주세요.
 
 [Method, URL]
 
@@ -476,69 +477,6 @@ Request Body
   "expiresAfter":60
 }
 ```
-
-#### 메시지 조회
-
-[Method, URL]
-
-```
-GET https://api-push.cloud.toast.com/push/v1.3/appkey/{appkey}/messages/{message-id}
-Content-Type: application/json;charset=UTF-8
-X-Secret-Key: [a-zA-Z0-9]{8}
-```
-
-[Response Body]
-
-```
-{
-  "header": {
-    "resultCode": 0,
-    "resultMessage": "SUCCESS",
-    "isSuccessful": true
-  },
-  "message": {
-    "messageId": 42983,
-    "messageType": "NOTIFICATION",
-    "target": {
-      "type": "ALL",
-      "pushTypes": [
-        "GCM"
-      ]
-    },
-    "content": {
-      "default": {
-        "title": "title",
-        "body": "body"
-      }
-    },
-    "targetCount": 1048576,
-    "timeToLive": 0,
-    "sentTime": "2015-11-23T18:39:38.000+0900",
-    "createdDateTime": "2015-11-23T18:39:38.000+0900",
-    "messageStatus": "COMPLETE"
-  }
-}
-
-
-
-```
-
-"messageStatus" 필드는 메시지 상태를 나타낸다. 다음과 같은 상태가 있다.
-
-- READY: 메시지 발송 요청이 등록된 상태다.
-- IN_MQ: 메시지 생성이 끝나고, 대기 또는 발송 중이다.
-- COMPLETE: 메시지 발송이 완료된 상태다.
-- CANCEL_NO_TARGET: 메시지 발송 대상이 없어서 취소된 상태다. 다음과 같은 이유로 발송이 취소될 수 있다.  
- 등록된 토큰이 없을 때  
- 해당 Channel 또는 Uid가 없을 때  
- 광고 푸시 메시지의 경우, 수신 동의한 사용자가 없을 때  
- 야간 광고 푸시 메시지(21시 ~ 8시)의 경우, 야간 광고 수신 동의한 사용자가 없을 때  
- 기존 등록된 토큰들이 삭제되어 토큰이 없을 때    
-- CANCEL_INVALID_CERTIFICATE: 인증서가 잘 못되어 취소된 상태다. 인증서 상태를 확인해야 한다.
-- CANCEL_INVALID_MESSAGE: 메시지 형식이 맞지않아 취소된 상태다.
-- CANCEL_UNSUPPORTED_MESSAGE_TYPE: 메시지 형식이 맞지않아 취소된 상태다.
-- CANCEL_UNAUTHORIZED: 인증서 인증 과정에서 실패한 상태다. 인증서 상태를 확인해야 한다.
-- CANCEL_UNKNOWN: 내부 오류가 발생한 상태다.
 
 ### 피드백
 
