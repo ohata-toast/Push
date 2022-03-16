@@ -436,6 +436,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
 
 ## メッセージ
 ### 送信
+※ APIで送信したプッシュメッセージはコンソールと単件、リスト照会APIで照会できません。 APIで送信したプッシュメッセージはLogging機能を有効にしてからログ照会APIを利用してください。
 ##### Method, URL, Headers
 ```
 POST /push/v2.2/appkeys/{appkey}/messages
@@ -901,6 +902,7 @@ v1.7以上のSDKが適用された場所でのみ使用できます。
 
 ### 照会
 #### リスト照会
+※コンソールで送信したプッシュメッセージのみリスト照会APIで照会できます。 APIで送信したプッシュメッセージはLogging機能を有効にしてからログ照会APIを利用してください。
 ##### Method, URL, Headers
 ```
 GET /push/v2.2/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
@@ -988,6 +990,7 @@ curl -X GET -H "Content-Type: application/json;charset=UTF-8" -H "X-User-Access-
     - CANCEL_UNKNOWN：内部エラーが発生した状態です。
 
 #### 単件照会
+※コンソールで送信したプッシュメッセージのみ、単件照会APIで照会できます。APIで送信したプッシュメッセージはLogging機能を有効にしてからログ照会APIを利用してください。
 ##### Method, URL, Headers
 ```
 GET /push/v2.2/appkeys/{appkey}/messages/{message-id}
