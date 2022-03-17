@@ -1,10 +1,10 @@
 ## Notification> Push > Release Notes
 
-### 2022. 03. 29.
+### March 29, 2022
 #### [Console]
-##### 기능 추가
-* 토큰 파일 다운로드 시 100만 건이 넘으면 파일 분할 후 압축된 파일로 제공하는 기능 추가
-  * **토큰** 탭에서 **토큰 파일 다운로드** 기능을 이용해 저장된 토큰들을 파일로 다운로드할 때 토큰 개수가 100만 건이 넘으면 파일 분할 후 압축된 파일로 제공하는 기능이 추가되었습니다.
+##### Added Features
+* Added feature to provide a compressed file after splitting the file if the number of tokens exceeds 1 million when using the token file download
+    * When downloading stored tokens as a file using the **Token File Download** feature in the **Token** tab, a feature to provide a compressed file after splitting the file if the number of tokens exceeds 1 million has been added.
 
 ### February 15, 2022
 #### [Console]

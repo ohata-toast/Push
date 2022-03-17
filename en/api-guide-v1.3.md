@@ -207,7 +207,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ### Messages
 
 #### Send 
-※ API로 발송한 푸시 메시지는 콘솔과 메시지 조회 API에서 조회할 수 없습니다.
+※ Push messages sent using the API cannot be retrieved in the console or by the message query API.
 
 [Method, URL]
 
@@ -476,7 +476,7 @@ Request Body
 ```
 
 #### Query 
-※ 콘솔로 발송한 푸시 메시지만 메시지 조회 API로 조회할 수 있습니다.
+※ Only push messages sent using the console can be retrieved by the Query API.
 
 [Method, URL]
 
