@@ -1,5 +1,11 @@
 ## Notification> Push > Release Notes
 
+### March 29, 2022
+#### [Console]
+##### Added Features
+* Added feature to provide a compressed file after splitting the file if the number of tokens exceeds 1 million when using the token file download
+    * When downloading stored tokens as a file using the **Token File Download** feature in the **Token** tab, a feature to provide a compressed file after splitting the file if the number of tokens exceeds 1 million has been added.
+
 ### February 15, 2022
 #### [Console]
 ##### Added Features

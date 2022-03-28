@@ -207,6 +207,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 ### Messages
 
 #### Send 
+※ Push messages sent using the API cannot be retrieved in the console or by the message query API.
 
 [Method, URL]
 
@@ -475,6 +476,7 @@ Request Body
 ```
 
 #### Query 
+※ Only push messages sent using the console can be retrieved by the Query API.
 
 [Method, URL]
 

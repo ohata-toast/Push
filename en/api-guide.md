@@ -337,6 +337,7 @@ curl -X DELETE \
 
 ## Messages
 ### Send
+※ Push messages sent using the API cannot be retrieved in the console or by the Get or List API. For push messages sent using the API, use the Query Logs API after enabling the Logging function.
 ##### Method, URL, Headers
 ```
 POST /push/v2.4/appkeys/{appkey}/messages
@@ -911,6 +912,7 @@ With the 'notification' field defined in 'content', messages can be delivered to
 
 ### Query
 #### List
+※ Only the push messages sent using the console can be retrieved by the List API. For push messages sent using the API, use the Query Logs API after enabling the Logging function.
 ##### Method, URL, Headers
 ```
 GET /push/v2.4/appkeys/{appkey}/messages?pageIndex={pageIndex}&pageSize={pageSize}&from={from}&to={to}&deliveryType={deliveryType}&messageStatus={messageStatus}
@@ -1002,6 +1004,7 @@ curl -X GET \
     - CANCEL_UNKNOWN: Error has occurred internally.
 
 #### Get
+※ Only the push messages sent using the console can be retrieved by the Get API. For push messages sent using the API, use the Query Logs API after enabling the Logging function.
 ##### Method, URL, Headers
 ```
 GET /push/v2.4/appkeys/{appkey}/messages/{message-id}
