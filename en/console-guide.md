@@ -570,7 +570,7 @@ When the Customer uses NHN Cloud Push Service, assignment of personal informatio
 
 **Notice of Personal Information Assignor** To use Push Service, make sure the following is displayed for 'Personal Information Handling Policy' > Assignment Status of the Customer.  
 ```
-Assignor: NHN
+Assignor: NHN Cloud
 Content of Business:Deliver Push Messages in lieu of Customers
 ```
 
