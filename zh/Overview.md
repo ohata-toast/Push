@@ -46,7 +46,7 @@ Can easily register/query tokens and receive push messages
 
 In accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection, etc. (from Article 50 to 50-8), you're also required to enter consent to receive notification/promotional/night-time promotional push messages. Messages are automatically filtered based on such consent, when delivered.
 
-[Go to KISA Guidelines](https://spam.kisa.or.kr/spam/sub62.do)
+[Go to KISA Guidelines](https://spam.kisa.or.kr/spam/na/ntt/selectNttInfo.do?mi=1020&nttSn=1171&bbsId=1002)
 
 [Check the Act](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)
 

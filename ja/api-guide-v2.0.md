@@ -160,7 +160,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.
 - "isNotificationAgreement"はプッシュメッセージの受信に同意するかどうか、"isAdAgreement"は広告性プッシュメッセージを受信するかどうか、isNightAdAgreement"は夜間広告性プッシュメッセージを受信するかどうかを表します。
 - 例えば、すべてのプッシュメッセージの受信を希望する場合は、フィールド3個をすべてtrueに設定してください。プッシュメッセージのみ受信する場合は、 "isNotificationAgreement"のみtrueに設定してください。
 - 受信に同意するかどうかは、韓国情報通信網法の規定(第50条から第50条の8)に従います。
-    - [KISAガイドリンク](https://spam.kisa.or.kr/spam/sub62.do)    
+    - [KISAガイドリンク](https://spam.kisa.or.kr/spam/na/ntt/selectNttInfo.do?mi=1020&nttSn=1171&bbsId=1002)    
     - [法令リンク](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
 - ネットワーク状態が良くないか、複数の理由によるレスポンス遅延が発生することがあります。モバイルアプリケーション起動への影響を最小化するために制限時間(timeout)を短く設定し、起動するたびにトークンを登録することを推奨します。
 - トークンはセキュリティ的なイシュー、アプリアップデート、削除など、さまざまな理由で再発行されることがあります。頻繁に変更されることはないですが、受信率を高めるには、起動するたびに最新トークンを登録することを推奨します。

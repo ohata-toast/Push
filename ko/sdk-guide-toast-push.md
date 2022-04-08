@@ -16,4 +16,4 @@ NHN Cloud Push SDK를 적용하면 모바일 애플리케이션에서 쉽고 강
 
 
 #### 기타
-* 기타 플랫폼에 대한 문의는 [NHN Cloud 고객센터](https://toast.com/support/inquiry?alias=tab3_06)로 문의해 주세요.
+* 기타 플랫폼에 대한 문의는 [NHN Cloud 고객센터](https://toast.com/support/inquiry?alias=tab3_05)로 문의해 주세요.

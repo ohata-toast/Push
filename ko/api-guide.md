@@ -123,7 +123,7 @@ curl -X POST \
 - "isNotificationAgreement"는 푸시 메시지 수신 동의 여부, "isAdAgreement"는 광고성 푸시 메시지 수신 여부, "isNightAdAgreement"는 야간 광고성 푸시 메시지 수신 여부를 나타냅니다.
 - 예로, 모든 푸시 메시지 수신을 원할 경우, 필드 3개를 모두 true로 설정하면 됩니다. 푸시 메시지만 수신할 경우, "isNotificationAgreement"만 true로 설정하면 됩니다.
 - 수신 동의 여부는 정보통신망법 규정(제50조부터 제50조의 8)을 따른다.  
-    - [KISA 가이드 바로 가기](https://spam.kisa.or.kr/spam/sub62.do)    
+    - [KISA 가이드 바로 가기](https://spam.kisa.or.kr/spam/na/ntt/selectNttInfo.do?mi=1020&nttSn=1171&bbsId=1002)    
     - [법령 바로 가기](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
 - 네트워크 상태가 좋지 않거나 여러 이유로 응답 지연이 발생할 수 있습니다. 모바일 애플리케이션 구동에 영향을 최소화하기 위해 Timeout을 짧게 설정하고, 구동될 때마다 토큰을 등록하는 것이 좋습니다.
 - 토큰은 보안적인 이슈, 앱 업데이트, 삭제 등 여러가지 이유로 재발급될 수 있습니다. 자주 변경되는 것은 아니지만, 수신율을 높이기 위해 구동될 때 마다 최신 토큰을 등록하는 것이 좋습니다.

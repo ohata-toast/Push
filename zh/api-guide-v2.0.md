@@ -163,7 +163,7 @@ curl -X POST -H "Content-Type: application/json;charset=UTF-8" https://api-push.
 - "isNotificationAgreement” means to agree receiving push messages; "isAdAgreement"for ad push messages; and "isNightAdAgreement”for night-time ad push messages.
 - For instance, when you agree to receive all push messages, set all three fields as true. Or, if you decide to receive push messages only, set the "isNotificationAgreement” field only as true.
 - Consent to receiving messages abides by the Act on Promotion of Information and Communications Network set by the government of Korea (from article 50-1 to 50-8).
-    - [Go to KISA for guidance](https://spam.kisa.or.kr/spam/sub62.do)
+    - [Go to KISA for guidance](https://spam.kisa.or.kr/spam/na/ntt/selectNttInfo.do?mi=1020&nttSn=1171&bbsId=1002)
     - [Go to relevant legislation](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)
 - Delays in response may occur due to many reasons, such as bad network connection. To minimize effect on operation of mobile applications, it is recommended to set timeout short and register a token every time the application is operated.
 - A token may be re-issued on many accounts, such as security issues, updates or deletion of applications. It is, therefore, recommended to register updated token at every operation, in order to upgrade the receiving rates.
