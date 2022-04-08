@@ -16,4 +16,4 @@ With NHN Cloud Push SDK, easy and powerful notification service can be provided 
 
 
 #### Others
-* For other platform inquiries, contact [NHN Cloud Customer Center](https://toast.com/support/inquiry?alias=tab3_06).
+* For other platform inquiries, contact [NHN Cloud Customer Center](https://toast.com/support/inquiry?alias=tab3_05).

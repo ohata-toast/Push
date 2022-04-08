@@ -127,7 +127,7 @@ Content-Type: application/json;charset=UTF-8
 - "isNotificationAgreement" refers to consent to receive push messages; "isAdAgreement" for ad push messages, and "isNightAdAgreement" for night-time ad push messages.
 - For instance, to receive all push messages, set true for all three fields. To receive push messages only, set true for "isNotificationAgreement" only.
 - Consent to receive push messages is in accordance with Act on Promotion of Information and Communications Network Utiliztion and Information Protection, etc. (from Article 50 to 50-8).
-  - [Go to KISA Guidelines](https://spam.kisa.or.kr/spam/sub62.do)
+  - [Go to KISA Guidelines](https://spam.kisa.or.kr/spam/na/ntt/selectNttInfo.do?mi=1020&nttSn=1171&bbsId=1002)
   - [Check the Act](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)
 - Response may be delayed due to many reasons, including bad network connection. To minimize effects on mobile application operations, it is recommended to set shorter timeout, and register tokens every time they are operated.
 - Tokens may be re-issued, on many accounts, including security issues, or app updates or deletion. Although they may not be frequently changed, it is recommended to register the most updated tokens whenever they are operated, so as to raise the receiving rate.

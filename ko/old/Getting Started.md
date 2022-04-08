@@ -22,7 +22,7 @@ TOAST Cloud Push 서비스를 사용하려면 먼저 서비스를 활성화해�
 
 정보통신망법 규정(제50조부터 제50조의 8)에 따라 토큰 등록 시 알림/홍보성/야간홍보성 푸시 메시지 수신에 관한 동의 여부도 함께 입력 받는다. 메시지 발송 시 수신 동의 여부를 기준으로 자동 필터링 한다.
 
-[KISA 가이드 바로 가기](https://spam.kisa.or.kr/spam/sub62.do)
+[KISA 가이드 바로 가기](https://spam.kisa.or.kr/spam/na/ntt/selectNttInfo.do?mi=1020&nttSn=1171&bbsId=1002)
 
 [법령 바로 가기](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)
 
