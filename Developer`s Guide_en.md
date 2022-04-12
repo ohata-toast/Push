@@ -291,7 +291,7 @@ API v1.3 Reference
 -   For example, if a user wants to consent to all push messages, select all three fields as true. To receive push message only, set "isNotificationAgreement" as true only.
 
 -   Notification consent follows Information Communications Network Act regulations (from article 50 to article 50 clause 8).
-    Go to [KISA guide](http://spam.kisa.or.kr/kor/notice/dataView.jsp?p_No=49&b_No=49&d_No=52)
+    Go to [KISA guide](https://spam.kisa.or.kr/spam/na/ntt/selectNttInfo.do?mi=1020&nttSn=1171&bbsId=1002)
     Go to regulations
 
 -   Delays may occur due to unstable network condition or various other reasons. To minimize the effect on mobile application operation, set Timeout short, and it is best to register token every time it is operated.

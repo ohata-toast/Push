@@ -127,7 +127,7 @@ Content-Type: application/json;charset=UTF-8
 - "isNotificationAgreement"プッシュメッセージの受信に同意するかどうか、"isAdAgreement"広告性プッシュメッセージを受信するかどうか。"isNightAdAgreement"夜間広告性プッシュメッセージを受信するかどうかを表します。
 - 例えば、すべてのプッシュメッセージの受信を希望する場合は、フィールド3個をすべてtrueに設定してください。プッシュメッセージのみ受信する場合は、 "isNotificationAgreement"のみtrueに設定してください。
 - 受信に同意するかどうかは、韓国情報通信網法の規定(第50条から第50条の8)に従う。
-[KISAガイドリンク](http://spam.kisa.or.kr/enr/notice/dataView.jsp?p_No=49&b_No=49&d_No=52)    
+[KISAガイドリンク](https://spam.kisa.or.kr/spam/na/ntt/selectNttInfo.do?mi=1020&nttSn=1171&bbsId=1002)    
 [法令リンク](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)  
 
 - ネットワーク状態が良くないか、複数の理由によるレスポンス遅延が発生することがある。モバイルアプリケーション起動への影響を最小化するためにTimeoutを短く設定し、起動するたびにトークンを登録することを推奨する。

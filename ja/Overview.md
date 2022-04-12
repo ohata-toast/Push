@@ -46,7 +46,7 @@ Pushの主な機能は次のとおりです。
 
 韓国情報通信網法の規定(第50条から第50条の8)に従い、トークン登録時に通知/広告性/夜間広告性プッシュメッセージの受信に関する同意有無も一緒に入力を受けます。メッセージ送信時、受信同意の有無を基準に自動的にフィルタリングします。
 
-[KISAガイドリンク](https://spam.kisa.or.kr/spam/sub62.do)
+[KISAガイドリンク](https://spam.kisa.or.kr/spam/na/ntt/selectNttInfo.do?mi=1020&nttSn=1171&bbsId=1002)
 
 [法令リンク](http://www.law.go.kr/lsEfInfoP.do?lsiSeq=123210#)
 
