@@ -17,7 +17,7 @@ API Endpoint: https://api-push.cloud.toast.com
 ```
 #### API 보안 설정
 - API 보안 설정은 User Access Key ID (NHN Cloud 서비스 이용시, 사용자 인증을 위해 필요한 사용자 설정 키) 를 발급하는 기능입니다.
-- User Access Key ID 는 NHN Cloud ID 에 1개만 발급 가능합니다. 보안을 위해 발급된 키는 안전한 장소에 보관해 주세요.
+- User Access Key ID 는 NHN Cloud ID 에 5개까지 발급 가능합니다. 보안을 위해 발급된 키는 안전한 장소에 보관해 주세요.
 - User Access Key ID 는 90일마다 변경하기를 권장합니다.
 - v2.2 API부터 Secret Key대신 User Access Key ID를 이용해 호출해야 합니다.
 ```
