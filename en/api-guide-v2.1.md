@@ -1697,7 +1697,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| tagId | Required, String | Created tag ID, as long as 8 |
+| tagId | Required, String | Created tag ID, length is 8 |
 
 ##### Example
 ```

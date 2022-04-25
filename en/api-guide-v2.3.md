@@ -7,13 +7,13 @@
 
 #### Modify 
 - Use 'FCM', instead of 'GCM' as push type. 
-- Changed value for API certification into Secret Key. 
+- Changed value for API authentication to Secret Key. 
 
 ### Basic Information 
 #### Endpoint
 ```
 API Endpoint: https://api-push.cloud.toast.com
-Endpoint for Collecting Message Delivery Receipt: https://collector-push.cloud.toast.com
+Endpoint for collecting message delivery receipt/checking status: https://collector-push.cloud.toast.com
 ```
 ### Secret Key
 - Available on console. 
@@ -22,7 +22,7 @@ Endpoint for Collecting Message Delivery Receipt: https://collector-push.cloud.t
 Header
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
-Go to [CONSOLE] > [Notification] > [Push] > [URL & AppKey] to check and create one.  
+Go to **CONSOLE > Notification > Push > URL & AppKey** to check and create one.  
 
 #### Response
 
@@ -908,6 +908,8 @@ v1.7 or higher SDKs are required.
 | richMessage.media.mediaType | Required, String | Media Type: IMAGE, GIF, VEDIO, or AUDIO. Android supports IMAGE only |
 | richMessage.media.extension | Required, String | Extension of media file |
 | richMessage.media.expandable | Required, Boolean | Click to expand media on Android |
+| richMessage.androidMedia | Optional, Object | Media used by Android devices. Format is the same as media |
+| richMessage.iosMedia | Optional, Object | Media used by iOS devices. Format is the same as media |
 | richMessage.largeIcon | Optional, Object | Large icons added for rich messages: only on Android |
 | richMessage.largeIcon.sourceType | Required, String | Location of large icons: REMOTE or LOCAL |
 | richMessage.largeIcon.source | Required, String | Address where media is located |
@@ -1160,20 +1162,21 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | limit | Optional, Number | Size to list at once: 1,000 for default and max |
 
 ##### Description
-- messageErrorType and messageErrorCause refer to the following: 
+- messageErrorType and messageErrorCause have the following meaning: 
     - CLIENT_ERROR: Invalid request of client 
-      - UNSUPPORTED_MESSAGE_TYPE: Unsupported type of messages 
-      - INVALID_MESSAGE: Invalid messages
-      - INVALID_CERTIFICATE: Expired or invalid certificate 
-      - UNAUTHORIZED: Expired or invalid certificate 
+        - UNSUPPORTED_MESSAGE_TYPE: Unsupported type of messages 
+        - INVALID_MESSAGE: Invalid messages
+        - INVALID_CERTIFICATE: Expired or invalid certificate 
+        - UNAUTHORIZED: Expired or invalid certificate 
+        - DUPLICATED_MESSAGE_TOKEN: Failed because the same message was requested for delivery in duplicate with the token.
     - EXTERNAL_ERROR: Error in external services connected with push, such as APNS, GCM, Tencent, or ADM 
-      - APNS_ERROR: Delivery failed to APNS (iOS)
-      - GCM_ERROR: Delivery failed to GCM (Google)
-      - TENCENT_ERROR: Delivery failed to Tencent
-      - ADM_ERROR: Delivery failed to ADM
+        - APNS_ERROR: Delivery failed to APNS (iOS)
+        - GCM_ERROR: Delivery failed to GCM (Google)
+        - TENCENT_ERROR: Delivery failed to Tencent
+        - ADM_ERROR: Delivery failed to ADM
     - INTERNAL_ERROR: Error occurred within push 
-      - EXPIRED_TIME_OUT: Message validity expired due to delivery delays 
-      - AGENT_ERROR: Delivery failed due to internal errors of agent  
+        - EXPIRED_TIME_OUT: Message validity expired due to delivery delays 
+        - AGENT_ERROR: Delivery failed due to internal errors of agent  
 - If header.resultCode is 40010 at the response body, reduce query period (from, to) and query again.
 
 Response Body
@@ -1962,7 +1965,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 
 | Field | Usage | Description |
 | - | - | - |
-| tagId | Required, String | Created tag ID, as long as 8 |
+| tagId | Required, String | Created tag ID, length is 8 |
 
 ##### Example
 ```

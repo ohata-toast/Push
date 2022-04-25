@@ -52,8 +52,14 @@
     * The guide message must contain the information about the user's opt-in acceptance and the time of opt-in and how to set ad opt-in.
     * If you place the temporary replacer for opting in to receive advertisement messages (###AD_AGREEMENT_DATE_TIME###) in the body, when sending a message, its time will be replaced with the opt-in acceptance time of the token.
     * This can be set in **Reserve Message for Acceptance of Ad Opt-in** under the **Settings** tab.
- 
-### May 26, 2020
+
+### December 29, 2020
+### [API]
+* Added v2.4 Statistics Total API
+     * Added a Total API to sum up the retrieved statistical data.
+        <a href="https://docs.toast.com/en/Notification/Push/en/api-guide/#stats-total-api" target="_blank">Go to</a>
+
+### June 9, 2020
 ### [Console]
 #### Added Features 
 * Added APNS JWT Authentication
@@ -66,7 +72,7 @@
 * Added a guide for **Getting Authentication Information for APNS JWT**
     * <a href="https://docs.toast.com/ko/Notification/Push/ko/console-guide/#get-apns-jwt" target="_blank">Direct link</a>
 
-    
+
 ### March 24, 2020
 ### [Console]
 #### Added Features
