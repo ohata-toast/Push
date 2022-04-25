@@ -1,7 +1,8 @@
 ## Notification > Push > Console Guide
 
-In order to use Push service, you need other push service certificates.
-Currently, we support following push services:
+To use the Push service, you need to register third-party push notification service certificates.
+
+Currently, the supported push notification service certificates are as follows:
 - GCM - Google Cloud Messaging (Firebase Cloud Messaging)
 - APNS - Apple Push Notification Service
 - ADM - Amazon Device Messaging
@@ -10,9 +11,9 @@ Currently, we support following push services:
 
 To manage certificates, go to **Notification > Push > Certificates** from the menu.
 
-### GCM API Key
+### FCM Server Key
 
-To send push notification to Android devices, you need valid GCM project's API Key.
+To send push notification to Android devices, you need an API Key of a valid FCM project.
 
 #### Create and Import Firebase Cloud Messaging(FCM) API Key
 
@@ -30,10 +31,11 @@ To send push notification to Android devices, you need valid GCM project's API K
 2. Copy the FCM API Key just created and paste it to the  **GCM API Key**, and press **Register** to complete.
 
 #### Caution for Google Project
-- Google is scheduled to [deprecate GCM service]((https://developers.google.com/cloud-messaging/faq)) as of April 11, 2019.
+- Google is scheduled to [deprecate GCM service](https://developers.google.com/cloud-messaging/faq) as of April 11, 2019.
+- If the key created from Google Project (now, Google Cloud Platform) is currently used as GCM API Key, it may not be valid in the future.
+  In such a case, the Google Project must be migrated to Firebase and a new key must be created through Firebase.
 
-- If the key created from Google Project (now, Google Cloud Platform) is currently used as GCM API Key, it may not be valid in the future. In such case, the Google Project must be migrated to Firebase and a new key must be created through Firebase.
-	- Google provides [Firebase Migration Guide](https://developers.google.com/cloud-messaging/android/android-migrate-fcm).
+For details on how to migrate from GCM to FCM, see [Firebase Migration Guide](https://developers.google.com/cloud-messaging/android/android-migrate-fcm).
 
 ##### Migrating from Google Project to Firebase
 
@@ -77,7 +79,7 @@ To authentication using JWT, you need a topic which refers to app's bundle ID.
 
 To send push notification to iOS devices, you need APNS certificate generated from Apple Developer website.
 
-### Create and Import APNS Certificate
+#### Create and Import APNS Certificate
 
 1. Run **Keychain Access** app on Mac.
 2. Choose **Access Keychain > Support Certificates > Request a Certificate** from **Certificate Authority**.
@@ -92,16 +94,16 @@ To send push notification to iOS devices, you need APNS certificate generated fr
 11. Choose save location and press **Save** (file format: .p12).
 12. Enter password to protect exported items, and the certificate is ready.
 
-
-### Register APNS Certificate
+#### Register APNS Certificate
 
 1. Click **Notification > Push > Certificates** on Console.
 2. Click **Select File** at **APNS Certificate > Certificates**.
 3. Enter certificate password at **Password** .
 4. Click **Register**.
 
-### Caution for APNS
-#### Differences between APNS (Production) and APNS_SANDBOX (Development)
+#### Caution for APNS
+
+##### Differences between APNS (Production) and APNS_SANDBOX (Development)
 
 - Applications built with Production Provisioning Profile must use APNS (Production) while those built with Development Provisioning Profile must use APNS_SANDBOX (Development). Otherwise, push messages may not be properly received. 
 - In most failure cases of message delivery, the APNS certificate registered at NHN Cloud Push has a different provisioning profile for application buildup.
@@ -111,10 +113,10 @@ To send push notification to iOS devices, you need APNS certificate generated fr
   [APNS Overview](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1)     
   [App Distribution Quick Start](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppStoreDistributionTutorial/Introduction/Introduction.html#//apple_ref/doc/uid/TP40013839)
 
-#### Causes of Delivery Failure of APNS Messages
+##### Causes of Delivery Failure of APNS Messages
 
-- When a certificate has been expired
-- When a wrong certificate has been registered
+- When a certificate has expired
+- When an invalid certificate has been registered
 - When a push message has been rejected by the application
 - When there’s no Internet access
 
@@ -122,14 +124,14 @@ To send push notification to iOS devices, you need APNS certificate generated fr
 
 To send push notification to Kindle Fire app, you need its Client ID and Client Secret.
 
-### Register ADM Application and Profiles (Acquire Client Id and Client Secret)
+#### Register ADM Application and Profiles (Acquire Client Id and Client Secret)
 1. Go to [ADM Developer Console](https://developer.amazon.com/home.html).
 2. Click **APP & SERVICES** at the top left and choose **Add a New App** at the bottom.
 3. When the app is created, click **Device Messaging** in the middle. Then, click **Create a New Security Profile**.
 4. When the profile is created, click **Security Profiles** in the middle and choose **View Security Profile**.
 5. Go to the **General** tab to check Client ID and Client Secret.
 
-### Register Setting Information for ADM Kindle (Acquire API Key)
+#### Register Setting Information for ADM Kindle (Acquire API Key)
 1. Click **Security Profiles** and then **Android/Kindle Setting** in the middle.
 2. Enter information such as App Key Name, Package, MD5 Signature, and SHA256 Signature.
 3. You can query information of MD5 or SHA256, by using commands like below:
@@ -150,8 +152,7 @@ Certificate [1]:
 Owner: C=US, O=Android, CN=Android Debug
 Issuer: C=US, O=Android, CN=Android Debug
 Serial Number: 1
-Appropriate Start Date: Wed. May 09 19:59:46 KST 2018
-End Date: Fri. May 01 19:59:46 KST 2048
+Appropriate Start Date: Wed. May 09 19:59:46 KST 2018 End Date: Fri. May 01 19:59:46 KST 2048
 Certificate Fingerprint:
          MD5:  xxxx
          SHA1: xxxx
@@ -165,7 +166,7 @@ Version: 1
 
 ## Message Delivery
 
-After certificates and tokens are properly set, go to Console and click **Notification > Push > Messages > Add **and send immediate push messages.
+After certificates and tokens are properly set, go to Console and click **Notification > Push > Messages > Add** and send immediate push messages.
 
 The following is the format for immediate delivery:
 
@@ -195,7 +196,9 @@ The following is the format for immediate delivery:
 | Message Type | Two types: NOTIFICATION and AD. In the case of AD, the messages are delivered only to the users who agreed to receive advertising push messages. |
 
 ### Rich Message
-You can send push notifications with buttons, images, and various other things included. You can also preview how the message would look like in Android and iOS smartphones. You need SDK version 1.7 or above to use this feature.
+You can send push notifications with buttons, images, and various other things included.
+You can also preview how the message would look like in Android and iOS smartphones.
+You need SDK version 1.7 or above to use this feature.
 
 ![push_04_201812_en](https://static.toastoven.net/prod_push/12-10/push_04_201812_en.png)
 
@@ -280,8 +283,7 @@ You can send push notifications with buttons, images, and various other things i
 | File Size | Not supported | 5MB |
 
 #### 3. Large Icon
-
-Only supported by Android
+This feature is only available on Android. A large icon is set for the notification. The file setting method is the same as the media file setting method.
 
 | Name | Description |
 |---|---|
@@ -289,8 +291,7 @@ Only supported by Android
 | Address | URL or URI of the icon image. |
 
 #### 4. Group
-
-Only supported by Android
+This feature is only available on Android. Groups are set for notifications, and notifications with the same group key are represented in group.
 
 | Name | Description |
 |---|---|
@@ -335,7 +336,7 @@ The following is the format for scheduled delivery:
 Choose push types and you can look up or delete a token. 
 Deleting a token is not supported in Public API for now, and is only available in **API** and **Token** tabs.
 
-### Public APIs 
+### Public APIs
 
 These are API calls provided in public API.
 You can add tokens, send messages, and get feedbacks through API calls.
@@ -393,10 +394,9 @@ Go to **Console > Notification > Push** > and click **Tag** tab.
 
 ![push_16_201812_en](https://static.toastoven.net/prod_push/12-10/push_16_201812_en.png)
 
-To add UIDs on to the tag:
 1. Click **Add**.
-2. Type in the UIDs with new line as a delimiter.  
-	- Up to 1,000 UIDs can be added.
+2. After entering the UID, click the **OK** button.
+	- Up to 1,000 UIDs can be added at a time.
 
 <span id="stats-event-key"></span>
 
@@ -428,6 +428,7 @@ Go to **Console > Notification > Push** > and click **Setting** to set Token Exp
     - '(Ad)' will be prepended in the title along with contact information.
 - Body
     - '(Ad)' phrase, contact information, and unsubscription method will be displayed in the body.
+- After the feature is set, it may take several minutes until a feature is actually applied. 
 
 ### Token Setting
 
@@ -446,38 +447,37 @@ Go to **Console > Notification > Push** > and click **Setting** to set Token Exp
         - User can use app on one device only and a user can have only one token.
         - For instance, if a user has a mobile phone and a tablet PC, he can have only one token, and push messages are delivered to one of the two.
 
+- After the feature is set, it may take several minutes until a feature is actually applied. 
+
+<span id="message-delivery-receipient"></span>
 ### Collect Message Receipt/Check Data
 
-- Message Delivery Receipt can be enabled. 
-- SDK v1.4 or higher versions must be applied to operate activated features. 
+- The Message Delivery Receipt feature can be enabled. 
+- SDK v1.4 or higher versions must be applied for the activated features to work. For Android, the feature works only by applying the SDK. For iOS, additional processing is required.
+    - <a href="https://docs.toast.com/ko/TOAST/ko/toast-sdk/push-ios/#_19"  target="_blank">Go to iOS client SDK guide</a>
 - Collected data are available on the **Statistics** tab. 
-- Data collection time is calculated on device. 
-- It may take approximately many minutes until a feature is actually applied. 
+- Data collection time is based on the device time. 
+- After the feature is set, it may take several minutes until a feature is actually applied. 
 
 <span id="low-received-event-rates"></span>
 #### Causes for Low Indicators of Message Receiving Data    
 1. When message notification is not enabled on the app 
-Unless the user enables message notifications with OS (iOS or Android) level setup on initial app execution, message receiving events cannot be collected. 
-(The average rate of notification enabled, as of 2018, is 43.9% for iOS and 91.1% for Android.) 
-<a href="https://www.accengage.com/press-release-accengage-releases-the-push-notification-benchmark-2018/" target="_blank">source accengage</a>)
+Unless the user enables message notifications with OS (iOS or Android) level setup on initial app execution, message receiving events cannot be collected. (The average rate of notification enabled, as of 2018, is 43.9% for iOS and 91.1% for Android. <a href="https://www.accengage.com/press-release-accengage-releases-the-push-notification-benchmark-2018/" target="_blank">source accengage</a>)
 2. When token expiration of a deleted app is delayed 
-Some apps are deleted but not directly lead into token expiration. 
-If token is delayed for expiration, messages may be delivered but receiving events cannot be collected, since app has been deleted.  
+Some apps are deleted but not directly lead into token expiration. If token is delayed for expiration, messages may be delivered but receiving events cannot be collected, since app has been deleted.  
 3. When it is disconnected to the internet for a long time 
-If it is not connected to the internet, due to various reasons, including phone being turned off, in the energy-saving mode, or in network grey area, 
-both message receiving and event collecting are unavailable.  
+If it is not connected to the internet, due to various reasons, including phone being turned off, in the energy-saving mode, or in network grey area, both message receiving and event collecting are unavailable.  
 4. When it fails to collect receiving events 
-Even if a message has been received, it may not be properly collected depending on the OS or network environment 
-when the receiving event is sent to server.  
+Even if a message has been received, it may not be properly collected depending on the OS or network environment when the receiving event is sent to server.  
 
 ### Log Message Delivery History
 - Send message delivery history to Log & Crash Search as specified.
 - **Appkey**: Enter Appkey from Log & Crash Search service.
 - **Log Source**: Enter a value to log along with history logging, as a separator from other logs.
 - **Log Level**: Record specific parts only from the delivery history:
-    - ALL: Log all history, including success/failure of delivery.
-    - INFO: Log delivery, and failed delivery of expired tokens only: do not log successful deliveries.
-    - ERROR: Log history of failed deliveries only.
+    - **ALL**: Log all history, including success/failure of delivery.
+    - **INFO**: Log delivery, and failed delivery of expired tokens only: do not log successful deliveries.
+    - **ERROR**: Log history of failed deliveries only.
 - You can view the logs in **Analytics > Log & Crash Search > Log Search**.
 - Delivered message will follow the pricing from [Log & Crash Search](https://toast.com/service/analytics/log_crash_search/#price)
 
@@ -486,7 +486,7 @@ when the receiving event is sent to server.
 ```
 {
 	"tokens" : [{
-			"uid" : "User Id",
+			"UID" : "User Id",
 			"token" : "Device Token",
             "newToken": "New Device Token",
             "message": "Result Message"
@@ -508,7 +508,7 @@ when the receiving event is sent to server.
 }
 ```
 - tokens: Delivered token information
-    - uid: User ID
+    - UID: User ID
     - token: Token
     - newToken: Newly-issued token (shows only when a new token exists)
     - message: Result message (shows only for abnormal responses)
@@ -520,7 +520,7 @@ when the receiving event is sent to server.
 - pushType: Push types (FCM, APNS, APNS_SANDBOX, or ADM)
 - sentResult: Result of delivery (SENT, INVALID_TOKEN, or ERROR)
 - messageErrorType: Type of delivery failure
-    - CLIENT_ERROR: Delivery failed due to wrong delivery request out of client error
+    - CLIENT_ERROR: Delivery failed due to invalid delivery request by client error
     - EXTERNAL_ERROR: Delivery failed out of external error, due to abnormal responses from Google, Apple, or Amazon server
     - INTERNAL_ERROR: Delivery failed out of internal error
 - messageErrorCause: Cause of failed delivery
@@ -550,20 +550,6 @@ when the receiving event is sent to server.
 - The guide message must contain the information about the user's opt-in acceptance and the time of opt-in and how to set ad opt-in.
 - If you place the temporary replacer for opting in to receive advertisement messages (###AD_AGREEMENT_DATE_TIME###) in the body, when sending a message, its time will be replaced with the opt-in acceptance time of the token.
 
-### Settings for preventing duplicate messages
-- This is a feature that restricts sending the same message to the same user multiple times.
-- The decision of whether a message is duplicate or not is based on the message type, text (content), sender information, opt-in setup guide, ad display text location, and token.
-  If all values against these criteria are the same, it is determined as a duplicate message and thus not sent.
-- Any messages not sent will be processed as failure. The cause of its failure is logged as 'DUPLICATED_MESSAGE_TOKEN'.
-- It can be set in "Settings for preventing duplicate messages" under the Settings tab.
-- It could take several minutes for the settings to be completely applied.
-
-### Reserve Message for Acceptance of Ad Opt-in
-- Added a feature of sending a guide message to tokens that have reached two years since their last acceptance of ad opt-in. 
-- Every month at a specific time set by the user, a guide message will be sent to the target tokens.
-- The guide message must contain the information about the user's opt-in acceptance and the time of opt-in and how to set ad opt-in.
-- If you place the temporary replacer for opting in to receive advertisement messages (###AD_AGREEMENT_DATE_TIME###) in the body, when sending a message, its time will be replaced with the opt-in acceptance time of the token.
-
 ## Guide for Notice of Personal Information Assignor
 
 When the Customer uses NHN Cloud Push Service, assignment of personal information between the Customer and the Company arises, and the assignee, the Customer, is obliged to disclose the status (assignor and content of business) of his assignment of personal information to the Company, through the personal information handling policy, in accordance with Act on Promotion of Information and Communications Network Utilization and Information Protection. Accordingly, the Company may provide guidelines as below for the Customer, to abide by relevant regulations in the use of NHN Cloud Push Service and not to be adversely affected for not disclosing his assignment status:
@@ -574,8 +560,9 @@ Assignor: NHN Cloud
 Content of Business:Deliver Push Messages in lieu of Customers
 ```
 
-
 * Document Updates
+    * *(Jan. 21, 2020) Added reason for low message reception data metric*
+    * *(September 19, 2018) Add description of advertisement display text*
     * *(July 24, 2018) Added description of APNS Certificate*
     * *(June 15, 2018) Added description of relocating GCM to Firebase*
     * *(Nov. 23, 2017) Added saving history of message delivery*
