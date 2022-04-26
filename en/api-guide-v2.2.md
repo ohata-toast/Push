@@ -5,21 +5,21 @@
 - Added 'Query Logs' API.
 
 #### Modify 
-- Changed value for API certification. 
-- Use User Access Key ID and Secret Access Key, for API Certification, instead of Secret Key. 
+- Changed the value used for API authentication. 
+- Use User Access Key ID and Secret Access Key for API authentication, instead of Secret Key. 
 - Check more details from 'API Security Setting' below. 
 
 ### Basic Information 
 #### Endpoint
 ```
 API Endpoint: https://api-push.cloud.toast.com
-Endpoint for Collecting Message Delivery Receipt: https://collector-push.cloud.toast.com
+Endpoint for collecting message delivery receipt/checking status: https://collector-push.cloud.toast.com
 ```
 #### API Security Setting 
-- API Security Setting is provided to issue User Access Key ID (user-configured key which is required for user authentication to use NHN Cloud service).
-- Only one User Access Key ID is provided for each NHN Cloud ID. For security, keep your key at a safe location.    
-- It is recommended to change User Access Key ID once every 90 days. 
-- Since v2.2 API, it requires User Access Key ID, instead of Secret Key, to call. 
+- API Security Setting is provided to issue User Access Key ID (user-configured key which is required for user authentication to use the NHN Cloud service).
+- Up to 5 User Access Key IDs can be issued for each NHN Cloud ID. For security, keep the issued key in a safe location.
+- It is recommended to change User Access Key ID every 90 days.
+- Starting with the v2.2 API, you must call the API using User Access Key ID instead of Secret Key.
 ```
 Header
 X-User-Access-Key-ID: [a-zA-Z0-9]{20}
@@ -31,7 +31,8 @@ Go to [Member Profile] > [API Security Setting] to create one.
 #### Response
 
 ##### Response HTTP Status Code
-200 OK.  Respond with 200 OK for all API requests.  
+200 OK.  
+Respond with 200 OK for all API requests.  
 See Header at the response body for response details. 
 
 ##### Response Header
@@ -888,7 +889,6 @@ v1.7 or higher SDKs are required.
 | richMessage                      | Optional, Object       | Required for rich messages                                   |
 | richMessage.buttons              | Optional, Object Array | Buttons added for rich messages: up to 3.                    |
 | richMessage.button.name          | Required, String       | Button name                                                  |
-| richMessage.button.submitName    | Optional, String       | Send button name: shows when the button type on iOS is REPLY. |
 | richMessage.button.buttonType    | Required, String       | Button type: REPLY, OPEN_APP, OPEN_URL, or DISMISS           |
 | richMessage.button.link          | Required, String       | Link connected at the press of the button                    |
 | richMessage.button.hint          | Required, String       | Hint for a button                                            |
@@ -1081,18 +1081,18 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 
 - messageErrorType and messageErrorCause refer to the following: 
     - CLIENT_ERROR: Invalid request of client 
-      - UNSUPPORTED_MESSAGE_TYPE: Unsupported type of messages 
-      - INVALID_MESSAGE: Invalid messages
-      - INVALID_CERTIFICATE: Expired or invalid certificate 
-      - UNAUTHORIZED: Expired or invalid certificate 
+        - UNSUPPORTED_MESSAGE_TYPE: Unsupported type of messages 
+        - INVALID_MESSAGE: Invalid messages
+        - INVALID_CERTIFICATE: Expired or invalid certificate 
+        - UNAUTHORIZED: Expired or invalid certificate 
     - EXTERNAL_ERROR: Error in external services connected with push, such as APNS, GCM, Tencent, or ADM 
-      - APNS_ERROR: Delivery failed to APNS (iOS)
-      - GCM_ERROR: Delivery failed to GCM (Google)
-      - TENCENT_ERROR: Delivery failed to Tencent
-      - ADM_ERROR: Delivery failed to ADM
+        - APNS_ERROR: Delivery failed to APNS (iOS)
+        - GCM_ERROR: Delivery failed to GCM (Google)
+        - TENCENT_ERROR: Delivery failed to Tencent
+        - ADM_ERROR: Delivery failed to ADM
     - INTERNAL_ERROR: Error occurred within push 
-      - EXPIRED_TIME_OUT: Message validity expired due to delivery delays 
-      - AGENT_ERROR: Delivery failed due to internal errors of agent  
+        - EXPIRED_TIME_OUT: Message validity expired due to delivery delays 
+        - AGENT_ERROR: Delivery failed due to internal errors of agent  
 - If header.resultCode is 40010 at the response body, reduce query period (from, to) and query again.
 
 ##### Request Body
@@ -1906,7 +1906,7 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 
 | Field | Usage | Description |
 | - | - | - |
-| tagId | Required, String | Created tag ID, as long as 8 |
+| tagId | Required, String | Created tag ID, length is 8 |
 
 ##### Example
 ```
@@ -2009,7 +2009,7 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 
 ##### Request Body
 ```
-없음
+N/A
 ```
 
 ##### Response Body

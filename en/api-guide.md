@@ -9,7 +9,7 @@
 #### Endpoint
 ```
 API Endpoint: https://api-push.cloud.toast.com
-Endpoint for Collecting Message Delivery Receipt: https://collector-push.cloud.toast.com
+Endpoint for collecting message delivery receipt/checking status: https://collector-push.cloud.toast.com
 ```
 ### Secret Key
 - Available on console. 
@@ -826,6 +826,8 @@ v1.7 or higher SDKs are required.
 | richMessage.media.extension | Required, String | Extension of media file |
 | richMessage.media.expandable | Required, Boolean | Click to expand media on Android |
 | richMessage.largeIcon | Optional, Object | Large icons added for rich messages: only on Android |
+| richMessage.androidMedia | Optional, Object | Media used by Android devices. Format is the same as media |
+| richMessage.iosMedia | Optional, Object | Media used by iOS devices. Format is the same as media |
 | richMessage.largeIcon.sourceType | Required, String | Location of large icons: REMOTE or LOCAL |
 | richMessage.largeIcon.source | Required, String | Address where media is located |
 | richMessage.group | Optional, Object | Bind many messages into a group: only on Android |
@@ -1087,20 +1089,21 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | limit | Optional, Number | Size to list at once: 1,000 for default and max |
 
 ##### Description
-- messageErrorType and messageErrorCause refer to the following: 
+- messageErrorType and messageErrorCause have the following meaning: 
     - CLIENT_ERROR: Invalid request of client 
-      - UNSUPPORTED_MESSAGE_TYPE: Unsupported type of messages 
-      - INVALID_MESSAGE: Invalid messages
-      - INVALID_CERTIFICATE: Expired or invalid certificate 
-      - UNAUTHORIZED: Expired or invalid certificate 
+        - UNSUPPORTED_MESSAGE_TYPE: Unsupported type of messages 
+        - INVALID_MESSAGE: Invalid messages
+        - INVALID_CERTIFICATE: Expired or invalid certificate 
+        - UNAUTHORIZED: Expired or invalid certificate 
+        - DUPLICATED_MESSAGE_TOKEN: Failed because the same message was requested for delivery in duplicate with the token.
     - EXTERNAL_ERROR: Error in external services connected with push, such as APNS, GCM, Tencent, or ADM 
-      - APNS_ERROR: Delivery failed to APNS (iOS)
-      - GCM_ERROR: Delivery failed to GCM (Google)
-      - TENCENT_ERROR: Delivery failed to Tencent
-      - ADM_ERROR: Delivery failed to ADM
+        - APNS_ERROR: Delivery failed to APNS (iOS)
+        - GCM_ERROR: Delivery failed to GCM (Google)
+        - TENCENT_ERROR: Delivery failed to Tencent
+        - ADM_ERROR: Delivery failed to ADM
     - INTERNAL_ERROR: Error occurred within push 
-      - EXPIRED_TIME_OUT: Message validity expired due to delivery delays 
-      - AGENT_ERROR: Delivery failed due to internal errors of agent  
+        - EXPIRED_TIME_OUT: Message validity expired due to delivery delays 
+        - AGENT_ERROR: Delivery failed due to internal errors of agent  
 - If header.resultCode is 40010 at the response body, reduce query period (from, to) and query again.
 
 #### Response Body
@@ -1926,12 +1929,15 @@ curl -X POST \
 
 | Field | Usage | Description |
 | - | - | - |
-| tagId | Required, String | Created tag ID, as long as 8 |
+| tagId | Required, String | Created tag ID, length is 8 |
 
+##### Description
+- You can create up to 2,048 tags.
 
 #### Append UIDs to Tag
 - Append UID to a tag: adding existing UIDs ends up with more tags of UID 
-- The maximum number of tags for a UID is 16. 
+- The maximum number of tags for a UID is 16.
+
 ##### Method, URL, Headers
 ```
 POST /push/v2.4/appkeys/{appkey}/tags/{tag-id}/uids
@@ -1950,6 +1956,20 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | uids | Required, String Array | UID array, no longer than 16: UID cannot be longer than 64 |
+
+##### cURL
+```
+curl -X POST \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tags/'"${TAG_ID}"'/uids' \
+-H 'Content-Type: application/json;charset=UTF-8' \
+-H 'X-Secret-Key: '"${SECRET_KEY}"'' \
+-d '{
+    "uids" : [
+         "uid-01",
+         "uid-02"
+    ]
+}'
+```
 
 ##### cURL
 ```
@@ -2180,6 +2200,7 @@ curl -X GET \
 #### Query UIDs
 - Query UID.
 - Token is registered, along with contact.
+
 ##### Method, URL, Headers
 ```
 GET /push/v2.4/appkeys/{appkey}/uids/{uid}
@@ -2297,8 +2318,10 @@ curl -X DELETE \
 }
 ```
 
+
 #### Delete UIDs
 - UIDs are deleted, along with contact and token. 
+
 ##### Method, URL, Headers
 ```
 DELETE /push/v2.4/appkeys/{appkey}/uids?uids={uid,}
@@ -2337,6 +2360,7 @@ curl -X DELETE \
 #### Delete UIDs of Tag
 - Delete tag-UID relation only. 
 - Contact or token is not deleted. 
+
 ##### Method, URL, Headers
 ```
 DELETE /push/v2.4/appkeys/{appkey}/tags/{tagId}/uids?uids={uid,}
@@ -2374,6 +2398,7 @@ curl -X DELETE \
 #### Add Tags
 - Add tags to UID with tag ID. 
 - No secret key is required: call is available from app. 
+
 ##### Method, URL, Headers
 ```
 POST /push/v2.4/appkeys/{appkey}/uids/{uid}/tag-ids
@@ -2408,6 +2433,7 @@ curl -X POST \
 }
 ```
 
+
 ### Query
 
 #### Query Tag IDs of UID
@@ -2431,7 +2457,6 @@ curl -X GET \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
 
-
 ##### Response Body
 ```json
 {
@@ -2443,6 +2468,7 @@ curl -X GET \
     "tagIds": ["TAG_ID01"]
 }
 ```
+
 
 ### Modify 
 #### Modify Tags of UID
@@ -2539,6 +2565,12 @@ Content-Type: application/json;charset=UTF-8
 | extra1s | Optional, String Array | When the eventCategory is MESSAGE, filter by push type is available. FCM, APNS, APNS_SANDBOX, APNS_VOIP, APNS_SANDBOXVOIP, ADM, TENCENT |
 | messageId | Optional, String | Message ID |
 | statsIds | Optional, String Array | Statistics Event Key ID |
+| statsCriteria	| Optional, String Array | Statistics criteria for summing up. If not set, the total is calculated based on the default value. EVENT(the default), EXTRA_1, EXTRA_2, EXTRA_3, TEMPLATE_ID |
+
+##### Request Body
+```
+N/A
+```
 
 ##### cURL
 ```
@@ -2569,10 +2601,35 @@ curl -X GET \
 }
 ```
 
+### Query Statistics Total
+- A total API has been added to sum up the retrieved statistic data.
+
+##### Method, URL, Headers
+```
+GET /push/v2.4/appkeys/{appkey}/stats?eventCategory={eventCategory}&statisticsType={statisticsType}&timeUnit={timeUnit}&from={from}&to={to}&extra1s={extra1,}&messageId={messageId}&statsIds={statsId,}&statsCriteria={statsCriterion,}
+Content-Type: application/json;charset=UTF-8
+```
+| Field | Usage | Description |
+| - | - | - |
+| eventCategory | Required, String | Event category. MESSAGE, TOKEN_REGISTRATION, TOKEN_LANGUAGE, TOKEN_COUNTRY, TOKEN_AGREEMENT |
+| statisticsType | Optional, String | Representation type of searched statistical data. NORMAL(default), MINUTELY, HOURLY, DAILY, BY_DAY |
+| timeUnit | Optional, String | Time unit of statistical data. Default value depends on query period, MINUTES, HOURS, DAYS |
+| from | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| to | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
+| extra1s | Optional, String Array | When the eventCategory is MESSAGE, filter by push type is available. FCM, APNS, APNS_SANDBOX, APNS_VOIP, APNS_SANDBOXVOIP, ADM, TENCENT |
+| messageId | Optional, String | Message ID |
+| statsIds | Optional, String Array | Statistics Event Key ID |
+| statsCriteria	| Optional, String Array | Statistics criteria for summing up. If not set, the total is calculated based on the default value. EVENT(the default), EXTRA_1, EXTRA_2, EXTRA_3, TEMPLATE_ID |
+
+##### Request Body
+```
+N/A
+```
+
 ##### cURL
 ```
 curl -X GET \
-'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/stats?eventCategory='"${EVENT_CATEGORY}" \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/stats/total?eventCategory='"${EVENT_CATEGORY}" \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"''
 ```
@@ -2585,18 +2642,16 @@ curl -X GET \
 		"resultMessage": "success",
 		"isSuccessful": true
 	},
-	"stats": [{
-			"eventDateTime": "2020-08-12T00:00:00.000+09:00",
-			"events": {
-				"RECEIVED": 0,
-				"SENT_FAILED": 0,
-				"SENT": 0,
-				"OPENED": 0
-			}
-		}
-	]
+	"total" : {
+        "SENT" : 120,
+        "SENT_FAILED" : 50,
+        "SENT": 0,
+        "OPENED": 0
+    }
 }
 ```
+
 
 * *Document Updates*
-    * *(March 24, 2020) Added Statistics API *
+    * *(March 24, 2020) Added Statistics API*
+    * *(2020.12.29) Added Statistics Total API*

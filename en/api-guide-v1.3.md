@@ -43,7 +43,7 @@ See Header at the response body for response details.
 | false | 40003 | Client Error. Bad request. Check your request parameter or body. |
 | false | 40004 | Client Error. Target length is exceeded. CHANNEL: 100, UID: 10,000. |
 | false | 40005 | Client Error. Content length is exceeded. |
-| false | 40006 | Client Error. Wrong target format. Clound't read two target types at once. Send a target, channels or uids at once. |
+| false | 40006 | Client Error. Wrong target format. Couldn't read two target types at once. Send a target, channels or uids at once. |
 | false | 40007 | Client Error. Invalid certificate. |
 | false | 40008 | Client Error. Invalid APNS certificate. |
 | false | 40009 | Client Error. Invalid APNS Sandbox certificate. |
