@@ -1,5 +1,11 @@
 ## Notification > Push > Release Notes
 
+### 2022. 05. 10.
+#### [API]
+##### バグ修正
+* v2.2 API呼び出し時に`X-SECRET-KEY`ヘッダがない場合にエラーが発生していた問題を修正
+    * `X-User-Access-Key-ID`、`X-Secret-Access-Key`ヘッダでAPI認証が行えるようにエラーを修正しました。
+
 ### 2022. 03. 29.
 #### [Console]
 ##### 機能追加
