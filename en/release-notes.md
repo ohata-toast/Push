@@ -1,5 +1,11 @@
 ## Notification> Push > Release Notes
 
+### May 10, 2022
+#### [API]
+##### Bug Fixes
+* Fixed an issue where an error occurred if there was no `X-SECRET-KEY` header when calling v2.2 API
+    * Fixed the issue so that API authentication can be done with `X-User-Access-Key-ID` and `X-Secret-Access-Key` headers.
+
 ### March 29, 2022
 #### [Console]
 ##### Added Features
