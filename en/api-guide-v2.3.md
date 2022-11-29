@@ -1325,6 +1325,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | from | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | limit | Optional, Number | Number of maximum queries: default is 100 |
+| pageNumber | Optional, Number | 페이지 넘버, 기본 값 1 |
 
 ##### Request Body
 ```

@@ -1,5 +1,11 @@
 ## Notification> Push > Release Notes
 
+### 2022. 12. 13.
+#### [API]
+##### 기능 추가
+* 일반로그 조회시 Paging 기능 추가.
+  * Field에 pageNumber가 추가 되었습니다.
+
 ### May 10, 2022
 #### [API]
 ##### Bug Fixes
