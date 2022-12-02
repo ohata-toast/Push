@@ -234,8 +234,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
+| pageIndex | Optional, Number | 기본값 0 |
+| pageSize | Optional, Number | 기본값 25, 최댓값 100 |
 | from | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | to | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | messageId | Optional, Number | 유효하지 않는 토큰이 발생한 메시지 아이디 |
@@ -502,9 +502,9 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | messageType | Required, String | NOTIFICATION, AD |
 | contact | Optional, String | messageType이 AD이면 경우 필수, 숫자(0-9)와 하이픈(Hypen, -)만 가능합니다. |
 | removeGuide | Optional, String | messageType이 AD이면 경우 필수 |
-| timeToLiveMinute | Optional, Number | 단위는 분입니다. 범위는 1에서 60까지다. 기본 값은 10 입니다. |
+| timeToLiveMinute | Optional, Number | 단위는 분입니다. 범위는 1에서 60까지다. 기본값은 10 입니다. |
 | provisionedResourceId | Optional, String | 할당 받은 전용 리소스(provisioned Resource) 아이디입니다. 사용 문의 support@cloud.toast.com |
-| adWordPosition | Optional, String | 'TITLE', 'BODY' 광고 표시 문구 위치. 기본 값은 'TITLE' 입니다. |
+| adWordPosition | Optional, String | 'TITLE', 'BODY' 광고 표시 문구 위치. 기본값은 'TITLE' 입니다. |
 
 ##### Description
 - "target.type"에 'UID'로 설정시 "target.to"에 최대 10,000 개까지 UID를 설정할 수 있습니다.
@@ -1004,8 +1004,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
+| pageIndex | Optional, Number | 기본값 0 |
+| pageSize | Optional, Number | 기본값 25, 최댓값 100 |
 | from | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | to | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | deliveryType | Optional, String | 'INSTANT'(즉시 발송), 'RESERVATION'(예약 발송) |
@@ -1153,9 +1153,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | messageId | Optional, Number | 메시지 아이디 |
 | messageErrorType | Optional, String | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR' |
 | messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'FCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR', 'ADM_ERROR', 'DUPLICATED_MESSAGE_TOKEN'  |
-| from | Optional, DateTime String | 최근 30일까지, 기본 값은 최근 7일 전 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일까지, 기본 값은 현재 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| limit | Optional, Number | 한 번에 조회할 목록 크기, 기본 값과 최대 값은 1,000 |
+| from | Optional, DateTime String | 최근 30일까지, 기본값은 최근 7일 전(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일까지, 기본값은 현재(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| limit | Optional, Number | 한 번에 조회할 목록 크기, 기본값과 최댓값은 100 |
+| pageNumber | Optional, Number | 페이지 번호, 기본값 1 |
 
 ##### Description
 - messageErrorType와 messageErrorCause는 다음과 같은 뜻을 의미합니다.
@@ -1320,8 +1321,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | pushType | Optional, String | 푸시 타입 |
 | from | Optional, DateTime String | 최근 30일까지(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일까지(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| limit | Optional, Number | 최대 조회 개수, 기본 값 100 |
-| pageNumber | Optional, Number | 페이지 번호, 기본 값 1 |
+| limit | Optional, Number | 최대 조회 개수, 기본값 100 |
+| pageNumber | Optional, Number | 페이지 번호, 기본값 1 |
 
 ##### Request Body
 ```
@@ -1621,8 +1622,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
+| pageIndex | Optional, Number | 기본값 0 |
+| pageSize | Optional, Number | 기본값 25, 최댓값 100 |
 | from | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | reservationStatus | Optional, String | 'RESERVED', 'COMPLETE' |
@@ -1786,8 +1787,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | reservationId | Required, Number | 예약 메시지 아이디 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
+| pageIndex | Optional, Number | 기본값 0 |
+| pageSize | Optional, Number | 기본값 25, 최댓값 100 |
 
 ##### Request Body
 ```

@@ -1055,7 +1055,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'GCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR', 'ADM_ERROR'  |
 | from | Optional, DateTime String | 過去30日まで、基本値は過去7日前(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 過去30日まで、基本値は現在(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| limit | Optional, Number | 一度に照会するリストサイズ、基本値と最大値は1,000 |
+| limit | Optional, Number | 一度に照会するリストサイズ、基本値と最大値は100 |
+| pageNumber | Optional, Number | 페이지 번호, 기본값 1 |
 
 ##### Description
 - messageErrorTypeとmessageErrorCauseは、次のような意味があります。
