@@ -1069,16 +1069,16 @@ Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
-| Field             | Usage                     | Description                             |
-|-------------------|---------------------------| --------------------------------------- |
-| appkey            | Required, String          | Path Variable、サービス利用時に発行されたアプリケーションキー |
-| messageId         | Optional, Number          | メッセージID                                 |
+| Field             | Usage                     | Description                              |
+|-------------------|---------------------------| ---------------------------------------- |
+| appkey            | Required, String          | Path Variable、サービス利用時に発行されたアプリケーションキー  |
+| messageId         | Optional, Number          | メッセージID                                  |
 | messageErrorType  | Optional, String          | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR' |
 | messageErrorCause | Optional, String          | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'GCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR', 'ADM_ERROR' |
 | from              | Optional, DateTime String | 過去30日まで、デフォルト値は過去7日前(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to                | Optional, DateTime String | 過去30日まで、デフォルト値は現在(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| limit             | Optional, Number          | 一度に照会するリストサイズ、デフォルト値と最大値は100         |
-| pageNumber        | Optional, Number          | 페이지 번호, 기본값 1 |
+| limit             | Optional, Number          | 一度に照会するリストサイズ、デフォルト値と最大値は100          |
+| pageNumber        | Optional, Number          | ページ番号、デフォルト値1 |
 
 ##### Description
 - messageErrorTypeとmessageErrorCauseは次を意味します。
