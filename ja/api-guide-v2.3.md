@@ -1152,10 +1152,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | messageId | Optional, Number | メッセージID |
 | messageErrorType | Optional, String | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR' |
 | messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'FCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR', 'ADM_ERROR', 'DUPLICATED_MESSAGE_TOKEN'  |
-| from | Optional, DateTime String | 過去30日まで、基本値は過去7日前(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 過去30日まで、基本値は現在(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| limit | Optional, Number | 一度に照会するリストサイズ、基本値と最大値は100 |
-| pageNumber | Optional, Number | 페이지 번호, 기본값 1 |
+| from | Optional, DateTime String | 過去30日まで、デフォルト値は過去7日前(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 過去30日まで、デフォルト値は現在(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| limit | Optional, Number | 一度に照会するリストサイズ、デフォルト値と最大値は100 |
+| pageNumber | Optional, Number | ページ番号、デフォルト値1 |
 
 ##### Description
 - messageErrorTypeとmessageErrorCauseは、次のような意味があります。
@@ -1321,7 +1321,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | from | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | limit | Optional, Number | 最大照会数、基本値100 |
-| pageNumber | Optional, Number | 페이지 번호, 기본값 1 |
+| pageNumber | Optional, Number | ページ番号、デフォルト値1 |
 
 ##### Request Body
 ```
