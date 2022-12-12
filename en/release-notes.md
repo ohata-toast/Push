@@ -1,5 +1,13 @@
 ## Notification> Push > Release Notes
 
+### December 13, 2022
+#### [API]
+##### Added Features
+* Added a paging feature when viewing general logs
+  * Added pageNumber to the field list.
+##### Updates
+* Changed the maximum limit from 1000 to 100 when viewing failed messages
+
 ### May 10, 2022
 #### [API]
 ##### Bug Fixes

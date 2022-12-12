@@ -263,7 +263,7 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | messageType | Required, String | NOTIFICATION, AD |
 | contact | Optional, String | messageType이 AD일 경우 필요하다. |
 | removeGuide | Optional, String | messageType이 AD일 경우 필요하다. |
-| timeToLive | Optional, Number | 단위는 분이다. 범위는 0(무제한)포함 1 이상이다. 기본 값은 60 이다. |
+| timeToLive | Optional, Number | 단위는 분이다. 범위는 0(무제한)포함 1 이상이다. 기본값은 60 이다. |
 | isStored | Optional, Boolean | 메시지를 저장할지 여부다. 기본값은 false다. |
 
 - "target.pushTypes" 필드로 특정 푸시 타입으로만 메시지를 발송할 수 있다.
