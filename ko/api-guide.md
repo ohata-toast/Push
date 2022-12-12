@@ -260,8 +260,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
+| pageIndex | Optional, Number | 기본값 0 |
+| pageSize | Optional, Number | 기본값 25, 최댓값 100 |
 | from | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | to | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | messageId | Optional, Number | 유효하지 않는 토큰이 발생한 메시지 아이디 |
@@ -424,9 +424,9 @@ curl -X POST \
 | messageType | Required, String | NOTIFICATION, AD |
 | contact | Optional, String | messageType이 AD이면 경우 필수, 숫자(0-9)와 하이픈(Hypen, -)만 가능합니다. |
 | removeGuide | Optional, String | messageType이 AD이면 경우 필수 |
-| timeToLiveMinute | Optional, Number | 단위는 분입니다. 범위는 1에서 60까지다. 기본 값은 10 입니다. |
+| timeToLiveMinute | Optional, Number | 단위는 분입니다. 범위는 1에서 60까지다. 기본값은 10 입니다. |
 | provisionedResourceId | Optional, String | 할당 받은 전용 리소스(provisioned Resource) 아이디입니다. 사용 문의 support@cloud.toast.com |
-| adWordPosition | Optional, String | 'TITLE', 'BODY' 광고 표시 문구 위치. 기본 값은 'TITLE' 입니다. |
+| adWordPosition | Optional, String | 'TITLE', 'BODY' 광고 표시 문구 위치. 기본값은 'TITLE' 입니다. |
 | statsId | Optional, String | 통계 이벤트 키입니다. 통계 조회 시 키를 기준으로 검색할 수 있습니다. |
 
 ##### Description
@@ -922,8 +922,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
+| pageIndex | Optional, Number | 기본값 0 |
+| pageSize | Optional, Number | 기본값 25, 최댓값 100 |
 | from | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | to | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD, 2018-04-24T06:00:00.000%2B09:00) |
 | deliveryType | Optional, String | 'INSTANT'(즉시 발송), 'RESERVATION'(예약 발송) |
@@ -1079,9 +1079,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | messageId | Optional, Number | 메시지 아이디 |
 | messageErrorType | Optional, String | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR' |
 | messageErrorCause | Optional, String | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'FCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR', 'ADM_ERROR', 'DUPLICATED_MESSAGE_TOKEN'  |
-| from | Optional, DateTime String | 최근 30일까지, 기본 값은 최근 7일 전 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일까지, 기본 값은 현재 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| limit | Optional, Number | 한 번에 조회할 목록 크기, 기본 값과 최대 값은 1,000 |
+| from | Optional, DateTime String | 최근 30일까지, 기본값은 최근 7일 전(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일까지, 기본값은 현재(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| limit | Optional, Number | 한 번에 조회할 목록 크기, 기본값과 최댓값은 100 |
+| pageNumber | Optional, Number | 페이지 번호, 기본값 1 |
 
 ##### Description
 - messageErrorType와 messageErrorCause는 다음과 같은 뜻을 의미합니다.
@@ -1186,9 +1187,10 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | uid | Optional, String | 사용자 아이디 |
 | token | Optional, String | 사용자 토큰 |
 | pushType | Optional, String | 푸시 타입 |
-| from | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| limit | Optional, Number | 최대 조회 개수, 기본 값 100 |
+| from | Optional, DateTime String | 최근 30일까지(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Optional, DateTime String | 최근 30일까지(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| limit | Optional, Number | 최대 조회 개수, 기본값 100 |
+| pageNumber | Optional, Number | 페이지 번호, 기본값 1 |
 
 ##### Request Body
 ```
@@ -1531,8 +1533,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | Field | Usage | Description |
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
+| pageIndex | Optional, Number | 기본값 0 |
+| pageSize | Optional, Number | 기본값 25, 최댓값 100 |
 | from | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to | Optional, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | deliveryFrom | Optional, DateTime String | 발송 스케줄 날짜 시작 값 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD). 조회된 예약 내부의 발송 스케줄 목록은 필터링하지 않고 노출. |
@@ -1705,8 +1707,8 @@ X-Secret-Key: [a-zA-Z0-9]{8}
 | - | - | - |
 | appkey | Required, String | Path Variable, 상품 이용시 발급 받은 앱키 |
 | reservationId | Required, Number | 예약 메시지 아이디 |
-| pageIndex | Optional, Number | 기본 값 0 |
-| pageSize | Optional, Number | 기본 값 25, 최대 값 100 |
+| pageIndex | Optional, Number | 기본값 0 |
+| pageSize | Optional, Number | 기본값 25, 최댓값 100 |
 
 ##### Request Body
 ```
@@ -2550,7 +2552,7 @@ Content-Type: application/json;charset=UTF-8
 | extra1s | Optional, String Array | eventCategory가 MESSAGE인 경우 푸시 타입으로 필터링 가능. FCM, APNS, APNS_SANDBOX, APNS_VOIP, APNS_SANDBOXVOIP, ADM, TENCENT |
 | messageId | Optional, String | 메시지 아이디 |
 | statsIds | Optional, String Array | 통계 이벤트 키 아이디 |
-| statsCriteria	| Optional, String Array | 합계 시 통계 기준, 설정하지 않으면 기본 값으로 합계를 계산. EVENT(기본 값), EXTRA_1, EXTRA_2, EXTRA_3, TEMPLATE_ID |
+| statsCriteria	| Optional, String Array | 합계 시 통계 기준, 설정하지 않으면 기본값으로 합계를 계산. EVENT(기본값), EXTRA_1, EXTRA_2, EXTRA_3, TEMPLATE_ID |
 
 ##### Request Body
 ```
@@ -2604,7 +2606,7 @@ Content-Type: application/json;charset=UTF-8
 | extra1s | Optional, String Array | eventCategory가 MESSAGE인 경우 푸시 타입으로 필터링 가능. FCM, APNS, APNS_SANDBOX, APNS_VOIP, APNS_SANDBOXVOIP, ADM, TENCENT |
 | messageId | Optional, String | 메시지 아이디 |
 | statsIds | Optional, String Array | 통계 이벤트 키 아이디 |
-| statsCriteria	| Optional, String Array | 합계 시 통계 기준, 설정하지 않으면 기본 값으로 합계를 계산. EVENT(기본 값), EXTRA_1, EXTRA_2, EXTRA_3, TEMPLATE_ID |
+| statsCriteria	| Optional, String Array | 합계 시 통계 기준, 설정하지 않으면 기본값으로 합계를 계산. EVENT(기본값), EXTRA_1, EXTRA_2, EXTRA_3, TEMPLATE_ID |
 
 ##### Request Body
 ```

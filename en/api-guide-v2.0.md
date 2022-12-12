@@ -1069,16 +1069,16 @@ Content-Type: application/json;charset=UTF-8
 X-Secret-Key: [a-zA-Z0-9]{8}
 ```
 
-| Field             | Usage                     | Description                                                  |
-| ----------------- | ------------------------- | ------------------------------------------------------------ |
-| appkey            | Required, String          | Path Variable, Appkey issued on Enable                       |
-| messageId         | Optional, Number          | Message ID                                                   |
-| messageErrorType  | Optional, String          | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR'           |
+| Field             | Usage                     | Description                                                |
+|-------------------|---------------------------| ---------------------------------------------------------- |
+| appkey            | Required, String          | Path Variable, Appkey issued on Enable                     |
+| messageId         | Optional, Number          | Message ID                                                 |
+| messageErrorType  | Optional, String          | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR'         |
 | messageErrorCause | Optional, String          | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'GCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR', 'ADM_ERROR' |
 | from              | Optional, DateTime String | Up to the latest 30 days, or 7 days for default (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to                | Optional, DateTime String | Up to the latest 30 days, or 7 days for default (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| limit             | Optional, Number          | Size to list at once: default and maximum value is 1,000     |
-
+| limit             | Optional, Number          | Size to list at once: default and maximum value is 100     |
+| pageNumber        | Optional, Number          | Page number, default is 1 |
 ##### Description
 - messageErrorType and messageErrorCause mean the followings:
     - CLIENT_ERROR: Client’s wrong request

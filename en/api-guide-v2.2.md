@@ -1067,15 +1067,16 @@ X-User-Access-Key-ID: [a-zA-Z0-9]{20}
 X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
-| Field             | Usage                     | Description                                                  |
-| ----------------- | ------------------------- | ------------------------------------------------------------ |
-| appkey            | Required, String          | Path Variable, appkey issued on product use                  |
-| messageId         | Optional, Number          | Message ID                                                   |
-| messageErrorType  | Optional, String          | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR'           |
+| Field             | Usage                     | Description                                                |
+|-------------------|---------------------------| ---------------------------------------------------------- |
+| appkey            | Required, String          | Path Variable, appkey issued on product use                |
+| messageId         | Optional, Number          | Message ID                                                 |
+| messageErrorType  | Optional, String          | 'CLIENT_ERROR', 'EXTERNAL_ERROR', 'INTERNAL_ERROR'         |
 | messageErrorCause | Optional, String          | 'UNSUPPORTED_MESSAGE_TYPE', 'INVALID_MESSAGE', 'INVALID_CERTIFICATE', 'UNAUTHORIZED', 'EXPIRED_TIME_OUT', 'APNS_ERROR', 'GCM_ERROR', 'TENCENT_ERROR', 'AGENT_ERROR', 'ADM_ERROR' |
 | from              | Optional, DateTime String | Up to the latest 30 days, or before recent 7 days for default (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to                | Optional, DateTime String | Up to the latest 30 days, or now for default (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| limit             | Optional, Number          | Size to list at once: 1,000 for default and max              |
+| limit             | Optional, Number          | Size to list at once: 100 for default and max              |
+| pageNumber        | Optional, Number          | Page number, default is 1 |
 
 ##### Description
 
@@ -1237,16 +1238,17 @@ X-User-Access-Key-ID: [a-zA-Z0-9]{20}
 X-Secret-Access-Key: [a-zA-Z0-9]{16}
 ```
 
-| Field     | Usage                     | Description                                                  |
-| --------- | ------------------------- | ------------------------------------------------------------ |
-| appkey    | Required, String          | Path Variable, appkey issued on product use                  |
-| messageId | Optional, Number          | Message ID                                                   |
-| uid       | Optional, String          | User ID                                                      |
-| token     | Optional, String          | User token                                                   |
-| pushType  | Optional, String          | Push type                                                    |
+| Field     | Usage                     | Description                                                          |
+| --------- | ------------------------- |----------------------------------------------------------------------|
+| appkey    | Required, String          | Path Variable, appkey issued on product use                          |
+| messageId | Optional, Number          | Message ID                                                           |
+| uid       | Optional, String          | User ID                                                              |
+| token     | Optional, String          | User token                                                           |
+| pushType  | Optional, String          | Push type                                                            |
 | from      | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | to        | Optional, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| limit     | Optional, Number          | Number of maximum queries: default is 100                    |
+| limit     | Optional, Number          | Number of maximum queries: default is 100                            |
+| pageNumber | Optional, Number | Page number, default is 1                                                       |
 
 ##### Request Body
 
