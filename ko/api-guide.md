@@ -141,7 +141,7 @@ Content-Type: application/json;charset=UTF-8
 
 | Field | Usage | Description |
 | - | - | - |
-| appkey | Required, String | Path Variable, 상품 이용 시 발급받은 앱키 |
+| appkey | Required, String | Path Variable, 상품 이용 시 발급 받은 앱키 |
 | cursorUid | Optional, String | 사용자의 UID 커서. 페이지 이동 시 필수 |
 | cursorToken | Optional, String | 사용자의 토큰 커서. 페이지 이동 시 필수 |
 | limit | Optional, Number | 한 번에 조회할 목록 크기, 기본값과 최댓값은 1,000 |
@@ -188,7 +188,7 @@ curl -X GET \
 ```
 
 ##### Description
-- 페이지 이동 시 'cursorUid', 'cursorToken' 모두 필수입니다. 설정한 'cursorUid', 'cursorToken' 다음 순서부터 조회합니다.
+- 페이지 이동 시 "cursorUid", "cursorToken" 모두 필수입니다. 설정한 "cursorUid", "cursorToken' 다음 순서부터 조회합니다.
 
 
 
