@@ -132,6 +132,66 @@ curl -X POST \
 - アプリ削除などでトークンが満了してもすぐにFCM、APNSサーバーに適用されないため、アプリ削除後にプッシュメッセージを送信した時、送信が成功することがあります。
 
 ### 照会
+#### 토큰 목록 조회
+##### Method, URL
+
+```
+GET /push/v2.4/appkeys/{appkey}/tokens-by-cursor?cursorUid={cursorUid}&cursorToken={cursorToken}&limit={limit}
+Content-Type: application/json;charset=UTF-8
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, 상품 이용 시 발급 받은 앱키 |
+| cursorUid | Optional, String | 사용자의 UID 커서. 페이지 이동 시 필수 |
+| cursorToken | Optional, String | 사용자의 토큰 커서. 페이지 이동 시 필수 |
+| limit | Optional, Number | 한 번에 조회할 목록 크기, 기본값과 최댓값은 1,000 |
+
+##### Request Body
+```
+없음
+```
+
+##### cURL
+```
+curl -X GET \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tokens-by-cursor' \
+-H 'Content-Type: application/json;charset=UTF-8' \
+-H 'X-Secret-Key: '"${SECRET_KEY}"''
+```
+
+##### Response Body
+
+```
+{
+    "tokens" : [{
+        "pushType" : "FCM",
+        "isNotificationAgreement" : true,
+        "isAdAgreement" : true,
+        "isNightAdAgreement" : true,
+        "timezoneId" : "Asia/Seoul",
+        "country" : "KR",
+        "language" : "ko",
+        "uid" : "User ID",
+        "token" : "Token",
+        "updatedDateTime" : "2017-08-12T01:04:18.000+09:00",
+        "adAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
+        "nightAdAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
+        "deviceId" : "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
+        "activatedDateTime" : "2017-08-12T01:04:19.000+09:00"
+    }],
+    "header" : {
+        "isSuccessful" : true,
+        "resultCode" : 0,
+        "resultMessage" : "success"
+    }
+}
+```
+
+##### Description
+- 페이지 이동 시 "cursorUid", "cursorToken" 모두 필수입니다. 설정한 "cursorUid", "cursorToken' 다음 순서부터 조회합니다.
+
+
 #### トークンでトークン照会
 - クライアントで照会可能です。
 ##### Method、URL
