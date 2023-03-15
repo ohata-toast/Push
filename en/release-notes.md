@@ -1,5 +1,11 @@
 ## Notification> Push > Release Notes
 
+### 2023. 03. 14.
+#### [API]
+##### 기능 추가
+* 토큰 목록 조회 API 추가
+    * 토큰 목록을 조회할 수 있는 API(v2.4)가 추가되었습니다. 
+
 ### December 13, 2022
 #### [API]
 ##### Added Features
