@@ -446,9 +446,9 @@ curl -X POST \
             "customKey1": "It is default"
         },
         "ko": {
-            "title": "タイトル",
-            "body": "内容",
-            "customKey2": "韓国語です。"
+            "title": "제목",
+            "body": "내용",
+            "customKey2": "한국어 입니다."
         }
     },
     "messageType": "AD",
@@ -1882,8 +1882,8 @@ curl -X PUT \
             "body": "default body"
         },
         "ko": {
-            "title": "韓国語タイトル",
-            "body": "韓国語内容"
+            "title": "한국어 제목",
+            "body": "한국어 내용"
         }
     },
     "isLocalTime": false,
