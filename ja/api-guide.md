@@ -132,6 +132,66 @@ curl -X POST \
 - アプリ削除などでトークンが満了してもすぐにFCM、APNSサーバーに適用されないため、アプリ削除後にプッシュメッセージを送信した時、送信が成功することがあります。
 
 ### 照会
+#### トークンリスト照会
+##### Method, URL
+
+```
+GET /push/v2.4/appkeys/{appkey}/tokens-by-cursor?cursorUid={cursorUid}&cursorToken={cursorToken}&limit={limit}
+Content-Type: application/json;charset=UTF-8
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable、商品利用時に発行されたアプリケーションキー |
+| cursorUid | Optional, String | ユーザーのUIDカーソル。ページ移動時に必須 |
+| cursorToken | Optional, String | ユーザーのトークンカーソル。ページ移動時に必須 |
+| limit | Optional, Number | 一度に照会するリストサイズ、デフォルト値と最大値は1,000 |
+
+##### Request Body
+```
+なし
+```
+
+##### cURL
+```
+curl -X GET \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tokens-by-cursor' \
+-H 'Content-Type: application/json;charset=UTF-8' \
+-H 'X-Secret-Key: '"${SECRET_KEY}"''
+```
+
+##### Response Body
+
+```
+{
+    "tokens" : [{
+        "pushType" : "FCM",
+        "isNotificationAgreement" : true,
+        "isAdAgreement" : true,
+        "isNightAdAgreement" : true,
+        "timezoneId" : "Asia/Seoul",
+        "country" : "KR",
+        "language" : "ko",
+        "uid" : "User ID",
+        "token" : "Token",
+        "updatedDateTime" : "2017-08-12T01:04:18.000+09:00",
+        "adAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
+        "nightAdAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
+        "deviceId" : "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
+        "activatedDateTime" : "2017-08-12T01:04:19.000+09:00"
+    }],
+    "header" : {
+        "isSuccessful" : true,
+        "resultCode" : 0,
+        "resultMessage" : "success"
+    }
+}
+```
+
+##### Description
+- ページ移動時、"cursorUid"、"cursorToken"全て必須です。設定した"cursorUid"、"cursorToken"の次の順番から照会します。
+
+
 #### トークンでトークン照会
 - クライアントで照会可能です。
 ##### Method、URL
@@ -386,14 +446,14 @@ curl -X POST \
             "customKey1": "It is default"
         },
         "ko": {
-            "title": "제목",
-            "body": "내용",
-            "customKey2": "한국어 입니다."
+            "title": "タイトル",
+            "body": "内容",
+            "customKey2": "韓国語です。"
         }
     },
     "messageType": "AD",
     "contact": "1588-1588",
-    "removeGuide": "매뉴 > 설정"
+    "removeGuide": "メニュー > 設定"
 }'
 ```
 
@@ -1822,8 +1882,8 @@ curl -X PUT \
             "body": "default body"
         },
         "ko": {
-            "title": "한국어 제목",
-            "body": "한국어 내용"
+            "title": "韓国語タイトル",
+            "body": "韓国語内容"
         }
     },
     "isLocalTime": false,
@@ -1911,7 +1971,7 @@ curl -X POST \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
 -d '{
-    "tagName" :  "서른"
+    "tagName" :  "30"
 }'
 ```
 
