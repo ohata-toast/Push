@@ -469,7 +469,8 @@ UID에 태그를 추가해 UID를 관리할 수 있습니다. 메시지 발송 �
 
 ### 발송 내역 저장
 - 메시지 발송 내역을 지정한 Log & Crash Search에 전송하는 기능입니다.
-- **Appkey**에는 사용하는 Log & Crash Search의 Appkey를 입력합니다.
+- **AppKey**에는 사용하는 Log & Crash Search의 AppKey를 입력합니다.
+- **SecretKey**에는 사용하는 Log & Crash Search의 SecretKey를 입력합니다.
 - **Log Source**는 내역 저장 시 같이 남길 값을 입력합니다. 다른 로그와 구분하는 값입니다.
 - **Log Level**은 발송 내역 중 특정 내역만 남길 수 있게 합니다.
      - **ALL**: 발송 성공, 실패 등 모든 내역을 남깁니다.
