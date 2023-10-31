@@ -118,7 +118,6 @@ curl -X POST \
 }
 ```
 
-
 ##### Description
 
 - If token is registered again when it is already registered, existing information is updated. 
@@ -133,6 +132,66 @@ curl -X POST \
 - Even if a token is expired due to app deletion, it is not immediately applied to GCM or APNS server, so push message delivery can be successful after app is deleted. 
 
 ### Query
+
+#### Query Token List
+##### Method, URL
+
+```
+GET /push/v2.4/appkeys/{appkey}/tokens-by-cursor?cursorUid={cursorUid}&cursorToken={cursorToken}&limit={limit}
+Content-Type: application/json;charset=UTF-8
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable, appkey issued on product use |
+| cursorUid | Optional, String | Cursor for user's UID. Required to move between pages |
+| cursorToken | Optional, String | Cursor for user's token. Required to move between pages |
+| limit | Optional, Number | List size to query at once, Default and max are 1,000 |
+
+##### Request Body
+```
+None
+```
+
+##### cURL
+```
+curl -X GET \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tokens-by-cursor' \
+-H 'Content-Type: application/json;charset=UTF-8' \
+-H 'X-Secret-Key: '"${SECRET_KEY}"''
+```
+
+##### Response Body
+
+```
+{
+    "tokens" : [{
+        "pushType" : "FCM",
+        "isNotificationAgreement" : true,
+        "isAdAgreement" : true,
+        "isNightAdAgreement" : true,
+        "timezoneId" : "Asia/Seoul",
+        "country" : "KR",
+        "language" : "ko",
+        "uid" : "User ID",
+        "token" : "Token",
+        "updatedDateTime" : "2017-08-12T01:04:18.000+09:00",
+        "adAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
+        "nightAdAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
+        "deviceId" : "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
+        "activatedDateTime" : "2017-08-12T01:04:19.000+09:00"
+    }],
+    "header" : {
+        "isSuccessful" : true,
+        "resultCode" : 0,
+        "resultMessage" : "success"
+    }
+}
+```
+
+##### Description
+- When moving between pages, both "cursorUid" and "cursorToken" are required. The query begins after the set "cursorUid" and "cursorToken".
+
 #### Query Tokens by Token
 - Can be queried from client. 
 ##### Method, URL
@@ -1244,107 +1303,6 @@ curl -X GET \
             }
         ]
     }
-}
-```
-
-#### Query Mass Log Counts 
-- Find the number of logs that are searched by search conditions. 
-- 'User Access Key ID' is required, unlike other v2.4 APIs. 
-Go to [Member Profile] > [API Security Setting] to create one. 
-
-##### Method, URL, Headers
-```
-GET /push/v2.4/appkeys/{appKey}/bulk-logs/message/count?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendResult}
-Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{20}
-X-Secret-Access-Key: [a-zA-Z0-9]{16}
-```
-
-##### Request Body
-```
-N/A
-```
-
-##### cURL
-```
-curl -X GET \
-'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/bulk-logs/message/count?from='"${FROM}"'&to='"${TO}" \
--H 'Content-Type: application/json;charset=UTF-8' \
--H 'X-User-Access-Key-ID: '"${USER_ACCESS_KEY_ID}"'' \
--H 'X-Secret-Access-Key: '"${SECRET_ACCESS_KEY}"''
-```
-
-
-##### Response Body
-```
-{
-    "header" : {
-        "resultCode" : 0,
-        "resultMessage" : "success",
-        "isSuccessful" : true
-    },
-    "data" : {
-        "count" : 0
-    }
-}
-```
-
-
-#### Query Mass Logs 
-- Query logs of massive amount. 
-- Respond with application/stream+json.
-
-```
-GET /push/v2.4/appkeys/{appKey}/bulk-logs/message?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendResult}
-Content-Type: application/json;charset=UTF-8
-Accept: application/stream+json
-X-User-Access-Key-ID: [a-zA-Z0-9]{20}
-X-Secret-Access-Key: [a-zA-Z0-9]{16}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| from | Required, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Required, DateTime String | Up to the latest 30 days (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| messageId | Optional, String | Message ID to query |
-| pushType | Optional, String | Push type to query |
-| sendResult | Optional, String | Result of delivery: 'SENT', or 'SENT_FAILED' |
-
-#### Request Body
-```
-N/A
-```
-
-##### cURL
-```
-curl -X GET \
-'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/bulk-logs/message?from='"${FROM}"'&to='"${TO}" \
--H 'Content-Type: application/json;charset=UTF-8' \
--H 'Accept: application/stream+json' \
--H 'X-User-Access-Key-ID: '"${USER_ACCESS_KEY_ID}" \
--H 'X-Secret-Access-Key: '"${SECRET_ACCESS_KEY}"
-```
-
-#### Response Body
-```
-{
-    "body": "{\"tokens\":[{\"uid\":\"gimbimloki\",\"token\":\"1\"}],\"payload\":{\"aps\":{\"alert\":{\"title\":\"title\",\"body\":\"body\"},\"mutable-content\":1}}}",
-    "host": "10.161.240.23",
-    "appkey": "eCHQcPuPAiI6TgY8",
-    "logTime": "1533802967999",
-    "logType": "message-result",
-    "pushType": "FCM",
-    "sendTime": "1533802967999",
-    "logSource": "tc-push",
-    "messageId": "1746041784729856",
-    "logVersion": "v2",
-    "searchKey1": "1746041784729856",
-    "searchKey2": "FCM",
-    "searchKey3": "SENT",
-    "sentResult": "SENT",
-    "projectName": "4x7ybimqlRZImbfV",
-    "isNeedStored": "bulk",
-    "projectVersion": "v2.2"
 }
 ```
 
