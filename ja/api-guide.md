@@ -132,6 +132,66 @@ curl -X POST \
 - アプリ削除などでトークンが満了してもすぐにFCM、APNSサーバーに適用されないため、アプリ削除後にプッシュメッセージを送信した時、送信が成功することがあります。
 
 ### 照会
+#### トークンリスト照会
+##### Method, URL
+
+```
+GET /push/v2.4/appkeys/{appkey}/tokens-by-cursor?cursorUid={cursorUid}&cursorToken={cursorToken}&limit={limit}
+Content-Type: application/json;charset=UTF-8
+```
+
+| Field | Usage | Description |
+| - | - | - |
+| appkey | Required, String | Path Variable、商品利用時に発行されたアプリケーションキー |
+| cursorUid | Optional, String | ユーザーのUIDカーソル。ページ移動時に必須 |
+| cursorToken | Optional, String | ユーザーのトークンカーソル。ページ移動時に必須 |
+| limit | Optional, Number | 一度に照会するリストサイズ、デフォルト値と最大値は1,000 |
+
+##### Request Body
+```
+なし
+```
+
+##### cURL
+```
+curl -X GET \
+'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/tokens-by-cursor' \
+-H 'Content-Type: application/json;charset=UTF-8' \
+-H 'X-Secret-Key: '"${SECRET_KEY}"''
+```
+
+##### Response Body
+
+```
+{
+    "tokens" : [{
+        "pushType" : "FCM",
+        "isNotificationAgreement" : true,
+        "isAdAgreement" : true,
+        "isNightAdAgreement" : true,
+        "timezoneId" : "Asia/Seoul",
+        "country" : "KR",
+        "language" : "ko",
+        "uid" : "User ID",
+        "token" : "Token",
+        "updatedDateTime" : "2017-08-12T01:04:18.000+09:00",
+        "adAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
+        "nightAdAgreementDateTime" : "2017-08-12T01:04:19.000+09:00",
+        "deviceId" : "X3LOdJSQdNzCCvcbiSPZTGK1M9srPU5EumRD",
+        "activatedDateTime" : "2017-08-12T01:04:19.000+09:00"
+    }],
+    "header" : {
+        "isSuccessful" : true,
+        "resultCode" : 0,
+        "resultMessage" : "success"
+    }
+}
+```
+
+##### Description
+- ページ移動時、"cursorUid"、"cursorToken"全て必須です。設定した"cursorUid"、"cursorToken"の次の順番から照会します。
+
+
 #### トークンでトークン照会
 - クライアントで照会可能です。
 ##### Method、URL
@@ -393,7 +453,7 @@ curl -X POST \
     },
     "messageType": "AD",
     "contact": "1588-1588",
-    "removeGuide": "매뉴 > 설정"
+    "removeGuide": "メニュー > 設定"
 }'
 ```
 
@@ -1246,105 +1306,6 @@ curl -X GET \
 }
 ```
 
-#### 大量ログカウント照会
-- 検索条件で検索されたログの数を確認できます。
-- 他のv2.4 APIと異なり、'User Access Key ID'を使用する必要があります。
-[会員情報] > [APIセキュリティ設定]で作成できます。
-
-##### Method, URL, Headers
-```
-GET /push/v2.4/appkeys/{appKey}/bulk-logs/message/count?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
-Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{20}
-X-Secret-Access-Key: [a-zA-Z0-9]{16}
-```
-
-##### Request Body
-```
-なし
-```
-
-##### cURL
-```
-curl -X GET \
-'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/bulk-logs/message/count?from='"${FROM}"'&to='"${TO}" \
--H 'Content-Type: application/json;charset=UTF-8' \
--H 'X-User-Access-Key-ID: '"${USER_ACCESS_KEY_ID}"'' \
--H 'X-Secret-Access-Key: '"${SECRET_ACCESS_KEY}"''
-```
-
-##### Response Body
-```
-{
-    "header" : {
-        "resultCode" : 0,
-        "resultMessage" : "success",
-        "isSuccessful" : true
-    },
-    "data" : {
-        "count" : 0
-    }
-}
-```
-
-#### 大量ログ照会
-- 大量にログを照会するAPIです。
-- application/stream+jsonでレスポンスを返します。
-
-```
-GET /push/v2.4/appkeys/{appKey}/bulk-logs/message?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
-Content-Type: application/json;charset=UTF-8
-Accept: application/stream+json
-X-User-Access-Key-ID: [a-zA-Z0-9]{20}
-X-Secret-Access-Key: [a-zA-Z0-9]{16}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| from | Required, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Required, DateTime String | 過去30日まで(ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| messageId | Optional, String | 照会するメッセージID |
-| pushType | Optional, String | 照会するプッシュタイプ |
-| sendResult | Optional, String | 送信結果です。 'SENT', 'SENT_FAILED' |
-
-#### Request Body
-```
-なし
-```
-
-##### cURL
-```
-curl -X GET \
-'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/bulk-logs/message?from='"${FROM}"'&to='"${TO}" \
--H 'Content-Type: application/json;charset=UTF-8' \
--H 'Accept: application/stream+json' \
--H 'X-User-Access-Key-ID: '"${USER_ACCESS_KEY_ID}" \
--H 'X-Secret-Access-Key: '"${SECRET_ACCESS_KEY}"
-```
-
-#### Response Body
-```
-{
-    "body": "{\"tokens\":[{\"uid\":\"gimbimloki\",\"token\":\"1\"}],\"payload\":{\"aps\":{\"alert\":{\"title\":\"title\",\"body\":\"body\"},\"mutable-content\":1}}}",
-    "host": "10.161.240.23",
-    "appkey": "eCHQcPuPAiI6TgY8",
-    "logTime": "1533802967999",
-    "logType": "message-result",
-    "pushType": "FCM",
-    "sendTime": "1533802967999",
-    "logSource": "tc-push",
-    "messageId": "1746041784729856",
-    "logVersion": "v2",
-    "searchKey1": "1746041784729856",
-    "searchKey2": "FCM",
-    "searchKey3": "SENT",
-    "sentResult": "SENT",
-    "projectName": "4x7ybimqlRZImbfV",
-    "isNeedStored": "bulk",
-    "projectVersion": "v2.2"
-}
-```
-
 ## 予約メッセージ
 
 ### 作成
@@ -1911,7 +1872,7 @@ curl -X POST \
 -H 'Content-Type: application/json;charset=UTF-8' \
 -H 'X-Secret-Key: '"${SECRET_KEY}"'' \
 -d '{
-    "tagName" :  "서른"
+    "tagName" :  "30"
 }'
 ```
 

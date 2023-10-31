@@ -188,7 +188,7 @@ curl -X GET \
 ```
 
 ##### Description
-- 페이지 이동 시 "cursorUid", "cursorToken" 모두 필수입니다. 설정한 "cursorUid", "cursorToken' 다음 순서부터 조회합니다.
+- 페이지 이동 시 "cursorUid", "cursorToken" 모두 필수입니다. 설정한 "cursorUid", "cursorToken" 다음 순서부터 조회합니다.
 
 
 
@@ -1300,106 +1300,6 @@ curl -X GET \
             }
         ]
     }
-}
-```
-
-#### 대량 로그 카운트 조회
-- 검색 조건으로 검색된 로그의 수를 확인할 수 있습니다.
-- 다른 v2.4 API와 다르게 'User Access Key ID'를 사용해야 합니다.
-**회원정보 > API 보안 설정** 에서 생성할 수 있습니다.
-
-##### Method, URL, Headers
-```
-GET /push/v2.4/appkeys/{appKey}/bulk-logs/message/count?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
-Content-Type: application/json;charset=UTF-8
-X-User-Access-Key-ID: [a-zA-Z0-9]{20}
-X-Secret-Access-Key: [a-zA-Z0-9]{16}
-```
-
-##### Request Body
-```
-없음
-```
-
-##### cURL
-```
-curl -X GET \
-'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/bulk-logs/message/count?from='"${FROM}"'&to='"${TO}" \
--H 'Content-Type: application/json;charset=UTF-8' \
--H 'X-User-Access-Key-ID: '"${USER_ACCESS_KEY_ID}"'' \
--H 'X-Secret-Access-Key: '"${SECRET_ACCESS_KEY}"''
-```
-
-##### Response Body
-```
-{
-    "header" : {
-        "resultCode" : 0,
-        "resultMessage" : "success",
-        "isSuccessful" : true
-    },
-    "data" : {
-        "count" : 0
-    }
-}
-```
-
-
-#### 대량 로그 조회
-- 대량으로 로그를 조회하는 API입니다.
-- 응답시 application/stream+json로 응답합니다.
-
-```
-GET /push/v2.4/appkeys/{appKey}/bulk-logs/message?from={from}&to={to}&messageId={messageId}&pushType={pushType}&sendResult={sendReesult}
-Content-Type: application/json;charset=UTF-8
-Accept: application/stream+json
-X-User-Access-Key-ID: [a-zA-Z0-9]{20}
-X-Secret-Access-Key: [a-zA-Z0-9]{16}
-```
-
-| Field | Usage | Description |
-| - | - | - |
-| from | Required, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| to | Required, DateTime String | 최근 30일까지 (ISO 8601, e.g. YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| messageId | Optional, String | 조회할 메시지 아이디 |
-| pushType | Optional, String | 조회할 푸시 타입 |
-| sendResult | Optional, String | 발송 결과입니다. 'SENT', 'SENT_FAILED' |
-
-#### Request Body
-```
-없음
-```
-
-##### cURL
-```
-curl -X GET \
-'https://api-push.cloud.toast.com/push/v2.4/appkeys/'"${APP_KEY}"'/bulk-logs/message?from='"${FROM}"'&to='"${TO}" \
--H 'Content-Type: application/json;charset=UTF-8' \
--H 'Accept: application/stream+json' \
--H 'X-User-Access-Key-ID: '"${USER_ACCESS_KEY_ID}" \
--H 'X-Secret-Access-Key: '"${SECRET_ACCESS_KEY}"
-```
-
-#### Response Body
-```
-{
-    "body": "{\"tokens\":[{\"uid\":\"gimbimloki\",\"token\":\"1\"}],\"payload\":{\"aps\":{\"alert\":{\"title\":\"title\",\"body\":\"body\"},\"mutable-content\":1}}}",
-    "host": "10.161.240.23",
-    "appkey": "eCHQcPuPAiI6TgY8",
-    "logTime": "1533802967999",
-    "logType": "message-result",
-    "pushType": "FCM",
-    "sendTime": "1533802967999",
-    "logSource": "tc-push",
-    "messageId": "1746041784729856",
-    "logVersion": "v2",
-    "searchKey1": "1746041784729856",
-    "searchKey2": "FCM",
-    "searchKey3": "SENT",
-    "sentResult": "SENT",
-    "projectName": "4x7ybimqlRZImbfV",
-    "isNeedStored": "bulk",
-    "projectVersion": "v2.2"
 }
 ```
 
