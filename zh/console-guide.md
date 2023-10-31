@@ -447,6 +447,7 @@ when the receiving event is sent to server.
 ### Log Message Delivery History
 - Send message delivery history to Log & Crash Search as specified.
 - **Appkey**: Enter Appkey from Log & Crash Search service.
+- **SecretKey**에는 사용하는 Log & Crash Search의 SecretKey를 입력합니다.
 - **Log Source**: Enter a value to log along with history logging, as a separator from other logs.
 - **Log Level**: Record specific parts only from the delivery history:
     - ALL: Log all history, including success/failure of delivery.
