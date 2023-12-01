@@ -473,7 +473,8 @@ UIDにタグを追加してUIDを管理できます。メッセージ送信時�
 
 ### 送信履歴の保存
 - メッセージ送信履歴を指定したLog & Crash Searchに転送する機能です。
-- **Appkey**には、使用するLog & Crash SearchのAppkeyを入力します。
+- **Appkey**には、使用するLog & Crash SearchのAppKeyを入力します。
+- **SecretKey**には使用するLog & Crash SearchのSecretKeyを入力します。
 - **Log Source**は、履歴保存時に一緒に残す値を入力します。他のログと区別する値です。
 - **Log Level**は、送信履歴のうち特定の履歴のみを残せるようにします。
      - **ALL**：送信成功、失敗など、すべての履歴を残します。
