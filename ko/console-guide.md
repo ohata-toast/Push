@@ -1,4 +1,4 @@
-## Notification > Push > Console Guide
+## Notification > Push > 콘솔 사용 가이드
 
 Push 서비스를 활용하려면 먼저 타사 푸시 알림 서비스 인증서를 등록해야합니다.
 
@@ -16,7 +16,7 @@ Push 서비스를 활용하려면 먼저 타사 푸시 알림 서비스 인증�
 
 ### FCM Service Account Credential
 안드로이드 기기에 푸시 알림 메시지를 전송하기 위해서는 **Service Account Credential**이 필요합니다.
-**Service Account**(서비스 계정)는 일반적으로 구글 클라우드와  A2A(Application to Application) 통신 시 사용하는 특별한 유형의 계정입니다.
+**Service Account**(서비스 계정)는 일반적으로 Google Cloud와  A2A(Application to Application) 통신 시 사용하는 특별한 유형의 계정입니다.
 
 #### FCM Service Account Credential JSON 파일 얻기
 1. [Google Firebase Console](https://console.firebase.google.com)에 접속합니다.
@@ -24,12 +24,12 @@ Push 서비스를 활용하려면 먼저 타사 푸시 알림 서비스 인증�
 3. 생성된 프로젝트로 이동합니다.
 4. 페이지 왼쪽 상단 프로젝트 개요 옆 **톱니바퀴 > 프로젝트 설정**을 클릭합니다.
 5. **서비스 계정**을 선택합니다.
-6. Firbase admin SDK 항목에서 **새 비공개 키 생성**을 클릭해 새로운 **Service Account Credential** JSON 파일 다운로드 받습니다.
+6. Firbase Admin SDK 항목에서 **새 비공개 키 생성**을 클릭해 새로운 **Service Account Credential** JSON 파일을 다운로드합니다.
 
 #### FCM Service Account Credential JSON 파일 등록
 1. 콘솔에서 **Notification > Push > 인증서**를 클릭합니다.
 2. 다운로드 받은 JSON 파일을 열어 내용을 복사합니다.
-2. 복사한 내용을 **FCM Service Account Credential** 항목에 붙여넣고 **등록**을 클릭합니다.
+2. 복사한 내용을 **FCM Service Account Credential** 항목에 붙여 넣고 **등록**을 클릭합니다.
 
 <span id="get-apns-jwt"></span>
 
