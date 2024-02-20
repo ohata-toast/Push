@@ -15,7 +15,7 @@
 * Added a SecretKey when setting up the Logging feature
     * Starting October 31, 2023, when activating the Logging feature, you must add SecretKey of the Log&Crash Search service.
     * If you are already using the feature before October 31, 2023, SecretKey input is not required as transition is scheduled.
-    
+
 ### March 14, 2023
 #### [API]
 ##### Added Features
