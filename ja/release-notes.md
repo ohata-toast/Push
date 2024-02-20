@@ -1,5 +1,6 @@
 ## Notification > Push > Release Notes
 
+
 ### 2024. 02. 27.
 #### [Console]
 ##### 機能追加
