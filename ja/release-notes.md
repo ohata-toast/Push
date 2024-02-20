@@ -9,6 +9,13 @@
         * <a href="https://docs.nhncloud.com/ko/Notification/Push/ko/console-guide/#_1">コンソール使用ガイド</a>
     * **Service Account Credential**を登録すると、FCM HTTP V1 APIを通じてFCMメッセージが送信されます。2024年6月20日以降も引き続きFCMで送信するためには、必ずコンソールで**Service Account Credential**を登録する必要があります。
 
+### 2023. 10. 31.
+#### [Console]
+##### 機能変更
+* 送信履歴保存機能設定時にSecretKeyを追加
+    * 2023年10月31日から送信履歴保存機能を有効にする際、Log&Crash SearchサービスのSecretKey入力が追加で必要です。
+    * 2023年10月31日以前から機能を使用しているところは移行される予定ですので、SecretKeyの入力は必要ありません。
+
 ### 2023. 03. 14.
 #### [API]
 ##### 機能追加
