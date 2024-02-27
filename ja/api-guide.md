@@ -191,7 +191,6 @@ curl -X GET \
 ##### Description
 - ページ移動時、"cursorUid"、"cursorToken"全て必須です。設定した"cursorUid"、"cursorToken"の次の順番から照会します。
 
-
 #### トークンでトークン照会
 - クライアントで照会可能です。
 ##### Method、URL
