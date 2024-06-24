@@ -1442,7 +1442,7 @@ X-Secret-Access-Key: [a-zA-Z0-9]{16}
 
 | Field | Usage | Description |
 | - | - | - |
-| schedules | - | 日時(ISO 8601, e.g. YYYY-MM-DDThh:mm) |
+| schedules | - | 日時(ISO 8601, e.g. YYYY-MM-DDThh:mm)、最大値：現在から60日(例：現在2024年6月1日の場合、2024年7月31日23時59分) |
 
 ##### Example
 ```
